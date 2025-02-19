@@ -2,7 +2,7 @@
 ---
 ![Image](https://github.com/user-attachments/assets/a0cbf188-c07c-4a60-a11a-c0dda139c4c9)
 
-```
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
