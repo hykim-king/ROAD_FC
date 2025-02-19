@@ -1,5 +1,5 @@
 ### 🗺 카카오맵 마커 클러스터러
-
+---
 ![Image](https://github.com/user-attachments/assets/a0cbf188-c07c-4a60-a11a-c0dda139c4c9)
 
 ```
@@ -66,19 +66,15 @@
 
 </html>
 ```
-
----
-
+<br>
 
 ### 🗺 시구/시도 구분한 지도 폴리곤
-
+---
 ![Image](https://github.com/user-attachments/assets/27ed5fae-6fdf-42a4-bf59-1d1b9939e352)
 
-
----
-
+<br>
 
 ### 🛠 Tech Stacks
 ---
-<img src = "https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"><img src = "https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white">
-
+<br>
+<img src = "https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white">
