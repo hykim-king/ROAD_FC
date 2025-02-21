@@ -3,18 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee7b903ee11f7e01af4335ff1229cdf&libraries=services,clusterer"></script>
+<link rel="stylesheet" th:href="@{/style.css}">
 <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <title>Spring Bootstrap</title>
 </head>
 <body>
 <!-- top menu -->
-	<div th:replace="~{navbar :: navbarFragment}"></div>
+	<div th:replace="~{top_navbar :: topNavbarFragment}"></div>
 <!-- top menu end -->
+<!-- left menu -->
+	<!-- <div th:replace="~{left_navbar :: leftNavbarFragment}"></div> -->
+<!-- left menu end -->
 <!-- 기본 템플릿 안에 삽입될 내용 start -->
-	<th:block layout:fragment="content"></th:block>
+	<th:block layout:fragment="mapContent"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 end -->
-<script th:src="@{/bootstrap.min.js}"></script>
+	<script th:src="@{/bootstrap.min.js}"></script>
 <!-- javascript 시작 -->
 	<th:block layout:fragment="script"></th:block>
 <!-- javascript 종료 -->

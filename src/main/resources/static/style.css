@@ -6,3 +6,8 @@ textarea{
 input[type=submit]{
 	margin-top:10px;
 }
+
+.sidebar {
+	height: 100vh;
+	
+}

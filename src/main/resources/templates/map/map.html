@@ -1,0 +1,45 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="mapContent" 
+       class="container my-3" 
+       id="map" 
+       style="width: calc(100% - 280px); height: calc(100vh - 60px); margin-top: 60px; margin-left: 280px;">
+  </div>
+
+  <!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
+  <script layout:fragment="script">
+     var mapContainer = document.getElementById('map');
+     
+     var mapOption = {
+         center: new kakao.maps.LatLng(37.566826, 126.9786567), 
+         level: 10
+     };
+  
+     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+     var cctvImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2023/pc/marker_cctv.png",
+         imageSize = new kakao.maps.Size(22, 23);
+  
+     var markerImage = new kakao.maps.MarkerImage(cctvImageSrc, imageSize);
+  
+     var cctvInfo = /*[[${cctvInfo}]]*/ [];
+  
+     var markers = [];
+
+     cctvInfo.forEach(function(cctv) {
+         var marker = new kakao.maps.Marker({
+             position: new kakao.maps.LatLng(cctv.cctv_lat, cctv.cctv_lon),
+             image: markerImage
+         });
+         markers.push(marker);
+     });
+
+     var clusterer = new kakao.maps.MarkerClusterer({
+         map: map,
+         markers: markers,
+         gridSize: 50,
+         averageCenter: true,
+         minLevel: 10,
+         disableClickZoom: false
+     });
+  </script>
+</html>
