@@ -48,18 +48,12 @@
            });
            markers.push(marker);
        });
-
-       /*  //마커 클러스터링
-       var clusterer = new kakao.maps.MarkerClusterer({
-           map: map,
-           markers: markers,
-           gridSize: 50, // Number : 클러스터의 격자 크기. 화면 픽셀 단위이며 해당 격자 영역 안에 마커가 포함되면 클러스터에 포함시킨다 
-           averageCenter: true, // Boolean : 마커들의 좌표 평균을 클러스터 좌표 설정 여부
-           minLevel: 10, // Number : 클러스터링 할 지도의 최소 레벨 값
-           disableClickZoom: false // Boolean : 클러스터 클릭 시 지도 확대 여부. true로 설정하면 클러스터 클릭 시 확대 되지 않는다
-       });
-       */
        
+       var infoWindow;	
+       var currentLevel;
+       var overlay;
+       var overlayContent;
+   
        // 마커 그룹핑 클래스
        class MarkerGroup{
     	   constructor(markers){
@@ -67,7 +61,7 @@
     		   this.center = this.calculateCenter();
     		   this.representativeMarker = null;
     	   }
-    	   
+    	    
     	   calculateCenter(){
     		   //마커 객체가 생성되어있지 않으면 return
     		   if(this.markers.length == 0) return null;
@@ -91,6 +85,10 @@
     	   }
        }
        
+       function closeOverlay(){
+ 		   overlay.setMap(null);
+ 	   }
+       
        class MarkerManager {
     	   constructor(map,cctvInfo, markerImage){
     		   this.map = map; //지도
@@ -98,7 +96,9 @@
     		   this.markerImage = markerImage; // 마커이미지
     		   this.groups = []; // 그룹
     		   this.visibleMarkers = []; // 실제 맵에서 보이는 마커
-    		   //this.GROUPING_DISTANCE = 0.5; //그룹화 거리 기준 (500미터)
+    		   //this.GROUPING_DISTANCE = 0.5; //그룹화 거리 기준 (500미터)    		   
+    		   this.content = "";
+    		   //this.overlayContent = "";
     		   
     		   // 줌 레벨 설정 (MAX,MIN)
     		   this.MAP_LEVELS = {
@@ -109,7 +109,7 @@
     		   //this.setGroups();
     		   this.bindEvents();
     	   }
-    	   
+    	       	      	   
     	   //마커들을 그룹화하는 함수
     	   //setGroup에서 해야할듯
     	   setGroups(){
@@ -175,7 +175,7 @@
     		   this.setGroups();
     		   this.clearMarkers(); // 모든 마커 지도에서 제거
     		       		   
-    		   const currentLevel = this.map.getLevel(); // 현재 줌 레벨 
+    		   currentLevel = this.map.getLevel(); // 현재 줌 레벨 
     		   const bounds = this.map.getBounds();      // 현재 지도 영역    		   
     		   
     		   console.log('currentLevel: ' + currentLevel);
@@ -192,12 +192,17 @@
     			  
     			  // 줌 레벨에 따른 마커 표시
     			  // ZOOM OUT
-    			 if (currentLevel == this.MAP_LEVELS.MAX_LEVEL) {
-    				  this.GROUPING_DISTANCE = 1;
+    			 if (currentLevel == this.MAP_LEVELS.MAX_LEVEL) {    				  
     				  this.addMarker(centerPosition, `${group.markers.length}개의 CCTV`);
     				  console.log('마커 갯수: ${group.markers.length}')
     				  
-    			 } else if (currentLevel == this.MAP_LEVELS.MIN_LEVEL) {
+    			 } else if (currentLevel == 7){
+    				   group.markers.forEach(marker => {
+   		                const markerPosition = new kakao.maps.LatLng(marker.cctv_lat, marker.cctv_lon);
+   		                this.addMarker(markerPosition, marker.cctv_name);
+   		            });
+    			 } 
+    				 else if (currentLevel == this.MAP_LEVELS.MIN_LEVEL) {
     		            // ZOOM IN 상태 (레벨 값이 작음 = 더 확대된 상태)
     		            // 최대한 확대됐을 때는 모든 개별 마커 표시
     		            group.markers.forEach(marker => {
@@ -221,7 +226,11 @@
     	        
     	        // 마커 클릭 이벤트 추가
     	        kakao.maps.event.addListener(marker, 'click', () => {
-    	            this.showMarkerInfo(marker, title);
+    	        	if(!(currentLevel == 6 || currentLevel == 7)){
+    	            	this.showMarkerInfo(marker, title);
+    	            } else{
+    	            	this.showMarkerOverlay(marker,overlayContent);
+    	            }
     	        });
     	        
     	        marker.setMap(this.map);                 // 지도에 마커 표시
@@ -231,25 +240,62 @@
     	    // 모든 마커 제거 함수
     		clearMarkers(){
     			this.visibleMarkers.forEach(marker => marker.setMap(null));
-    			this.visibleMarkers = []; // 보이는 마커 empty array로 만들기
+    			this.visibleMarkers = []; // 보이는 마커 빈 배열로 초기화
     		}
     	    
-    	    // 마커 info display 함수
-    	    showMarkerInfo(marker,title){
-    	    	const infoWindow = new kakao.maps.InfoWindow({
-    	    		content: `<div style= "padding:5px;">${title}</div>`
-    	    	});
-    	    	infoWindow.open(this.map,marker); //정보창 띄우기
-    	    }
+
+   	 	   // 마커 info display 함수
+   	       showMarkerInfo(marker,title){
+   	 		   	if (infoWindow != null){
+   	 		   		infoWindow.close();
+   	 		   	}
+   	 		   	
+   		    	infoWindow = new kakao.maps.InfoWindow({   		    		
+   		       		content: `<div style= "padding:5px;">${title}</div>`
+   		       	});
+   		    	infoWindow.open(this.map,marker); //정보창 띄우기
+   		    }
+   	 	   
+   	 	   // 마커 오버레이 display 함수
+   	 	   showMarkerOverlay(marker,overlayContent){
+   	 			overlayContent =
+	   	 			'<div class="wrap">' + 
+	   	            '    <div class="info">' + 
+	   	            '        <div class="title">' + 
+	   	            '            카카오 스페이스닷원' + 
+	   	            '            <div class="close" onclick="closeOverlay()" title="닫기">닫기</div>' + 
+	   	            '        </div>' + 
+	   	            '        <div class="body">' + 
+	   	            '            <div class="img">' +
+	   	            '                <iframe width="560" height="315"src="https://www.youtube.com/embed/kamsx_g2hnI?loop=1&autoplay=1&mute=1&playlist=kamsx_g2hnI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' +
+	   	            '           </div>' + 
+	   	            '            <div class="desc">' + 
+	   	            '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
+	   	            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
+	   	            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+	   	            '            </div>' + 
+	   	            '        </div>' + 
+	   	            '    </div>' +    
+	   	            '</div>';
+    		   
+   	 		   overlay = new kakao.maps.CustomOverlay({   	 			  
+   	 			  position: marker.getPosition(),
+   	 			  content: overlayContent,
+   	 			  map: map
+   	 		   });   	 		   
+   	 	   }   	 	      	 	      	  
     	    
     	    // 지도 zoom level 변경, 이동 시 마커 업데이트 함수
     	    bindEvents(){
     	    	kakao.maps.event.addListener(this.map, 'zoom_changed', () => {
-    	    		this.updateMarkers();    	    		
+    	    		this.updateMarkers();   
+    	    		if (infoWindow != null){
+       	 		   		infoWindow.close();
+       	 		   	}
     	    	});
     	    	
     	    	kakao.maps.event.addListener(this.map, 'idle', () => {
-    	    		this.updateMarkers();    	    		
+    	    		this.updateMarkers();    	    	    		
     	    	});
     	    }
        }        
@@ -259,5 +305,20 @@
 	</script>
 
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </html>
