@@ -1,17 +1,91 @@
-<nav th:fragment="leftNavbarFragment" class="navbar navbar-expand-md navbar-light">
-	<button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
-		<span class="navbar-toggle-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="sidebar">
-		<div class="container-fluid">
-    	<div class="row">
-    		<div class="col-lg-3 sidebar fixed-top">
-    			
-    		</div>
-    		<div class="col-lg-3">
-    		
-    		</div>
-    	</div>
-  	</div>
+<div th:fragment="leftNavbarFragment"
+	class="sidebar position-fixed bg-dark text-white d-flex flex-column"
+	style="width: 400px; height: 100vh; top: 80px; left: 0;">
+	
+	<!-- 🚥 네모형 버튼 (3x2 Grid) -->
+	<div class="btncontainer">
+		<div class="row" style="--bs-gutter-x:0; width: 100%;">
+			<!-- g-2 : 버튼 간격 조정 -->
+			<div class="col-4" style="height:70px;">
+				<button class="btn btn-light w-100 h-100 py-3 border-end border-bottom border-opacity-25" id="accident-tab"
+					data-bs-toggle="pill" data-bs-target="#accident" style="border-radius:0;">
+					<i class="bi bi-exclamation-triangle-fill"></i> 사고
+				</button>
+			</div>
+			<div class="col-4">
+				<button class="btn btn-light w-100 h-100 py-3 border-bottom border-opacity-25" id="traffic-tab"
+					data-bs-toggle="pill" data-bs-target="#traffic" style="border-radius:0;">
+					<i class="bi bi-traffic-cone"></i> 작업
+				</button>
+			</div>
+			<div class="col-4">
+				<button class="btn btn-light w-100 h-100 py-3 border-start border-bottom border-opacity-25" id="work-tab"
+					data-bs-toggle="pill" data-bs-target="#work" style="border-radius:0;">
+					<i class="bi bi-tools"></i> 날씨
+				</button>
+			</div>
+			<div class="col-4" style="height:70px;">
+				<button class="btn btn-light w-100 h-100 py-3 border-end border-opacity-25" id="cctv-tab"
+					data-bs-toggle="pill" data-bs-target="#cctv" style="border-radius:0;">
+					<i class="bi bi-camera-video"></i> CCTV
+				</button>
+			</div>
+			<div class="col-4">
+				<button class="btn btn-light w-100 h-100 py-3" id="road-tab"
+					data-bs-toggle="pill" data-bs-target="#road" style="border-radius:0;">
+					<i class="bi bi-signpost-split"></i> 결빙취약
+				</button>
+			</div>
+			<div class="col-4">
+				<button class="btn btn-light w-100 h-100 py-3 border-start border-opacity-25" id="weather-tab"
+					data-bs-toggle="pill" data-bs-target="#weather" style="border-radius:0;">
+					<i class="bi bi-cloud-sun"></i> 터널
+				</button>
+			</div>
+		</div>
 	</div>
-</nav>
+
+	<!-- 🏷 선택한 항목에 대한 정보 표시 -->
+	<div class="tab-content flex-grow-1 overflow-auto mt-3 text-center"
+		id="trafficTabContent">
+
+		<!-- 🚧 사고 정보 -->
+		<div class="tab-pane fade show active" id="accident">
+			<h4>서해안선(서울방향)</h4>
+			<button class="btn btn-light mx-2 py-3 border border-opacity-25" style="width: 95%; height:120px;">
+				정체 | 차량증가/정체
+			</button>
+		</div>
+
+		<!-- 🚗 정체 정보 -->
+		<div class="tab-pane fade" id="traffic">
+			<h4>서해안선(서울방향)</h4>
+			<p>정체 구간 정보가 여기에 표시됩니다.</p>
+		</div>
+
+		<!-- 🏗 작업 정보 -->
+		<div class="tab-pane fade" id="work">
+			<h4>서해안선(서울방향)</h4>
+			<p>작업 구간 정보가 여기에 표시됩니다.</p>
+		</div>
+
+		<!-- 🎥 CCTV 정보 -->
+		<div class="tab-pane fade" id="cctv">
+			<h4>서해안선(서울방향)</h4>
+			<p>교통 CCTV 정보가 여기에 표시됩니다.</p>
+		</div>
+
+		<!-- 🛣 도로 상태 -->
+		<div class="tab-pane fade" id="road">
+			<h4>서해안선(서울방향)</h4>
+			<p>현재 도로 상태 정보가 여기에 표시됩니다.</p>
+		</div>
+
+		<!-- ☁ 날씨 정보 -->
+		<div class="tab-pane fade" id="weather">
+			<h4>서해안선(서울방향)</h4>
+			<p>현재 날씨 정보가 여기에 표시됩니다.</p>
+		</div>
+
+	</div>
+</div>

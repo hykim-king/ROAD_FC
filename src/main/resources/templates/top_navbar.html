@@ -1,6 +1,6 @@
-<nav th:fragment="topNavbarFragment">
+<!-- <nav th:fragment="topNavbarFragment"> -->
   <!-- 상단 네비게이션 바 -->
-  <div class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow">
+  <div th:fragment="topNavbarFragment" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow" style="height:80px">
     <div class="container-fluid">
       <!-- 로고 -->
       <a class="navbar-brand ms-3" th:href="@{/cctv/map}">
@@ -13,49 +13,41 @@
       </button>
       <!-- 네비게이션 메뉴 -->
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav mx-auto gap-5">
           <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/cctv/map}">교통지도</a>
+            <a class="nav-link fs-5 fw-semibold" th:href="@{/cctv/map}">지도</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/member/signup}">작업구간 안내</a>
+            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">도로상황분석</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/member/signup}">교통예보</a>
+            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">도로관련기사</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/member/signup}">고속도로 이용안내</a>
+            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">교통안전수칙</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/member/signup}">공지사항</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5" th:href="@{/member/signup}">교통안전정보채널</a>
+          <li class="nav-item dropdown-center">
+            <a class="dropdown-toggle nav-link fs-5 fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            	커뮤니티
+            </a>
+            <ul class="dropdown-menu dropdown-menu-light">
+            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">공지사항</a></li>
+            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">제보하기</a></li>
+            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">Q&amp;A</a></li>
+            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">FAQ</a></li>
+            </ul>
           </li>
         </ul>
         <!-- 로그인 / 로그아웃 -->
         <div class="d-flex">
+        	<a class="link-dark link-offset-2 link-opacity-100 link-opacity-75-hover link-underline-opacity-0 my-auto me-2" href="#">회원가입</a>
           <a class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-          <a class="btn btn-danger" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+          <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 왼쪽 사이드바 -->
-  <div class="sidebar position-fixed bg-dark text-white p-3" style="width: 280px; height: 100vh; top: 60px; left: 0;">
-    <h5 class="text-center mb-3">교통 상황</h5>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-exclamation-triangle-fill"></i> 사고</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-traffic-cone"></i> 정체</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="bi bi-tools"></i> 작업</a>
-      </li>
-    </ul>
-  </div>
 
-</nav>
+
+<!-- </nav> -->
