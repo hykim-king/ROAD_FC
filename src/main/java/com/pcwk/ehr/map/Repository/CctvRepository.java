@@ -10,4 +10,5 @@ public interface CctvRepository extends JpaRepository<Cctv, Integer> {
 	
 	List<Cctv> findAll();
 	
+
 }	
