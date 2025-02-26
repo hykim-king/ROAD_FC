@@ -40,7 +40,7 @@
         </ul>
         <!-- 로그인 / 로그아웃 -->
         <div class="d-flex">
-        	<a class="link-dark link-offset-2 link-opacity-100 link-opacity-75-hover link-underline-opacity-0 my-auto me-2" href="#">회원가입</a>
+        	<a class="link-dark link-opacity-100 link-opacity-75-hover link-underline-opacity-0 my-auto me-2" href="#">회원가입</a>
           <a class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
           <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
         </div>

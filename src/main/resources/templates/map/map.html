@@ -1,286 +1,59 @@
 <html layout:decorate="~{layout}">
-	<!-- <div class="container-fluid position-relative">
-		<div class="position-absolute top-0 start-50 translate-middle-x bg-white shadow p-3 rounded" style="width: 60%; z-index: 1000;">
-			<marquee behavior="scroll" direction="left" scrollamount="5" class="fw-bold text-danger">
-	      🚨 [공지] 현재 서울 강남구 일대 도로 공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨
-	    </marquee>
+<div layout:fragment="mapContent"
+	class="container-fluid flex-grow-1 position-relative" id="map"
+	style="height: calc(100vh - 80px); margin-top: 80px; margin-left: 400px;">
+	<div
+		class="position-absolute start-50 translate-middle-x bg-white border border-4 border-warning-subtle shadow p-3 rounded"
+		style="top: 3%; z-index: 1000;">
+		<marquee behavior="scroll" direction="left" scrollamount="5"
+			class="fs-5 fw-bold text-danger"> 🚨 [공지] 현재 서울 강남구 일대 도로
+			공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨 </marquee>
+	</div>
+	<div class="position-absolute bg-white shadow rounded-1"
+		style="top: 4%; right: 2%; z-index: 1000; border: 2px solid #ccc;">
+		<div class="row m-0 text-center" style="width: 170px;">
+			<div
+				class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('nationwide')"
+					style="--bs-link-hover-color: #0d6efd;">전국</a>
+			</div>
+			<div
+				class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('seoul')">수도권</a>
+			</div>
+			<div
+				class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('gangwon')">강원권</a>
+			</div>
+			<div
+				class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('chungcheong')">충청권</a>
+			</div>
+			<div
+				class="col-6 align-content-center px-2 py-1 border-end border-opacity-25">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('jeolla')">전라권</a>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1">
+				<a href="#" class="region-link nav-link p-2"
+					onclick="moveToRegion('gyeongsang')">경상권</a>
+			</div>
 		</div>
-	</div> -->
-  <div layout:fragment="mapContent" 
-       class="container-fluid flex-grow-1 position-relative" 
-       id="map" 
-       style="height: calc(100vh - 80px); margin-top: 80px; margin-left: 400px;">
-  	<div class="position-absolute start-50 translate-middle-x bg-white border border-4 border-warning-subtle shadow p-3 rounded" style="top: 3%; z-index: 1000;">
-			<marquee behavior="scroll" direction="left" scrollamount="5" class="fs-5 fw-bold text-danger">
-	      🚨 [공지] 현재 서울 강남구 일대 도로 공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨
-	    </marquee>
-		</div>
-		<div class="row text-center position-absolute end-0 translate-middle-x bg-white border border-2 p-3 shadow rounded" style="top: 5%; z-index: 1000;">
-			<div class="col-6">
-				<a href="#">전국</a>
-			</div>
-			<div class="col-6">
-				<a href="#">수도권</a>
-			</div>
-			<div class="col-6">
-				<a href="#">강원권</a>
-			</div>
-			<div class="col-6">
-				<a href="#">충청권</a>
-			</div>
-			<div class="col-6">
-				<a href="#">전라권</a>
-			</div>
-			<div class="col-6">
-				<a href="#">경상권</a>
-			</div>
-		</div>
-  </div>
+	</div>
+</div>
 
-  <!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
-  <script layout:fragment="script" th:inline="javascript">
-  var mapContainer = document.getElementById('map');
-  
-  var mapOption = {
-      center: new kakao.maps.LatLng(37.566826, 126.9786567), 
-      level: 10
-  };
-  
-  var map = new kakao.maps.Map(mapContainer, mapOption);
-  map.setMinLevel(6);
-  map.setMaxLevel(13);
-  	   
-  /* 
-  사고 마커 이미지
-  var accidentImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/accident.png" 
-  공사 마커 이미지
-  var constructionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/construction.png" 
-  */
-  
-  var cctvImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2023/pc/marker_cctv.png",
-  	   imageSize = new kakao.maps.Size(22,23);
-  
-  var markerImage = new kakao.maps.MarkerImage(cctvImageSrc, imageSize);
-  
-  /* 내츄럴 템플릿 (주석 지우면 X)*/
-  var cctvInfo = /*[[${cctvInfo}]]*/ [];
-  
-  var markers = [];
-
-  cctvInfo.forEach(function(cctv) {
-      var marker = new kakao.maps.Marker({
-          position: new kakao.maps.LatLng(cctv.cctv_lat, cctv.cctv_lon),
-          image: markerImage
-      });
-      markers.push(marker);
-  });
-
-  /*
-  var clusterer = new kakao.maps.MarkerClusterer({
-      map: map,
-      markers: markers,
-      gridSize: 50, // Number : 클러스터의 격자 크기. 화면 픽셀 단위이며 해당 격자 영역 안에 마커가 포함되면 클러스터에 포함시킨다 
-      averageCenter: true, // Boolean : 마커들의 좌표 평균을 클러스터 좌표 설정 여부
-      minLevel: 10, // Number : 클러스터링 할 지도의 최소 레벨 값
-      disableClickZoom: false // Boolean : 클러스터 클릭 시 지도 확대 여부. true로 설정하면 클러스터 클릭 시 확대 되지 않는다
-  });
-  */
-  
-  
-  // 마커 그룹핑 클래스
-  class MarkerGroup{
-	   constructor(markers){
-		   this.markers = markers;
-		   this.center = this.calculateCenter();
-		   this.representativeMarker = null;
-	   }
-	   
-	   calculateCenter(){
-		   //마커 객체가 생성되어있지 않으면 return
-		   if(this.markers.length == 0) return null;
-		   
-		   // 위도 합, 경도 합 변수들을 선언
-		   let sumOfLats = 0;
-		   let sumOfLongs = 0;
-		   
-		   // 마커 일일이 순회하여 각 위도와 경도의 합을 계산    		   
-		   this.markers.forEach(marker =>{    			  
-			   sumOfLats += marker.cctv_lat;
-			   sumOfLongs += marker.cctv_lon;    			   
-		   });
-		   
-		   // 위도의 합/마커 갯수, 경도 합/마커 갯수 를 계산하여,
-		   // 평균 위도와 평균 경도를 return
-		   return {
-			   lat : sumOfLats / this.markers.length, //위도 평균값
-			   lon : sumOfLongs / this.markers.length //경도 평균값
-		   }    
-	   }
-  }
-  
-  class MarkerManager {
-	   constructor(map,cctvInfo, markerImage){
-		   this.map = map; //지도
-		   this.cctvInfo = cctvInfo; //cctv 정보
-		   this.markerImage = markerImage; // 마커이미지
-		   this.groups = []; // 그룹
-		   this.visibleMarkers = []; // 실제 맵에서 보이는 마커
-		   //this.GROUPING_DISTANCE = 0.5; //그룹화 거리 기준 (500미터)
-		   
-		   // 줌 레벨 설정 (MAX,MIN)
-		   this.MAP_LEVELS = {
-			   MAX_LEVEL: 13, // 가장 ZOOM OUT된 상태
-			   MIN_LEVEL: 6   // 가장 ZOOM IN된 상태    			   
-		   };
-		   
-		   //this.setGroups();
-		   this.bindEvents();
-	   }
-	   
-	   //마커들을 그룹화하는 함수
-	   //setGroup에서 해야할듯
-	   setGroups(){
-		   this.groups =[];
-		   console.log("setGroups()")
-		   let ungroupedMarkers = [...this.cctvInfo]; // ... (스프레드 연산자)를 사용하여 cctv 정보 배열 복제
-		   
-		   const currentLevel = this.map.getLevel(); // 현재 줌 레벨
-		   this.setGroupingDistance(currentLevel);
-		   
-		   while(ungroupedMarkers.length > 0){
-			   let currentMarker = ungroupedMarkers[0];  // 그룹화되지 않은 마커 중 첫 번째 마커를 현재 마커로 지정 
-			   let group = [currentMarker];              // 새 그룹 선언
-			   
-			   //그룹화 되어있지 않은 마커들을 순회해서 현 마커와의 거리 계산
-			   for(let i = 1; i< ungroupedMarkers.length; i++){
-				   let distance = this.calcDistance(ungroupedMarkers[i].cctv_lat
-						   							, ungroupedMarkers[i].cctv_lon
-						   							, currentMarker.cctv_lat
-						   							, currentMarker.cctv_lon);
-				       				   
-				   // 기준으로 잡았던 거리 이내일 경우 그룹(배열)에 추가 (그룹화)
-   			   if(distance <= this.GROUPING_DISTANCE){
-   				   group.push(ungroupedMarkers[i]);
-   			   }    
-			   }
-			   
-			   ungroupedMarkers = ungroupedMarkers.filter(marker =>
-		   				!group.includes(marker)
-		   		   );		  
-			   
-			   this.groups.push(new MarkerGroup(group));
-		   }        		       		 
-	   }
-	   
-	   // 점과 점 거리 계산 공식: ((x2-x1)^2 + (y2-y1)^2)^1/2
-	   calcDistance(lat1, lon1, lat2, lon2 ){
-		   let distance = Math.sqrt(
-					Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2)    
-		   			);
-		   
-		   return distance;
-	   }
-	   
-	   setGroupingDistance(currentLevel){
-		   const distanceByLevel = {  
-				   13 : 0.5,		// 50km
-				   12 : 0.4,		// 40km
-				   11 : 0.2,		// 20km
-				   10 : 0.1,		// 10km	
-				   9  : 0.05,		// 5km
-				   8  : 0.02,		// 1km
-				   7  : 0.0001,     // 0.01km (10미터)  
-				   6  : 0.0001		// 0.01km (10미터) 
-		   };
-		   
-		   this.GROUPING_DISTANCE = distanceByLevel[currentLevel];
-	   }
-	   
-	   
-	   // 지도에 표시될 마커 로드하는 함수
-	   updateMarkers(){
-		   this.setGroups();
-		   this.clearMarkers(); // 모든 마커 지도에서 제거
-		       		   
-		   const currentLevel = this.map.getLevel(); // 현재 줌 레벨 
-		   const bounds = this.map.getBounds();      // 현재 지도 영역    		   
-		   
-		   console.log('currentLevel: ' + currentLevel);
-		   console.log('GroupingDistance: ' + this.GROUPING_DISTANCE);
-		   
-		   this.groups.forEach(group => {
-			   if (!group.center) return;
-			  
-			  // 그룹 중심점의 위치 객체 생성
-			  const centerPosition = new kakao.maps.LatLng(group.center.lat, group.center.lon);
-			  
-			  // 현재 지도 영역 밖의 그룹일 경우 return
-			  if (!bounds.contain(centerPosition)) return;
-			  
-			  // 줌 레벨에 따른 마커 표시
-			  // ZOOM OUT
-			 if (currentLevel == this.MAP_LEVELS.MAX_LEVEL) {
-				  this.GROUPING_DISTANCE = 1;
-				  this.addMarker(centerPosition, `${group.markers.length}개의 CCTV`);
-				  console.log('마커 갯수: ${group.markers.length}')
-				  
-			 } else if (currentLevel == this.MAP_LEVELS.MIN_LEVEL) {
-		            // ZOOM IN 상태 (레벨 값이 작음 = 더 확대된 상태)
-		            // 최대한 확대됐을 때는 모든 개별 마커 표시
-		            group.markers.forEach(marker => {
-		                const markerPosition = new kakao.maps.LatLng(marker.cctv_lat, marker.cctv_lon);
-		                this.addMarker(markerPosition, marker.cctv_name);
-		            });
-		            
-		      } else{
-		    	  this.addMarker(centerPosition, `${group.markers.length}개의 CCTV`);
-		    	  console.log('마커 갯수: ${group.markers.length}')
-		      }	  
-		   });
-	   }
-	   
-	   // 마커 생성 함수
-	   addMarker(position, title) {
-	        const marker = new kakao.maps.Marker({
-	            position: position,
-	            image: this.markerImage
-	        });
-	        
-	        // 마커 클릭 이벤트 추가
-	        kakao.maps.event.addListener(marker, 'click', () => {
-	            this.showMarkerInfo(marker, title);
-	        });
-	        
-	        marker.setMap(this.map);                 // 지도에 마커 표시
-	        this.visibleMarkers.push(marker);        // 표시된 마커 목록에 추가
-	    }
-	   
-	    // 모든 마커 제거 함수
-		clearMarkers(){
-			this.visibleMarkers.forEach(marker => marker.setMap(null));
-			this.visibleMarkers = []; // 보이는 마커 empty array로 만들기
-		}
-	    
-	    // 마커 info display 함수
-	    showMarkerInfo(marker,title){
-	    	const infoWindow = new kakao.maps.InfoWindow({
-	    		content: `<div style= "padding:5px;">${title}</div>`
-	    	});
-	    	infoWindow.open(this.map,marker); //정보창 띄우기
-	    }
-	    
-	    // 지도 zoom level 변경, 이동 시 마커 업데이트 함수
-	    bindEvents(){
-	    	kakao.maps.event.addListener(this.map, 'zoom_changed', () => {
-	    		this.updateMarkers();    	    		
-	    	});
-	    	
-	    	kakao.maps.event.addListener(this.map, 'idle', () => {
-	    		this.updateMarkers();    	    		
-	    	});
-	    }
-  }        
-  
-  const markerManager = new MarkerManager(map, cctvInfo, markerImage);
+<!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
+<script layout:fragment="script" th:inline="javascript">
+	var cctvInfo = /*[[${cctvInfo}]]*/ [];
+	var accidentList = /*[[${accidentList}]]*/ [];
+	var constructionList = /*[[${constructionList}]]*/ [];
+	console.log(cctvInfo);
+	console.log(accidentList);
+	console.log(constructionList);
+	
   </script>
 </html>

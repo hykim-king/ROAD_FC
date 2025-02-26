@@ -1,0 +1,209 @@
+<html layout:decorate="~{layout2}">
+<body>
+	<div layout:fragment="mapContent2" 
+       class="container-fluid flex-grow-1 position-relative" 
+       id="map" 
+       style="height: calc(100vh - 80px); margin-top: 80px; margin-left: 400px;">
+	<!-- <input type="hidden" id="accidentList" value="/*[[${accidentList}]]*/">
+	<input type="hidden" id="constructionList" value="/*[[${constructionList}]]*/"> -->
+	<button class="position-relative" id="accidentBtn" style="z-index: 1000;">사고 마커 보기</button>
+  <button class="position-relative" id="constructionBtn" style="z-index: 1000;">공사 마커 보기</button>
+	</div>
+	<!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
+	<script layout:fragment="script" th:inline="javascript">
+		var accidentList = /*[[${accidentList}]]*/ [];
+	  var constructionList = /*[[${constructionList}]]*/ [];
+	  console.log(accidentList);
+		console.log(constructionList);
+	</script>
+	<!-- <script layout:fragment="script" th:inline = "javascript">
+	   var mapContainer = document.getElementById('map');
+	   
+       var mapOption = {
+           center: new kakao.maps.LatLng(37.566826, 126.9786567), 	
+           level: 10
+       };
+	   
+       
+	   var map = new kakao.maps.Map(mapContainer, mapOption);
+	   	   
+	   /* 
+	   사고 마커 이미지
+	   var accidentImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/accident.png" 
+	   공사 마커 이미지
+	   var constructionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/construction.png" 
+	   */
+	   
+	   var accidentImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/accident.png";
+	   
+	   var constructionImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/construction.png";
+	   
+	   var imageSize = new kakao.maps.Size(24,21);
+	   
+	   var accidentMarkerImage = new kakao.maps.MarkerImage(accidentImageSrc, imageSize);
+	   
+	   var constructionMarkerImage = new kakao.maps.MarkerImage(constructionImageSrc, imageSize);
+	   
+	   // 내츄럴 템플릿 (주석 지우면 X)
+	   var accidentList = /*[[${accidentList}]]*/ [];
+
+	   var constructionList = /*[[${constructionList}]]*/ [];
+	   
+	   var accidentMarkers = [];
+	   var constructionMarkers = [];
+	   
+	   // 열려있는 오버레이 담을 변수
+	   var currentOverlay = null;
+	   
+	   // 사고 마커 생성 
+       accidentList.forEach(function(accident) {
+	        var marker = new kakao.maps.Marker({
+	          position: new kakao.maps.LatLng(accident.road_lat, accident.road_lon),
+	          image: accidentMarkerImage,
+	          map: null
+	        });
+	        
+	        var overlayContent = document.createElement('div');
+	        overlayContent.className = 'wrap';
+	        overlayContent.innerHTML = `
+	            <div class="info">
+	                <div class="type">
+	                    <div>사고</div>
+	                    <div class="close" title="닫기"></div>
+	                </div>
+	                <div class="body">
+	              	  	<div class="desc">
+		                    <div class="title">${accident.road_title}</div>
+		                    <div class="time">${accident.road_start}~${accident.road_end}</div>
+		                    <div class="source">경찰청(UTIC)</div>
+	                    </div>
+	                </div>
+	            </div>`;  
+
+	        var overlay = new kakao.maps.CustomOverlay({
+	            position: new kakao.maps.LatLng(accident.road_lat, accident.road_lon),
+	            content: overlayContent,
+	            map: null
+	        });
+
+	        // 오버레이 닫는 함수
+	        overlayContent.querySelector(".close").addEventListener("click", function () {
+	            overlay.setMap(null);
+	            if(currentOverlay == overlay){
+	            	currentOverlay = null;
+	            }
+	        });
+	        
+	        kakao.maps.event.addListener(marker, 'click', function() {
+	        	
+	        	if (currentOverlay) {	
+                   currentOverlay.setMap(null);
+                }
+	        	
+	        	overlay.setMap(map);
+	        	currentOverlay = overlay;
+	          
+	        });
+	        
+	      	accidentMarkers.push(marker);
+	     });
+	    
+	    
+	    // 공사 마커 생성
+	    constructionList.forEach(function(construction) {
+	      var marker = new kakao.maps.Marker({
+	        position: new kakao.maps.LatLng(construction.road_lat, construction.road_lon),
+	        image: constructionMarkerImage,
+	        map: null
+	      });
+	      
+	      var overlayContent = document.createElement('div');
+	      overlayContent.className = 'wrap';
+	      overlayContent.innerHTML = `
+	    	  <div class="info">
+	      		  <div class="type">
+	                  <div>공사</div>
+	                  <div class="close" title="닫기"></div>
+	              </div>
+	              <div class="body">
+	              	  <div class="desc">
+		                  <div class="title">${construction.road_title}</div>
+		                  <div class="time">${construction.road_start}~${construction.road_end}</div>
+		                  <div class="source">경찰청(UTIC)</div>
+	                  </div>
+	              </div>
+	          </div>`;
+	      
+	       var overlay = new kakao.maps.CustomOverlay({
+             position: new kakao.maps.LatLng(construction.road_lat, construction.road_lon),
+             content: overlayContent,
+             map: null
+       	   });   
+	          
+	       // 오버레이 닫는 함수
+	       overlayContent.querySelector(".close").addEventListener("click", function () {
+	           overlay.setMap(null);
+	           if(currentOverlay == overlay){
+	        	   currentOverlay = null;
+	           }
+	       });
+	        
+	       kakao.maps.event.addListener(marker, 'click', function() {
+	    	   
+	    	   if(currentOverlay){
+	    		   currentOverlay.setMap(null);
+	    	   }
+	    	   
+	           overlay.setMap(map);
+	           currentOverlay = overlay;
+	        
+	       });
+
+	      constructionMarkers.push(marker);
+	    });
+	    
+	    // 사고 마커만 지도에 표시하는 함수
+	    function showAccidentMarkers() {
+	    	
+	    	if (currentOverlay) {
+	            currentOverlay.setMap(null);
+	            currentOverlay = null;
+	        }
+	    	
+	        accidentMarkers.forEach(function(marker) {
+	          marker.setMap(map);
+	        });
+	        
+	        constructionMarkers.forEach(function(marker) {
+	          marker.setMap(null);
+	        });
+	        
+	    }
+	    
+	    // 공사 마커만 지도에 표시하는 함수
+	    function showConstructionMarkers() {
+	    	
+	    	if (currentOverlay) {
+	            currentOverlay.setMap(null);
+	            currentOverlay = null;
+	        }
+	    	
+	        constructionMarkers.forEach(function(marker) {
+	          marker.setMap(map);
+	        });
+	        
+	        accidentMarkers.forEach(function(marker) {
+	          marker.setMap(null);
+	        });
+	        
+	    }
+	    
+	    map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC); 
+	    
+	    // 버튼 클릭 이벤트 등록
+	    document.getElementById('accidentBtn').addEventListener('click', showAccidentMarkers);
+	    document.getElementById('constructionBtn').addEventListener('click', showConstructionMarkers);
+	   
+	    
+	</script> -->
+</html>
