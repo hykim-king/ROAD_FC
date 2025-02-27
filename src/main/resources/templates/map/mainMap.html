@@ -3,22 +3,62 @@
 <head>
     <meta charset="utf-8">
     <title>지도 생성하기</title>
-    
 </head>
 <body>
-<!-- 지도를 표시할 div 입니다 -->
-<div id="map" style="width:100%;height:1000px;"></div>
+<!-- 지도를 표시할 div -->
+<div id="map" style="width:100%;height:800px;"></div>
+<button onclick="showFreezingMarkers()">프리징 마커 표시</button>
+ <video id="videoPlayer" width="800" height="450" controls></video>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7fe4170babe3ad280de5be2167c478a8"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script th:inline="javascript">
+var mapContainer = document.getElementById('map');
+var mapOption = {
+    center: new kakao.maps.LatLng(37.566826, 126.9786567), 	
+    level: 10
+};
+var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+var freezingImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/trafficinfo/accident.png";
+var imageSize = new kakao.maps.Size(24,21);
+var freezingMarkerImage = new kakao.maps.MarkerImage(freezingImageSrc, imageSize);
+
+var freezingMarkers = [];
+var freezingInfo = /*[[${freezingInfo}]]*/ [];
+
+// 마커 생성 및 배열에 추가
+freezingInfo.forEach(function(freezing) {
+    var marker = new kakao.maps.Marker({
+        position: new kakao.maps.LatLng(freezing.freezingStartLat, freezing.freezingStartLon),
+        image: freezingMarkerImage,
+        map: null // 초기에는 지도에 표시하지 않음        
+    });
+	console.log(`마커 위도: ${freezing.freezingStartLat}`);
+	console.log(`마커 경도: ${freezing.freezingStartLon}`);
+    kakao.maps.event.addListener(marker,'click',function(){
+    	console.log(`마커이름: ${freezing.freezingAgency} \n위도: ${freezing.freezingStartLat} \n경도: ${freezing.freezingStartLon}`);
+    });
+    console.log(`marker: ${marker}`);    
+    freezingMarkers.push(marker);
+});
+
+// 마커 표시 함수
+function showFreezingMarkers() {
+	console.log(`freezingMarkers 갯수: ${freezingMarkers.length}`);
+    freezingMarkers.forEach(function(marker) {
+        marker.setMap(map);
+    });    
+}
+
+var video = document.getElementById('videoPlayer');
+var videoSrc = "chrome-extension://eakdijdofmnclopcffkkgmndadhbjgka/player.html#http://cctvsec.ktict.co.kr:8081/openapix025/1/chunks.m3u8?nimblesessionid=627360&wmsAuthSign=c2VydmVyX3RpbWU9Mi8yNS8yMDI1IDQ6NDI6NTkgQU0maGFzaF92YWx1ZT1lK3ovMGEyN1F4SHhiM29SWWUzOWNnPT0mdmFsaWRtaW51dGVzPTE1NjAmaWQ9MmVjZmM0ZmFhYjhlNGMxZmIxMDlhN2M2YzY0OTNiYWEtMTc0MDQ2MjE3OTk3OS0x";  // 여기에 실제 m3u8 URL 입력
+
+if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+}
 </script>
 </body>
 </html>
