@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지역별 사고 목록</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="container mt-4">
+  <canvas id="accidentChart"></canvas>
+    <h2 class="text-center mb-4">지역별 사고 데이터</h2>
+
+    <!-- 필터링 폼 -->
+    <form method="get" th:action="@{/LocalAccident/list}" class="row g-3">
+        <div class="col-md-3">
+            <label for="year" class="form-label">연도 선택</label>
+            <select class="form-select" id="year" name="year">
+                <option value="">전체</option>
+                <option th:each="y : ${years}" th:value="${y}" th:text="${y}" th:selected="${selectedYear == y}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="majorRegion" class="form-label">시/도 선택</label>
+            <select class="form-select" id="majorRegion" name="majorRegion">
+                <option value="">전체</option>
+                <option th:each="region : ${majorRegions}" th:value="${region}"
+                        th:text="${region}" th:selected="${selectedMajorRegion == region}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="minorRegion" class="form-label">시/군/구 선택</label>
+            <select class="form-select" id="minorRegion" name="minorRegion">
+                <option value="">전체</option>
+                <option th:each="mRegion : ${minorRegions}" th:value="${mRegion}"
+                        th:text="${mRegion}" th:selected="${selectedMinorRegion == mRegion}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">검색</button>
+        </div>
+    </form>
+
+    <!-- 사고 데이터 테이블 -->
+    <div class="mt-4">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>연도</th>
+                    <th>시/도</th>
+                    <th>시/군/구</th>
+                    <th>사고 건수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="accident, iterStat : ${accidents}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${accident.laYear}"></td>
+                    <td th:text="${accident.laMajorRegion}"></td>
+                    <td th:text="${accident.laMinorRegion}"></td>
+                    <td th:text="${accident.laLocalCnt}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(accidents)}">
+                <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+ <!-- paging start -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
+            </li>
+        
+            <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
+            </li>
+            <!-- 1,2,3,.... 페이지 번호 제한 -->
+            <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
+                th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
+            </li>
+            <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
+            </li>
+           <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- paging end--------------------------------------------- -->
+
+<script>
+$(document).ready(function () {
+    // 시/도 변경 시 시/군/구 업데이트
+    $("#majorRegion").change(function () {
+        let selectedMajorRegion = $(this).val();
+        let minorRegionDropdown = $("#minorRegion");
+
+        // 기존 옵션 제거 후 기본 옵션 추가
+        minorRegionDropdown.empty().append("<option value=''>전체</option>");
+
+        if (selectedMajorRegion) {
+            $.get("/LocalAccident/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
+                $.each(data, function (index, value) {
+                    minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
+                });
+            });
+        }
+    });
+});
+
+//Thymeleaf를 이용해서 컨트롤러에서 가져온 데이터를 JS 변수에 할당
+let yearlyAccidentData = /*[[${yearlyAccidentDataJson}]]*/ '[]';
+console.log("yearlyAccidentData:", JSON.parse(yearlyAccidentData));
+
+// 연도별 사고 데이터 가공
+let labels = JSON.parse(yearlyAccidentData).map(item => item[0]); // 연도
+let accidentCounts = JSON.parse(yearlyAccidentData).map(item => item[1]); // 사고 건수
+
+// Chart.js를 이용해 차트 그리기
+new Chart(document.getElementById('accidentChart'), {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: '연도별 사고 건수',
+            data: accidentCounts,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>
