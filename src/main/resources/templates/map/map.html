@@ -48,12 +48,15 @@
 
 <!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
 <script layout:fragment="script" th:inline="javascript">
-	var cctvInfo = /*[[${cctvInfo}]]*/ [];
 	var accidentList = /*[[${accidentList}]]*/ [];
 	var constructionList = /*[[${constructionList}]]*/ [];
-	console.log(cctvInfo);
+	var cctvInfo = /*[[${cctvInfo}]]*/ [];
+	var freezingInfo = /*[[${freezingInfo}]]*/[];
+	
 	console.log(accidentList);
 	console.log(constructionList);
+	console.log(cctvInfo);
+	console.log(freezingInfo);
 	
   </script>
 </html>

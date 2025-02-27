@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.map.Entity.TestRoad;
-import com.pcwk.ehr.map.Repository.TestRoadRepository;
+import com.pcwk.ehr.map.entity.TestRoad;
+import com.pcwk.ehr.map.repository.TestRoadRepository;
 
 @Service
 public class TestRoadService {

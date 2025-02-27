@@ -28,16 +28,16 @@ public class Freezing {
 	private Integer freezingLength;
 	
 	@Column(name = "FREEZING_START_LAT", columnDefinition = "NUMBER")
-	private Integer freezingStartLat;
+	private double freezingStartLat;
 	
 	@Column(name = "FREEZING_START_LON", columnDefinition = "NUMBER")
-	private Integer freezingStartLon;
+	private double freezingStartLon;
 	
 	@Column(name = "FREEZING_END_LAT", columnDefinition = "NUMBER")
-	private Integer freezingEndLat;
+	private double freezingEndLat;
 	
 	@Column(name = "FREEZING_END_LON", columnDefinition = "NUMBER")
-	private Integer freezingEndLon;
+	private double freezingEndLon;
 	
 	@Column(name = "FREEZING_REG_DT", columnDefinition = "DATE")
 	private LocalDateTime freezingRegDt;

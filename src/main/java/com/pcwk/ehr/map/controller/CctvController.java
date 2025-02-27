@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pcwk.ehr.map.Entity.Cctv;
+import com.pcwk.ehr.map.entity.Cctv;
 import com.pcwk.ehr.map.service.CctvService;
 
 import lombok.extern.slf4j.Slf4j;

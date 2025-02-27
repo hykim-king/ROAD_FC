@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.map.Entity.Cctv;
-import com.pcwk.ehr.map.Repository.CctvRepository;
+import com.pcwk.ehr.map.entity.Cctv;
+import com.pcwk.ehr.map.repository.CctvRepository;
 
 @Service
 public class CctvService {

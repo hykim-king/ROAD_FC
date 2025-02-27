@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pcwk.ehr.map.Entity.TestRoad;
+import com.pcwk.ehr.map.entity.TestRoad;
 import com.pcwk.ehr.map.service.TestRoadService;
 
 import lombok.extern.slf4j.Slf4j;
