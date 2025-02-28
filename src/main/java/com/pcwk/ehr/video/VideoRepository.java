@@ -18,8 +18,10 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 Page<Video> findAll(Specification<Video> spec, Pageable pageable);
 	
 	Page<Video> findByTitleContaining(String keyword, Pageable pageable);
+	 // 현재 영상 ID보다 작은 영상 중 최근 4개 조회
+    @Query("SELECT v FROM Video v WHERE v.videoId < :videoId ORDER BY v.videoId DESC")
+    List<Video> findTop4ByVideoIdLessThanOrderByVideoIdDesc(Long videoId);
 
-	    @Modifying
 	    @Transactional
 	    @Query("UPDATE Video v SET v.viewCount = v.viewCount + 1 WHERE v.id = :id")
 	    void increaseViewCount(Long id);

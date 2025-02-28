@@ -11,16 +11,30 @@
             margin-top: 20px;
         }
         .video-frame {
-            width: 800px; /* 원하는 크기로 조정 가능 */
-            height: 450px; /* 16:9 비율 유지 */
+            width: 800px;
+            height: 450px;
             border-radius: 10px;
         }
         .video-title {
             font-size: 22px;
             font-weight: bold;
-            color: black; /* 검은색 제목 */
+            color: black;
             margin-bottom: 10px;
             text-align: center;
+        }
+        /* 관련 영상 스타일 */
+        .related-videos {
+            margin-top: 30px;
+        }
+        .related-video-item {
+            text-align: center;
+        }
+        .thumbnail {
+            width: 200px;
+            height: 120px;
+            border-radius: 8px;
+            cursor: pointer;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -32,7 +46,7 @@
             ← 목록으로 돌아가기
         </a>
 
-        <!-- 🎬 영상 제목 (위로 이동) -->
+        <!-- 🎬 영상 제목 -->
         <div class="video-title" th:text="${video.title}">영상 제목</div>
 
         <!-- 📺 비디오 플레이어 -->
@@ -47,10 +61,12 @@
                 <span th:text="${#temporals.format(video.regDate, 'yyyy.MM.dd')}">2023.10.15</span>
             </div>
 
-            <p class="mt-2 text-secondary" th:if="${video.description != null}" th:text="${video.description}"></p>
+   <p class="mt-2 text-secondary" th:if="${video.description != null}" th:utext="${video.description}"></p>
             <p class="mt-2 text-danger fw-bold" th:if="${video.description == null}">
                 ⚠ 비디오 설명이 존재하지 않습니다.
             </p>
+     
+            </div>
         </div>
     </div>
 

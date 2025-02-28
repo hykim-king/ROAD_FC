@@ -23,6 +23,7 @@ public class VideoService {
 
     @Autowired
     public VideoService(VideoRepository videoRepository) {
+    	
         this.videoRepository = videoRepository;
     }
     @Transactional
@@ -40,7 +41,7 @@ public class VideoService {
             return null;
         }
     }
-
+    
     public String extractYoutubeId(String url) {
         if (url == null || url.isEmpty()) {
             return "dQw4w9WgXcQ"; // 기본 썸네일 ID
