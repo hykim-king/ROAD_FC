@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db6b66ee32de5c188c171ffea6d8fe47"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db6b66ee32de5c188c171ffea6d8fe47"></script>
 <link rel="stylesheet" href="/css/road.css">
 </head>
-
 <body>
-	<div id="map" style="width:100%;height:800px;"></div>
-	
+	<div id="map" style="width: 100%; height: 800px;"></div>
+
 	<button id="accidentBtn">사고 마커 보기</button>
-    <button id="constructionBtn">공사 마커 보기</button>
-	
+	<button id="constructionBtn">공사 마커 보기</button>
+	<button id="weatherBtn">날씨 마커 보기</button>
+
 	<!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
-	<script th:inline = "javascript">
+	<script th:inline="javascript">
 	   var mapContainer = document.getElementById('map');
 	   
        var mapOption = {
@@ -47,11 +48,101 @@
 
 	   var constructionList = /*[[${constructionList}]]*/ [];
 	   
+	   var findNowWeather = /*[[${findNowWeather}]]*/ [];
+	   
 	   var accidentMarkers = [];
 	   var constructionMarkers = [];
+	   var weatherContent = [];
 	   
 	   // 열려있는 오버레이 담을 변수
 	   var currentOverlay = null;
+	   
+	   //- 하늘상태(SKY) 코드 : 맑음(1), 구름많음(3), 흐림(4)
+	   const skyImages = {
+	       "1": "/images/weather/sun.png",  // 맑음
+	       "3": "/images/weather/cloudy.png",  // 구름 많음
+	       "4": "/images/weather/blur.png"  // 흐림
+	   };
+
+	   //- 강수형태(PTY) 코드 : (단기) 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+	   const ptyImages = {
+	       "0": null,  // 없음 (SKY 값 사용)
+	       "1": "/images/weather/rain.png",  // 비
+	       "2": "/images/weather/rainsnow.png",  // 비/눈
+	       "3": "/images/weather/snow.png",  // 눈
+	       "4": "/images/weather/shower.png"  // 소나기
+	   };
+	   
+	   // 날씨 생성
+	   findNowWeather.forEach(function(weather) {
+		   console.log("날씨 데이터:", weather);
+		    let imageUrl = null;
+		    let tempText = null;
+		    
+		    //category가 PTY고 0일 때 SKY이미지 사용
+		    if (weather.category === "PTY" && weather.fcstValue === "0") {
+		    	
+		        let skyWeather = findNowWeather.find(w => 
+		            w.category === "SKY" && 
+		            w.weatherLat === weather.weatherLat && 
+		            w.weatherLon === weather.weatherLon
+		        );
+
+		        if (skyWeather) {
+		            imageUrl = skyImages[skyWeather.fcstValue]; 
+		        }
+		      //PTY가 0이 아닐 시 PTY이미지 사용
+		    } else if (weather.category === "PTY") {
+		        imageUrl = ptyImages[weather.fcstValue]; 
+		      //혹시 PTY데이터가 안들어왔을 때 대비
+		    } else if (weather.category === "SKY") {
+		        imageUrl = skyImages[weather.fcstValue]; 
+		    }
+		    
+		    //category가 TMP일 때 현재 weather와 같은 값 찾음
+	        let tempWeather = findNowWeather.find(w => 
+		        w.category === "TMP" && 
+		        w.weatherLat === weather.weatherLat && 
+		        w.weatherLon === weather.weatherLon
+		    );
+		    
+		    if (tempWeather) {
+		        tempText = `${tempWeather.fcstValue}°C`;
+		    }
+			
+		    let regionName = findNowWeather.find(w =>
+		    	w.regionName === weather.regionName &&
+		    	w.weatherLat === weather.weatherLat && 
+	            w.weatherLon === weather.weatherLon
+		    );
+		    
+		    if (regionName){
+		    	regionText = `${regionName.regionName}`;
+		    }
+		    
+		    // 오버레이 컨텐츠 생성
+		    var content = document.createElement('div');
+		    content.className = 'weather-overlay';
+		    content.innerHTML = `
+		        <div class="weather-info">
+		            ${imageUrl ? `<img src="${imageUrl}" class="weather-icon">` : ''}
+		            <div class="weather-details">
+		                ${tempText ? `<div class="temperature">${tempText}</div>` : ''}
+		                ${regionText ? `<div class="location">${regionText}</div>` : ''}
+		            </div>
+		        </div>`;  
+
+
+		    var overlay = new kakao.maps.CustomOverlay({
+		        position: new kakao.maps.LatLng(weather.weatherLat, weather.weatherLon),
+		        content: content,
+		        map: null
+		    });
+		    
+		    //console.log("선택된 이미지 URL:", imageUrl);
+		    weatherContent.push(overlay);
+		});
+			   
 	   
 	   // 사고 마커 생성 
        accidentList.forEach(function(accident) {
@@ -176,6 +267,10 @@
 	          marker.setMap(null);
 	        });
 	        
+	        weatherContent.forEach(function(overlay){
+	    		overlay.setMap(null);
+	    	});
+	        
 	    }
 	    
 	    // 공사 마커만 지도에 표시하는 함수
@@ -187,13 +282,38 @@
 	        }
 	    	
 	        constructionMarkers.forEach(function(marker) {
-	          marker.setMap(map);
+	         	marker.setMap(map);
 	        });
 	        
 	        accidentMarkers.forEach(function(marker) {
-	          marker.setMap(null);
+	          	marker.setMap(null);
 	        });
 	        
+	        weatherContent.forEach(function(overlay){
+	    	  	overlay.setMap(null);
+	    	});
+	        
+	    }
+	    
+	    // 날씨 마커만 지도에 표시하는 함수
+	    function showWeatherContent(){
+	    	
+	    	if (currentOverlay) {
+	            currentOverlay.setMap(null);
+	            currentOverlay = null;
+	        }
+	    	
+	    	weatherContent.forEach(function(overlay){
+	    		overlay.setMap(map);
+	    	});
+	    	
+	        accidentMarkers.forEach(function(marker) {
+	          	marker.setMap(null);
+	        });
+	    
+	        constructionMarkers.forEach(function(marker) {
+        	  	marker.setMap(null);	
+	        });
 	    }
 	    
 	    map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC); 
@@ -201,10 +321,10 @@
 	    // 버튼 클릭 이벤트 등록
 	    document.getElementById('accidentBtn').addEventListener('click', showAccidentMarkers);
 	    document.getElementById('constructionBtn').addEventListener('click', showConstructionMarkers);
-	   
+	    document.getElementById('weatherBtn').addEventListener('click', showWeatherContent);
 	    
-	</script> 
-	
+	</script>
+
 </body>
 
 </html>

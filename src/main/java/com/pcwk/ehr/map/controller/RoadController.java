@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pcwk.ehr.map.Entity.TestRoad;
-import com.pcwk.ehr.map.service.TestRoadService;
+import com.pcwk.ehr.map.Entity.TestWeatherInterface;
+import com.pcwk.ehr.map.service.MapService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RoadController {
 	
 	@Autowired
-	TestRoadService testRoadService;
+	MapService mapService;
 	
 	@GetMapping("/map")
 	public String roadMap(Model model) {
@@ -28,14 +29,22 @@ public class RoadController {
 		log.info("│ roadMap()        │");
 		log.info("└──────────────────┘");	
 		
-		List<TestRoad> accidentList = testRoadService.findByAccident();
-		List<TestRoad> constructionList = testRoadService.findByConstruction();
+		List<TestRoad> accidentList = mapService.findByAccident();
+		List<TestRoad> constructionList = mapService.findByConstruction();
+		List<TestWeatherInterface> findNowWeather = mapService.findNowWeather();
 		
-		log.info("사고 데이터: {}", accidentList);
-		log.info("공사 데이터: {}", constructionList);
+//		log.info("사고 데이터: {}", accidentList);
+//		log.info("공사 데이터: {}", constructionList);
+		
+//		for (TestWeatherInterface wp : findNowWeather) {
+//		    log.info("Lat: " + wp.getWeatherLat() + ", Lon: " + wp.getWeatherLon() + 
+//		    		", FcstTime: " + wp.getFcstTime() + ", FcstDate: " + wp.getFcstDate() + 
+//		    		", Category: " + wp.getCategory() + ", FcstValue: " + wp.getFcstValue());
+//		}
 		
 		model.addAttribute("accidentList", accidentList);
 		model.addAttribute("constructionList", constructionList);
+		model.addAttribute("findNowWeather", findNowWeather);
 		
 		return "map/road";
 		

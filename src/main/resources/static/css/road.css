@@ -1,92 +1,132 @@
 @charset "UTF-8";
-.wrap {
-	    position: absolute;
-	    left: 0;
-	    bottom: 30px;
-	    width: 350px;
-	    margin-left: -172px;
-	    text-align: left;
-	    font-size: 12px;
-	    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-	    line-height: 1.5;
-    }
-    
-    .wrap * {
-	    padding: 0;
-	    margin: 0;
-    }
 
-    .wrap .info {
-	    border-radius: 5px;
-	    border-bottom: 2px solid #ccc;
-	    border-right: 1px solid #ccc;
-	    background: #fff;
-    }
-    
-    .wrap .info:nth-child(1) {
-	    border: 0;
-	    box-shadow: 0px 1px 2px #888;
-    }
-    
-    .info .close {
-	    position: absolute;
-	    top: 10px;
-	    right: 10px;
-	    color: #888;
-	    width: 17px;
-	    height: 17px;
-	    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-    }
-    
-    .info .close:hover {
-   	 	cursor: pointer;
-    }
-    
-    .info .body {
-	    position: relative;
-	    overflow: hidden;
-    }
-    
-    .info .desc {
-	    position: relative;
-	    margin: 10px 15px;
-	    white-space: normal;
-	    word-wrap: break-word;
-    }
-    
-    .info .type {
-	    padding: 7px 0 7px 15px;
-	    height: 20px;
-	    background: white;
-	    border-bottom: 1px solid #ddd;
-	    font-size: 18px;
-	    font-weight: bold;
-    }
-    
-    .info:after {
-	    content: '';
-	    position: absolute;
-	    margin-left: -12px;
-	    left: 50%;
-	    bottom: 1;
-	    width: 22px;
-	    height: 12px;
-	    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-    }
-    
-    .desc .title {
-	    white-space: normal;
-	    word-wrap: break-word;
-	    overflow: hidden;
-    }
-    
-   .desc .time {
-		font-size: 10px;
-	    margin-top: 4px;
-    }
-    
-    .desc .source {
-	    font-size: 11px;
-	    color: #888;
-	    margin: 7px 0px;
-    }
+/* 사고, 공사 디자인 */
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 30px;
+	width: 350px;
+	margin-left: -172px;
+	text-align: left;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+	cursor: pointer;
+}
+
+.info .body {
+	position: relative;
+	overflow: hidden;
+}
+
+.info .desc {
+	position: relative;
+	margin: 10px 15px;
+	white-space: normal;
+	word-wrap: break-word;
+}
+
+.info .type {
+	padding: 7px 0 7px 15px;
+	height: 20px;
+	background: white;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 1;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.desc .title {
+	white-space: normal;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.desc .time {
+	font-size: 10px;
+	margin-top: 4px;
+}
+
+.desc .source {
+	font-size: 11px;
+	color: #888;
+	margin: 7px 0px;
+}
+
+/* 날씨 디자인 */
+
+.weather-overlay {
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+	padding: 8px 12px;
+	align-items: center;
+	font-family: Arial, sans-serif;
+	touch-action: none;
+}
+
+.weather-icon {
+	width: 30px;
+	height: 30px;
+	margin-right: 8px;
+	pointer-events: none;
+}
+
+.weather-details {
+	display: inline-block;
+	flex-direction: column;
+	align-items: center;
+}
+
+.temperature {
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+}
+
+.location {
+	font-size: 12px;
+	color: gray;
+}

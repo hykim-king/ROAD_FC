@@ -32,4 +32,7 @@ public class Cctv {
 	@Column(columnDefinition = "DATE", nullable = false)
 	private LocalDateTime cctv_reg_dt;
 	
+	@Column(columnDefinition = "CLOB", nullable = false)
+	private String cctv_url;
+	
 }
