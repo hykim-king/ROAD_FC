@@ -10,11 +10,11 @@ kakao.maps.load(function() {
 	const freezingButton = document.getElementById('freezingBtn');
 	//const tunnelButton = document.getElementById('tunnelBtn');
 
-	accidentButton.addEventListener('click', showAccidentMarkers);
-	constructionButton.addEventListener('click', showConstructionMarkers);
+	//accidentButton.addEventListener('click', showAccidentMarkers);
+	//constructionButton.addEventListener('click', showConstructionMarkers);
 	//weatherButton.addEventListener('click', showWeatherMarkers);
-	cctvButton.addEventListener('click', showCctvMarkers);
-	freezingButton.addEventListener('click', showFreezingMarkers);
+	//cctvButton.addEventListener('click', showCctvMarkers);
+	//freezingButton.addEventListener('click', showFreezingMarkers);
 	//tunnelButton.addEventListener('click', showTunnelMarkers);
 
 	//---------------지도 세팅---------------------
@@ -153,7 +153,6 @@ kakao.maps.load(function() {
 			this.infoWindow = null; // 정보창 객체 참조 저장
 			this.overlay = null; // 오버레이 객체 참조 저장        
 			this.cctvMarkers = []; //마커 객체들을 담는 배열        
-			this.bindEvents();
 
 			// 줌 레벨 설정 (MAX,MIN)
 			this.MAP_LEVELS = {
@@ -161,8 +160,13 @@ kakao.maps.load(function() {
 				MIN_LEVEL: 6   // 가장 ZOOM IN된 상태    			   
 			};
 
-			// GROUPING_DISTANCE 미리 계산하여 저장
-			this.GROUPING_DISTANCE_BY_LEVEL = {
+			this.bindEvents();
+			this.updateMarkers();
+		}
+
+		// GROUPING_DISTANCE 미리 계산하여 저장
+		setGroupingDistance(currentLevel) {
+			const distanceByLevel = {
 				13: 0.5,     // 50km
 				12: 0.4,     // 40km
 				11: 0.2,     // 20km
@@ -172,10 +176,11 @@ kakao.maps.load(function() {
 				7: 0.0001,   // 0.01km (10미터)  
 				6: 0.0001    // 0.01km (10미터) 
 			};
+			this.GROUPING_DISTANCE = distanceByLevel[currentLevel];
 		}
 
 		//cctvInfo(cctv정보 배열)을 순회하며 marker 생성
-		/*createCctvMarkers() {
+		createCctvMarkers() {
 			if (this.cctvMarkers.length > 0) return;
 
 			for (let i = 0; i < this.cctvInfo.length; i++) {
@@ -187,14 +192,15 @@ kakao.maps.load(function() {
 				});
 				this.cctvMarkers.push(marker);
 			}
-		}*/
+		}
 
 		// 마커 그룹화 함수 (줌 레벨에 따라 LEVEL 6,7일 때는 모든 개인 마커, else, 그룹 대표 마커)
 		setGroups() {
 			this.groups = []; // 그룹 초기화
 
-			const currentLevel = this.map.getLevel(); // 현재 줌 레벨
-			this.GROUPING_DISTANCE = this.GROUPING_DISTANCE_BY_LEVEL[currentLevel]; // 레벨 별 그룹화 거리 설정
+			currentLevel = this.map.getLevel(); // 현재 줌 레벨
+			//this.GROUPING_DISTANCE = this.GROUPING_DISTANCE_BY_LEVEL[currentLevel]; // 레벨 별 그룹화 거리 설정
+			this.setGroupingDistance(currentLevel);
 			console.log(`currentLevel: ${currentLevel}`);
 			console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
 
@@ -413,9 +419,9 @@ kakao.maps.load(function() {
 
 			// 템플릿 리터럴 사용으로 간소화
 			overlayContent.innerHTML = `
-			    <div class="info"> 
-			        <div class="title"> 
-			            ${cctvData.cctv_name}                 
+			    <div class="info">
+			        <div class="title">
+			            ${cctvData.cctv_name}
 			        </div>
 			        <div class="body"> 
 			            <div class="cctvVideo">
@@ -851,143 +857,222 @@ kakao.maps.load(function() {
 		constructionMarkers.push(marker);
 	});
 
+	// 선택한 마커를 제외하고 모두 제거
 	function hideAllMarkers() {
-		// Hide accident markers
+		// 사고 마커 제거
 		accidentMarkers.forEach(function(marker) {
 			marker.setMap(null);
 		});
 
-		// Hide construction markers
+		// 공사 마커 제거
 		constructionMarkers.forEach(function(marker) {
 			marker.setMap(null);
 		});
 
-		// Hide CCTV markers using the manager if it exists
+		// cctv 매니저를 통해 마커 제거
 		if (currentCctvManager) {
 			currentCctvManager.clearMarkers();
 		}
 
-		// Hide freezing markers using the manager if it exists
+		// 결빙 매니저를 통해 마커 제거
 		if (currentFreezingManager) {
 			currentFreezingManager.clearMarkers();
 		}
 
-		// Hide any active overlays
+		// 오버레이 제거
 		if (currentOverlay) {
 			currentOverlay.setMap(null);
 			currentOverlay = null;
 		}
 
+		// 오버레이 제거
 		if (overlay) {
 			overlay.setMap(null);
 		}
 
+		// 오버레이 제거
 		if (infoWindow) {
 			infoWindow.close();
 		}
 	}
 
-	function showAccidentMarkers() {
-		hideAllMarkers();
-		activeMode = 'accident';
+	// 마커 on/off 기능을 위한 상태
+	let activatedMarkers = {
+		cctv: false,
+		accident: false,
+		construction: false,
+		freezing: false
+	};
 
-		// Show accident markers
-		accidentMarkers.forEach(function(marker) {
-			marker.setMap(map);
-		});
+	/*function showAccidentMarkers() {
+		if (activatedMarkers.accident) {
+			hideAllMarkers();
+			activatedMarkers.accident = false;
+			activeMode = null;
+		} else {
+			//hideAllMarkers();
+			activeMode = 'accident';
+			activatedMarkers.accident = true;
+
+			accidentMarkers.forEach(function(marker) {
+				marker.setMap(map);
+			});
+		}
+
+		activatedMarkers.accident = !activatedMarkers.accident;
+		accidentMarkers.forEach(marker => marker.setMap(activatedMarkers.accident ? map : null));
 	}
 
 	function showConstructionMarkers() {
-		hideAllMarkers();
-		activeMode = 'construction';
+		if (activatedMarkers.construction) {
+			hideAllMarkers();
+			activatedMarkers.construction = false;
+			activeMode = null;
+		} else {
+			//hideAllMarkers();
+			activeMode = 'construction';
+			activatedMarkers.construction = true;
 
-		// Show construction markers
-		constructionMarkers.forEach(function(marker) {
-			marker.setMap(map);
-		});
+			constructionMarkers.forEach(function(marker) {
+				marker.setMap(map);
+			});
+		}
+
+		activatedMarkers.construction = !activatedMarkers.construction;
+		constructionMarkers.forEach(marker => marker.setMap(activatedMarkers.construction ? map : null));
 	}
 
 	function showCctvMarkers() {
-		hideAllMarkers();
-		activeMode = 'cctv';
-
-		// Show CCTV markers
-		if (!currentCctvManager) {
-			currentCctvManager = new CctvMarkerManager(map, cctvInfo, cctvMarkerImage);
+		if (activatedMarkers.cctv) {
+			hideAllMarkers();
+			activatedMarkers.cctv = false;
+			activeMode = null;
 		} else {
-			currentCctvManager.updateMarkers();
+			//hideAllMarkers();
+			activeMode = 'cctv';
+			activatedMarkers.cctv = true;
+
+			if (!currentCctvManager) {
+				currentCctvManager = new CctvMarkerManager(map, cctvInfo, cctvMarkerImage);
+			} else {
+				currentCctvManager.updateMarkers();
+			}
+		}
+
+		activatedMarkers.cctv = !activatedMarkers.cctv;
+
+		if (activatedMarkers.cctv) {
+			if (!currentCctvManager) {
+				currentCctvManager = new CctvMarkerManager(map, cctvInfo, cctvMarkerImage);
+			} else {
+				currentCctvManager.updateMarkers();
+			}
+		} else {
+			currentCctvManager.clearMarkers();
 		}
 	}
 
 	function showFreezingMarkers() {
-		hideAllMarkers();
-		activeMode = 'freezing';
-
-		// Show freezing markers
-		if (!currentFreezingManager) {
-			currentFreezingManager = new FreezingMarkerManager(map, freezingInfo, freezingMarkerImage);
+		if (activatedMarkers.freezing) {
+			hideAllMarkers();
+			activatedMarkers.freezing = false;
+			activeMode = null;
 		} else {
-			currentFreezingManager.updateMarkers();
+			//hideAllMarkers();
+			activeMode = 'freezing';
+			activatedMarkers.freezing = true;
+
+			if (!currentFreezingManager) {
+				currentFreezingManager = new FreezingMarkerManager(map, freezingInfo, freezingMarkerImage);
+			} else {
+				currentFreezingManager.updateMarkers();
+			}
 		}
-	}
-
-	// 사고 마커만 지도에 표시하는 함수
-	/*function showAccidentMarkers() {
-		// console.log(accidentButton + "click");
-		if (currentOverlay) {
-			currentOverlay.setMap(null);
-			currentOverlay = null;
+		
+		activatedMarkers.freezing = !activatedMarkers.freezing;
+		
+		if (activatedMarkers.freezing) {
+			if (!currentFreezingManager) {
+				currentFreezingManager = new FreezingMarkerManager(map, freezingInfo, freezingMarkerImage);
+			} else {
+				currentFreezingManager.updateMarkers();
+			}
+		} else {
+			currentFreezingManager.clearMarkers();
 		}
-
-		// 모든 freezing 마커 직접 제거 (안전장치)
-		freezingMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-		//freezingMarkers = []; // 배열 초기화
-
-		// 모든 CCTV 마커 직접 제거 (안전장치)
-		cctvMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-		//cctvMarkers = []; // 배열 초기화
-
-		constructionMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-
-		accidentMarkers.forEach(function(marker) {
-			marker.setMap(map);
-		});
-	}
-
-	// 공사 마커만 지도에 표시하는 함수
-	function showConstructionMarkers() {
-		// console.log(constructionButton + "click");
-		if (currentOverlay) {
-			currentOverlay.setMap(null);
-			currentOverlay = null;
-		}
-
-		// 모든 freezing 마커 직접 제거 (안전장치)
-		freezingMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-		//freezingMarkers = []; // 배열 초기화
-
-		// 모든 CCTV 마커 직접 제거 (안전장치)
-		cctvMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-		//cctvMarkers = []; // 배열 초기화
-
-		accidentMarkers.forEach(function(marker) {
-			marker.setMap(null);
-		});
-
-		constructionMarkers.forEach(function(marker) {
-			marker.setMap(map);
-		});
 	}*/
+
+	// 버튼 클릭 이벤트 공통 처리
+	document.querySelectorAll(".typeBtn").forEach(button => {
+		button.addEventListener("click", function() {
+			const type = this.dataset.type; // data-type 가져오기
+			activatedMarkers[type] = !activatedMarkers[type]; // 상태 토글
+
+			// 마커 온오프
+			switch (type) {
+				case "accident":
+					accidentMarkers.forEach(marker => marker.setMap(activatedMarkers[type] ? map : null));
+					document.querySelector("title")
+					break;
+				case "construction":
+					constructionMarkers.forEach(marker => marker.setMap(activatedMarkers[type] ? map : null));
+					const container = document.querySelector("#constructionDataContainer");
+
+					if (activatedMarkers[type]) {
+						container.innerHTML = "";
+
+						constructionList.forEach(function(construction) {
+							const constructionInfo = document.createElement("div");
+							constructionInfo.classList.add("construction-item");
+							constructionInfo.innerHTML = `
+										<div class="alert alert-warning">
+											<h5>${construction.road_title}</h5>
+											<p>위치: ${construction.road_addr}</p>
+											
+										</div>
+									`;
+							console.log(constructionInfo);
+							container.appendChild(constructionInfo);
+						});
+					} else {
+						container.innerHTML = "";
+					}
+
+
+					break;
+				case "cctv":
+					if (activatedMarkers[type]) {
+						if (!currentCctvManager) {
+							currentCctvManager = new CctvMarkerManager(map, cctvInfo, cctvMarkerImage);
+						} else {
+							currentCctvManager.updateMarkers();
+						}
+					} else {
+						currentCctvManager.clearMarkers();
+					}
+					break;
+				case "freezing":
+					if (activatedMarkers[type]) {
+						if (!currentFreezingManager) {
+							currentFreezingManager = new FreezingMarkerManager(map, freezingInfo, freezingMarkerImage);
+						} else {
+							currentFreezingManager.updateMarkers();
+						}
+					} else {
+						currentFreezingManager.clearMarkers();
+					}
+					break;
+			}
+
+			// 버튼과 아이콘의 스타일 업데이트
+			this.classList.toggle("active", activatedMarkers[type]);
+			const icon = this.querySelector(".icon");
+
+			if (icon) {
+				icon.classList.toggle("active", activatedMarkers[type]);
+			}
+		});
+	});
 
 	map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 });

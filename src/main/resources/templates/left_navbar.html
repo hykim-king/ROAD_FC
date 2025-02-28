@@ -7,39 +7,58 @@
 		<div class="row" style="--bs-gutter-x:0; width: 100%;">
 			<!-- g-2 : 버튼 간격 조정 -->
 			<div class="col-4" style="height:70px;">
-				<button class="btn btn-light w-100 h-100 py-3 border-end border-bottom border-opacity-25"
-					id="accidentBtn" style="border-radius:0;">
-					<i class="bi bi-exclamation-triangle-fill"></i> 사고
+				<button class="typeBtn btn btn-light w-100 h-100 py-3 border-end border-bottom border-opacity-25"
+					id="accidentBtn" style="border-radius:0;" data-type="accident">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-car-burst fa-2x"></i>
+						<span class="iconText">사고</span>
+					</div>
+					
 				</button>
 			</div>
 			<div class="col-4">
-				<button class="btn btn-light w-100 h-100 py-3 border-bottom border-opacity-25"
-					id="constructionBtn" style="border-radius:0;">
-					<i class="bi bi-traffic-cone"></i> 작업
+				<button class="typeBtn btn btn-light w-100 h-100 py-3 border-bottom border-opacity-25"
+					id="constructionBtn" style="border-radius:0;" data-type="construction">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-person-digging fa-2x"></i>
+						<span class="iconText">작업</span>
+					</div>
 				</button>
 			</div>
 			<div class="col-4">
-				<button class="btn btn-light w-100 h-100 py-3 border-start border-bottom border-opacity-25"
-					id="weatherBtn" style="border-radius:0;">
-					<i class="bi bi-tools"></i> 날씨
+				<button class="typeBtn btn btn-light w-100 h-100 py-3 border-start border-bottom border-opacity-25"
+					id="weatherBtn" style="border-radius:0;" data-type="weather">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-cloud-sun fa-2x"></i>
+						<span class="iconText">날씨</span>
+					</div>
 				</button>
 			</div>
 			<div class="col-4" style="height:70px;">
-				<button class="btn btn-light w-100 h-100 py-3 border-end border-opacity-25"
-					id="cctvBtn" style="border-radius:0;">
-					<i class="bi bi-camera-video"></i> CCTV
+				<button class="typeBtn btn btn-light w-100 h-100 py-3 border-end border-opacity-25"
+					id="cctvBtn" style="border-radius:0;" data-type="cctv">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-video fa-2x"></i>
+						<span class="iconText">CCTV</span>
+					</div>
 				</button>
 			</div>
 			<div class="col-4">
-				<button class="btn btn-light w-100 h-100 py-3"
-					id="freezingBtn" style="border-radius:0;">
-					<i class="bi bi-signpost-split"></i> 결빙취약
+				<button class="typeBtn btn btn-light w-100 h-100 py-3"
+					id="freezingBtn" style="border-radius:0;" data-type="freezing">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-snowflake fa-2x"></i>
+						<span class="iconText">결빙</span>
+					</div>
 				</button>
 			</div>
 			<div class="col-4">
-				<button class="btn btn-light w-100 h-100 py-3 border-start border-opacity-25"
-					id="tunnelBtn" style="border-radius:0;">
-					<i class="bi bi-cloud-sun"></i> 터널
+				<button class="typeBtn btn btn-light w-100 h-100 py-3 border-start border-opacity-25"
+					id="tunnelBtn" style="border-radius:0;" data-type="tunnel">
+					<div class="iconDiv d-flex align-items-center justify-content-between">
+						<i class="icon fa-solid fa-car-tunnel fa-2x"></i>
+						<span class="iconText">터널</span>
+					</div>
 				</button>
 			</div>
 		</div>
@@ -48,43 +67,23 @@
 	<!-- 🏷 선택한 항목에 대한 정보 표시 -->
 	<div class="tab-content flex-grow-1 overflow-auto mt-3 text-center"
 		id="trafficTabContent">
+		<div id="constructionDataContainer" class="construction-data mt-3">
+			
+		</div>
+		<ul id="constructionList" style="display: none;">
+			<li th:each="construction: ${construnctionList}"
+					th:data-title="${construction.road_title}"
+					th:data-location="${construction.road_addr}"
+					th:data-duration="${construction.road_start} + ' ~ ' + ${construction.road_end}">
+			</li>
+		</ul>
 
 		<!-- 🚧 사고 정보 -->
 		<div class="tab-pane fade show active" id="accident">
-			<h4>서해안선(서울방향)</h4>
+			<h4 class="title">서해안선(서울방향)</h4>
 			<button class="btn btn-light mx-2 py-3 border border-opacity-25" style="width: 95%; height:120px;">
 				정체 | 차량증가/정체
 			</button>
-		</div>
-
-		<!-- 🚗 정체 정보 -->
-		<div class="tab-pane fade" id="traffic">
-			<h4>서해안선(서울방향)</h4>
-			<p>정체 구간 정보가 여기에 표시됩니다.</p>
-		</div>
-
-		<!-- 🏗 작업 정보 -->
-		<div class="tab-pane fade" id="work">
-			<h4>서해안선(서울방향)</h4>
-			<p>작업 구간 정보가 여기에 표시됩니다.</p>
-		</div>
-
-		<!-- 🎥 CCTV 정보 -->
-		<div class="tab-pane fade" id="cctv">
-			<h4>서해안선(서울방향)</h4>
-			<p>교통 CCTV 정보가 여기에 표시됩니다.</p>
-		</div>
-
-		<!-- 🛣 도로 상태 -->
-		<div class="tab-pane fade" id="road">
-			<h4>서해안선(서울방향)</h4>
-			<p>현재 도로 상태 정보가 여기에 표시됩니다.</p>
-		</div>
-
-		<!-- ☁ 날씨 정보 -->
-		<div class="tab-pane fade" id="weather">
-			<h4>서해안선(서울방향)</h4>
-			<p>현재 날씨 정보가 여기에 표시됩니다.</p>
 		</div>
 
 	</div>
