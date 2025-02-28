@@ -1,0 +1,38 @@
+2025-02-18 17:35:54.319  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : Starting UserJUnit using Java 21.0.5 with PID 4256 (started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-18 17:35:54.345  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:35:54.956  INFO 4256 --- [project_oracle] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:35:54.986  INFO 4256 --- [project_oracle] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 1 JPA repository interface.
+2025-02-18 17:35:55.437  INFO 4256 --- [project_oracle] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:35:55.489  INFO 4256 --- [project_oracle] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-18 17:35:55.519  INFO 4256 --- [project_oracle] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:35:55.831  INFO 4256 --- [project_oracle] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:35:55.855  INFO 4256 --- [project_oracle] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-18 17:35:56.176  INFO 4256 --- [project_oracle] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@74830d73
+2025-02-18 17:35:56.178  INFO 4256 --- [project_oracle] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-18 17:35:56.261  WARN 4256 --- [project_oracle] [main] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:35:56.263  WARN 4256 --- [project_oracle] [main] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:35:56.752  INFO 4256 --- [project_oracle] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:36:11.485  INFO 4256 --- [project_oracle] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:36:11.495  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:36:11.496  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:36:11.496  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:36:11.697  INFO 4256 --- [project_oracle] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-18 17:36:11.999  WARN 4256 --- [project_oracle] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:36:12.028  INFO 4256 --- [project_oracle] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:36:12.118  INFO 4256 --- [project_oracle] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:36:12.683  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : Started UserJUnit in 18.603 seconds (process running for 19.466)
+2025-02-18 17:36:13.166  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.166  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : setUp()
+2025-02-18 17:36:13.166  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.168  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.168  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : doSave()
+2025-02-18 17:36:13.168  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.261  WARN 4256 --- [project_oracle] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1400, SQLState: 23000
+2025-02-18 17:36:13.261 ERROR 4256 --- [project_oracle] [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01400: NULL을 ("SCOTT"."MEMBER"."USER_ID") 안에 삽입할 수 없습니다
+
+2025-02-18 17:36:13.269  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.270  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : tearDown()
+2025-02-18 17:36:13.270  INFO 4256 --- [project_oracle] [main] com.pcwk.ehr.UserJUnit                   : --------------------------------
+2025-02-18 17:36:13.309  INFO 4256 --- [project_oracle] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:36:13.310  INFO 4256 --- [project_oracle] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-18 17:36:13.317  INFO 4256 --- [project_oracle] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

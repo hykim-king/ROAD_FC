@@ -1,0 +1,106 @@
+
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+      <meta charset="UTF-8">
+      <div layout:fragment="content" class="container my-3">
+<title>안전안내영상</title>
+</head>
+
+<title>Video ID List</title>
+</head>
+<body>
+    
+<style>
+    /* 5열을 위한 flexbox 스타일 */
+    .video-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .video-card {
+        width: calc(100% / 5 - 10px); /* 5열 균등 배치 */
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column; /* 내부 요소를 세로로 정렬 */
+    }
+    .card {
+        flex-grow: 1; /* 모든 카드 높이를 동일하게 맞춤 */
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body {
+        flex-grow: 1; /* 카드 내부 크기 자동 확장 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* 제목, 조회수 정렬 */
+    }
+    .card-title {
+        min-height: 50px; /* 제목 높이를 통일 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    @media (max-width: 1200px) { .video-card { width: calc(100% / 4 - 10px); } } /* 4열 */
+    @media (max-width: 992px) { .video-card { width: calc(100% / 3 - 10px); } } /* 3열 */
+    @media (max-width: 768px) { .video-card { width: calc(100% / 2 - 10px); } } /* 2열 */
+    @media (max-width: 576px) { .video-card { width: 100%; } } /* 1열 */
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">교육/예방 자료</h1>
+
+    <div class="video-container">
+        <div class="video-card" th:each="videoInfo : ${videoInfoList}">
+            <div class="card">
+                <a th:href="@{/video/detail/{videoId}(videoId=${videoInfo.video.videoId})}">
+                    <img class="card-img-top" th:src="${videoInfo.thumbnailUrl}" th:alt="${videoInfo.video.title}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${videoInfo.video.title}">비디오 제목</h5>
+                        <p class="card-text text-muted text-center">
+                            <i class="bi bi-eye"></i>
+                            <span th:text="${videoInfo.video.viewCount != null ? videoInfo.video.viewCount : 0}">0</span> 회
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            
+   <!-- paging start -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                <a class="page-link" href="#" th:onclick="goToPage(0)"><i class="bi bi-chevron-double-left"></i></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                <a class="page-link" href="#" th:onclick="goToPage([[${paging.number - 1}]])">이전</a>
+            </li>
+            <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" 
+                th:if="${page >= 0 && page < paging.totalPages}"
+                th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                <a th:text="${page + 1}" class="page-link" href="#" th:onclick="goToPage([[${page}]])"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                <a class="page-link" href="#" th:onclick="goToPage([[${paging.number + 1}]])">다음</a>
+            </li>
+            <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                <a class="page-link" href="#" th:onclick="goToPage([[${paging.totalPages - 1}]])"><i class="bi bi-chevron-double-right"></i></a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- 페이지 이동을 위한 JavaScript 함수 -->
+    <script>
+        function goToPage(page) {
+            let url = new URL(window.location.href);
+            url.searchParams.set('page', page);
+            window.location.href = url.toString();
+        }
+    </script>
+</body>
+</html>

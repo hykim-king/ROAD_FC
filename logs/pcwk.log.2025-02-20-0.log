@@ -1,0 +1,530 @@
+2025-02-20 16:42:56.162  INFO 18268 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 18268 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 16:42:56.171  INFO 18268 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 16:42:56.323  INFO 18268 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 16:42:56.324  INFO 18268 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 16:42:56.324  INFO 18268 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 16:42:56.869  INFO 18268 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 16:42:56.913  INFO 18268 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2025-02-20 16:42:57.245  INFO 18268 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 16:42:57.254  INFO 18268 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 16:42:57.254  INFO 18268 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 16:42:57.278  INFO 18268 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 16:42:57.278  INFO 18268 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 953 ms
+2025-02-20 16:42:57.390  INFO 18268 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 16:42:57.414  INFO 18268 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 16:42:57.430  INFO 18268 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 16:42:57.636  INFO 18268 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 16:42:57.650  INFO 18268 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 16:42:57.913  INFO 18268 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@4071c8f1
+2025-02-20 16:42:57.914  INFO 18268 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 16:42:57.989  WARN 18268 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 16:42:57.991  WARN 18268 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 16:42:58.480  INFO 18268 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 16:43:13.526  INFO 18268 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:43:13.683  WARN 18268 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+2025-02-20 16:43:13.683  INFO 18268 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:43:13.704  INFO 18268 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-20 16:43:13.718  INFO 18268 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-20 16:43:13.718  INFO 18268 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-20 16:43:13.730  INFO 18268 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-20 16:43:13.745 ERROR 18268 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:469) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:99) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:82) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:69) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:249) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:214) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:197) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:1) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:290) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:296) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 33 common frames omitted
+
+2025-02-20 16:43:28.976  INFO 11532 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 11532 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 16:43:28.977  INFO 11532 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 16:43:29.106  INFO 11532 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 16:43:29.107  INFO 11532 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 16:43:29.107  INFO 11532 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 16:43:29.433  INFO 11532 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 16:43:29.460  INFO 11532 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 2 JPA repository interfaces.
+2025-02-20 16:43:29.758  INFO 11532 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 16:43:29.766  INFO 11532 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 16:43:29.766  INFO 11532 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 16:43:29.794  INFO 11532 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 16:43:29.794  INFO 11532 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 687 ms
+2025-02-20 16:43:29.903  INFO 11532 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 16:43:29.931  INFO 11532 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 16:43:29.947  INFO 11532 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 16:43:30.087  INFO 11532 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 16:43:30.101  INFO 11532 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 16:43:30.246  INFO 11532 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@4354124d
+2025-02-20 16:43:30.247  INFO 11532 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 16:43:30.314  WARN 11532 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 16:43:30.317  WARN 11532 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 16:43:30.775  INFO 11532 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 16:43:39.537  INFO 19064 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 19064 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 16:43:39.539  INFO 19064 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 16:43:39.671  INFO 19064 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 16:43:39.671  INFO 19064 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 16:43:39.671  INFO 19064 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 16:43:39.992  INFO 19064 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 16:43:40.021  INFO 19064 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.
+2025-02-20 16:43:40.320  INFO 19064 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 16:43:40.328  INFO 19064 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 16:43:40.328  INFO 19064 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 16:43:40.353  INFO 19064 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 16:43:40.353  INFO 19064 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 681 ms
+2025-02-20 16:43:40.452  INFO 19064 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 16:43:40.476  INFO 19064 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 16:43:40.492  INFO 19064 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 16:43:40.640  INFO 19064 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 16:43:40.654  INFO 19064 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 16:43:40.823  INFO 19064 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@1765f1ce
+2025-02-20 16:43:40.824  INFO 19064 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 16:43:40.894  WARN 19064 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 16:43:40.896  WARN 19064 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 16:43:41.345  INFO 19064 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 16:43:55.166  INFO 19064 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:43:55.248  WARN 19064 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+2025-02-20 16:43:55.248  INFO 19064 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:43:55.249  INFO 19064 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-20 16:43:55.255  INFO 19064 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-20 16:43:55.256  INFO 19064 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-20 16:43:55.262  INFO 19064 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-20 16:43:55.270 ERROR 19064 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:469) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:99) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:82) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:69) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:249) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:214) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:197) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:1) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:290) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:296) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 33 common frames omitted
+
+2025-02-20 16:45:46.717  INFO 12564 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 12564 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 16:45:46.718  INFO 12564 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 16:45:46.765  INFO 9304 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 9304 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 16:45:46.766  INFO 9304 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 16:45:46.866  INFO 12564 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 16:45:46.866  INFO 12564 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 16:45:46.866  INFO 12564 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 16:45:46.916  INFO 9304 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 16:45:46.917  INFO 9304 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 16:45:46.917  INFO 9304 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 16:45:47.259  INFO 12564 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 16:45:47.281  INFO 9304 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 16:45:47.287  INFO 12564 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.
+2025-02-20 16:45:47.310  INFO 9304 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 2 JPA repository interfaces.
+2025-02-20 16:45:47.617  INFO 12564 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 16:45:47.625  INFO 12564 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 16:45:47.626  INFO 12564 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 16:45:47.642  INFO 9304 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 16:45:47.650  INFO 9304 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 16:45:47.650  INFO 9304 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 16:45:47.653  INFO 12564 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 16:45:47.653  INFO 12564 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 787 ms
+2025-02-20 16:45:47.677  INFO 9304 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 16:45:47.677  INFO 9304 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 760 ms
+2025-02-20 16:45:47.769  INFO 12564 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 16:45:47.798  INFO 9304 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 16:45:47.801  INFO 12564 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 16:45:47.819  INFO 12564 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 16:45:47.826  INFO 9304 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 16:45:47.844  INFO 9304 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 16:45:47.982  INFO 12564 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 16:45:47.998  INFO 12564 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 16:45:48.007  INFO 9304 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 16:45:48.026  INFO 9304 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 16:45:48.236  INFO 12564 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@3e637e23
+2025-02-20 16:45:48.236  INFO 9304 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@6db6b98
+2025-02-20 16:45:48.238  INFO 9304 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 16:45:48.238  INFO 12564 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 16:45:48.331  WARN 9304 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 16:45:48.334  WARN 9304 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 16:45:48.336  WARN 12564 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 16:45:48.338  WARN 12564 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 16:45:48.914  INFO 12564 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 16:45:48.914  INFO 9304 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 16:46:02.125  INFO 12564 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:46:02.135  INFO 9304 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:46:02.226  WARN 9304 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+2025-02-20 16:46:02.227  INFO 9304 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:46:02.227  WARN 12564 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+2025-02-20 16:46:02.227  INFO 12564 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 16:46:02.228  INFO 9304 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-20 16:46:02.228  INFO 12564 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-20 16:46:02.235  INFO 9304 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-20 16:46:02.236  INFO 12564 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-20 16:46:02.237  INFO 9304 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-20 16:46:02.238  INFO 12564 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-20 16:46:02.244  INFO 12564 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-20 16:46:02.244  INFO 9304 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-20 16:46:02.254 ERROR 12564 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:469) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:99) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:82) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:69) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:249) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:214) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:197) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:1) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:290) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:296) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 33 common frames omitted
+
+2025-02-20 16:46:02.255 ERROR 9304 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accidentRepository' defined in com.pcwk.ehr.LocalAccident.AccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.pcwk.ehr.LocalAccident.AccidentDataDTO
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:469) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:99) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:82) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:69) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:249) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:214) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:197) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:1) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:290) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:296) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 33 common frames omitted
+
+2025-02-20 17:38:38.025  INFO 16076 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 16076 (D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main started by acorn4 in D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle)
+2025-02-20 17:38:38.026  INFO 16076 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-20 17:38:38.153  INFO 16076 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\acorn4\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/acorn4/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-20 17:38:38.153  INFO 16076 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-20 17:38:38.153  INFO 16076 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-20 17:38:38.489  INFO 16076 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-20 17:38:38.520  INFO 16076 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 2 JPA repository interfaces.
+2025-02-20 17:38:38.809  INFO 16076 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-20 17:38:38.817  INFO 16076 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-20 17:38:38.817  INFO 16076 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-20 17:38:38.845  INFO 16076 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-20 17:38:38.845  INFO 16076 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 691 ms
+2025-02-20 17:38:38.958  INFO 16076 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-20 17:38:38.983  INFO 16076 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-20 17:38:38.999  INFO 16076 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-20 17:38:39.157  INFO 16076 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-20 17:38:39.173  INFO 16076 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-20 17:38:39.364  INFO 16076 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@3ba4a1a4
+2025-02-20 17:38:39.366  INFO 16076 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-20 17:38:39.443  WARN 16076 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-20 17:38:39.446  WARN 16076 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-20 17:38:39.925  INFO 16076 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-20 17:38:55.402  INFO 16076 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 17:38:55.601  WARN 16076 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'localAccidentService' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\LocalAccidentService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'localAccidentRepository' defined in com.pcwk.ehr.LocalAccident.LocalAccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); Reason: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+2025-02-20 17:38:55.601  INFO 16076 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-20 17:38:55.603  INFO 16076 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-20 17:38:55.609  INFO 16076 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-20 17:38:55.611  INFO 16076 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-20 17:38:55.616  INFO 16076 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-20 17:38:55.625 ERROR 16076 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accidentController' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\AccidentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'localAccidentService' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\LocalAccidentService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'localAccidentRepository' defined in com.pcwk.ehr.LocalAccident.LocalAccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); Reason: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'localAccidentService' defined in file [D:\JAP_20240909\04_SPRING\WORKSPACE\project_oracle\bin\main\com\pcwk\ehr\LocalAccident\LocalAccidentService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'localAccidentRepository' defined in com.pcwk.ehr.LocalAccident.LocalAccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); Reason: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'localAccidentRepository' defined in com.pcwk.ehr.LocalAccident.LocalAccidentRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Could not create query for public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); Reason: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1448) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1358) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 36 common frames omitted
+Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); Reason: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:119) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:103) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:92) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at java.base/java.util.Optional.map(Optional.java:260) ~[na:na]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:92) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:357) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:290) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.util.Lazy.get(Lazy.java:113) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:296) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 47 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Failed to create query for method public abstract java.util.List com.pcwk.ehr.LocalAccident.LocalAccidentRepository.findDistinctLaMajorRegion(); No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:107) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:124) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:258) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:95) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:115) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	... 59 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'findDistinctLaMajorRegion' found for type 'LocalAccident'
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:94) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:455) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:431) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:384) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330) ~[na:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:366) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:344) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:259) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[na:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:260) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:389) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[na:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:390) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:100) ~[spring-data-commons-3.3.7.jar:3.3.7]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:101) ~[spring-data-jpa-3.3.7.jar:3.3.7]
+	... 63 common frames omitted
+

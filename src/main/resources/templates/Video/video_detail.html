@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${video.title}">비디오 제목</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .video-frame {
+            width: 800px; /* 원하는 크기로 조정 가능 */
+            height: 450px; /* 16:9 비율 유지 */
+            border-radius: 10px;
+        }
+        .video-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: black; /* 검은색 제목 */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container mt-4">
+        <!-- 🔙 목록으로 돌아가기 -->
+        <a href="/video/list" class="text-muted text-decoration-none mb-3 d-block">
+            ← 목록으로 돌아가기
+        </a>
+
+        <!-- 🎬 영상 제목 (위로 이동) -->
+        <div class="video-title" th:text="${video.title}">영상 제목</div>
+
+        <!-- 📺 비디오 플레이어 -->
+        <div class="video-container">
+            <iframe th:src="${embedUrl}" frameborder="0" allowfullscreen class="video-frame"></iframe>
+        </div>
+
+        <!-- 📌 비디오 정보 -->
+        <div class="card shadow-sm mt-3 p-3">
+            <div class="d-flex text-muted small">
+                <span class="me-3"><span th:text="${video.viewCount}">0</span>회 조회</span>
+                <span th:text="${#temporals.format(video.regDate, 'yyyy.MM.dd')}">2023.10.15</span>
+            </div>
+
+            <p class="mt-2 text-secondary" th:if="${video.description != null}" th:text="${video.description}"></p>
+            <p class="mt-2 text-danger fw-bold" th:if="${video.description == null}">
+                ⚠ 비디오 설명이 존재하지 않습니다.
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

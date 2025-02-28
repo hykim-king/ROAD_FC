@@ -1,0 +1,85 @@
+<form id="filterForm">
+    <label>연도 선택:</label>
+    <select id="yearSelect">
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+    </select>
+
+    <label>사고 유형 선택:</label>
+    <select id="accidentType">
+        <option value="전체">전체</option>
+        <option value="사망">사망</option>
+        <option value="부상">부상</option>
+    </select>
+
+    <button type="button" onclick="filterData()">검색</button>
+</form>
+<canvas id="accidentChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let accidentChart = null;
+
+    function loadChart(data) {
+        const ctx = document.getElementById('accidentChart').getContext('2d');
+
+        if (accidentChart) {
+            accidentChart.destroy();
+        }
+
+        accidentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.years,  // 연도 목록
+                datasets: [
+                    {
+                        label: '사망',
+                        data: data.deaths,  // 사망 데이터
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '부상',
+                        data: data.injuries,  // 부상 데이터
+                        type: 'line',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+<table id="accidentTable" border="1">
+    <thead>
+        <tr>
+            <th>연도</th>
+            <th>사고 건수</th>
+            <th>사망</th>
+            <th>부상</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- 데이터가 여기에 동적으로 추가됨 -->
+    </tbody>
+</table>
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#accidentTable').DataTable();
+    });
+</script>
