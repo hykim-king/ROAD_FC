@@ -13,7 +13,7 @@ public class FreezingService {
 	@Autowired
 	FreezingRepository freezingRepository;
 	
-	public List<Freezing> list(){
+	public List<Freezing> freezingList(){
 		return freezingRepository.findAll();
 	}
 }

@@ -12,6 +12,7 @@
 	<div id="map" style="width: 100%; height: 800px;"></div>
 	<button onclick="cctvMode()">CCTV</button>
 	<button onclick="freezingMode()">결빙 취약 지점</button>
+	<button onclick="tunnelMode()">터널</button>
 
 	<!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
 	<script th:inline="javascript">
@@ -57,6 +58,15 @@
 	   var freezingMarkerImage = new kakao.maps.MarkerImage(freezingImageSrc, imageSize);
 	   var freezingInfo = /*[[${freezingInfo}]]*/ [];
 	   //---------------Freezing 관련--------------------
+	   
+	   //---------------터널 관련--------------------
+	   var currentTunnelManager = null;
+	   var tunnelMarkers = [];
+	   var tunnelImageSrc = "/img/tunnel-icon.png";
+	   var tunnelMarkerImage = new kakao.maps.MarkerImage(tunnelImageSrc, imageSize);
+	   var tunnelInfo = /*[[${tunnelInfo}]]*/ [];
+	   
+	   //---------------터널 관련--------------------
 	   
 //cctv 마커들을 그룹화하기 위한 클래스 (zoom out할 때 대표 마커 설정)	   
 class CctvMarkerGroup {
@@ -370,7 +380,7 @@ class CctvMarkerManager {
                 </div> 
                 <div class="desc">                                           
                 	<p>국가교통정보센터(LIVE) 제공</p>
-                    <div class="close" onclick="closeOverlay()" title="닫기">닫기</div> 
+                    <div class="close" onclick="closeCctvOverlay()" title="닫기">닫기</div> 
                 </div> 
             </div> 
         </div>`;
@@ -382,13 +392,13 @@ class CctvMarkerManager {
             map: this.map
         });
 
-	        const videoElement = overlayContent.querySelector('#cctv-video-player');
-	        	
-	            if (Hls.isSupported()) {
-	                var hls = new Hls();	               	                  
-	                hls.loadSource(cctvData.cctv_url);
-	                hls.attachMedia(videoElement);                               
-	            }	        
+       const videoElement = overlayContent.querySelector('#cctv-video-player');
+       	
+           if (Hls.isSupported()) {
+               var hls = new Hls();	               	                  
+               hls.loadSource(cctvData.cctv_url);
+               hls.attachMedia(videoElement);                               
+           }	        
         
         // 닫기 버튼 이벤트 처리
         const closeBtn = overlayContent.querySelector('.close');
@@ -422,7 +432,7 @@ class CctvMarkerManager {
 	}
 
 	// closeOverlay 전역 함수 정의 (오버레이 닫기 버튼용)
-	function closeOverlay() {
+	function closeCctvOverlay() {
 	    if (window.cctvMarkerManager && window.cctvMarkerManager.overlay) {
 	        window.cctvMarkerManager.overlay.setMap(null);
 	    }
@@ -616,11 +626,329 @@ class FreezingMarkerManager {
     			   }
     		   });
     	   }
-       }
-       
+}
+class TunnelMarkerGroup{
+	constructor(tunnelMarkers){
+		this.tunnelMarkers = tunnelMarkers;
+		this.center = this.calculateCenter();
+		this.representativeMarker = null;
+	}
+	calculateCenter(){
+		
+		if(this.tunnelMarkers.length === 0) return null;
+		
+		let sumOfLats = 0;
+		let sumOfLongs = 0;
+		
+		const length = this.tunnelMarkers.length;
+		for(let i = 0; i < length; i++){
+			sumOfLats += this.tunnelMarkers[i].cctv_lat;
+			sumOfLongs += this.tunnelMarkers[i].cctv_lon;
+		}
+		
+		return {
+			lat: sumOfLats / length,
+			lon: sumOfLongs / length
+		};
+	}
+}
+class TunnelMarkerManager{
+	constructor(map, tunnelInfo, tunnelMarkerImage){
+		this.map = map;
+		this.tunnelInfo = tunnelInfo;
+		this.tunnelMarkerImage = tunnelMarkerImage;
+		
+		this.visibleMarkers = [];
+		this.groups = [];
+		this.content = "";
+		this.infoWindow = null;
+		this.overlay = null;
+		this.tunnelMarkers = [];
+		this.bindEvents();
+		
+		this.MAP_LEVELS = {
+            MAX_LEVEL: 13, // 가장 ZOOM OUT된 상태
+            MIN_LEVEL: 6   // 가장 ZOOM IN된 상태    			   
+        };
+		
+		this.GROUPING_DISTANCE_BY_LEVEL = {  
+            13: 0.5,     // 50km
+            12: 0.4,     // 40km
+            11: 0.2,     // 20km
+            10: 0.1,     // 10km	
+            9: 0.05,     // 5km
+            8: 0.02,     // 1km
+            7: 0.0001,   // 0.01km (10미터)  
+            6: 0.0001    // 0.01km (10미터) 
+      	};     
+	}
+	
+	createTunnelMarkers(){
+		if(this.tunnelMarkers.length > 0) return;
+		
+		for(let i = 0; i< this.tunnelInfo.length; i++){
+			const tunnel = this.tunnelInfo[i];
+			const marker = new kakao.maps.Marker({
+				position: new kakao.maps.LatLng(tunnel.cctv_lat, tunnel.cctv_lon),
+				image: this.tunnelMarkerImage,
+				map: null
+			});
+			this.tunnelMarkers.push(marker);
+		}
+	}
+	
+	setGroups(){
+		this.groups = [];
+		
+		const currentLevel = this.map.getLevel();
+		this.GROUPING_DISTANCE = this.GROUPING_DISTANCE_BY_LEVEL[currentLevel];
+		console.log(`currentLevel: ${currentLevel}`);
+        console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
+        
+        const bounds = this.map.getBounds();
+        const sw = bounds.getSouthWest();
+        const ne = bounds.getNorthEast();
+        
+        const visibleTunnelInfo = this.tunnelInfo.filter(tunnel =>{
+        	const lat = tunnel.cctv_lat;
+        	const lon = tunnel.cctv_lon;
+        	
+        	return lat >= sw.getLat() && lat <= ne.getLat() &&
+        		   lon >= sw.getLng() && lon <= ne.getLng();
+        });
+        
+        const gridMap = new Map();
+        const gridSize = this.GROUPING_DISTANCE;
+        
+        visibleTunnelInfo.forEach(tunnel => {
+        	const gridX = Math.floor(tunnel.cctv_lat / gridSize);
+        	const gridY = Math.floor(tunnel.cctv_lon / gridSize);
+        	const gridKey = `${gridX}, ${gridY}`;
+        	
+        	if(!gridMap.has(gridKey)){
+        		gridMap.set(gridKey, []);
+        	}
+        	gridMap.get(gridKey).push(tunnel);        	
+        });
+        
+        const processed = new Set();
+        
+        gridMap.forEach((markers,gridKey) =>{
+        	if(processed.has(gridKey)) return;
+        	
+        	const[gridX, gridY] = gridKey.split(',').map(Number);
+        	const group = [...markers];
+        	processed.add(gridKey);
+        	
+        	for(let dx = -1; dx <= 1; dx++){
+        		for (let dy = -1; dy <= 1; dy++){
+        			if(dx === 0 && dy === 0) continue;
+        			
+        			const neighborKey = `${gridX + dx},${gridY + dy}`;
+        			if(!gridMap.has(neighborKey) || processed.has(neighborKey)) continue;
+        			
+        			const neighborMarkers = gridMap.get(neighborKey);
+        			const shouldMerge = this.shouldMergeGrids(group, neighborMarkers);
+        			
+        			if(shouldMerge){
+        				group.push(...neighborMarkers);
+        				processed.add(neighborKey);
+        			}
+        		}
+        	}
+        	
+        	if(group.length > 0){
+        		this.groups.push(new TunnelMarkerGroup(group));
+        	}        		
+        });
+	}
+	shouldMergeGrids(group1, group2){
+		const center1 = this.calculateGroupCenter(group1);
+		const center2 = this.calculateGroupCenter(group2);
+		
+		const distance = this.calcDistance(
+				center1.lat, center1.lon,
+				center2.lat, center2.lon
+		);
+		
+		return distance <= this.GROUPING_DISTANCE;
+	}
+	
+	calculateGroupCenter(markers){
+		let sumLat = 0, sumLon = 0;
+		markers.forEach(marker =>{
+			sumLat += marker.cctv_lat;
+			sumLon += marker.cctv_lon;
+		});
+		
+		return {
+			lat: sumLat / markers.length,
+			lon: sumLon / markers.length
+		};
+	}
+	
+	calcDistance(lat1, lon1, lat2, lon2){
+		const latDiff = lat2 - lat1;
+		const lonDiff = lon2 - lon1;
+		return Math.sqrt(latDiff * latDiff + lonDiff * lonDiff);
+	}
+	
+	updateMarkers(){
+		this.createTunnelMarkers();
+		this.setGroups();
+		this.clearMarkers();
+		
+		const currentLevel = this.map.getLevel();
+		const bounds = this.map.getBounds();
+		
+		this.groups.forEach(group => {
+			if(!group.center) return;
+			
+			const centerPosition = new kakao.maps.LatLng(group.center.lat, group.center.lon);
+			
+			if(!bounds.contain(centerPosition)) return;
+			
+			if(currentLevel <= this.MAP_LEVELS.MIN_LEVEL +1){
+				group.tunnelMarkers.forEach(marker =>{
+					const markerPosition = new kakao.maps.LatLng(marker.cctv_lat, marker.cctv_lon);
+					this.addMarker(markerPosition, marker.cctv_name, marker, null);
+				});
+			} else{
+				this.addMarker(centerPosition, `${group.tunnelMarkers.length}개의 터널`, null, group);
+			}
+		});
+	}
+	
+	addMarker(position, title, tunnelData, group){
+		const marker = new kakao.maps.Marker({
+			position: position,
+			image: this.tunnelMarkerImage
+		});
+		
+		marker.tunnelData = tunnelData;
+		marker.group = group;
+		
+		kakao.maps.event.addListener(marker, 'click', () => {
+			const currentLevel = this.map.getLevel();
+			
+			if(currentLevel <= this.MAP_LEVELS.MIN_LEVEL + 1){
+				this.showMarkerOverlay(marker, tunnelData);
+			} else{
+				this.showMarkerInfo(marker, title);
+			}
+		});
+		
+		marker.setMap(this.map);
+		this.visibleMarkers.push(marker);
+	}
+	
+	clearMarkers(){
+		const length = this.visibleMarkers.length;
+		for(let i = 0; i <length; i++){
+			this.visibleMarkers[i].setMap(null);
+		}
+		this.visibleMarkers = [];
+		
+		if(this.infoWindow){
+			this.infoWindow.close();
+		}
+		
+		if(this.overlay){
+			this.overlay.setMap(null);
+		}
+	}
+	
+	showMarkerInfo(marker, title){
+		if(this.infoWindow){
+			this.infoWindow.close();
+		}
+		
+		if(this.overlay){
+			this.overlay.setMap(null);
+		}
+		
+		this.infoWindow = new kakao.maps.InfoWindow({
+			content: `<div style="padding:5px;">${title}</div>`
+		});
+		this.infoWindow.open(this.map, marker);
+	}
+	
+	showMarkerOverlay(marker, tunnelData){
+		if(this.infoWindow){
+			this.infoWindow.close();
+		}
+		
+		if(this.overlay){
+			this.overlay.setMap(null);
+		}
+		
+		const overlayContent = document.createElement('div');
+		
+		overlayContent.innerHTML = `
+	        <div class="info"> 
+	            <div class="title"> 
+	                ${tunnelData.cctv_name}                 
+	            </div>
+	            <div class="body"> 
+	                <div class="tunnelVideo">
+	                    <video id="tunnel-video-player" autoplay muted width="320"></video>
+	                </div> 
+	                <div class="desc">                                           
+	                	<p>국가교통정보센터(LIVE) 제공</p>
+	                    <div class="close" onclick="closeTunnelOverlay()" title="닫기">닫기</div> 
+	                </div> 
+	            </div> 
+	        </div>`;
+	        
+	        this.overlay = new kakao.maps.CustomOverlay({
+	        	position: marker.getPosition(),
+	        	content: overlayContent,
+	        	map: this.map
+	        });
+	        
+	        const videoElement = overlayContent.querySelector('#tunnel-video-player');
+	       	
+	           if (Hls.isSupported()) {
+	               var hls = new Hls();	               	                  
+	               hls.loadSource(tunnelData.cctv_url);
+	               hls.attachMedia(videoElement);                               
+	           }
+	           
+            const closeBtn = overlayContent.querySelector('.close');
+	           if (closeBtn) {
+	               closeBtn.onclick = () => {
+	                   this.overlay.setMap(null);
+	               };
+	           }
+	}
+	
+	bindEvents(){
+		kakao.maps.event.addListener(this.map, 'zoom_changed', () => {
+			if(window.activeMode !== 'tunnel') return;
+			this.updateMarkers();
+		});
+		
+		kakao.maps.event.addListener(this.map, 'idle', () => {
+			if(window.activeMode !== 'tunnel') return;
+			this.updateMarkers();
+		});
+	}
+	
+	refreshMap(){
+		this.clearMarkers();
+		this.updateMarkers();
+	}
+}
+	function closeTunnelOverlay(){
+		if(window.tunnelMarkerManager && window.tunnelMarkerManager.overlay){
+			window.tunnelMarkerManager.overlay.setMap(null);
+		}
+	}
+ 
+      
        function cctvMode(){   
     		// 모드 상태 업데이트
-    	    activeMode = 'cctv';
+    	   window.activeMode = 'cctv';
     	   // 결빙 마커 관리자가 존재한다면 모든 마커 제거
     	    if (currentFreezingManager) {
     	        currentFreezingManager.clearMarkers();
@@ -636,6 +964,18 @@ class FreezingMarkerManager {
     	    });
     	    freezingMarkers = []; // 배열 초기화
     	    
+    	    if(currentTunnelManager){
+    	    	currentTunnelManager.clearMarkers();
+    	    }
+    	    
+    	    if(overlay) overlay.setMap(null);
+    	    if(infoWindow) infoWindow.close();
+    	    
+    	    tunnelMarkers.forEach(function(marker){
+    	    	marker.setMap(null);
+    	    });
+    	    tunnelMarkers = [];
+    	    
     	    // CCTV 마커 관리자가 없거나 새로 만들어야 한다면
     	    if (!currentCctvManager) {
     	        currentCctvManager = new CctvMarkerManager(map, cctvInfo, cctvMarkerImage);
@@ -647,9 +987,9 @@ class FreezingMarkerManager {
        
        function freezingMode(){
     	// 모드 상태 업데이트
-    	    activeMode = 'freezing';
+    	    window.activeMode = 'freezing';
     	   
-    	// CCTV 마커 관리자가 존재한다면 모든 마커 제거
+    		// CCTV 마커 관리자가 존재한다면 모든 마커 제거
     	    if (currentCctvManager) {
     	        currentCctvManager.clearMarkers();
     	    }
@@ -662,7 +1002,18 @@ class FreezingMarkerManager {
     	    cctvMarkers.forEach(function(marker) {
     	        marker.setMap(null);
     	    });
-    	    cctvMarkers = []; // 배열 초기화
+    	    cctvMarkers = []; // 배열 초기화    
+    	    
+    	    if(currentTunnelManager){
+    	    	currentTunnelManager.clearMarkers();
+    	    }
+    	    if(overlay) overlay.setMap(null);
+    	    if(infoWindow) infoWindow.close();
+    	    
+    	    tunnelMarkers.forEach(function(marker){
+    	    	marker.setMap(null);
+    	    });
+    	    tunnelMarkers = [];
     	    
     	    // 결빙 마커 관리자가 없거나 새로 만들어야 한다면
     	    if (!currentFreezingManager) {
@@ -670,9 +1021,43 @@ class FreezingMarkerManager {
     	    } else {
     	        // 기존 결빙 마커 관리자가 있다면 마커 업데이트
     	        currentFreezingManager.updateMarkers();
-    	    }
-       }
+    	    }    	        	    
+       }    
        
+       function tunnelMode(){
+    	   window.activeMode = 'tunnel';
+    	   
+    	   if(currentFreezingManager){
+    		   currentFreezingManager.clearMarkers();
+    	   }
+    	   
+    	   if(overlay) overlay.setMap(null);
+    	   if(infoWindow) infoWindow.close();
+    	   
+    	   freezingMarkers.forEach(function(marker) {
+   	       	   marker.setMap(null);   	           	          	        
+       	   });
+    	   freezingMarkers = [];
+    	   
+    	   if (currentCctvManager) {
+    		   currentCctvManager.clearMarkers();
+   	   	   }
+    	   
+   	       if (overlay) overlay.setMap(null);
+	       if (infoWindow) infoWindow.close();
+	       
+	       cctvMarkers.forEach(function(marker) {
+   	        marker.setMap(null);
+   	   	   });
+	       cctvMarkers = [];
+	       
+	       if(!currentTunnelManager){
+	    	   currentTunnelManager = new TunnelMarkerManager(map, tunnelInfo, tunnelMarkerImage);
+	       } else{
+	    	   currentTunnelManager.updateMarkers();
+	       }
+    	   
+       }
 	</script>
 </body>
 </html>

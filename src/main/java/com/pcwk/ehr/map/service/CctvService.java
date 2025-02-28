@@ -15,9 +15,9 @@ public class CctvService {
 	CctvRepository cctvRepository;
 	
 	
-	public List<Cctv> list(){
+	public List<Cctv> cctvList(){
 		
-		return cctvRepository.findAll();
+		return cctvRepository.findCctv();
 	}
 	
 }

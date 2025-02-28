@@ -21,9 +21,9 @@ public class MapController {
 	@GetMapping("mainMap")
 	public String mainMap(Model model) {
 		
-		List<Freezing> freezingInfo = freezingService.list();
+		//List<Freezing> freezingInfo = freezingService.list();
 		 
-		model.addAttribute("freezingInfo", freezingInfo);
+		//model.addAttribute("freezingInfo", freezingInfo);
 		
 		return "map/mainMap";
 	}
