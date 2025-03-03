@@ -12,29 +12,29 @@
 	<div class="position-absolute bg-white shadow rounded-1"
 		style="top: 4%; right: 2%; z-index: 1000; border: 2px solid #ccc;">
 		<div class="row m-0 text-center" style="width: 170px;">
-			<div
-				class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+		<div class="col-12 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+        <a href="#" class="region-link nav-link p-2"
+          onclick="moveToRegion('nationwide')"
+          style="--bs-link-hover-color: #0d6efd;">안전지수</a>
+      </div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('nationwide')"
 					style="--bs-link-hover-color: #0d6efd;">전국</a>
 			</div>
-			<div
-				class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('seoul')">수도권</a>
 			</div>
-			<div
-				class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('gangwon')">강원권</a>
 			</div>
-			<div
-				class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('chungcheong')">충청권</a>
 			</div>
-			<div
-				class="col-6 align-content-center px-2 py-1 border-end border-opacity-25">
+			<div class="col-6 align-content-center px-2 py-1 border-end border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('jeolla')">전라권</a>
 			</div>
@@ -48,15 +48,20 @@
 
 <!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
 <script layout:fragment="script" th:inline="javascript">
-	var accidentList = /*[[${accidentList}]]*/ [];
-	var constructionList = /*[[${constructionList}]]*/ [];
-	var cctvInfo = /*[[${cctvInfo}]]*/ [];
+	var accidentList = /*[[${accidentList}]]*/[];
+	var constructionList = /*[[${constructionList}]]*/[];
+	var findNowWeather = /*[[${findNowWeather}]]*/[];
+	var cctvInfo = /*[[${cctvInfo}]]*/[];
 	var freezingInfo = /*[[${freezingInfo}]]*/[];
-	
+	var tunnelInfo = /*[[${tunnelInfo}]]*/[];
+	var safetyIndex = /*[[${safetyIndex}]]*/[];
+
 	console.log(accidentList);
 	console.log(constructionList);
+	console.log(findNowWeather);
 	console.log(cctvInfo);
 	console.log(freezingInfo);
-	
-  </script>
+	console.log(tunnelInfo);
+	console.log(safetyIndex);
+</script>
 </html>

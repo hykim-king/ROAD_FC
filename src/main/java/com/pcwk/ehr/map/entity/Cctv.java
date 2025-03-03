@@ -1,5 +1,6 @@
 package com.pcwk.ehr.map.entity;
 
+
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -31,5 +32,8 @@ public class Cctv {
 	
 	@Column(columnDefinition = "DATE", nullable = false)
 	private LocalDateTime cctv_reg_dt;
+	
+	@Column(columnDefinition = "CLOB", nullable = false)
+	private String cctv_url;
 	
 }

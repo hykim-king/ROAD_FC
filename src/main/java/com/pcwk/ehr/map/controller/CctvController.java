@@ -26,7 +26,7 @@ public class CctvController {
 		log.info("┌──────────────────┐");
 		log.info("│ map()            │");
 		log.info("└──────────────────┘");	
-		List<Cctv> cctvInfo = cctvService.list();
+		List<Cctv> cctvInfo = cctvService.cctvList();
 		
 		log.info("CCTV 데이터: {}", cctvInfo);	
 		model.addAttribute("cctvInfo", cctvInfo);

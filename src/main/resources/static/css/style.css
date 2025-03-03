@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 body {
-  font-family: "Nanum Gothic", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 textarea {
@@ -47,7 +47,20 @@ input[type=submit] {
 	align-items: center;
 }
 
-.fa-car-burst, .fa-person-digging, .fa-cloud-sun,
+.typeBtn {
+	background-color: #f8f9fa; /* 기본 배경색 (연한 회색) */
+	color: #333; /* 기본 글자색 */
+	padding: 10px 15px;
+	border-radius: 5px;
+	transition: background 0.3s, color 0.3s;
+}
+
+.typeBtn.active {
+	background-color: #9bcbff; /* 활성화 시 배경색 (빨간색) */
+	color: white; /* 활성화 시 글자색 */
+}
+
+/* .fa-car-burst, .fa-person-digging, .fa-cloud-sun,
 .fa-video, .fa-snowflake, .fa-car-tunnel {
 	color: #797979;
 	transition: color 0.3s ease;
@@ -75,4 +88,4 @@ input[type=submit] {
 
 .fa-car-tunnel.active {
 	color: #21875b;
-}
+} */
