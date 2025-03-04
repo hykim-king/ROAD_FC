@@ -68,7 +68,25 @@
      
             </div>
         </div>
+        
     </div>
-
+<div class="container mt-4" th:if="${!prevVideoInfoList.empty}">
+    <h5 class="mb-3">이전 영상 함께보기</h5>
+    
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+        <!-- 이전 영상 반복 표시 -->
+        <div class="col" th:each="videoInfo : ${prevVideoInfoList}">
+            <a th:href="@{'/video/detail/' + ${videoInfo.video.videoId}}" class="text-decoration-none">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="${videoInfo.thumbnailUrl}" class="card-img-top" alt="비디오 썸네일"
+                         onerror="this.src='/images/default-thumbnail.jpg'" style="height: 120px; object-fit: cover;">
+                    <div class="card-body p-2">
+                        <p class="card-text small text-truncate" th:text="${videoInfo.video.title}">비디오 제목</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
