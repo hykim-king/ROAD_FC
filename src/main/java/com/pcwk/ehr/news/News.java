@@ -26,7 +26,7 @@ public class News {
 	@Column(name="news_url", length = 255, nullable = false)
 	private String url;
 	
-	@Column(name="news_newsroom", length = 30, nullable = false)
+	@Column(name="news_newsroom", length = 60, nullable = false)
 	private String newsroom;
 	
 	@Column(name="news_uploadedTime", length = 20, nullable = false)
@@ -35,5 +35,4 @@ public class News {
 	@Column(name="news_reg_dt", columnDefinition = "DATE")
 	private LocalDateTime regDt;
 	
-
 }
