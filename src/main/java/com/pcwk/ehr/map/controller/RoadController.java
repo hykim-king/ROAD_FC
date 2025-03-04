@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pcwk.ehr.map.Entity.TestRoad;
-import com.pcwk.ehr.map.Entity.TestWeatherInterface;
+import com.pcwk.ehr.map.Entity.Road;
+import com.pcwk.ehr.map.Entity.WeatherInterface;
 import com.pcwk.ehr.map.service.MapService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +29,9 @@ public class RoadController {
 		log.info("│ roadMap()        │");
 		log.info("└──────────────────┘");	
 		
-		List<TestRoad> accidentList = mapService.findByAccident();
-		List<TestRoad> constructionList = mapService.findByConstruction();
-		List<TestWeatherInterface> findNowWeather = mapService.findNowWeather();
+		List<Road> accidentList = mapService.findByAccident();
+		List<Road> constructionList = mapService.findByConstruction();
+		List<WeatherInterface> findNowWeather = mapService.findNowWeather();
 		
 //		log.info("사고 데이터: {}", accidentList);
 //		log.info("공사 데이터: {}", constructionList);

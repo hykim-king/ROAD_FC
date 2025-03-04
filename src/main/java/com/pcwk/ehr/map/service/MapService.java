@@ -5,41 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.map.Entity.Cctv;
-import com.pcwk.ehr.map.Entity.TestRoad;
-import com.pcwk.ehr.map.Entity.TestWeatherInterface;
-import com.pcwk.ehr.map.Repository.CctvRepository;
-import com.pcwk.ehr.map.Repository.TestRoadRepository;
-import com.pcwk.ehr.map.Repository.TestWeatherRepository;
+import com.pcwk.ehr.map.Entity.Road;
+import com.pcwk.ehr.map.Entity.WeatherInterface;
+import com.pcwk.ehr.map.Repository.RoadRepository;
+import com.pcwk.ehr.map.Repository.WeatherRepository;
 
 @Service
 public class MapService {
 
+
 	@Autowired
-	CctvRepository cctvRepository;
-	
-	@Autowired
-	TestRoadRepository testRoadRepository;
+	RoadRepository testRoadRepository;
 	
 	@Autowired
-	TestWeatherRepository testWeatherRepository;
+	WeatherRepository testWeatherRepository;
 	
 	
-	public List<Cctv> list(){
-		return cctvRepository.findAll();
-	}
-	
-	
-	public List<TestRoad> findByAccident(){
+	public List<Road> findByAccident(){
 		return testRoadRepository.findByAccident();
 	}
 
 
-	public List<TestRoad> findByConstruction(){
+	public List<Road> findByConstruction(){
 		return testRoadRepository.findByConstruction();
 	}
 	
-	public List<TestWeatherInterface> findNowWeather(){
+	public List<WeatherInterface> findNowWeather(){
 		return testWeatherRepository.findNowWeather();
 	}
 	

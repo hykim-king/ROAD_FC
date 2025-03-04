@@ -1,6 +1,6 @@
 package com.pcwk.ehr.map.Entity;
 
-public interface TestWeatherInterface {
+public interface WeatherInterface {
 	
     Double getWeatherLat();
     Double getWeatherLon();

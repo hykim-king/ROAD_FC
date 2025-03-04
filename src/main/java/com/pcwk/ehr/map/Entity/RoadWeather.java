@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class TestWeather {
+public class RoadWeather {
 
 	@Id
 	@Column
