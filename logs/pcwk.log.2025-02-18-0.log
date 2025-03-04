@@ -1,0 +1,294 @@
+2025-02-18 17:06:28.721  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:06:28.733  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:06:29.117  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\gy\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/gy/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-18 17:06:29.117  INFO 5340 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-18 17:06:29.118  INFO 5340 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-18 17:06:30.213  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:06:30.289  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 1 JPA repository interface.
+2025-02-18 17:06:31.148  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:06:31.170  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:06:31.171  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:06:31.264  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:06:31.265  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2146 ms
+2025-02-18 17:06:31.596  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:06:31.734  INFO 5340 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-18 17:06:31.833  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:06:32.424  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:06:32.482  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-18 17:06:32.986  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@cbe70bb
+2025-02-18 17:06:32.990  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-18 17:06:33.199  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:06:33.206  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:06:34.584  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:06:48.738  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:06:48.800  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:06:48.800  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:06:48.801  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:06:49.210  INFO 5340 --- [project_oracle] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-18 17:06:49.810  WARN 5340 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:06:49.849  INFO 5340 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:06:49.954  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:06:50.689  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-18 17:06:50.755  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 17:06:50.768  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 22.728 seconds (process running for 24.082)
+2025-02-18 17:07:04.343  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-18 17:07:04.344  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-18 17:07:04.347  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-02-18 17:07:04.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:07:04.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ login()     		 │
+2025-02-18 17:07:04.497  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:07:08.316  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:07:08.316  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ signup()     		 │
+2025-02-18 17:07:08.316  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:07:39.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : param username:user
+2025-02-18 17:07:39.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : param password1:1234
+2025-02-18 17:07:39.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : param password2:1234
+2025-02-18 17:07:39.496  INFO 5340 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : param email:pgw20000@gamil.com
+2025-02-18 17:07:39.772  INFO 5340 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : user:com.pcwk.ehr.member.Member@1488a308
+2025-02-18 17:07:39.788  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:07:39.788  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()     		 │
+2025-02-18 17:07:39.788  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:07:43.910  INFO 5340 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:07:43.910  INFO 5340 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ signup()     		 │
+2025-02-18 17:07:43.910  INFO 5340 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:07:51.420  INFO 5340 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:07:51.421  INFO 5340 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()     		 │
+2025-02-18 17:07:51.421  INFO 5340 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:07:57.393  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 1.username:manager
+2025-02-18 17:07:57.553  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-18 17:07:57.553  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@7d29c034
+2025-02-18 17:07:57.555  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-18 17:07:57.557  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=manager, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-18 17:07:57.673  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberService        : ┌──────────────────────┐
+2025-02-18 17:07:57.674  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberService        : │ getList()    		 │
+2025-02-18 17:07:57.674  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberService        : └──────────────────────┘
+2025-02-18 17:07:57.674  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberService        : param:page0
+2025-02-18 17:07:57.674  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberService        : keyword:
+2025-02-18 17:07:57.720  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : size:10
+2025-02-18 17:08:01.169  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberService        : ┌──────────────────────┐
+2025-02-18 17:08:01.169  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberService        : │ getList()    		 │
+2025-02-18 17:08:01.169  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberService        : └──────────────────────┘
+2025-02-18 17:08:01.169  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberService        : param:page0
+2025-02-18 17:08:01.170  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberService        : keyword:
+2025-02-18 17:08:01.182  INFO 5340 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : size:10
+2025-02-18 17:08:06.097  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:08:06.097  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ login()     		 │
+2025-02-18 17:08:06.098  INFO 5340 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:08:21.676  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:08:21.676  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ signup()     		 │
+2025-02-18 17:08:21.676  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:27:38.257  INFO 5340 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-18 17:27:38.280  INFO 5340 --- [project_oracle] [Thread-8] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:27:38.285  INFO 5340 --- [project_oracle] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-18 17:27:38.298  INFO 5340 --- [project_oracle] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-18 17:27:38.446  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:27:38.447  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:27:38.857  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:27:38.872  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2025-02-18 17:27:39.064  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:27:39.067  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:27:39.067  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:27:39.119  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:27:39.120  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 665 ms
+2025-02-18 17:27:39.227  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:27:39.233  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:27:39.249  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:27:39.252  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-02-18 17:27:39.371  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection oracle.jdbc.driver.T4CConnection@76cd0816
+2025-02-18 17:27:39.372  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-02-18 17:27:39.376  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:27:39.376  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:27:39.539  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:27:56.074  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:27:56.108  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:27:56.109  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:27:56.109  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:27:56.232  WARN 5340 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:27:56.248  INFO 5340 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:27:56.267  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:27:56.593  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-18 17:27:56.613  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 17:27:56.620  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 18.228 seconds (process running for 1289.934)
+2025-02-18 17:27:56.622  INFO 5340 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-18 17:28:00.100  INFO 5340 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-18 17:28:00.113  INFO 5340 --- [project_oracle] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:28:00.114  INFO 5340 --- [project_oracle] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-02-18 17:28:00.125  INFO 5340 --- [project_oracle] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-02-18 17:28:00.251  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:28:00.251  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:28:00.621  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:28:00.637  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 1 JPA repository interface.
+2025-02-18 17:28:00.799  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:28:00.800  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:28:00.800  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:28:00.854  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:28:00.854  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 601 ms
+2025-02-18 17:28:00.956  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:28:00.966  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:28:00.986  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:28:00.989  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-02-18 17:28:01.086  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection oracle.jdbc.driver.T4CConnection@225ebb73
+2025-02-18 17:28:01.086  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-02-18 17:28:01.089  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:28:01.089  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:28:01.256  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:28:16.797  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:28:16.830  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:28:16.831  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:28:16.831  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:28:16.934  WARN 5340 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:28:16.950  INFO 5340 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:28:16.964  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:28:17.246  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-18 17:28:17.263  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 17:28:17.267  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 17.063 seconds (process running for 1310.582)
+2025-02-18 17:28:17.269  INFO 5340 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-18 17:30:23.600  INFO 5340 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-18 17:30:23.613  INFO 5340 --- [project_oracle] [Thread-18] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:30:23.614  INFO 5340 --- [project_oracle] [Thread-18] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-02-18 17:30:23.625  INFO 5340 --- [project_oracle] [Thread-18] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2025-02-18 17:30:23.756  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:30:23.757  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:30:24.113  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:30:24.126  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+2025-02-18 17:30:24.280  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:30:24.281  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:30:24.281  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:30:24.332  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:30:24.332  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 571 ms
+2025-02-18 17:30:24.434  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:30:24.441  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:30:24.455  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:30:24.457  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2025-02-18 17:30:24.554  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection oracle.jdbc.driver.T4CConnection@1275656
+2025-02-18 17:30:24.554  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2025-02-18 17:30:24.556  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:30:24.557  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:30:24.720  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:30:40.036  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:30:40.078  WARN 5340 --- [project_oracle] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'memberController' defined in file [C:\Users\gy\ora\boot\workspace\project_oracle\bin\main\com\pcwk\ehr\member\MemberController.class]: Failed to instantiate [com.pcwk.ehr.member.MemberController]: Constructor threw exception
+2025-02-18 17:30:40.078  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:30:40.079  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-02-18 17:30:40.091  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-02-18 17:30:40.092  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-18 17:30:40.105  INFO 5340 --- [project_oracle] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-18 17:30:40.148 ERROR 5340 --- [project_oracle] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'memberController' defined in file [C:\Users\gy\ora\boot\workspace\project_oracle\bin\main\com\pcwk\ehr\member\MemberController.class]: Failed to instantiate [com.pcwk.ehr.member.MemberController]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.16.jar:6.1.16]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.7.jar:3.3.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.7.jar:3.3.7]
+	at com.pcwk.ehr.Ehr01Application.main(Ehr01Application.java:10) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.7.jar:3.3.7]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.pcwk.ehr.member.MemberController]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:94) ~[spring-beans-6.1.16.jar:6.1.16]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1331) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 20 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	EmailService cannot be resolved to a type
+	EmailService cannot be resolved to a type
+
+	at com.pcwk.ehr.member.MemberController.<init>(MemberController.java:33) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[na:na]
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:195) ~[spring-beans-6.1.16.jar:6.1.16]
+	... 22 common frames omitted
+
+2025-02-18 17:30:41.667  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:30:41.668  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:30:41.970  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:30:41.985  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2025-02-18 17:30:42.131  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:30:42.132  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:30:42.133  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:30:42.184  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:30:42.184  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 514 ms
+2025-02-18 17:30:42.249  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:30:42.256  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:30:42.269  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:30:42.271  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2025-02-18 17:30:42.366  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection oracle.jdbc.driver.T4CConnection@112c9ffe
+2025-02-18 17:30:42.367  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2025-02-18 17:30:42.370  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:30:42.370  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:30:42.534  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:30:57.841  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:30:57.873  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:30:57.874  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:30:57.874  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:30:57.996  WARN 5340 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:30:58.013  INFO 5340 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:30:58.027  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:30:58.414  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-18 17:30:58.434  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 17:30:58.441  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 16.806 seconds (process running for 1471.756)
+2025-02-18 17:30:58.443  INFO 5340 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-18 17:31:09.347  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-18 17:31:09.347  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-18 17:31:09.348  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-18 17:31:09.374  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:31:09.375  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-18 17:31:09.375  INFO 5340 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:31:11.484  INFO 5340 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:31:11.484  INFO 5340 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-18 17:31:11.484  INFO 5340 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:33:43.042  INFO 5340 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-18 17:33:43.055  INFO 5340 --- [project_oracle] [Thread-23] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:33:43.056  INFO 5340 --- [project_oracle] [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2025-02-18 17:33:43.068  INFO 5340 --- [project_oracle] [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2025-02-18 17:33:43.201  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 5340 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-18 17:33:43.201  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-18 17:33:43.531  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-18 17:33:43.545  INFO 5340 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2025-02-18 17:33:43.724  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-18 17:33:43.724  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-18 17:33:43.725  INFO 5340 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-18 17:33:43.774  INFO 5340 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2025-02-18 17:33:43.775  INFO 5340 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 572 ms
+2025-02-18 17:33:43.864  INFO 5340 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-18 17:33:43.870  INFO 5340 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-18 17:33:43.883  INFO 5340 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-18 17:33:43.887  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2025-02-18 17:33:44.012  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection oracle.jdbc.driver.T4CConnection@7f0d5a22
+2025-02-18 17:33:44.012  INFO 5340 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2025-02-18 17:33:44.016  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-18 17:33:44.016  WARN 5340 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-18 17:33:44.172  INFO 5340 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-18 17:34:00.298  INFO 5340 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:34:00.333  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-18 17:34:00.333  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-18 17:34:00.333  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-18 17:34:00.465  WARN 5340 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-18 17:34:00.482  INFO 5340 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-18 17:34:00.495  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-18 17:34:00.824  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-18 17:34:00.840  INFO 5340 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-18 17:34:00.844  INFO 5340 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 17.689 seconds (process running for 1654.159)
+2025-02-18 17:34:00.845  INFO 5340 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-18 17:34:56.462  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-18 17:34:56.462  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-18 17:34:56.463  INFO 5340 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-18 17:35:09.902  INFO 5340 --- [project_oracle] [RMI TCP Connection(52)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-02-18 17:35:09.917  INFO 5340 --- [project_oracle] [RMI TCP Connection(52)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-18 17:35:09.926  INFO 5340 --- [project_oracle] [RMI TCP Connection(52)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2025-02-18 17:35:09.941  INFO 5340 --- [project_oracle] [RMI TCP Connection(52)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.

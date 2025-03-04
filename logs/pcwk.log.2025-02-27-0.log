@@ -1,0 +1,721 @@
+2025-02-27 09:33:08.770  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 15992 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 09:33:08.783  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 09:33:09.306  INFO 15992 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\gy\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/gy/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-27 09:33:09.307  INFO 15992 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-27 09:33:09.307  INFO 15992 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-27 09:33:11.304  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 09:33:11.308  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 09:33:11.535  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 213 ms. Found 1 JPA repository interface.
+2025-02-27 09:33:11.562  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 09:33:11.563  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 09:33:11.585  INFO 15992 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 09:33:11.586  INFO 15992 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2025-02-27 09:33:12.659  INFO 15992 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 09:33:12.688  INFO 15992 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 09:33:12.688  INFO 15992 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 09:33:12.833  INFO 15992 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 09:33:12.834  INFO 15992 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3526 ms
+2025-02-27 09:33:13.267  INFO 15992 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 09:33:13.445  INFO 15992 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-27 09:33:13.546  INFO 15992 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 09:33:14.294  INFO 15992 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 09:33:14.366  INFO 15992 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-27 09:33:14.882  INFO 15992 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@1ca0654
+2025-02-27 09:33:14.886  INFO 15992 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-27 09:33:15.117  WARN 15992 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 09:33:15.126  WARN 15992 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 09:33:16.686  INFO 15992 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 09:33:45.372  INFO 15992 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 09:33:45.894  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 09:33:45.895  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 09:33:45.895  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 09:33:46.338  INFO 15992 --- [project_oracle] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-27 09:33:47.336  WARN 15992 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 09:33:47.381  INFO 15992 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 09:33:47.526  INFO 15992 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 09:33:48.077  INFO 15992 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 09:33:48.723  INFO 15992 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 09:33:48.784  INFO 15992 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 09:33:48.793  INFO 15992 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 40.796 seconds (process running for 42.37)
+2025-02-27 09:43:15.683  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 09:43:15.684  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-27 09:43:15.686  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-02-27 09:43:15.770  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 09:43:15.770  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 09:43:15.770  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 09:43:58.304  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 09:43:58.304  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 09:43:58.305  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 09:59:53.103  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 1.username:
+2025-02-27 09:59:53.358  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():true
+2025-02-27 09:59:53.358  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 2.1._siteUser.isEmpty():true
+2025-02-27 09:59:53.496  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 09:59:53.496  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 09:59:53.496  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:08:29.280  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:08:29.281  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:08:29.281  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:08:31.357  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:08:31.357  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:08:31.357  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:08:34.732  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:08:34.733  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:08:34.733  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:09:10.310  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 1.username:132
+2025-02-27 10:09:10.322  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():true
+2025-02-27 10:09:10.322  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 2.1._siteUser.isEmpty():true
+2025-02-27 10:09:10.450  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:09:10.450  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:09:10.450  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:09:16.751  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 1.username:pgw
+2025-02-27 10:09:16.773  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 10:09:16.773  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@2d914855
+2025-02-27 10:09:16.775  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 10:09:16.776  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=pgw, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 10:09:16.892  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:09:16.892  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:09:16.893  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:09:19.082  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:09:19.082  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:09:19.083  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:09:24.572  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.member.MemberSecurityService  : 1.username:pgw
+2025-02-27 10:09:24.577  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 10:09:24.578  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@117cd0b7
+2025-02-27 10:09:24.578  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 10:09:24.578  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=pgw, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 10:09:24.694  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:09:24.695  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:09:24.695  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:24:05.966  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:24:05.967  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:24:05.967  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:24:13.689  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:24:13.689  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:24:13.689  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:24:23.132  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:24:23.132  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:24:23.133  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:24:29.365  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:24:29.365  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:24:29.366  INFO 15992 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:24:37.150  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:24:37.151  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:24:37.151  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:26:04.974  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:26:04.974  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:26:04.974  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:32:30.739  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:32:30.739  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:32:30.740  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:32:31.997  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:32:31.997  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:32:31.997  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:32:40.114  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:32:40.114  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:32:40.114  INFO 15992 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:32:45.401  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:32:45.401  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:32:45.401  INFO 15992 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:33:00.059  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:33:00.060  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:33:00.060  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:33:11.653  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:33:11.653  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:33:11.653  INFO 15992 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:33:34.149  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:33:34.149  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:33:34.149  INFO 15992 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:33:57.473  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:33:57.474  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:33:57.474  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:33:58.590  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:33:58.590  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:33:58.590  INFO 15992 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:37:50.230  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:37:50.231  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:37:50.231  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:37:52.743  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:37:52.744  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 10:37:52.744  INFO 15992 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:40:15.242  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:40:15.242  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 10:40:15.242  INFO 15992 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:40:16.013  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:40:16.013  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 10:40:16.014  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 10:46:32.037  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 10:46:32.038  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 10:46:32.038  INFO 15992 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 12:09:12.943  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 12:09:12.944  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 12:09:12.944  INFO 15992 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 12:31:39.505  INFO 15992 --- [project_oracle] [RMI TCP Connection(224)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-02-27 12:31:39.665  INFO 15992 --- [project_oracle] [RMI TCP Connection(224)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 12:31:39.671  INFO 15992 --- [project_oracle] [RMI TCP Connection(224)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-27 12:31:39.685  INFO 15992 --- [project_oracle] [RMI TCP Connection(224)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-27 14:16:03.396  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 14:16:03.399  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 14:16:03.749  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\gy\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc8\19.19.0.0\eb90c858f6b8856123d01b8fadd0d57b8505cc2a\ojdbc8-19.19.0.0.jar referenced one or more files that do not exist: file:/C:/Users/gy/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc8/19.19.0.0/eb90c858f6b8856123d01b8fadd0d57b8505cc2a/oraclepki.jar
+2025-02-27 14:16:03.749  INFO 21608 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-27 14:16:03.749  INFO 21608 --- [project_oracle] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-27 14:16:04.947  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 14:16:04.949  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 14:16:05.230  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 267 ms. Found 1 JPA repository interface.
+2025-02-27 14:16:05.262  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 14:16:05.265  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 14:16:05.298  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 14:16:05.299  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2025-02-27 14:16:06.318  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 14:16:06.349  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 14:16:06.350  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 14:16:06.453  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 14:16:06.453  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2703 ms
+2025-02-27 14:16:06.750  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 14:16:06.843  INFO 21608 --- [project_oracle] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-02-27 14:16:06.905  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 14:16:07.353  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 14:16:07.407  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-27 14:16:07.846  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@7c91fae5
+2025-02-27 14:16:07.849  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-27 14:16:08.061  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 14:16:08.067  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 14:16:09.407  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 14:16:30.612  INFO 21608 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 14:16:31.040  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:16:31.041  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 14:16:31.041  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:16:31.341  INFO 21608 --- [project_oracle] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-27 14:16:32.065  WARN 21608 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 14:16:32.103  INFO 21608 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 14:16:32.215  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 14:16:32.588  INFO 21608 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 14:16:33.089  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 14:16:33.150  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 14:16:33.161  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 30.336 seconds (process running for 32.673)
+2025-02-27 14:21:14.614  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 14:21:14.615  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-27 14:21:14.617  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-02-27 14:21:14.707  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:21:14.708  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:21:14.708  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:21:55.277  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:21:55.278  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:21:55.278  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:22:30.560  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:22:30.560  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:22:30.561  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:22:38.757  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:22:38.758  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:22:38.758  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:24:37.241  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:24:37.242  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:24:37.242  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:27:12.870  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:27:12.870  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:27:12.870  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:28:51.088  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:28:51.088  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:28:51.088  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:28:56.431  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:28:56.431  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:28:56.431  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:29:52.410  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:29:52.411  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:29:52.411  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:30:04.539  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:30:04.539  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:30:04.539  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:30:32.794  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:30:32.795  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:30:32.795  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:30:42.541  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:30:42.542  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:30:42.542  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:33:47.796  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:33:47.796  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:33:47.796  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:34:30.999  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:34:31.000  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:34:31.000  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:34:38.793  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:34:38.794  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:34:38.794  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:34:57.475  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:34:57.475  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:34:57.475  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:35:27.292  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:35:27.293  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:35:27.293  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:35:28.203  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:35:28.204  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:35:28.204  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:35:33.378  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:35:33.379  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:35:33.379  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:36:23.782  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:36:23.782  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:36:23.782  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:37:39.769  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:37:39.769  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:37:39.769  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:37:46.672  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:37:46.672  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:37:46.672  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:38:21.069  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:38:21.070  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:38:21.070  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:38:45.158  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:38:45.158  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:38:45.158  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:38:45.615  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:38:45.616  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:38:45.617  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:38:56.065  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:38:56.066  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 14:38:56.066  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:51:34.741  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:51:34.742  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 14:51:34.742  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:51:38.707  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:51:38.707  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findPassword()       │
+2025-02-27 14:51:38.708  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 14:52:05.074  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 14:52:05.075  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 14:52:05.075  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:01:29.912  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:01:29.913  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 15:01:29.913  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:02:51.082  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:02:51.083  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:02:51.083  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:24.692  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:24.692  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:03:24.692  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:27.543  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:27.543  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:03:27.544  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:27.600  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:27.600  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 15:03:27.600  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:32.485  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:32.485  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ signup()             │
+2025-02-27 15:03:32.485  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:34.351  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:34.351  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:03:34.351  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:03:50.390  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 1.username:manager
+2025-02-27 15:03:50.452  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 15:03:50.452  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@25530a2e
+2025-02-27 15:03:50.456  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 15:03:50.458  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=manager, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 15:03:50.591  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:03:50.591  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:03:50.591  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:05:52.869  INFO 21608 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-27 15:05:53.011  INFO 21608 --- [project_oracle] [Thread-8] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:05:53.016  INFO 21608 --- [project_oracle] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-27 15:05:53.031  INFO 21608 --- [project_oracle] [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-27 15:05:53.231  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 15:05:53.231  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:05:53.756  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:05:53.756  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 15:05:53.776  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 1 JPA repository interface.
+2025-02-27 15:05:53.782  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:05:53.783  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 15:05:53.789  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 15:05:53.789  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2025-02-27 15:05:54.053  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 15:05:54.055  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 15:05:54.056  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 15:05:54.112  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 15:05:54.113  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 870 ms
+2025-02-27 15:05:54.231  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 15:05:54.240  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 15:05:54.310  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 15:05:54.314  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-02-27 15:05:54.484  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection oracle.jdbc.driver.T4CConnection@256e4b14
+2025-02-27 15:05:54.484  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-02-27 15:05:54.489  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 15:05:54.490  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 15:05:54.664  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 15:06:16.151  INFO 21608 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:06:16.209  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:06:16.210  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 15:06:16.210  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:06:16.366  WARN 21608 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 15:06:16.384  INFO 21608 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 15:06:16.407  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 15:06:16.634  INFO 21608 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 15:06:16.886  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 15:06:16.925  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 15:06:16.934  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 23.791 seconds (process running for 3016.447)
+2025-02-27 15:06:16.939  INFO 21608 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-27 15:09:07.599  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 15:09:07.599  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-27 15:09:07.604  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-02-27 15:09:07.610  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:09:07.610  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:09:07.610  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:09:46.214  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:09:46.215  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:09:46.215  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:09:56.494  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:09:56.494  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:09:56.494  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:10:46.429  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:10:46.430  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:10:46.430  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:10:58.012  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:10:58.012  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:10:58.012  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:11:00.138  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:11:00.138  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:11:00.138  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:12:53.777  INFO 21608 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-27 15:12:53.910  INFO 21608 --- [project_oracle] [Thread-12] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:12:53.913  INFO 21608 --- [project_oracle] [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-02-27 15:12:53.947  INFO 21608 --- [project_oracle] [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-02-27 15:12:54.101  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 15:12:54.101  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:12:54.458  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:12:54.458  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 15:12:54.477  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 1 JPA repository interface.
+2025-02-27 15:12:54.482  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:12:54.482  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 15:12:54.486  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 15:12:54.487  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2025-02-27 15:12:54.681  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 15:12:54.683  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 15:12:54.683  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 15:12:54.742  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 15:12:54.742  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 634 ms
+2025-02-27 15:12:54.854  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 15:12:54.862  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 15:12:54.883  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 15:12:54.886  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-02-27 15:12:55.026  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection oracle.jdbc.driver.T4CConnection@59e4bdeb
+2025-02-27 15:12:55.027  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-02-27 15:12:55.030  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 15:12:55.031  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 15:12:55.187  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 15:13:15.126  INFO 21608 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:13:15.183  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:15.184  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 15:13:15.184  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:15.322  WARN 21608 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 15:13:15.342  INFO 21608 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 15:13:15.363  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 15:13:15.578  INFO 21608 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 15:13:15.792  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 15:13:15.815  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 15:13:15.822  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 21.765 seconds (process running for 3435.335)
+2025-02-27 15:13:15.825  INFO 21608 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-27 15:13:17.271  INFO 21608 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2025-02-27 15:13:17.394  INFO 21608 --- [project_oracle] [Thread-24] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:13:17.395  INFO 21608 --- [project_oracle] [Thread-24] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-02-27 15:13:17.406  INFO 21608 --- [project_oracle] [Thread-24] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2025-02-27 15:13:17.533  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 15:13:17.534  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:13:17.841  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:13:17.841  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 15:13:17.857  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2025-02-27 15:13:17.860  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:13:17.861  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 15:13:17.864  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 15:13:17.864  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2025-02-27 15:13:18.033  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 15:13:18.034  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 15:13:18.034  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 15:13:18.087  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 15:13:18.087  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 551 ms
+2025-02-27 15:13:18.172  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 15:13:18.178  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 15:13:18.198  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 15:13:18.200  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2025-02-27 15:13:18.300  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection oracle.jdbc.driver.T4CConnection@7fbd1552
+2025-02-27 15:13:18.300  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2025-02-27 15:13:18.304  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 15:13:18.304  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 15:13:18.472  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 15:13:36.073  INFO 21608 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:13:36.135  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:36.135  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 15:13:36.135  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:36.260  WARN 21608 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 15:13:36.276  INFO 21608 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 15:13:36.290  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 15:13:36.483  INFO 21608 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 15:13:36.628  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 15:13:36.646  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 15:13:36.651  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 19.164 seconds (process running for 3456.164)
+2025-02-27 15:13:36.654  INFO 21608 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-27 15:13:39.122  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 15:13:39.123  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-27 15:13:39.124  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-27 15:13:39.129  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:39.129  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:39.129  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:42.868  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:42.868  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:42.868  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:45.403  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:45.403  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:45.403  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:48.195  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:48.195  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:48.195  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:50.673  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:50.674  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:50.674  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:13:51.522  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:13:51.522  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:13:51.522  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:15:14.732  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:15:14.733  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:15:14.733  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:16:08.051  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberService        : ┌──────────────────────┐
+2025-02-27 15:16:08.052  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberService        : │ getList()    		 │
+2025-02-27 15:16:08.052  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberService        : └──────────────────────┘
+2025-02-27 15:16:08.052  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberService        : param:page0
+2025-02-27 15:16:08.052  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberService        : keyword:
+2025-02-27 15:16:08.161  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : size:10
+2025-02-27 15:16:10.356  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:16:10.356  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:16:10.356  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:16:12.277  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:16:12.277  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:16:12.277  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:20:42.101  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:20:42.101  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:20:42.101  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:20:48.809  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:20:48.809  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:20:48.809  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:21:57.316  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:21:57.316  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:21:57.316  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:22:45.274  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:22:45.274  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:22:45.274  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:23:29.072  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:23:29.072  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:23:29.072  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:16.000  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:16.000  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:25:16.000  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:17.905  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:17.906  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:25:17.906  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:19.513  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:19.513  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findPassword()       │
+2025-02-27 15:25:19.513  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:20.922  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:20.922  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:25:20.922  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:21.760  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:21.760  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:25:21.760  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:37.681  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:37.681  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:25:37.682  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:25:38.590  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:25:38.590  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:25:38.590  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:27:14.666  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:27:14.666  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:27:14.666  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:27:25.775  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:27:25.775  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:27:25.776  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:27:42.988  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:27:42.989  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:27:42.989  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:28:31.722  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:28:31.722  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:28:31.722  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:28:38.231  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:28:38.232  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:28:38.232  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:12.078  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:12.078  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:12.078  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:12.927  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:12.927  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:12.927  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:22.409  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:22.409  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:22.409  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:46.019  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:46.019  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:46.019  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:53.463  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:53.463  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:53.463  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:29:54.211  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:29:54.211  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:29:54.211  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:30:09.007  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:30:09.007  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:30:09.007  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:30:09.968  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:30:09.968  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:30:09.968  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:32:31.297  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:32:31.297  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:32:31.297  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:32:32.170  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:32:32.170  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:32:32.170  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:32:32.987  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:32:32.987  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:32:32.987  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:32:45.022  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:32:45.022  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:32:45.023  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:32:45.797  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:32:45.797  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:32:45.797  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:33:05.198  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:33:05.199  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:33:05.199  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:34:18.472  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:34:18.472  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:34:18.472  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:35:17.218  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:35:17.218  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:35:17.218  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:36:16.231  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:36:16.232  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findUsername()       │
+2025-02-27 15:36:16.232  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:37:44.388  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:37:44.389  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:37:44.389  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:37:45.583  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:37:45.584  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ findPassword()       │
+2025-02-27 15:37:45.584  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:37:53.694  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:37:53.694  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ findPassword()       │
+2025-02-27 15:37:53.694  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:40:08.853  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:40:08.853  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:40:08.853  INFO 21608 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:40:10.421  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:40:10.421  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ findPassword()       │
+2025-02-27 15:40:10.422  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:40:37.322  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:40:37.322  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:40:37.322  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:40:55.250  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:40:55.250  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:40:55.250  INFO 21608 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:40:59.331  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 1.username:pgw
+2025-02-27 15:40:59.389  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 15:40:59.390  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@72cad92
+2025-02-27 15:40:59.391  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 15:40:59.392  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=pgw, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 15:40:59.501  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:40:59.501  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:40:59.501  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:41:48.294  INFO 21608 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-27 15:41:48.418  INFO 21608 --- [project_oracle] [Thread-29] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:41:48.419  INFO 21608 --- [project_oracle] [Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2025-02-27 15:41:48.432  INFO 21608 --- [project_oracle] [Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2025-02-27 15:41:48.582  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 15:41:48.582  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:41:48.996  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:41:48.996  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 15:41:49.016  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 1 JPA repository interface.
+2025-02-27 15:41:49.020  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:41:49.020  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 15:41:49.023  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 15:41:49.023  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-02-27 15:41:49.226  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 15:41:49.228  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 15:41:49.228  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 15:41:49.285  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 15:41:49.285  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 695 ms
+2025-02-27 15:41:49.375  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 15:41:49.382  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 15:41:49.411  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 15:41:49.413  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2025-02-27 15:41:49.614  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection oracle.jdbc.driver.T4CConnection@149d2e66
+2025-02-27 15:41:49.614  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2025-02-27 15:41:49.616  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 15:41:49.617  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 15:41:49.773  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-27 15:42:07.981  INFO 21608 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:42:08.045  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:42:08.045  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-02-27 15:42:08.045  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:42:08.200  WARN 21608 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-27 15:42:08.222  INFO 21608 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-02-27 15:42:08.244  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-02-27 15:42:08.439  INFO 21608 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-02-27 15:42:08.629  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-27 15:42:08.649  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-02-27 15:42:08.655  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 20.123 seconds (process running for 5168.168)
+2025-02-27 15:42:08.657  INFO 21608 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-02-27 15:42:18.358  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 15:42:18.359  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-02-27 15:42:18.360  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-02-27 15:42:20.077  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:42:20.077  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:42:20.077  INFO 21608 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:42:23.429  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.member.MemberSecurityService  : 1.username:pgw
+2025-02-27 15:42:23.478  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 15:42:23.478  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@5acaf903
+2025-02-27 15:42:23.479  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 15:42:23.479  INFO 21608 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=pgw, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 15:42:23.590  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:42:23.590  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:42:23.591  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:42:29.997  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:42:29.998  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:42:29.998  INFO 21608 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:42:45.085  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:42:45.085  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-02-27 15:42:45.085  INFO 21608 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:43:05.955  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 1.username:manager
+2025-02-27 15:43:05.959  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-02-27 15:43:05.959  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@6b95da06
+2025-02-27 15:43:05.959  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-02-27 15:43:05.959  INFO 21608 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=manager, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-02-27 15:43:06.069  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:43:06.069  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:43:06.069  INFO 21608 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:45:31.693  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-02-27 15:45:31.693  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-02-27 15:45:31.694  INFO 21608 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-02-27 15:45:40.897  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberService        : ┌──────────────────────┐
+2025-02-27 15:45:40.898  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberService        : │ getList()    		 │
+2025-02-27 15:45:40.898  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberService        : └──────────────────────┘
+2025-02-27 15:45:40.898  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberService        : param:page0
+2025-02-27 15:45:40.898  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberService        : keyword:
+2025-02-27 15:45:40.920  INFO 21608 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.member.MemberController     : size:10
+2025-02-27 15:48:22.851  INFO 21608 --- [project_oracle] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-02-27 15:48:22.983  INFO 21608 --- [project_oracle] [Thread-73] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-27 15:48:22.984  INFO 21608 --- [project_oracle] [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2025-02-27 15:48:22.997  INFO 21608 --- [project_oracle] [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2025-02-27 15:48:23.136  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Starting Ehr01Application using Java 21.0.5 with PID 21608 (C:\Users\gy\ora\boot\workspace\project_oracle\bin\main started by gy in C:\Users\gy\ora\boot\workspace\project_oracle)
+2025-02-27 15:48:23.137  INFO 21608 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:48:23.520  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:48:23.520  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-27 15:48:23.537  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2025-02-27 15:48:23.541  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-27 15:48:23.542  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-27 15:48:23.545  INFO 21608 --- [project_oracle] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.pcwk.ehr.member.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-02-27 15:48:23.545  INFO 21608 --- [project_oracle] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2025-02-27 15:48:23.748  INFO 21608 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-02-27 15:48:23.749  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-27 15:48:23.750  INFO 21608 --- [project_oracle] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-27 15:48:23.804  INFO 21608 --- [project_oracle] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-27 15:48:23.804  INFO 21608 --- [project_oracle] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 659 ms
+2025-02-27 15:48:23.895  INFO 21608 --- [project_oracle] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-27 15:48:23.902  INFO 21608 --- [project_oracle] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-27 15:48:23.939  INFO 21608 --- [project_oracle] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-27 15:48:23.941  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2025-02-27 15:48:24.068  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection oracle.jdbc.driver.T4CConnection@34941a0b
+2025-02-27 15:48:24.068  INFO 21608 --- [project_oracle] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2025-02-27 15:48:24.071  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
+2025-02-27 15:48:24.071  WARN 21608 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-27 15:48:24.227  INFO 21608 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
