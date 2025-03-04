@@ -1,6 +1,7 @@
 package com.pcwk.ehr.DataService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +27,11 @@ public class LocalAccidentService {
 	@Autowired
 	LocalAccidentRepository localAccidentRepository;
 
-    public LocalAccidentService() {
-        log.info("┌───────────────────────────┐");
-        log.info("│ LocalAccidentService()    │");
-        log.info("└───────────────────────────┘");
-    }
+	public LocalAccidentService() {
+		log.info("┌───────────────────────────┐");
+		log.info("│ LocalAccidentService()    │");
+		log.info("└───────────────────────────┘");
+	}
 
 	/**
 	 * 모든 사고 데이터 조회
@@ -74,14 +75,22 @@ public class LocalAccidentService {
 		return localAccidentRepository.findDistinctMinorRegions();
 	}
 
+	public List<Object[]> getYearlyAccidentCount() {
+		List<Object[]> result = localAccidentRepository.sumAccidentsByYear(); // ✅ SUM 사용으로 변경
+		log.info("LocalAccidentService - getYearlyAccidentCount: {}", Arrays.deepToString(result.toArray()));
+		return result;
+	}
+
 	/**
 	 * 필터 조건을 적용한 사고 데이터 조회
 	 */
-	public List<LocalAccident> getAccidentsFiltered(Integer year, 
-													String majorRegion, 
-													String minorRegion) {
-		return localAccidentRepository.findByFilters(year, majorRegion, minorRegion);
+	public List<LocalAccident> getAccidentsFiltered(Integer year, String majorRegion, String minorRegion) {
+	    List<LocalAccident> result = localAccidentRepository.findByFilters(year, majorRegion, minorRegion);
+	    log.info(">>> getAccidentsFiltered - Year: {}, MajorRegion: {}, MinorRegion: {}, Result Size: {}", 
+	             year, majorRegion, minorRegion, result.size());
+	    return result;
 	}
+
 
 	/**
 	 * 선택한 주요 지역(시/도)에 해당하는 상세 지역(시/군/구) 목록 조회
@@ -94,50 +103,42 @@ public class LocalAccidentService {
 
 		return localAccidentRepository.findMinorRegionsByMajorRegion(majorRegion);
 	}
-	
-    // ✨ 연도별 사고 건수 데이터 가져오기
-    public List<Object[]> getYearlyAccidentCount() {
-        List<Object[]> data = localAccidentRepository.findYearlyAccidentCount();
-        System.out.println("📌 getYearlyAccidentCount() 결과: " + data); // 🛠 로그 추가
-        return data;
-    }
 
-    public Specification<LocalAccident> search(String keyword) {
-        return (root, query, criteriaBuilder) -> 
-            criteriaBuilder.or(
-                criteriaBuilder.like(root.get("laYear").as(String.class), "%" + keyword + "%"),
-                criteriaBuilder.like(root.get("laMajorRegion"), "%" + keyword + "%"),
-                criteriaBuilder.like(root.get("laMinorRegion"), "%" + keyword + "%"),
-                criteriaBuilder.like(root.get("laLocalCnt").as(String.class), "%" + keyword + "%")
-            );
-    }
-    
-    public Page<LocalAccident> getPagedLocalAccidents(String keyword, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return localAccidentRepository.findAll(search(keyword), pageable);
-    }
+	public Specification<LocalAccident> search(String keyword) {
+		return (root, query, criteriaBuilder) -> criteriaBuilder.or(
+				criteriaBuilder.like(root.get("laYear").as(String.class), "%" + keyword + "%"),
+				criteriaBuilder.like(root.get("laMajorRegion"), "%" + keyword + "%"),
+				criteriaBuilder.like(root.get("laMinorRegion"), "%" + keyword + "%"),
+				criteriaBuilder.like(root.get("laLocalCnt").as(String.class), "%" + keyword + "%"));
+	}
 
-    public Page<LocalAccident> getAccidentsFilteredPaged(Integer year, String majorRegion, String minorRegion, Pageable pageable) {
-        Specification<LocalAccident> spec = (root, query, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            
-            if (year != null) {
-                predicates.add(criteriaBuilder.equal(root.get("laYear"), year));
-            }
-            if (majorRegion != null && !majorRegion.isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("laMajorRegion"), majorRegion));
-            }
-            if (minorRegion != null && !minorRegion.isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("laMinorRegion"), minorRegion));
-            }
-            
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        };
-        
-        return localAccidentRepository.findAll(spec, pageable);
-    }
+	public Page<LocalAccident> getPagedLocalAccidents(String keyword, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return localAccidentRepository.findAll(search(keyword), pageable);
+	}
 
-    public Page<LocalAccident> getAllLocalAccidentsPaged(Pageable pageable) {
-        return localAccidentRepository.findAll(pageable);
-    }
+	public Page<LocalAccident> getAccidentsFilteredPaged(Integer year, String majorRegion, String minorRegion,
+			Pageable pageable) {
+		Specification<LocalAccident> spec = (root, query, criteriaBuilder) -> {
+			List<Predicate> predicates = new ArrayList<>();
+
+			if (year != null) {
+				predicates.add(criteriaBuilder.equal(root.get("laYear"), year));
+			}
+			if (majorRegion != null && !majorRegion.isEmpty()) {
+				predicates.add(criteriaBuilder.equal(root.get("laMajorRegion"), majorRegion));
+			}
+			if (minorRegion != null && !minorRegion.isEmpty()) {
+				predicates.add(criteriaBuilder.equal(root.get("laMinorRegion"), minorRegion));
+			}
+
+			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+		};
+
+		return localAccidentRepository.findAll(spec, pageable);
+	}
+
+	public Page<LocalAccident> getAllLocalAccidentsPaged(Pageable pageable) {
+		return localAccidentRepository.findAll(pageable);
+	}
 }

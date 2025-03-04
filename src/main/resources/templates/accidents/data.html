@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교통 통계 테이블</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #F4F4F4;
+        }
+        .highlight {
+            background-color: #007BFF;
+            color: white;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><a th:href="@{/traffic/condition}" th:text="교통여건"></a></td>
+            <td><a th:href="@{/traffic/accident-trend}" th:text="교통사고추세"></a></td>
+            <td><a th:href="@{/traffic/increase-decrease}" th:text="부문별 증감현황(전년대비)"></a></td>
+            <td><a th:href="@{/traffic/accident-5years}" th:text="부문별 사고현황(최근5년)"></a></td>
+        </tr>
+        <tr>
+            <td><a th:href="@{/traffic/regional-statistics}" th:text="지역별 교통사고 통계"></a></td>
+            <td><a th:href="@{/traffic/accidents-per-10000cars}" th:text="자동차 1만대당 교통사고"></a></td>
+            <td><a th:href="@{/traffic/accidents-per-100k-pop}" th:text="인구 10만명당 교통사고"></a></td>
+            <td><a th:href="@{/traffic/accidents-per-10km-road}" th:text="도로 10km당 교통사고"></a></td>
+        </tr>
+        <tr>
+            <td><a th:href="@{/traffic/oecd-statistics}"><b th:text="OECD국가교통사고 발생현황"></b></a></td>
+            <td><a th:href="@{/traffic/regional-safety-index}" th:text="지역별 교통안전지수"></a></td>
+        </tr>
+    </table>
+</body>
+</html>

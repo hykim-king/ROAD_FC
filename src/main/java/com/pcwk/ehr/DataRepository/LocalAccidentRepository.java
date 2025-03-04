@@ -71,5 +71,9 @@ public interface LocalAccidentRepository extends JpaRepository<LocalAccident, Lo
     
     @Query("SELECT la.laYear, COUNT(la) FROM LocalAccident la GROUP BY la.laYear ORDER BY la.laYear DESC")
     List<Object[]> findYearlyAccidentCount();
-  
+    
+    @Query("SELECT la.laYear, SUM(la.laLocalCnt) FROM LocalAccident la GROUP BY la.laYear ORDER BY la.laYear DESC")
+    List<Object[]> sumAccidentsByYear();
+
+ 
 }

@@ -14,7 +14,7 @@
     <h2 class="text-center mb-4">지역별 사고 데이터</h2>
 
     <!-- 필터링 폼 -->
-    <form method="get" th:action="@{/LocalAccident/list}" class="row g-3">
+    <form method="get" th:action="@{/accidents/list}" class="row g-3">
         <div class="col-md-3">
             <label for="year" class="form-label">연도 선택</label>
             <select class="form-select" id="year" name="year">
@@ -102,10 +102,11 @@
     </div>
     
     <!-- paging end--------------------------------------------- -->
-
-<script>
+<script th:inline="javascript">
 $(document).ready(function () {
-    // 시/도 변경 시 시/군/구 업데이트
+    let chart; // 전역 변수 선언 (차트 객체)
+
+    // 📌 시/도 변경 시 시/군/구 업데이트
     $("#majorRegion").change(function () {
         let selectedMajorRegion = $(this).val();
         let minorRegionDropdown = $("#minorRegion");
@@ -114,45 +115,129 @@ $(document).ready(function () {
         minorRegionDropdown.empty().append("<option value=''>전체</option>");
 
         if (selectedMajorRegion) {
-            $.get("/LocalAccident/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
-                $.each(data, function (index, value) {
-                    minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
-                });
+            $.get("/DataChart/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
+                console.log("Received minorRegions data:", data); // 데이터 확인
+
+                if (Array.isArray(data)) {
+                    $.each(data, function (index, value) {
+                        minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
+                    });
+                } else {
+                    console.error("Unexpected data format:", data);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error("Error fetching minorRegions:", status, error);
             });
         }
     });
-});
 
-//Thymeleaf를 이용해서 컨트롤러에서 가져온 데이터를 JS 변수에 할당
-let yearlyAccidentData = /*[[${yearlyAccidentDataJson}]]*/ '[]';
-console.log("yearlyAccidentData:", JSON.parse(yearlyAccidentData));
+    // 📌 페이지 로드 시 최초 차트 데이터 가져오기
+    let initialData = /*[[${yearlyAccidentDataJson}]]*/ []; // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
+    console.log("Fetched Data on Load:", initialData);
+    chart = createChart(initialData); // 차트 생성
 
-// 연도별 사고 데이터 가공
-let labels = JSON.parse(yearlyAccidentData).map(item => item[0]); // 연도
-let accidentCounts = JSON.parse(yearlyAccidentData).map(item => item[1]); // 사고 건수
+    // 📌 폼 제출 시 데이터 가져오기 및 차트 업데이트
+    $("form").on("submit", function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
 
-// Chart.js를 이용해 차트 그리기
-new Chart(document.getElementById('accidentChart'), {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: '연도별 사고 건수',
-            data: accidentCounts,
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: { beginAtZero: true }
+        let year = $("#year").val();
+        let majorRegion = $("#majorRegion").val();
+        let minorRegion = $("#minorRegion").val();
+
+        let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Filtered Data:", data);
+                updateChart(chart, data); // 차트 업데이트
+                updateTable(data); // 📌 테이블도 업데이트!
+            })
+            .catch(error => console.error("Error fetching filtered data:", error));
+    });
+
+    // 📌 차트 생성 함수
+    function createChart(data) {
+        let yearlyAccidentData = (typeof data === "string") ? JSON.parse(data) : data;
+
+        console.log("Final parsed data:", yearlyAccidentData);
+
+        let labels = yearlyAccidentData.map(item => item.year); // 연도
+        let accidentCounts = yearlyAccidentData.map(item => item.accidentCount); // 사고 건수
+
+        console.log("Labels:", labels);
+        console.log("Accident Counts:", accidentCounts);
+
+        let ctx = document.getElementById('accidentChart').getContext('2d');
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '연도별 사고 건수',
+                    data: accidentCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    // 📌 차트 업데이트 함수
+    function updateChart(chart, data) {
+        let yearlyAccidentData = Array.isArray(data.content) ? data.content : [];
+
+        console.log("Updating chart with data:", yearlyAccidentData);
+
+        if (yearlyAccidentData.length === 0) {
+            console.warn("No data available for chart update.");
+            return; // 데이터가 없으면 업데이트 중단
         }
+
+        // 🚀 필터링된 데이터에 맞게 수정!
+        let labels = yearlyAccidentData.map(item => item.laYear); // 연도
+        let accidentCounts = yearlyAccidentData.map(item => item.laLocalCnt); // 사고 건수
+
+        console.log("Updated Labels:", labels);
+        console.log("Updated Accident Counts:", accidentCounts);
+
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = accidentCounts;
+        chart.update();
+    }
+
+    // 📌 테이블 업데이트 함수
+    function updateTable(data) {
+        let tableBody = $(".table tbody"); // 테이블의 tbody 선택
+        tableBody.empty(); // 기존 데이터 초기화
+
+        let yearlyAccidentData = Array.isArray(data.content) ? data.content : [];
+
+        if (yearlyAccidentData.length === 0) {
+            console.warn("No data available for table update.");
+            tableBody.append("<tr><td colspan='5' class='text-center'>데이터가 없습니다.</td></tr>");
+            return;
+        }
+
+        yearlyAccidentData.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.laYear}</td>
+                <td>${item.laMajorRegion}</td>
+                <td>${item.laMinorRegion}</td>
+                <td>${item.laLocalCnt}</td>
+            </tr>`;
+            tableBody.append(row);
+        });
     }
 });
-
-</script>
-
+</script> 
 </body>
 </html>

@@ -7,89 +7,89 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="container mt-4">
-
+    <canvas id="trafficChart"></canvas>
     <h2 class="text-center mb-4">명절 교통량 비교</h2>
-	
-	<!-- 필터링  -->
-	<form method="get" th:action="@{/TrafficComparison/clist}" class="row g-3">
-		<div class="col-md-3">
-			<label for="year" class="form-label">연도</label>
-			<select class="form-select" id="year" name="year">
-				<option value="">전체</option>
-				<option th:each="y :${years}" th:value="${y}" th:text="${y}" th:selected="${selected == y}"></option>
-			</select>
-		</div>
-	
-		<div class="col-md-3">
-			<label for="specialday" class="form-label">명절</label>
-			<select class="form-select" id="specialday" name="specialday">
-				<option value="">전체</option>
-				<option th:each="day : ${specialday}" th:value="${day}"
-						th:text="${day}" th:selected="${selectedDay == day}"></option>
-			</select>
-		</div>
-		
-		<div class="col-md-3">
-			<label for="specialdaytype" class="form-label">세부날짜</label>
-			<select class="form-select" id="specialdaytype" name="specialdaytype">
-				<option value="">전체</option>
-				<option th:each="type : ${specialdaytype}" th:value="${type}"
-						th:text="${type}" th:selected="${selectedType == type}"></option>
-			</select>
-		</div>
-		
-		<div class="col-md-3">
-			<label for="hour" class="form-label">시간대</label>
-			<select class="form-select" id="hour" name="hour">
-				<option value="">전체</option>
-				<option th:each="time : ${hour}" th:value="${time}"
-						th:text="${time}" th:selected="${selectedHour == time}"></option>
-			</select>
-		</div>
-		
+    
+    <!-- 필터링  -->
+    <form method="get" th:action="@{/accidents/clist}" class="row g-3">
+        <div class="col-md-3">
+            <label for="year" class="form-label">연도</label>
+            <select class="form-select" id="year" name="year">
+                <option value="">전체</option>
+                <option th:each="y :${years}" th:value="${y}" th:text="${y}" th:selected="${selected == y}"></option>
+            </select>
+        </div>
+    
+        <div class="col-md-3">
+            <label for="specialday" class="form-label">명절</label>
+            <select class="form-select" id="specialday" name="specialday">
+                <option value="">전체</option>
+                <option th:each="day : ${specialday}" th:value="${day}"
+                        th:text="${day}" th:selected="${selectedDay == day}"></option>
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="specialdaytype" class="form-label">세부날짜</label>
+            <select class="form-select" id="specialdaytype" name="specialdaytype">
+                <option value="">전체</option>
+                <option th:each="type : ${specialdaytype}" th:value="${type}"
+                        th:text="${type}" th:selected="${selectedType == type}"></option>
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="hour" class="form-label">시간대</label>
+            <select class="form-select" id="hour" name="hour">
+                <option value="">전체</option>
+                <option th:each="time : ${hour}" th:value="${time}"
+                        th:text="${time}" th:selected="${selectedHour == time}"></option>
+            </select>
+        </div>
+        
         <div class="col-md-3 d-flex align-items-end">
             <button type="submit" class="btn btn-primary w-100">검색</button>
-        </div>		
-	</form>
-	
-<!-- 교통량 데이터 -->
-<div class="mt-4">
-	<table class="table table-hover">
-		<thead class="table-dark">
-			<tr>
-				<th>#</th>
-				<th>연도</th>
-				<th>명절</th>
-				<th>세부날짜</th>
-				<th>시간대</th>
-				<th>교통량(대)</th>
-				<th>전년교통량(대)</th>
-				<th>증가량(대)</th>
-				<th>증가율(%)</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="comparison, iterStat: ${comparisons}">
-			    <td th:text="${iterStat.count}"></td>
-			    <td th:text="${comparison.tcStdYear}"></td>
-			    <td th:text="${comparison.tcSphldfttNm}"></td>
-			    <td th:text="${comparison.tcSphldfttScopTypeNm}"></td>
-			    <td th:text="${comparison.tcSydHour}"></td>
-			    <td th:text="${comparison.tcTrfl}"></td>
-			    <td th:text="${comparison.tcPrevTrfl}"></td>
-			    <td th:text="${comparison.tcChangeTrfl}"></td>
-			    <td th:text="${comparison.tcRateTrfl}"></td>
-			</tr>
-            <tr th:if="${#lists.isEmpty(comparisons)}">
-            	<td colspan="5" class="text-center">데이터가 없습니다.</td>
-            </tr>			
-		</tbody>
-	</table>
-</div>
+        </div>
+    </form>
+    
+    <!-- 교통량 데이터 -->
+    <div class="mt-4">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>연도</th>
+                    <th>명절</th>
+                    <th>세부날짜</th>
+                    <th>시간대</th>
+                    <th>교통량(대)</th>
+                    <th>전년교통량(대)</th>
+                    <th>증가량(대)</th>
+                    <th>증가율(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="comparison, iterStat: ${comparisons}">
+                	<td th:text="${iterStat.count}"></td>
+                	<td th:text="${comparison.tcStdYear}"></td>
+                	<td th:text="${comparison.tcSphldfttNm}"></td>
+                	<td th:text="${comparison.tcSphldfttScopTypeNm}"></td>
+                	<td th:text="${comparison.tcSydHour}"></td>
+                	<td th:text="${comparison.tcTrfl}"></td>
+                	<td th:text="${comparison.tcPrevTrfl}"></td>
+                	<td th:text="${comparison.tcChangeTrfl}"></td>
+                	<td th:text="${comparison.tcRateTrfl}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(comparisons)}">
+                <td colspan="9" class="text-center">데이터가 없습니다.</td>
+            </tbody>
+        </table>
+    </div>
 
- <!-- paging start -->
+    <!-- paging start -->
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
             <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
@@ -111,13 +111,142 @@
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
             </li>
            <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
+           <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
             <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
             </li>
         </ul>
     </div>
-    
-    <!-- paging end--------------------------------------------- -->
+    <!-- paging end -->
+<script th:inline="javascript">
+$(document).ready(function () {
+    let chart;
 
+    let initialData = /*[[${comparisonDataJson}]]*/ [];
+    console.log("Fetched Data on Load:", initialData);
+    chart = createChart(initialData);
+    
+    // 📌 폼 제출 시 데이터 가져오기 및 차트 업데이트
+    $("form").on("submit", function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+        
+        let year = $("#year").val();
+        let specialday = $("#specialday").val();
+        let specialdayType = $("#specialdaytype").val();
+        let hour = $("#hour").val();
+
+        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdayType)}&hour=${hour}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log("✅ 교통량 데이터:", data);
+                updateChart(chart, data);
+                updateTable(data);
+            })
+            .catch(error => console.error("❌ 데이터 가져오기 실패:", error));
+    });
+
+    // 📌 차트 생성 함수
+    function createChart(data) {
+        let comparisonData = (typeof data === "string") ? JSON.parse(data) : data;
+        console.log("Parsing data:", comparisonData);
+     
+        let labels = comparisonData.map(item => item.year); // 명절 이름
+        let trfls = comparisonData.map(item => item.trfls);  // 교통량
+        let rateData = comparisonData.map(item => item.rateTraffic); // 증가율
+
+        let ctx = document.getElementById("trafficChart").getContext("2d");
+
+        return new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: "교통량",
+                        data: trfls,
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "증가율 (%)",
+                        data: rateData,
+                        type: "line",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 2,
+                        fill: false,
+                        yAxisID: "y1",
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "교통량 (대)"
+                        }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: "right",
+                        title: {
+                            display: true,
+                            text: "증가율 (%)"
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // 📌 차트 업데이트 함수
+    function updateChart(chart, data) {
+        let comparisonData = Array.isArray(data.content) ? data.content : [];
+
+        console.log("Updating chart with data:", comparisonData);
+
+        // 🚀 필터링된 데이터에 맞게 수정!
+        let labels = comparisonData.map(item => item.tcStdYear); // 연도
+        let trfls = comparisonData.map(item => item.tcTrfl); // 교통량
+
+        console.log("Updated Labels:", labels);
+        console.log("Updated Traffic Counts:", trfls);
+
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = trfls;
+        chart.update();
+    } 
+
+/**    function updateTable(data) {
+        let tableBody = $(".table tbody");
+        tableBody.empty();
+        
+        let comparisonData = Array.isEmpty(data.content) ? data.content : [];
+
+        comparisonData.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.tcStdYear}</td>
+                <td>${item.tcSphldfttNm}</td>
+                <td>${item.tcSphldfttScopTypeNm}</td>
+                <td>${item.tcSydHour}</td>
+                <td>${item.tcTrfl}</td>
+                <td>${item.tcPrevTrfl}</td>
+                <td>${item.tcChangeTrfl}</td>
+                <td>${item.tcRateTrfl}</td>
+            </tr>`;
+            tableBody.append(row);
+        });
+    } **/
+});
+</script>
 </body>
-</html>
+</html>        
