@@ -26,7 +26,6 @@ public class MemberSecurityService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
 		log.info("1.username:{}",username);
 		Optional<Member> _siteUser = memberRepository.findByusername(username);
 		

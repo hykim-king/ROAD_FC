@@ -1,0 +1,31 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="myContainer container">
+    <div class="row">
+        <div class="col-md-3 mx-4 sidebar-container"> <!-- 사이드바에 대한 클래스 추가 -->
+            <div th:replace="~{msidebar :: sidebarFragment}"></div>
+        </div>
+        <div class="col-md-4 mx-4">
+            <form th:action="@{/member/change}" th:object="${memberChPass}" method="post">
+                <h5 class="border-bottom py-2">비밀번호 변경</h5>
+                
+                <label for="password" class="form-label">현재 비밀번호:</label>
+                <input type="password" th:field="*{password}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 오류</div>
+                
+                <label for="password1" class="form-label">새 비밀번호:</label>
+                <input type="password" th:field="*{password1}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}">새 비밀번호 오류</div>
+                
+                <label for="password2" class="form-label">새 비밀번호 확인:</label>
+                <input type="password" th:field="*{password2}" class="form-control" required>
+                <div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}">새 비밀번호 확인 오류</div>
+                
+                <!-- 오른쪽 끝에 배치하는 부분 -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-secondary my-3">비밀번호 변경</button>
+                </div>
+            </form>
+        </div>
+  </div>
+</div>
+</html>

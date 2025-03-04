@@ -1,8 +1,14 @@
 package com.pcwk.ehr.member;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Member {
+public class Member{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

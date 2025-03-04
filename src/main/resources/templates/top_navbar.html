@@ -1,53 +1,50 @@
 <!-- <nav th:fragment="topNavbarFragment"> -->
-  <!-- 상단 네비게이션 바 -->
-  <div th:fragment="topNavbarFragment" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow" style="height:80px">
-    <div class="container-fluid">
-      <!-- 로고 -->
-      <a class="navbar-brand ms-3" th:href="@{/cctv/map}">
-        <img th:src="@{/images/logo.png}" alt="Logo" width="150">
-      </a>
-      <!-- 토글 버튼 (반응형) -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- 네비게이션 메뉴 -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto gap-5">
-          <li class="nav-item">
-            <a class="nav-link fs-5 fw-semibold" th:href="@{/map/map}">지도</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">도로상황분석</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">도로관련기사</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fs-5 fw-semibold" th:href="@{/member/signup}">교통안전수칙</a>
-          </li>
-          <li class="nav-item dropdown-center">
-            <a class="dropdown-toggle nav-link fs-5 fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            	커뮤니티
-            </a>
-            <ul class="dropdown-menu dropdown-menu-light">
-            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">공지사항</a></li>
-            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">제보하기</a></li>
-            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">Q&amp;A</a></li>
-            	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" href="#">FAQ</a></li>
-            </ul>
-          </li>
-        </ul>
-        <!-- 로그인 / 로그아웃 -->
-        <div class="d-flex">
-        	<a class="link-dark link-opacity-100 link-opacity-75-hover link-underline-opacity-0 my-auto me-2" href="#">회원가입</a>
-          <a class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-          <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-        </div>
+<!-- 상단 네비게이션 바 -->
+<div th:fragment="topNavbarFragment" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow" style="height:80px">
+  <div class="container-fluid">
+    <!-- 로고 -->
+    <a class="navbar-brand ms-3" th:href="@{/map/map}">
+      <img th:src="@{/images/logo.png}" alt="Logo" width="150">
+    </a>
+    <!-- 토글 버튼 (반응형) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- 네비게이션 메뉴 -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto gap-5">
+        <li class="nav-item">
+          <a class="nav-link fs-5 fw-semibold" th:href="@{/map/map}">지도</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 fw-semibold" href="#">도로상황분석</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 fw-semibold" href="#">도로관련기사</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 fw-semibold" href="#">교통안전수칙</a>
+        </li>
+        <li class="nav-item dropdown-center">
+          <a class="dropdown-toggle nav-link fs-5 fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          	커뮤니티
+          </a>
+          <ul class="dropdown-menu dropdown-menu-light">
+          	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" th:href="@{/notice/question/list}">공지사항</a></li>
+          	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" th:href="@{/report/question/list}">제보하기</a></li>
+          	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" th:href="@{/qna/question/list}">Q&amp;A</a></li>
+          	<li><a class="dropdown-item nav-link text-center fs-5 fw-semibold" th:href="@{/faq/question/list}">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- 로그인 / 로그아웃 -->
+      <div class="d-flex">
+      	<a class="link-dark link-opacity-100 link-opacity-75-hover link-underline-opacity-0 my-auto me-2" th:href="@{/member/signup}">회원가입</a>
+        <a class="btn btn-outline-primary me-2" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+        <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
       </div>
     </div>
   </div>
-
-
-
+</div>
 <!-- </nav> -->

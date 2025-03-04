@@ -1354,7 +1354,7 @@ kakao.maps.load(function() {
     }
   }*/
   
-  safetyIndex.forEach(function(safety) {
+/*  safetyIndex.forEach(function(safety) {
     console.log("안전지수:", safety.safetyIndex);
     
     var content = document.createElement("div");
@@ -1377,15 +1377,15 @@ kakao.maps.load(function() {
     });
     
     safetyIndexContent.push(overlay);
-  });
+  });*/
   
-  function showSafetyIndex() {
+/*  function showSafetyIndex() {
     if (currentOverlay) {
       currentOverlay = null;
     }
     
     
-  }
+  }*/
 
   // 마커 on/off 상태 관리 객체
   let activatedMarkers = {

@@ -25,6 +25,9 @@ public class MemberCreateForm {
 	@Email
 	private String email;
 	
+	@NotEmpty(message = "인증 번호를 입력해 주세요")
+    private String authNum;
+	
 	@Size(min = 2, max = 30)
 	@NotEmpty(message = "사용자 이름은 필수 입력입니다.")
 	private String userDisName;

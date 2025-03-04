@@ -19,6 +19,7 @@ import com.pcwk.ehr.map.service.MapService;
 import com.pcwk.ehr.map.service.TestRoadService;
 import com.pcwk.ehr.map.service.WeatherService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -32,10 +33,10 @@ public class MapController {
 	WeatherService weatherService;
 	
 	@GetMapping("/map")
-	public String cctvMap(Model model) {
+	public String cctvMap(Model model, HttpServletRequest request) {
 		log.info("┌──────────────────┐");
 		log.info("│ map()            │");
-		log.info("└──────────────────┘");	
+		log.info("└──────────────────┘");
 		
 		List<TestRoad> accidentList = mapService.findByAccident();
 		List<TestRoad> constructionList = mapService.findByConstruction();
@@ -59,6 +60,8 @@ public class MapController {
 	    model.addAttribute("freezingInfo", freezingInfo);
 	    model.addAttribute("tunnelInfo", tunnelInfo);
 	    model.addAttribute("safetyIndex", safetyIndex);
+	    
+	    model.addAttribute("currentUrl", request.getRequestURI());
 	    
 		return "map/map";
 	}

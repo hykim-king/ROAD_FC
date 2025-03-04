@@ -30,4 +30,8 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
 	Page<Member> findAll(Pageable pageable) ;
 	
 	Optional<Member> findByusername(String username);
+	
+	List<Member> findByUsername(String username);
+	
+	Optional<Member> findByEmail(String email);
 }

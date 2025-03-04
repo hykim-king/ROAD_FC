@@ -60,32 +60,97 @@ input[type=submit] {
 	color: white; /* 활성화 시 글자색 */
 }
 
-/* .fa-car-burst, .fa-person-digging, .fa-cloud-sun,
-.fa-video, .fa-snowflake, .fa-car-tunnel {
-	color: #797979;
-	transition: color 0.3s ease;
+/* 회원가입 CSS */
+.underline-input {
+	border: none;
+	border-bottom: 2px solid lightgray;
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
 }
 
-.fa-car-burst.active {
-	color: #e73d42;
+.underline-input:focus {
+	border-bottom: 2px solid lightgray;
+}
+/* 회원가입 CSS */
+
+/* 로그인 CSS */
+.myContainer {
+	max-width: 500px !important;
+	margin: 100px auto; /* 수직 및 수평 중앙 배치 */
+	margin-top: 80px !important;
+	padding: 20px;
 }
 
-.fa-person-digging.active {
-	color: #905D23;
+.border-bottom {
+	border-bottom: 2px solid #007bff;
 }
 
-.fa-cloud-sun.active {
-	color: #427BFF;
+.btn-dark {
+	font-size: 1.25em; /* 버튼 크기를 크게 조정 */
+	padding: 10px 20px; /* 버튼 패딩 조정 */
+	width: 100%; /* 버튼 너비를 100%로 설정 */
 }
 
-.fa-video.active {
-	color: #B197FC;
+.btn-dark:hover {
+	background-color: #007bff;
 }
 
-.fa-snowflake.active {
-	color: #74C0FC;
+.form-label {
+	font-weight: bold;
 }
 
-.fa-car-tunnel.active {
-	color: #21875b;
-} */
+.form-control {
+	height: 50px; /* 입력란 높이 조정 */
+}
+
+.alert-danger {
+	color: #dc3545;
+}
+
+.additional-links a {
+	font: bold;
+	font-size: 0.9em;
+	color: gray;
+	text-decoration: none;
+	margin-right: 10px;
+}
+
+.additional-links a:hover {
+	text-decoration: underline;
+}
+
+.error-message {
+	color: red;
+	font-size: 0.8em;
+	margin-top: 5px;
+}
+/* 로그인 CSS */
+
+/* 게시판 CSS */
+.myMargin {
+	margin: 100px auto; /* 수직 및 수평 중앙 배치 */
+	margin-top: 80px !important;
+	padding: 20px;
+}
+/* 게시판 CSS */
+
+/* FAQ CSS */
+.faq-title {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+.circle-number {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	margin-right: 10px;
+}
+/* FAQ CSS */
