@@ -4,20 +4,23 @@
 	<!-- 제목 -->
 	<h5 class="border-bottom py-2">공지 등록</h5>
 
-	<form th:object="${noticeQuestionForm}" method="post" enctype="multipart/form-data">
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+	<form th:object="${noticeQuestionForm}" method="post"
+		enctype="multipart/form-data">
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}">
 		<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 		<div class="mb-3">
-			<label for="subject">제목</label> 
-			<input name="subject" id="subject" class="form-control" th:field="*{subject}">
+			<label for="subject">제목</label> <input name="subject" id="subject"
+				class="form-control" th:field="*{subject}">
 		</div>
 		<div class="mb-3">
 			<label for="content">내용</label>
-			<textarea rows="10" th:field="*{content}" name="content" id="content" class="form-control"></textarea>
+			<textarea rows="10" th:field="*{content}" name="content" id="content"
+				class="form-control"></textarea>
 		</div>
 		<div class="mb-3">
-			<label for="imgFile">이미지 업로드</label>
-			<input type="file" name="imgFile" id="imgFile" class="form-control" multiple>
+			<label for="imgFile">이미지 업로드</label> <input type="file"
+				name="imgFile" id="imgFile" class="form-control" multiple>
 		</div>
 		<input type="submit" class="btn btn-primary" value="저장">
 	</form>

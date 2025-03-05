@@ -14,6 +14,7 @@ input[type=submit] {
 	margin-top: 10px;
 }
 
+/* 왼쪽 내비 CSS */
 .sidebar {
 	height: 100vh;
 }
@@ -48,17 +49,64 @@ input[type=submit] {
 }
 
 .typeBtn {
-	background-color: #f8f9fa; /* 기본 배경색 (연한 회색) */
-	color: #333; /* 기본 글자색 */
+	background-color: #f1f1f1; /* 기본 배경색 */
+	color: #454545; /* 기본 글자색 */
 	padding: 10px 15px;
 	border-radius: 5px;
 	transition: background 0.3s, color 0.3s;
 }
 
 .typeBtn.active {
-	background-color: #9bcbff; /* 활성화 시 배경색 (빨간색) */
+	background-color: #9bcbff; /* 활성화 시 배경색 */
 	color: white; /* 활성화 시 글자색 */
 }
+
+.info-section {
+	max-height: calc(100vh - 290px); /* 네비게이션 높이를 제한 */
+	overflow-y: auto; /* 내용이 많으면 내부에서만 스크롤 */
+	color: black;
+	background-color: #fff;
+}
+
+.info-section ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.info-section li {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.info-section li:last-child {
+	border-bottom: none;
+}
+
+.infoHeader {
+	display: flex;
+	justify-content: center;
+	padding: 10px 0;
+	border-bottom: 2px solid lightgray;
+	background-color: #353535;
+	color: #fff;
+}
+
+.infoHeader > h4 {
+	margin: 0;
+	padding: 10px;
+}
+
+.timeInfo {
+	font-size: 11px;
+}
+
+.titleInfo, .addrInfo, .timeInfo {
+	margin: 5px 0;
+
+}
+
+/* 왼쪽 내비 CSS */
 
 /* 회원가입 CSS */
 .underline-input {
@@ -92,8 +140,9 @@ input[type=submit] {
 	width: 100%; /* 버튼 너비를 100%로 설정 */
 }
 
-.btn-dark:hover {
-	background-color: #007bff;
+.btn-light:hover {
+	background-color: #4fa3fd;
+	color: #fff;
 }
 
 .form-label {

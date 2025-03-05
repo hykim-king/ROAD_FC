@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.map.entity.TestRoad;
+import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.repository.TestRoadRepository;
 
 @Service
@@ -14,12 +14,12 @@ public class TestRoadService {
 	@Autowired
 	TestRoadRepository testRoadRepository;
 	
-	public List<TestRoad> findByAccident(){
+	public List<Road> findByAccident(){
 		return testRoadRepository.findByAccident();
 	}
 
 
-	public List<TestRoad> findByConstruction(){
+	public List<Road> findByConstruction(){
 		return testRoadRepository.findByConstruction();
 	}
 	

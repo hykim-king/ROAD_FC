@@ -62,28 +62,30 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 🏷 선택한 항목에 대한 정보 표시 -->
-	<div class="tab-content flex-grow-1 overflow-auto mt-3 text-center"
-		id="trafficTabContent">
-		<div id="constructionDataContainer" class="construction-data mt-3">
-			
+	
+	<div class="road-info-container">
+		<div class="infoHeader">
+			<h4>교통정보</h4>
 		</div>
-		<ul id="constructionList" style="display: none;">
-			<li th:each="construction: ${construnctionList}"
-					th:data-title="${construction.road_title}"
-					th:data-location="${construction.road_addr}"
-					th:data-duration="${construction.road_start} + ' ~ ' + ${construction.road_end}">
-			</li>
-		</ul>
-
-		<!-- 🚧 사고 정보 -->
-		<div class="tab-pane fade show active" id="accident">
-			<h4 class="title">서해안선(서울방향)</h4>
-			<button class="btn btn-light mx-2 py-3 border border-opacity-25" style="width: 95%; height:120px;">
-				정체 | 차량증가/정체
-			</button>
+		<!-- 🏷 선택한 항목에 대한 정보 표시 -->
+		<div class="info-section tab-content flex-grow-1 text-center">
+			<div class="accidentList">
+				<ul>
+					<li th:each="accident: ${accidentList}">
+						<strong class="titleInfo" th:text="${accident.road_title}"></strong>
+						<p class="addrInfo" th:text="'위치: ' + ${accident.road_addr}"></p>
+						<p class="timeInfo" th:text="'시간: ' + ${accident.road_start} + ' ~ ' + ${accident.road_end}"></p>
+					</li>
+				</ul>
+				<ul id="constructionList">
+					<li th:each="construction: ${construnctionList}">
+						<strong class="titleInfo" th:text="${construction.road_title}"></strong>
+						<p class="addrInfo" th:text="'위치: ' + ${construction.road_addr}"></p>
+						<p class="timeInfo" th:text="'시간: ' + ${construction.road_start} + ' ~ ' + ${construction.road_end}"></p>
+					</li>
+				</ul>
+			</div>
 		</div>
-
 	</div>
+	
 </div>

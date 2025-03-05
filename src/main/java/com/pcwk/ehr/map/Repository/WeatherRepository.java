@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import com.pcwk.ehr.map.entity.Weather;
 
-@Repository
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
-	@Query(value = "SELECT * FROM weather", nativeQuery = true)
-	List<Weather> getWeatherInfo();
+
+	List<Weather> findAll();
+
+	@Query(value = "SELECT w.WEATHER_STATION_ID, w.WEATHER_PRECIPITATION, w.WEATHER_SNOWFALL, w.WEATHER_VISIBILITY_DISTANCE, w.WEATHER_WIND_SPEED, w.WEATHER_TEMPERATURE, s.station_latitude, s.station_longitude "
+			+ "FROM WEATHER w "
+			+ "INNER JOIN STATION s "
+			+ "ON w.weather_station_id = s.station_id", nativeQuery=true )
+	List<Object[]> dataNeededForSafetyIndex();
 }

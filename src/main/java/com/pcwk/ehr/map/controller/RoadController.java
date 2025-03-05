@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pcwk.ehr.map.entity.TestRoad;
+import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.service.TestRoadService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +29,8 @@ public class RoadController {
 		log.info("│ roadMap()        │");
 		log.info("└──────────────────┘");	
 		
-		List<TestRoad> accidentList = testRoadService.findByAccident();
-		List<TestRoad> constructionList = testRoadService.findByConstruction();
+		List<Road> accidentList = testRoadService.findByAccident();
+		List<Road> constructionList = testRoadService.findByConstruction();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);

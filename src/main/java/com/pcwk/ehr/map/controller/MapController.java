@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pcwk.ehr.freezing.Freezing;
 import com.pcwk.ehr.map.entity.Cctv;
-import com.pcwk.ehr.map.entity.TestRoad;
-import com.pcwk.ehr.map.entity.TestWeatherInterface;
+import com.pcwk.ehr.map.entity.Road;
+import com.pcwk.ehr.map.entity.RoadWeatherInterface;
 import com.pcwk.ehr.map.entity.Weather;
-import com.pcwk.ehr.map.service.CctvService;
-import com.pcwk.ehr.map.service.FreezingService;
 import com.pcwk.ehr.map.service.MapService;
-import com.pcwk.ehr.map.service.TestRoadService;
 import com.pcwk.ehr.map.service.WeatherService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,13 +35,13 @@ public class MapController {
 		log.info("│ map()            │");
 		log.info("└──────────────────┘");
 		
-		List<TestRoad> accidentList = mapService.findByAccident();
-		List<TestRoad> constructionList = mapService.findByConstruction();
-		List<TestWeatherInterface> findNowWeather = mapService.findNowWeather();
+		List<Road> accidentList = mapService.findByAccident();
+		List<Road> constructionList = mapService.findByConstruction();
+		List<RoadWeatherInterface> findNowWeather = mapService.findNowWeather();
 		List<Cctv> cctvInfo = mapService.cctvList();
 		List<Freezing> freezingInfo = mapService.freezingList();
 		List<Cctv> tunnelInfo = mapService.tunnelList();
-		List<Weather> safetyIndex = weatherService.getSafetyIndex();
+		int safetyIndex = weatherService.getSafetyIndex();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);
@@ -52,6 +49,7 @@ public class MapController {
 		log.info("CCTV 데이터: {}", cctvInfo);
 		log.info("결빙 데이터: {}", freezingInfo);
 		log.info("터널 데이터: {}", tunnelInfo);
+		log.info("안전 지수: {}", safetyIndex);
 		
 		model.addAttribute("accidentList", accidentList);
 	    model.addAttribute("constructionList", constructionList);

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.freezing.Freezing;
 import com.pcwk.ehr.map.entity.Cctv;
-import com.pcwk.ehr.map.entity.TestRoad;
-import com.pcwk.ehr.map.entity.TestWeatherInterface;
+import com.pcwk.ehr.map.entity.Road;
+import com.pcwk.ehr.map.entity.RoadWeatherInterface;
 import com.pcwk.ehr.map.repository.CctvRepository;
 import com.pcwk.ehr.map.repository.FreezingRepository;
+import com.pcwk.ehr.map.repository.RoadWeatherRepository;
 import com.pcwk.ehr.map.repository.TestRoadRepository;
-import com.pcwk.ehr.map.repository.TestWeatherRepository;
 import com.pcwk.ehr.map.repository.TunnelRepository;
 
 @Service
@@ -21,7 +21,7 @@ public class MapService {
 	TestRoadRepository testRoadRepository;
 	
 	@Autowired
-	TestWeatherRepository testWeatherRepository;
+	RoadWeatherRepository roadWeatherRepository;
 	
 	@Autowired
 	CctvRepository cctvRepository;
@@ -32,16 +32,16 @@ public class MapService {
 	@Autowired
 	TunnelRepository tunnelRepository;
 	
-	public List<TestRoad> findByAccident(){
+	public List<Road> findByAccident(){
 		return testRoadRepository.findByAccident();
 	}
 
-	public List<TestRoad> findByConstruction(){
+	public List<Road> findByConstruction(){
 		return testRoadRepository.findByConstruction();
 	}
 	
-	public List<TestWeatherInterface> findNowWeather(){
-		return testWeatherRepository.findNowWeather();
+	public List<RoadWeatherInterface> findNowWeather(){
+		return roadWeatherRepository.findNowWeather();
 	}
 	
 	public List<Freezing> freezingList(){

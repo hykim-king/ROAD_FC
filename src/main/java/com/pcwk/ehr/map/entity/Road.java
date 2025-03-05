@@ -7,18 +7,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "ROAD")
 public class Road {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private Integer road_id;
+	private String road_id;
 	
 	@Column(columnDefinition = "NUMBER", nullable = false)
 	private Integer road_type;

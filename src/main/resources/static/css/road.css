@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 사고, 공사 디자인 */
+/* 사고, 공사 CSS */
 .wrap {
 	position: absolute;
 	left: 0;
@@ -48,11 +48,12 @@
 .info .body {
 	position: relative;
 	overflow: hidden;
+	padding: 10px;
 }
 
 .info .desc {
 	position: relative;
-	margin: 10px 15px;
+	margin: 5px 7px;
 	white-space: normal;
 	word-wrap: break-word;
 }
@@ -94,8 +95,9 @@
 	color: #888;
 	margin: 7px 0px;
 }
+/* 사고, 공사 CSS */
 
-/* 날씨 디자인 */
+/* 날씨 CSS */
 .weather-overlay {
 	background: white;
 	border-radius: 12px;
@@ -111,6 +113,7 @@
 	height: 30px;
 	margin-right: 8px;
 	pointer-events: none;
+	margin-top: -20px;
 }
 
 .weather-details {
@@ -129,3 +132,17 @@
 	font-size: 12px;
 	color: gray;
 }
+/* 날씨 CSS */
+
+/* CCTV, 터널 CSS */
+.videoTitle {
+	margin: 0 5px 5px;
+	font-size: 15px;
+	font-weight: 400;
+}
+
+.videoContainer {
+	display: flex;
+	justify-content: center;
+}
+/* CCTV, 터널 CSS */
