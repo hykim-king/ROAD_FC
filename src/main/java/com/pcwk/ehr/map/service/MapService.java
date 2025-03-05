@@ -11,14 +11,14 @@ import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.entity.RoadWeatherInterface;
 import com.pcwk.ehr.map.repository.CctvRepository;
 import com.pcwk.ehr.map.repository.FreezingRepository;
+import com.pcwk.ehr.map.repository.RoadRepository;
 import com.pcwk.ehr.map.repository.RoadWeatherRepository;
-import com.pcwk.ehr.map.repository.TestRoadRepository;
 import com.pcwk.ehr.map.repository.TunnelRepository;
 
 @Service
 public class MapService {
 	@Autowired
-	TestRoadRepository testRoadRepository;
+	RoadRepository roadRepository;
 	
 	@Autowired
 	RoadWeatherRepository roadWeatherRepository;
@@ -33,11 +33,11 @@ public class MapService {
 	TunnelRepository tunnelRepository;
 	
 	public List<Road> findByAccident(){
-		return testRoadRepository.findByAccident();
+		return roadRepository.findByAccident();
 	}
 
 	public List<Road> findByConstruction(){
-		return testRoadRepository.findByConstruction();
+		return roadRepository.findByConstruction();
 	}
 	
 	public List<RoadWeatherInterface> findNowWeather(){

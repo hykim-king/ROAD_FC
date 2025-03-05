@@ -11,7 +11,7 @@ public interface WeatherRepository extends JpaRepository<Weather, Integer> {
 
 	List<Weather> findAll();
 
-	@Query(value = "SELECT w.WEATHER_STATION_ID, w.WEATHER_PRECIPITATION, w.WEATHER_SNOWFALL, w.WEATHER_VISIBILITY_DISTANCE, w.WEATHER_WIND_SPEED, w.WEATHER_TEMPERATURE, s.station_latitude, s.station_longitude "
+	@Query(value = "SELECT w.WEATHER_STATION_ID, w.WEATHER_PRECIPITATION, w.WEATHER_SNOWFALL, w.WEATHER_VISIBILITY_DISTANCE, w.WEATHER_WIND_SPEED, w.WEATHER_TEMPERATURE, s.STATION_LATITUDE, s.STATION_LONGITUDE, s.STATION_AREA "
 			+ "FROM WEATHER w "
 			+ "INNER JOIN STATION s "
 			+ "ON w.weather_station_id = s.station_id", nativeQuery=true )

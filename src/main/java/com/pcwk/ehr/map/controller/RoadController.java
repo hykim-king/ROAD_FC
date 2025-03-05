@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pcwk.ehr.map.entity.Road;
-import com.pcwk.ehr.map.service.TestRoadService;
+import com.pcwk.ehr.map.service.RoadService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RoadController {
 	
 	@Autowired
-	TestRoadService testRoadService;
+	RoadService roadService;
 	
 	@GetMapping("/map")
 	public String roadMap(Model model) throws JsonProcessingException {
@@ -29,8 +29,8 @@ public class RoadController {
 		log.info("│ roadMap()        │");
 		log.info("└──────────────────┘");	
 		
-		List<Road> accidentList = testRoadService.findByAccident();
-		List<Road> constructionList = testRoadService.findByConstruction();
+		List<Road> accidentList = roadService.findByAccident();
+		List<Road> constructionList = roadService.findByConstruction();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);

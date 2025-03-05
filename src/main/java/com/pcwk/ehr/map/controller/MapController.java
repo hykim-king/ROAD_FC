@@ -8,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pcwk.ehr.SafetyIndexDTO;
 import com.pcwk.ehr.freezing.Freezing;
 import com.pcwk.ehr.map.entity.Cctv;
 import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.entity.RoadWeatherInterface;
-import com.pcwk.ehr.map.entity.Weather;
 import com.pcwk.ehr.map.service.MapService;
+import com.pcwk.ehr.map.service.TestWeatherService;
 import com.pcwk.ehr.map.service.WeatherService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,9 @@ public class MapController {
 	@Autowired
 	WeatherService weatherService;
 	
+	@Autowired
+	TestWeatherService testWeatherService;
+	
 	@GetMapping("/map")
 	public String cctvMap(Model model, HttpServletRequest request) {
 		log.info("┌──────────────────┐");
@@ -41,7 +45,7 @@ public class MapController {
 		List<Cctv> cctvInfo = mapService.cctvList();
 		List<Freezing> freezingInfo = mapService.freezingList();
 		List<Cctv> tunnelInfo = mapService.tunnelList();
-		int safetyIndex = weatherService.getSafetyIndex();
+		List<SafetyIndexDTO> safetyIndex = testWeatherService.getSafetyIndex();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);
