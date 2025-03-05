@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
+import jakarta.persistence.criteria.Predicate;
 import com.pcwk.ehr.DataRepository.TrafficComparisonRepository;
 import com.pcwk.ehr.data.TrafficComparison;
 
-import jakarta.persistence.criteria.Predicate;
-
 @Service
 public class TrafficComparisonService {
+	final Logger log = LoggerFactory.getLogger(getClass());
 
-    final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     TrafficComparisonRepository trafficComparisonRepository;
@@ -95,7 +94,12 @@ public class TrafficComparisonService {
         return trafficComparisonRepository.findAll(spec, pageable);
     }
 
-    public List<Map<String, Object>> getAvgTrafficByFilters(Integer year, String specialday, Integer hour) {
-        return trafficComparisonRepository.findAvgTraffic(year, specialday, hour);
+    public List<Map<String, Object>> getAvgTrafficByFilters(Integer year, String specialday, String specialdayType, Integer hour, Integer prevTrFl, Integer changeTrFl, Integer rateTrFl) {
+        return trafficComparisonRepository.findAvgTraffic(year, specialday, specialdayType, hour, prevTrFl, changeTrFl, rateTrFl);
     }
+
+	public List<Map<String, Object>> getAvgTrafficByFilters(Integer year, String specialday, String specialdayType,
+			Integer hour, Integer prevTrFl, Integer changeTrFl, Double rateTrFl, Pageable pageable) {
+		return null;
+	}
 }

@@ -10,11 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="container mt-4">
-    <canvas id="trafficChart"></canvas>
+
     <h2 class="text-center mb-4">명절 교통량 비교</h2>
     
     <!-- 필터링  -->
-    <form method="get" th:action="@{/accidents/clist}" class="row g-3">
+    <form method="get" th:action="@{/DataChart/clist}" class="row g-3">
         <div class="col-md-3">
             <label for="year" class="form-label">연도</label>
             <select class="form-select" id="year" name="year">
@@ -57,7 +57,7 @@
     
     <!-- 교통량 데이터 -->
     <div class="mt-4">
-        <table class="table table-hover">
+        <table id="trafficTable" class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -84,7 +84,8 @@
                 	<td th:text="${comparison.tcRateTrfl}"></td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(comparisons)}">
-                <td colspan="9" class="text-center">데이터가 없습니다.</td>
+                    <td colspan="9" class="text-center">데이터가 없습니다.</td>
+                </tr> <!-- 추가된 닫는 tr 태그 -->
             </tbody>
         </table>
     </div>
@@ -118,134 +119,100 @@
         </ul>
     </div>
     <!-- paging end -->
-<script th:inline="javascript">
-$(document).ready(function () {
-    let chart;
-
-    let initialData = /*[[${comparisonDataJson}]]*/ [];
-    console.log("Fetched Data on Load:", initialData);
-    chart = createChart(initialData);
     
-    // 📌 폼 제출 시 데이터 가져오기 및 차트 업데이트
-    $("form").on("submit", function(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
-        
-        let year = $("#year").val();
-        let specialday = $("#specialday").val();
-        let specialdayType = $("#specialdaytype").val();
-        let hour = $("#hour").val();
+<canvas id="trafficChart" style="width: 100%; height: 400px;"></canvas>
+    
+<script th:inline="javascript">
+let chart = null; // 전역 차트 변수
 
-        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdayType)}&hour=${hour}`;
+// 기존 차트를 제거하는 함수
+function removeChart() {
+    if (chart) {
+        chart.destroy();  // 기존 차트 제거
+        chart = null;     // 차트 변수 초기화
+    }
+}
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log("✅ 교통량 데이터:", data);
-                updateChart(chart, data);
-                updateTable(data);
-            })
-            .catch(error => console.error("❌ 데이터 가져오기 실패:", error));
+$(document).ready(function() {
+    // 초기 데이터가 있을 때 차트를 그립니다.
+    let initialData = /*[[${comparisonData}]]*/ [];
+    console.log("Fetched Data on Load:", initialData);
+
+    // 기존 차트를 제거하고 새로운 차트 생성
+    if (initialData && initialData.length > 0) {
+        removeChart();  // 기존 차트가 있으면 제거
+        chart = createChart(initialData);  // 새로운 차트 생성
+    } else {
+        console.warn("🚨 초기 데이터가 없습니다. 차트 생성을 중단합니다.");
+    }
+});
+
+// 필터링된 데이터로 차트를 업데이트하는 함수
+$("form").on("submit", function(event) {
+    event.preventDefault();
+    
+    let year = $("#year").val();
+    let specialDay = $("#specialDay").val();
+    let specialDayType = $("#specialDayType").val();
+    let hour = $("#hour").val();
+    let prevTrfl = $("#prevTrfl").val();
+    let changeTrfl = $("#changeTrfl").val();
+    let rateTrfl = $("#rateTrfl").val();
+    
+    let url = `/DataChart/clist1/json?year=${year}&specialDay=${encodeURIComponent(specialDay)}&specialDayType=${encodeURIComponent(specialDayType)}&hour=${hour}&prevTrfl=${prevTrfl}&changeTrfl=${changeTrfl}&rateTrfl=${rateTrfl}`;
+
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // JSON이 아닌 경우 텍스트로 받아옴
+    })
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // JSON으로 파싱
+            console.log("Filtered Data:", data);
+            
+            // 데이터가 배열인지 확인하고 배열이 아니면 빈 배열로 설정
+            if (!Array.isArray(data)) {
+                console.warn("🚨 유효한 차트 데이터가 아님:", data);
+                data = []; // 빈 배열로 설정
+            }
+
+            removeChart();  // 기존 차트 제거
+            chart = createChart(data);  // 새로운 차트 생성
+            updateTable(data);  // 테이블 업데이트
+        } catch (error) {
+            console.error("응답 데이터를 JSON으로 변환하는 데 실패했습니다:", error);
+        }
+    })
+    .catch(error => console.error("Error fetching filtered data:", error));
+
+
+// 차트를 생성하는 함수
+function createLineChart(data) {
+    let ctx = document.getElementById('trafficChart').getContext('2d');
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map(item => item.tcSydHour),
+            datasets: [{
+                label: '교통량(대)',
+                data: data.map(item => item.tcTrfl),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: '시간대' }},
+                y: { title: { display: true, text: '교통량(대)' }}
+            }
+        }
     });
 
-    // 📌 차트 생성 함수
-    function createChart(data) {
-        let comparisonData = (typeof data === "string") ? JSON.parse(data) : data;
-        console.log("Parsing data:", comparisonData);
-     
-        let labels = comparisonData.map(item => item.year); // 명절 이름
-        let trfls = comparisonData.map(item => item.trfls);  // 교통량
-        let rateData = comparisonData.map(item => item.rateTraffic); // 증가율
-
-        let ctx = document.getElementById("trafficChart").getContext("2d");
-
-        return new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: "교통량",
-                        data: trfls,
-                        backgroundColor: "rgba(54, 162, 235, 0.5)",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        borderWidth: 1,
-                    },
-                    {
-                        label: "증가율 (%)",
-                        data: rateData,
-                        type: "line",
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        borderWidth: 2,
-                        fill: false,
-                        yAxisID: "y1",
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: "교통량 (대)"
-                        }
-                    },
-                    y1: {
-                        beginAtZero: true,
-                        position: "right",
-                        title: {
-                            display: true,
-                            text: "증가율 (%)"
-                        },
-                        grid: {
-                            drawOnChartArea: false
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // 📌 차트 업데이트 함수
-    function updateChart(chart, data) {
-        let comparisonData = Array.isArray(data.content) ? data.content : [];
-
-        console.log("Updating chart with data:", comparisonData);
-
-        // 🚀 필터링된 데이터에 맞게 수정!
-        let labels = comparisonData.map(item => item.tcStdYear); // 연도
-        let trfls = comparisonData.map(item => item.tcTrfl); // 교통량
-
-        console.log("Updated Labels:", labels);
-        console.log("Updated Traffic Counts:", trfls);
-
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = trfls;
-        chart.update();
-    } 
-
-/**    function updateTable(data) {
-        let tableBody = $(".table tbody");
-        tableBody.empty();
-        
-        let comparisonData = Array.isEmpty(data.content) ? data.content : [];
-
-        comparisonData.forEach((item, index) => {
-            let row = `<tr>
-                <td>${index + 1}</td>
-                <td>${item.tcStdYear}</td>
-                <td>${item.tcSphldfttNm}</td>
-                <td>${item.tcSphldfttScopTypeNm}</td>
-                <td>${item.tcSydHour}</td>
-                <td>${item.tcTrfl}</td>
-                <td>${item.tcPrevTrfl}</td>
-                <td>${item.tcChangeTrfl}</td>
-                <td>${item.tcRateTrfl}</td>
-            </tr>`;
-            tableBody.append(row);
-        });
-    } **/
+}
 });
 </script>
 </body>

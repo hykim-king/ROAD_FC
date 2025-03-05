@@ -14,102 +14,62 @@ import org.springframework.stereotype.Repository;
 import com.pcwk.ehr.data.TrafficComparison;
 
 @Repository
-public interface TrafficComparisonRepository extends JpaRepository<TrafficComparison, Long>, JpaSpecificationExecutor<TrafficComparison> {
-	
-	@Query("SELECT new map(c.tcStdYear as year, c.tcSphldfttNm as specialday, c.tcSydHour as hour, " +
-		       "AVG(c.tcTrfl) as avgTraffic, AVG(c.tcPrevTrfl) as prevTraffic, AVG(c.tcChangeTrfl) as changeTraffic, AVG(c.tcRateTrfl) as rateTraffic) " +
-		       "FROM TrafficComparison c " +
-		       "WHERE (:year IS NULL OR c.tcStdYear = :year) " +
-		       "AND (:specialday IS NULL OR c.tcSphldfttNm = :specialday) " +
-		       "AND (:hour IS NULL OR c.tcSydHour = :hour) " +
-		       "GROUP BY c.tcStdYear, c.tcSphldfttNm, c.tcSydHour")
-		List<Map<String, Object>> findAvgTraffic(
-		        @Param("year") Integer year,
-		        @Param("specialday") String specialday,
-		        @Param("hour") Integer hour);
+public interface TrafficComparisonRepository
+		extends JpaRepository<TrafficComparison, Long>, JpaSpecificationExecutor<TrafficComparison> {
 
+	// 평균 교통량과 다른 데이터 필터링 + 페이징
+	@Query("SELECT new map(tc.tcStdYear as year, tc.tcSphldfttNm as specialDay, tc.tcSphldfttScopTypeNm as specialDayType, "
+			+ "tc.tcSydHour as hour, AVG(tc.tcTrfl) as avgTraffic, AVG(tc.tcPrevTrfl) as prevTraffic, AVG(tc.tcChangeTrfl) as changeTraffic, AVG(tc.tcRateTrfl) as rateTraffic) "
+			+ "FROM TrafficComparison tc " + "WHERE (:year IS NULL OR tc.tcStdYear = :year) "
+			+ "AND (:specialday IS NULL OR tc.tcSphldfttNm = :specialday) "
+			+ "AND (:specialdayType IS NULL OR tc.tcSphldfttScopTypeNm = :specialdayType) "
+			+ "AND (:hour IS NULL OR tc.tcSydHour = :hour) " + "AND (:prevTrfl IS NULL OR tc.tcPrevTrfl = :prevTrfl) "
+			+ "AND (:changeTrfl IS NULL OR tc.tcChangeTrfl = :changeTrfl) "
+			+ "AND (:rateTrfl IS NULL OR tc.tcRateTrfl = :rateTrfl) "
+			+ "GROUP BY tc.tcStdYear, tc.tcSphldfttNm, tc.tcSphldfttScopTypeNm, tc.tcSydHour")
+	Page<Map<String, Object>> findAvgTrafficWithPagination(@Param("year") Integer year,
+			@Param("specialday") String specialday, @Param("specialdayType") String specialdayType,
+			@Param("hour") Integer hour, @Param("prevTrfl") Integer prevTrfl, @Param("changeTrfl") Integer changeTrfl,
+			@Param("rateTrfl") Double rateTrfl, Pageable pageable);
 
-	/**
-	 * 연도 목록 조회(중복 제거 후 내림차순 정렬) 
-	 */
-	@Query("SELECT DISTINCT c.tcStdYear FROM TrafficComparison c ORDER BY c.tcStdYear DESC")
+	// 필터링된 TrafficComparison 데이터 + 페이징
+	@Query("SELECT t FROM TrafficComparison t " + "WHERE (:year IS NULL OR t.tcStdYear = :year) "
+			+ "AND (:specialday IS NULL OR t.tcSphldfttNm = :specialday) "
+			+ "AND (:specialdayType IS NULL OR t.tcSphldfttScopTypeNm = :specialdayType) "
+			+ "AND (:hour IS NULL OR t.tcSydHour = :hour) " + "AND (:prevTrfl IS NULL OR t.tcPrevTrfl = :prevTrfl) "
+			+ "AND (:changeTrfl IS NULL OR t.tcChangeTrfl = :changeTrfl) "
+			+ "AND (:rateTrfl IS NULL OR t.tcRateTrfl = :rateTrfl)")
+	Page<TrafficComparison> findFilteredTrafficComparisonsWithPagination(@Param("year") Integer year,
+			@Param("specialday") String specialday, @Param("specialdayType") String specialdayType,
+			@Param("hour") Integer hour, @Param("prevTrfl") Integer prevTrfl, @Param("changeTrfl") Integer changeTrfl,
+			@Param("rateTrfl") Double rateTrfl, Pageable pageable);
+
+	@Query("SELECT t.tcStdYear, SUM(t.tcTrfl) FROM TrafficComparison t GROUP BY t.tcStdYear ORDER BY t.tcStdYear DESC")
+	List<Object[]> sumComparisonByYear();
+
+	@Query("SELECT DISTINCT t.tcStdYear FROM TrafficComparison t ORDER BY t.tcStdYear DESC")
 	List<Integer> findDistinctYears();
-	
-	/**
-	 * 설날,추석 각각 데이터 조회
-	 */
-	@Query("SELECT DISTINCT c.tcSphldfttNm FROM TrafficComparison c ORDER BY c.tcSphldfttNm ASC")
+
+	@Query("SELECT DISTINCT t.tcSphldfttNm FROM TrafficComparison t ORDER BY t.tcSphldfttNm ASC")
 	List<String> findDistinctSphldfttNm();
-	
-	/**
-	 * 각 명절 별 세부 날짜 조회(D-3,D-2,D-1,D,D+1,D+2,D+3)
-	 */
-	@Query("SELECT DISTINCT c.tcSphldfttScopTypeNm FROM TrafficComparison c ORDER BY c.tcSphldfttScopTypeNm ASC")
+
+	@Query("SELECT DISTINCT t.tcSphldfttScopTypeNm FROM TrafficComparison t ORDER BY t.tcSphldfttScopTypeNm ASC")
 	List<String> findDistinctSphldfttScopTypeNm();
-		
-	/**
-	 * 사고 데이터 필터링 조회(연도,명절구분,세부날짜,시간대 필터 적용)
-	 */
-	@Query("SELECT t FROM TrafficComparison t " +
-		       "WHERE (:year IS NULL OR t.tcStdYear = :year) AND " +
-		       "(:specialday IS NULL OR t.tcSphldfttNm = :specialday) AND " +
-		       "(:specialdaytype IS NULL OR t.tcSphldfttScopTypeNm = :specialdaytype) AND " +
-		       "(:hour IS NULL OR t.tcSydHour = :hour) AND " +
-		       "(:trfl IS NULL OR t.tcTrfl = :trfl) AND " +
-		       "(:prevtrfl IS NULL OR t.tcPrevTrfl = :prevtrfl) AND " +
-		       "(:changetrfl IS NULL OR t.tcChangeTrfl = :changetrfl) AND " +
-		       "(:ratetrfl IS NULL OR t.tcRateTrfl = :ratetrfl)")
-	List<TrafficComparison> findByFilters(@Param("year")Integer year,
-										  @Param("specialday")String specialday,
-										  @Param("specialdaytype")String specialdaytype,
-										  @Param("hour")Integer hour,
-										  @Param("trfl")Integer trfl,
-										  @Param("prevtrfl")Integer prevtrfl,
-										  @Param("changetrfl")Integer changetrfl,
-										  @Param("ratetrfl")Integer ratetrfl);
-		
-	/**
-	 * 명절날 구분과 시간대별 사고 데이터 조회
-	 */
-	List<TrafficComparison> findByTcSphldfttNmAndTcSydHour(String specialday, Integer hour);
-	
-    @Query("SELECT t FROM TrafficComparison t WHERE " +
-            "(:year IS NULL OR t.tcStdYear = :year) AND " +
-            "(:specialday IS NULL OR t.tcSphldfttNm = :specialday) AND " +
-            "(:specialdaytype IS NULL OR t.tcSphldfttScopTypeNm = :specialdaytype) AND " +
-            "(:hour IS NULL OR t.tcSydHour = :hour)")
-     List<TrafficComparison> findFilteredTrafficComparisons(
-             @Param("year") Integer year,
-             @Param("specialday") String specialday,
-             @Param("specialdaytype") String specialdaytype,
-             @Param("hour") Integer hour);
 
-    @Query("SELECT t FROM TrafficComparison t WHERE " +
-            "(:year IS NULL OR t.tcStdYear = :year) AND " +
-            "(:specialday IS NULL OR t.tcSphldfttNm = :specialday) AND " +
-            "(:specialdaytype IS NULL OR t.tcSphldfttScopTypeNm = :specialdaytype) AND " +
-            "(:hour IS NULL OR t.tcSydHour = :hour)")
-	Page<TrafficComparison> findFilteredTrafficComparisons(
-            @Param("year") Integer year,
-            @Param("specialday") String specialday,
-            @Param("specialdaytype") String specialdaytype,
-            @Param("hour") Integer hour,
-            Pageable pageable);
-    
-    // 명절별 평균 교통량, 증가율 등을 추가
-    @Query("SELECT t.tcStdYear, t.tcSphldfttNm, AVG(t.tcTrfl) AS avgTraffic, AVG(t.tcRateTrfl) AS avgRate " +
-    	       "FROM TrafficComparison t " +
-    	       "WHERE (:year IS NULL OR t.tcStdYear = :year) " +
-    	       "AND (:holiday IS NULL OR t.tcSphldfttNm = :holiday) " +
-    	       "AND (:hour IS NULL OR t.tcSydHour = :hour) " +
-    	       "GROUP BY t.tcStdYear, t.tcSphldfttNm " +
-    	       "ORDER BY t.tcStdYear DESC")
-    	List<Object[]> findAvgTrafficByFilters(@Param("year") Integer year,
-    	                                       @Param("holiday") String holiday,
-    	                                       @Param("hour") Integer hour);
+	@Query("SELECT new map(c.tcStdYear as year, c.tcSphldfttNm as specialday, c.tcSydHour as hour, "
+			+ "AVG(c.tcTrfl) as avgTraffic, AVG(c.tcPrevTrfl) as prevTraffic, AVG(c.tcChangeTrfl) as changeTraffic, AVG(c.tcRateTrfl) as rateTraffic) "
+			+ "FROM TrafficComparison c " + "WHERE (:year IS NULL OR c.tcStdYear = :year) "
+			+ "AND (:specialday IS NULL OR c.tcSphldfttNm = :specialday) "
+			+ "AND (:specialdayType IS NULL OR c.tcSphldfttScopTypeNm = :specialdayType) "
+			+ "AND (:hour IS NULL OR c.tcSydHour = :hour) " + "AND (:prevTrFl IS NULL OR c.tcPrevTrfl = :prevTrFl) " + // 수정:
+																														// Optional
+																														// 처리
+			"AND (:changeTrFl IS NULL OR c.tcChangeTrfl = :changeTrFl) "
+			+ "AND (:rateTrFl IS NULL OR c.tcRateTrfl = :rateTrFl) "
+			+ "GROUP BY c.tcStdYear, c.tcSphldfttNm, c.tcSydHour")
+	List<Map<String, Object>> findAvgTraffic(@Param("year") Integer year, @Param("specialday") String specialday,
+			@Param("specialdayType") String specialdayType, @Param("hour") Integer hour,
+			@Param("prevTrFl") Integer prevTrFl, // Integer 타입으로 변경
+			@Param("changeTrFl") Integer changeTrFl, @Param("rateTrFl") Integer rateTrFl);
 
-    @Query("SELECT t.tcStdYear, SUM(t.tcTrfl) FROM TrafficComparison t GROUP BY t.tcStdYear ORDER BY t.tcStdYear DESC")
-    List<Object[]> sumComparisonByYear();
-    	
-    	
- }
+}

@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도로 날씨 별 사고 목록</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="container mt-4">
 
     <h2 class="text-center mb-4">사고 데이터</h2>
 
 	<!-- 필터링 -->
-    <form method="get" th:action="@{/WeatherAccident/wlist}" class="row g-3">
+    <form method="get" th:action="@{/accidents/wlist}" class="row g-3">
     	<div class="col-md-3">
 	        <label for="year" class="form-label">연도</label>
 	        <select class="form-select" id="year" name="year">
@@ -40,7 +43,7 @@
 		</div>
 		
         <div class="col-md-3 d-flex align-items-end">
-         	<button type="submit" class="btn btn-primary w-100">검색</button>
+            <button type="submit" class="btn btn-primary w-100">검색</button>
         </div>
     </form>
 
@@ -56,6 +59,7 @@
 	                <th>총 사고 건수</th>
 	                <th>맑음</th>
 	                <th>흐림</th>
+	                <th>안개</th>
 	                <th>비</th>
 	                <th>눈</th>
 	                <th>기타날씨</th>
@@ -70,12 +74,13 @@
 	                <td th:text="${accident.waTotalCnt}"></td>
 	                <td th:text="${accident.waClearCnt}"></td>
 	                <td th:text="${accident.waCloudyCnt}"></td>
+	                <td th:text="${accident.waFoggyCnt}"></td>
 	                <td th:text="${accident.waRainyCnt}"></td>
 	                <td th:text="${accident.waSnowyCnt}"></td>
 	                <td th:text="${accident.waOtherCnt}"></td>
 	            </tr>
                 <tr th:if="${#lists.isEmpty(accidents)}">
-                <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                <td colspan="11" class="text-center">데이터가 없습니다.</td>
 	        </tbody>
 	    </table>
 	</div>
@@ -109,7 +114,140 @@
     </div>
     
     <!-- paging end--------------------------------------------- -->
-<script>
+    
+  <canvas id="roadChart" style="width: 800px; height: 400px;"></canvas>
+    
+	<!-- 스크립트 -->
+<script th:inline="javascript">
+$(document).ready(function () {
+    let chart = null;
+    let rawData = /*[[${getYearlyWeatherDataJson}]]*/ '[]';
+    let initialData = parseJSONData(rawData);
+
+    console.log("📊 초기 데이터 로드:", initialData);
+    createBarChart(initialData);
+
+    $("form").on("submit", function(event) {
+        event.preventDefault();
+        fetchDataAndUpdateChart();
+    });
+
+    async function fetchDataAndUpdateChart() {
+        let year = $("#year").val();
+        let roadType = $("#roadType").val();  
+        let accidentType = $("#accidentType").val();  
+        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}`;
+
+        try {
+            let response = await fetch(url);
+            if (!response.ok) throw new Error("Network response was not ok");
+            let data = await response.json();
+            console.log("📊 필터링된 데이터:", data);
+
+            if (!Array.isArray(data)) throw new Error("Invalid data format");
+            updateChart(data);
+            updateTable(data);
+        } catch (error) {
+            console.error("❌ 데이터 불러오기 오류:", error);
+        }
+    }
+
+    function parseJSONData(rawData) {
+        try {
+            return JSON.parse(rawData);
+        } catch (e) {
+            console.error("JSON parsing error:", e);
+            return [];
+        }
+    }
+
+    function createBarChart(data) {
+        if (chart) chart.destroy();
+
+        let ctx = document.getElementById('roadChart').getContext("2d");
+        chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: data.map(item => item.waYear), // 🛠️ waYear로 수정
+                datasets: [
+                    {
+                        label: "총 사고 건수",
+                        data: data.map(item => item.waTotalCnt), // 🛠️ waTotalCnt로 수정
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1
+                    }
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: { 
+                        title: {
+                            display: true,
+                            text: "연도"
+                        }
+                    },
+                    y: { 
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "총 사고 건수 (건)"
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function updateChart(data) {
+        if (chart) {
+            chart.data.labels = data.map(item => item.waYear); // 🛠️ waYear로 수정
+            chart.data.datasets[0].data = data.map(item => item.waTotalCnt); // 🛠️ waTotalCnt로 수정
+            chart.update(); // ✅ 업데이트 반영
+        } else {
+            createBarChart(data);
+        }
+    }
+
+    function updateTable(data) {
+        let tableBody = $(".table tbody");
+        tableBody.empty();
+
+        if (!Array.isArray(data) || data.length === 0) {
+            tableBody.append('<tr><td colspan="5" class="text-center">데이터가 없습니다.</td></tr>');
+            return;
+        }
+
+        data.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.waYear || '-'}</td> // 🛠️ waYear로 수정
+                <td>${item.waRoadType || '-'}</td>
+                <td>${item.waAccidentType || '-'}</td>
+                <td>${item.waTotalCnt || 0}</td> // 🛠️ waTotalCnt로 수정
+                <td>${item.waClearCnt || 0}</td>
+                <td>${item.waCloudyCnt || 0}</td>
+                <td>${item.waRainyCnt || 0}</td>
+                <td>${item.waFoggyCnt || 0}</td>
+                <td>${item.waSnowyCnt || 0}</td>
+                <td>${item.waOtherCnt || 0}</td>
+            </tr>`;
+            tableBody.append(row);
+        });
+    }
+});
+
+// 📌 페이지네이션 이벤트 처리
+$(document).on("click", ".pagination .page-link", function() {
+    let page = $(this).data("page");
+    if (page !== undefined) {
+        let url = `/accidents/wlist?page=${page}&year=${$("#year").val()}&roadType=${$("#roadType").val()}&accidentType=${$("#accidentType").val()}`;
+        window.location.href = url; 
+    }
+});
 </script>
+
 </body>
 </html>

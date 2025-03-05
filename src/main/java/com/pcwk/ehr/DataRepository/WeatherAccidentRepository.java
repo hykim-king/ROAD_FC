@@ -49,4 +49,10 @@ public interface WeatherAccidentRepository extends JpaRepository<WeatherAccident
 			+ "(:waAccidentType IS NULL OR w.waAccidentType = :waAccidentType)")
 	List<WeatherAccident> findByFilters(@Param("waYear") Integer waYear, @Param("waRoadType") String waRoadType,
 			@Param("waAccidentType") String waAccidentType);
+	
+	@Query("SELECT waYear, SUM(waTotalCnt) FROM WeatherAccident GROUP BY waYear ORDER BY waYear DESC")
+	List<Object[]> sumWeatherAccidentsByYear();
+	
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.pcwk.ehr.DataService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,4 +121,13 @@ public class WeatherAccidentService {
 	                criteriaBuilder.like(root.get("waTotalCnt").as(String.class), "%" + keyword + "%")
 	            );
 	    }
+	    
+	    public List<Object[]> getYearlyWeatherCount(){
+	    	List<Object[]> result = weatherAccidentRepository.sumWeatherAccidentsByYear();
+	    	log.info("sumWeatherAccidentsByYear:{}",Arrays.deepToString(result.toArray()));
+	    	return result;
+	    }
+	    
+	    
+	    
 	}

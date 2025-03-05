@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="container mt-4">
-  <canvas id="accidentChart"></canvas>
     <h2 class="text-center mb-4">지역별 사고 데이터</h2>
 
     <!-- 필터링 폼 -->
@@ -45,7 +44,8 @@
             <button type="submit" class="btn btn-primary w-100">검색</button>
         </div>
     </form>
-
+    <!-- 필터링 폼 -->
+    
     <!-- 사고 데이터 테이블 -->
     <div class="mt-4">
         <table class="table table-hover">
@@ -99,9 +99,11 @@
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
             </li>
         </ul>
-    </div>
-    
-    <!-- paging end--------------------------------------------- -->
+    </div>  
+<!-- paging end--------------------------------------------- -->
+
+<canvas id="accidentChart"></canvas>
+
 <script th:inline="javascript">
 $(document).ready(function () {
     let chart; // 전역 변수 선언 (차트 객체)
