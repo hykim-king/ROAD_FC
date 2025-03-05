@@ -46,8 +46,11 @@ class UserJUnit {
 		log.info("--------------------------------");
 		
 		for(int i=0; i<=100; i++) {
-			userService.create("unknown"+i, "1234",i+"testing@test.com", "무명"+i);			
+			//userService.create("unknown"+i, "1234",i+"testing@test.com", "무명"+i);
+			
+			//userService.create(i+"testing@test.com","1234", "무명"+i,"unknown"+i);			
 		}
+		//userService.create("manager", "1234","manager@test.com", "manager");
 	}
 	
 	@Disabled

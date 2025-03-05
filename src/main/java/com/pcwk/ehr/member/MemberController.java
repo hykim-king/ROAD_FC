@@ -163,7 +163,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
-        String returnView = "redirect:/member/list";
+        String returnView = "redirect:/member/login";
 
         if (bindingResult.hasErrors()) {
             return "member/signup_form";

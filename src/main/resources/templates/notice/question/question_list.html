@@ -31,7 +31,7 @@
             <tr th:each="question, loop:${paging}">   <!-- http://localhost:8080/notice/question/list -->
                 <td class="text-start" th:text="${paging.getTotalElements - (paging.number * paging.size)-loop.index}"></td>
                 <td>
-                    <a th:href="@{|/notice/question/detail/${question.id}|}" th:text='${question.subject}' class="text-decoration-none text-dark"></a>
+                    <a th:href="@{|/notice/question/detail/${question.id}|}" th:text="${#strings.length(question.subject) > 30 ? #strings.substring(question.subject, 0, 30) + '...' : question.subject}" class="text-decoration-none text-dark"></a>
                     <span></span>
                     <i class="bi bi-chat-left-dots"></i>
                     <span class="text-danger" 

@@ -1,9 +1,22 @@
 <html layout:decorate="~{layout}">
+  <style layout:fragment="style">
+        .underline-input {
+            border: none;
+            border-bottom: 2px solid lightgray;
+            border-radius: 0;
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .underline-input:focus {
+            border-bottom: 2px solid lightgray;
+        }
+    </style>
     <div layout:fragment="content" class="container my-3" style="width:40%;">
         <h5 class="py-3 my-4">회원가입</h5>
 
         <form th:action="@{/member/signup}" method="post"
-            th:object="${memberCreateForm}" id="signupForm">
+            th:object="${memberCreateForm}" id="signupForm" onsubmit="return validateForm()">
             <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
             <div class="mb-4 d-flex align-items-center">
@@ -54,104 +67,102 @@
     </div>
 
     <script layout:fragment="script">
-    document.getElementById("checkUsernameBtn").addEventListener("click", function() {
-        const username = document.getElementById("username").value;
-        fetch("/member/checkUsername", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="_csrf"]').getAttribute("content")
-            },
-            body: JSON.stringify({ username: username })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.exists) {
-                alert("이미 사용 중인 아이디입니다.");
-            } else {
-                alert("사용 가능한 아이디입니다.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("아이디 중복 확인 중 오류가 발생했습니다.");
-        });
-    });
-
-    document.getElementById("sendAuthEmailBtn").addEventListener("click", function() {
-        const email = document.getElementById("email").value;
-        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
-        fetch("/email/mailSend", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": csrfToken // CSRF 토큰 포함
-            },
-            body: JSON.stringify({ email: email })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert("인증 이메일이 발송되었습니다.");
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("이메일 인증 요청 중 오류가 발생했습니다.");
-        });
-    });
-
-    document.getElementById("checkAuthCodeBtn").addEventListener("click", function() {
-        const email = document.getElementById("email").value;
-        const authCode = document.getElementById("authCode").value;
-        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
-        fetch("/email/mailauthCheck", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": csrfToken // CSRF 토큰 포함
-            },
-            body: JSON.stringify({ email: email, authNum: authCode })
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "ok") {
-                alert("인증이 완료되었습니다.");
-                document.getElementById("signupBtn").disabled = false; // 인증 완료 시 회원가입 버튼 활성화
-            } else {
-                alert("인증 코드가 올바르지 않습니다.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-
-    document.getElementById("resetBtn").addEventListener("click", function() {
-        document.getElementById("signupForm").reset(); // 폼의 모든 값을 초기화
-        document.getElementById("signupBtn").disabled = true; // 폼이 초기화되면 확인 버튼 비활성화
-    });
-    </script>
-
-    <style layout:fragment="style">
-        .underline-input {
-            border: none;
-            border-bottom: 2px solid lightgray;
-            border-radius: 0;
-            outline: none;
-            box-shadow: none;
-        }
-        
-        .underline-input:focus {
-            border-bottom: 2px solid lightgray;
-        }
-    </style>
+		document.getElementById("checkUsernameBtn").addEventListener("click", function() {
+		    const username = document.getElementById("username").value;
+		    fetch("/member/checkUsername", {
+		        method: "POST",
+		        headers: {
+		            "Content-Type": "application/json",
+		            "X-CSRF-TOKEN": document.querySelector('meta[name="_csrf"]').getAttribute("content")
+		        },
+		        body: JSON.stringify({ username: username })
+		    })
+		    .then(response => {
+		        if (!response.ok) {
+		            throw new Error('Network response was not ok');
+		        }
+		        return response.json();
+		    })
+		    .then(data => {
+		        if (data.exists) {
+		            alert("이미 사용 중인 아이디입니다.");
+		        } else {
+		            alert("사용 가능한 아이디입니다.");
+		        }
+		    })
+		    .catch(error => {
+		        console.error("Error:", error);
+		        alert("아이디 중복 확인 중 오류가 발생했습니다.");
+		    });
+		});
+		
+		document.getElementById("sendAuthEmailBtn").addEventListener("click", function() {
+		    const email = document.getElementById("email").value;
+		    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+		    fetch("/email/mailSend", {
+		        method: "POST",
+		        headers: {
+		            "Content-Type": "application/json",
+		            "X-CSRF-TOKEN": csrfToken // CSRF 토큰 포함
+		        },
+		        body: JSON.stringify({ email: email })
+		    })
+		    .then(response => {
+		        if (!response.ok) {
+		            throw new Error('Network response was not ok');
+		        }
+		        return response.text();
+		    })
+		    .then(data => {
+		        alert("인증 이메일이 발송되었습니다.");
+		    })
+		    .catch(error => {
+		        console.error("Error:", error);
+		        alert("이메일 인증 요청 중 오류가 발생했습니다.");
+		    });
+		});
+		
+		document.getElementById("checkAuthCodeBtn").addEventListener("click", function() {
+		    const email = document.getElementById("email").value;
+		    const authCode = document.getElementById("authCode").value;
+		    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+		    fetch("/email/mailauthCheck", {
+		        method: "POST",
+		        headers: {
+		            "Content-Type": "application/json",
+		            "X-CSRF-TOKEN": csrfToken // CSRF 토큰 포함
+		        },
+		        body: JSON.stringify({ email: email, authNum: authCode })
+		    })
+		    .then(response => response.text())
+		    .then(data => {
+		        if (data === "ok") {
+		            alert("인증이 완료되었습니다.");
+		            document.getElementById("signupBtn").disabled = false; // 인증 완료 시 회원가입 버튼 활성화
+		        } else {
+		            alert("인증 코드가 올바르지 않습니다.");
+		        }
+		    })
+		    .catch(error => {
+		        console.error("Error:", error);
+		    });
+		});
+		
+		document.getElementById("resetBtn").addEventListener("click", function() {
+		    document.getElementById("signupForm").reset(); // 폼의 모든 값을 초기화
+		    document.getElementById("signupBtn").disabled = true; // 폼이 초기화되면 확인 버튼 비활성화
+		});
+		
+		function validateForm() {
+		    const agreeTerms = document.getElementById("agreeTerms").checked;
+		    const agreePrivacy = document.getElementById("agreePrivacy").checked;
+		    
+		    if (!agreeTerms || !agreePrivacy) {
+		        alert("이용약관에 동의해주세요");
+		        return false; // 폼 제출 중단
+		    }
+		    return true; // 폼 제출 허용
+		}
+	</script>
+  
 </html>

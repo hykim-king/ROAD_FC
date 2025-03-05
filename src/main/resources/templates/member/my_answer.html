@@ -1,5 +1,38 @@
 <html layout:decorate="~{layout}">
 <style layout:fragment="style">
+.question-item {
+    border-bottom: 1px solid #ddd; /* 언더라인 */
+    padding: 1em 0;
+    cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+    transition: background-color 0.3s; /* 부드러운 배경색 전환 */
+}
+
+.question-item:hover {
+    background-color: #f5f5f5; /* 마우스 오버 시 배경색 */
+}
+
+.question-item:active {
+    background-color: #eaeaea; /* 클릭 시 배경색 */
+}
+
+.question-title {
+    font-weight: bold;
+    font-size: 1.25em; /* title의 글씨 크기 */
+    color: black;
+}
+
+.question-content {
+    font-size: 1em; /* content의 글씨 크기 (title보다 작게 설정) */
+    color: black;
+}
+
+.sign-form {
+    background: #ffffff; /* 카드 배경 */
+    border: 1px solid #ccc; /* 카드 테두리 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    padding: 30px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+ }
 </style>
 <div layout:fragment="content" class="container my-5">
     <div class="row">
@@ -10,52 +43,63 @@
             <h3 class="title text-center">내가 작성한 답변</h3>
             <br></br>
 
-            <!-- Combined Questions -->
-            <div th:each="answer : ${paging.content}">
-                <div>
-                    <a th:text="${answer.question.subject}" th:href="@{'/report/question/detail/' + ${answer.question.id}}"></a>
-                    <p th:text="${answer.content}"></p>
+            <!-- Combined Answers -->
+            <div class="sign-form">
+                <div th:each="answer : ${paging.content}" class="question-item"
+                     th:attr="data-href=@{/report/question/detail/{id}(id=${answer.question.id})}">
+                    <div>
+                        <span th:text="${answer.question.subject}" class="question-title"></span>
+                        <p th:text="${answer.content}" class="my-2 question-content"></p>
+                    </div>
                 </div>
             </div>
+            
             <!-- paging start -->
-		    <div th:if="${!paging.isEmpty()}" class="my-4">
-		        <ul class="pagination justify-content-center">
-		            <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
-		            <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-		                <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
-		            </li>
-		        
-		            <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
-		            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
-		                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
-		            </li>
-		            <!-- 1,2,3,.... 페이지 번호 제한 -->
-		            <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
-		                th:classappend="${page == paging.number} ? 'active'" class="page-item">
-		                <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
-		            </li>
-		            <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
-		            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
-		                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
-		            </li>
-		           <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
-		            <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-		                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
-		            </li>
-		        </ul>
-		    </div>
-		    
-		    <!-- paging end--------------------------------------------- -->
+            <div th:if="${!paging.isEmpty()}" class="my-4">
+                <ul class="pagination justify-content-center">
+                    <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
+                    <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                        <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
+                    </li>
+                
+                    <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
+                    <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                        <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
+                    </li>
+                    <!-- 1,2,3,.... 페이지 번호 제한 -->
+                    <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
+                        th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                        <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
+                    </li>
+                    <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
+                    <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                        <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
+                    </li>
+                   <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
+                    <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                        <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- paging end--------------------------------------------- -->
         </div>
     </div>
     
-    
-    
-     <!-- 검색 form -->
+    <!-- 검색 form -->
     <form th:action="@{/member/myanswer}" method="get" id="searchForm">
         <input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
 </div>
 <script layout:fragment="script">
+document.addEventListener('DOMContentLoaded', function () {
+    var questionItems = document.querySelectorAll('.question-item');
+    questionItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            var href = item.getAttribute('data-href');
+            window.location.href = href;
+        });
+    });
+});
 </script>
 </html>
