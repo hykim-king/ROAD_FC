@@ -1,23 +1,23 @@
 package com.pcwk.ehr.map.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-import jakarta.persistence.CascadeType;
+import com.pcwk.ehr.station.Station;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
 @Setter
 @Entity
+@ToString
 public class Weather {
 
 	@Id
@@ -51,6 +51,8 @@ public class Weather {
 	@Column(name="weather_ground_temperature", columnDefinition="NUMBER")
 	private double weather_ground_temperature;		//지면온도
 	
-	@Column(name="weather_reg_dt", columnDefinition = "DATE")
-	private LocalDateTime weather_reg_dt;			//등록일	
+	//weather_station_id를 station이랑 엮을 FK로 설정, referencedColumnName의 station_id는 Station 엔티티의 PK
+	@OneToOne
+	@JoinColumn(name="weather_station_id", referencedColumnName ="station_id")
+	private Station station;
 }

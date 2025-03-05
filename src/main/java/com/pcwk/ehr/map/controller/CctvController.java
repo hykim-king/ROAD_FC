@@ -13,6 +13,7 @@ import com.pcwk.ehr.map.entity.Freezing;
 import com.pcwk.ehr.map.service.CctvService;
 import com.pcwk.ehr.map.service.FreezingService;
 import com.pcwk.ehr.map.service.TunnelService;
+import com.pcwk.ehr.map.service.WeatherService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +31,9 @@ public class CctvController {
 	@Autowired
 	TunnelService tunnelService;
 	
+	@Autowired
+	WeatherService weatherService;
+	
 	@GetMapping("/map")
 	public String map(Model model) {
 		log.info("┌──────────────────┐");
@@ -39,7 +43,10 @@ public class CctvController {
 		List<Freezing> freezingInfo = freezingService.freezingList();
 		List<Cctv> tunnelInfo = tunnelService.tunnelList();
 		
+			
+		
 		log.info("CCTV 데이터: {}", cctvInfo);	
+		weatherService.getSafetyIndex();	
 		model.addAttribute("cctvInfo", cctvInfo);
 		model.addAttribute("freezingInfo", freezingInfo);
 		model.addAttribute("tunnelInfo", tunnelInfo);
