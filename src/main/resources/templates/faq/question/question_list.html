@@ -1,9 +1,44 @@
 <html layout:decorate="~{layout}">
  <style layout:fragment="style">
  .faq-title{
- 	border: 1px solid #ccc; 
- 	padding: 10px; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    min-height: 70px; /* y축 폭을 키우기 위한 추가 스타일 */
+    position: relative;
  }
+  .circle-number {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #1E90FF; /* 테두리 색상을 더 옅은 파랑색으로 변경 */
+        border-radius: 50%;
+        color: #1E90FF; /* 글자 색상을 더 옅은 파랑색으로 변경 */
+        text-align: center;
+        line-height: 24px;
+        font-size: 14px;
+        margin-left:20px;
+        margin-right:15px;
+        background-color: white; /* 기본 배경색 */
+    }
+  .circle-number.active {
+        background-color: #1E90FF; /* 활성화된 배경색을 더 옅은 파랑색으로 변경 */
+        color: white; /* 활성화된 글자색 */
+    }
+  .faq-content {
+        display: none;
+        background-color: #f9f9f9; /* 배경색을 밝은 회색으로 변경 */
+        padding: 40px; /* 패딩을 늘려서 박스 크기 증가 */
+  }
+  .admin-buttons {
+        position: absolute;
+        right: 10px;
+        bottom: 8px;
+  }
+  .faq-title .subject {
+        font-size: 18px; /* 글씨 크기 키우기 */
+        font-weight: bold; /* 글씨 강조 */
+        margin-left: 0px; /* margin-left 수정 */
+  }
  </style>
 <div layout:fragment="content" class="container my-3">
     <!-- 제목 -->
@@ -13,7 +48,7 @@
         <div class="col-8">
             <a th:href="@{/faq/question/create}" class="btn btn-primary" th:if="${userGrade == 1}">FAQ 등록</a>
         </div>
-        
+        <!-- <i class="bi bi-chevron-bar-down"></i> 클릭시 아이콘 -->
         <div class="col-4">
             <div class="input-group">
                 <input type="text" id="input_keyword" class="form-control" th:value="${keyword}">
@@ -26,12 +61,16 @@
         <div th:each="question, loop:${paging}" class="faq-box my-4">
             <h6 class="faq-title" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" th:attr="data-id=${question.id}">
                 <span style="display: flex; align-items: center;">
-                    <span class="circle-number" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></span>
-                    <span th:text="${question.subject}" style="text-decoration: none; color: black; margin-left: 10px;"></span>
+                    <span class="circle-number" th:text="${loop.count}" th:id="'circle-number-' + ${question.id}"></span> <!-- 번호 역순으로 부여 및 ID 추가 -->
+                    <span th:text="${question.subject}" class="subject"></span> <!-- 글씨 크기 및 강조 적용 -->
                 </span>
-                <span class="emoji" th:id="'emoji-' + ${question.id}">👇</span>
+                <span class="emoji" th:id="'emoji-' + ${question.id}"><i class="bi bi-list"></i></span> <!-- 기본 아이콘 -->
+                <div class="admin-buttons" th:if="${userGrade == 1}"> <!-- 관리자 버튼 -->
+                    <a th:href="@{/faq/question/modify/{id}(id=${question.id})}" class="btn btn-sm btn-secondary">수정</a>
+                    <a th:href="@{/faq/question/delete/{id}(id=${question.id})}" class="btn btn-sm btn-secondary" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                </div>
             </h6>
-            <div class="faq-content" th:attr="id='content-' + ${question.id}" style="display:none; background-color: lightgray; padding: 10px;" th:utext="${question.content}"></div>
+            <div class="faq-content" th:attr="id='content-' + ${question.id}" th:utext="${question.content}"></div>
         </div>
     </div>
 
@@ -71,23 +110,16 @@
         <input type="hidden" id="page" name="page" th:value="${paging.number}">
     </form>
 </div>
-<style>
-    .circle-number {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background-color: #000;
-        color: #fff;
-        text-align: center;
-        line-height: 24px;
-        font-size: 14px;
-        margin-right: 10px;
-    }
-</style>
 <script layout:fragment="script">
     const btn_search = document.getElementById("btn_search");
     console.log(btn_search);
+    
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 기본 Enter 키 동작을 막음
+            document.getElementById('btn_search').click(); // btn_search 버튼 클릭
+        }
+    });
     
     btn_search.addEventListener('click',function(){
         console.log('click');
@@ -107,18 +139,24 @@
             document.getElementById("searchForm").submit();
         });
     });
-    
+
     document.querySelectorAll('.faq-title').forEach(title => {
         title.addEventListener('click', () => {
             const id = title.getAttribute('data-id');
             console.log(`FAQ ID: ${id}`);
-            const contentDiv = document.getElementById(`content-${id}`);
+            const contentDiv = $(`#content-${id}`);
+            const circleNumber = $(`#circle-number-${id}`);
+            const emojiSpan = $(`#emoji-${id}`);
             if (contentDiv) {
-                if (contentDiv.style.display === 'none') {
-                    contentDiv.style.display = 'block';
-                } else {
-                    contentDiv.style.display = 'none';
-                }
+                contentDiv.slideToggle(300, function() {
+                    if (contentDiv.is(':visible')) {
+                        emojiSpan.html('<i class="bi bi-chevron-bar-down"></i>'); // 아이콘 변경
+                        circleNumber.addClass('active'); // 번호 원 색상 변경
+                    } else {
+                        emojiSpan.html('<i class="bi bi-list"></i>'); // 기본 아이콘으로 변경
+                        circleNumber.removeClass('active'); // 번호 원 색상 원래대로
+                    }
+                });
             } else {
                 console.log(`Element with id content-${id} not found`);
             }

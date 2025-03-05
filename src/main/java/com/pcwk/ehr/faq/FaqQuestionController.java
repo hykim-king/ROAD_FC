@@ -125,7 +125,7 @@ public class FaqQuestionController {
 		
 		FaqQuestion outQuestion = service.modify(question, questionForm.getSubject(), questionForm.getContent(), savedFilePaths);
 		
-		String returnUrl = String.format("redirect:/faq/question/detail/%s",id);
+		String returnUrl = String.format("redirect:/faq/question/list");
 		
 		return returnUrl;
 	}

@@ -63,6 +63,12 @@ public class ReportQuestionService {
 		};
 	}
 	
+
+	public Page<ReportQuestion> getQuestionsByAuthor(Member author, int page) {
+	    Pageable pageable = PageRequest.of(page, 10); // 페이지 크기와 함께 Pageable 객체 생성
+	    return questionRepository.findByAuthor(author, pageable);
+	}
+	
 	public void vote(ReportQuestion question, Member member) {
 		log.info("┌──────────────────────┐");
 		log.info("│ vote()       		 │");
@@ -93,6 +99,22 @@ public class ReportQuestionService {
 		ReportQuestion q = questionRepository.save(question);
 		log.info("수정된 정보:{}",q);
 		return q;
+	}
+	
+	public Page<ReportQuestion> getList(int page){
+		log.info("┌──────────────────────┐");
+		log.info("│ getList()    		 │");
+		log.info("└──────────────────────┘");
+		
+		log.info("param:page{}",page);
+		
+		//날짜 순으로
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		
+		Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
+		
+		return questionRepository.findAll(pageable);
 	}
 	
 	public Page<ReportQuestion> getList(int page, String keyword){

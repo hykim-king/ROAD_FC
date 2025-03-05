@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pcwk.ehr.report.ReportQuestion;
+
 public interface MemberRepository extends JpaRepository<Member,Long>{
 	
 	@Transactional
@@ -34,4 +36,5 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
 	List<Member> findByUsername(String username);
 	
 	Optional<Member> findByEmail(String email);
+	
 }

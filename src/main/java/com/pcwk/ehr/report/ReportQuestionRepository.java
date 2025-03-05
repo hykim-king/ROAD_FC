@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.pcwk.ehr.member.Member;
 //Table, PK:Type
 public interface ReportQuestionRepository extends JpaRepository<ReportQuestion, Integer> {
 	
@@ -40,4 +42,6 @@ public interface ReportQuestionRepository extends JpaRepository<ReportQuestion, 
 	//subject and content를 조회
 	//where subject=? and content=?
 	ReportQuestion findBySubjectAndContent(String subject, String content);
+	
+	Page<ReportQuestion> findByAuthor(Member author, Pageable pageable);
 }

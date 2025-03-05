@@ -24,7 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pcwk.ehr.combine.CombinedQuestion;
+import com.pcwk.ehr.combine.CombinedService;
 import com.pcwk.ehr.email.MailSendService;
+import com.pcwk.ehr.qna.QnaQuestion;
+import com.pcwk.ehr.qna.QnaQuestionService;
+import com.pcwk.ehr.report.ReportAnswer;
+import com.pcwk.ehr.report.ReportAnswerService;
+import com.pcwk.ehr.report.ReportQuestion;
+import com.pcwk.ehr.report.ReportQuestionService;
 
 import jakarta.validation.Valid;
 
@@ -38,6 +46,12 @@ public class MemberController {
 
     @Autowired
     MailSendService mailSendService; // 이메일 전송 서비스 주입
+    
+    @Autowired
+    CombinedService combinedService;
+    
+    @Autowired
+    ReportAnswerService answerService;
 
     public MemberController() {
         log.info("┌──────────────────────┐");
@@ -45,6 +59,35 @@ public class MemberController {
         log.info("└──────────────────────┘");
     }
     
+    @GetMapping("/myanswer")
+    public String getMyAnswer(@AuthenticationPrincipal UserDetails user, Model model,
+                                 @RequestParam(value = "page", defaultValue = "0") int page) {
+    	
+    	Member member = service.getMember(user.getUsername());
+    	Page<ReportAnswer> paging = answerService.getQuestionsByAuthor(member, page);
+    	
+    	model.addAttribute("paging", paging);
+        model.addAttribute("member", member);
+        model.addAttribute("page", "myanswer");
+    	
+    	return "member/my_answer";
+    }
+    
+    @GetMapping("/myquestion")
+    public String getMyQuestions(@AuthenticationPrincipal UserDetails user, Model model,
+                                 @RequestParam(value = "page", defaultValue = "0") int page) {
+        Member member = service.getMember(user.getUsername());
+
+        // 사용자가 작성한 ReportQuestions와 QnaQuestions를 합쳐서 조회
+        Page<CombinedQuestion> paging = combinedService.getCombinedQuestions(member, page);
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("member", member);
+        model.addAttribute("page", "myquestion");
+
+        return "member/my_question";
+    }
+
     @GetMapping("/profile")
     public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails) {
     	 log.info("┌──────────────────────┐");

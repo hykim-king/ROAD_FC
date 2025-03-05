@@ -1,10 +1,17 @@
 package com.pcwk.ehr.report;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.DataNotFoundException;
@@ -25,6 +32,27 @@ public class ReportAnswerService {
 //		log.info("│ AnswerService()      │");
 //		log.info("└──────────────────────┘");
 //	}
+	
+
+	public Page<ReportAnswer> getQuestionsByAuthor(Member author, int page) {
+	    Pageable pageable = PageRequest.of(page, 10); // 페이지 크기와 함께 Pageable 객체 생성
+	    Page<ReportAnswer> pagedAnswers = answerRepository.findByAuthor(author, pageable);
+	
+	    // 중복을 제거하는 로직 추가
+	    Map<Integer, ReportAnswer> uniqueAnswersMap = pagedAnswers.getContent().stream()
+	            .collect(Collectors.toMap(
+	                    answer -> answer.getQuestion().getId(),
+	                    answer -> answer,
+	                    (existing, replacement) -> existing
+	            ));
+	
+	    List<ReportAnswer> uniqueAnswersList = uniqueAnswersMap.values().stream().collect(Collectors.toList());
+	
+	    // 중복이 제거된 결과를 기반으로 새로운 Page 객체 생성
+	    Page<ReportAnswer> uniquePagedAnswers = new PageImpl<>(uniqueAnswersList, pageable, uniqueAnswersList.size());
+	
+	    return uniquePagedAnswers;
+	}
 	
 	public void vote(ReportAnswer answer, Member member) {
 		answer.getVoter().add(member);

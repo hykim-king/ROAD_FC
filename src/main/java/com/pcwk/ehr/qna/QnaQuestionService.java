@@ -63,6 +63,11 @@ public class QnaQuestionService {
 		};
 	}
 	
+	public Page<QnaQuestion> getQuestionsByAuthor(Member author, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return questionRepository.findByAuthor(author, pageable);
+    }
+	
 	public void vote(QnaQuestion question, Member member) {
 		question.getVoter().add(member);
 		
