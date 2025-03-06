@@ -48,6 +48,11 @@ public class VideoService {
         }
     }
 
+    //영상 삭제
+    public void delete(Video videoId) {
+        log.info("Deleting video: {}", videoId);
+        videoRepository.delete(videoId);
+    }
     
     //조회수 증가 로직
     @Transactional
@@ -97,11 +102,7 @@ public class VideoService {
             return Collections.emptyList();
         }
     }
-
-    public void delete(Video videoId) {
-        log.info("Deleting video: {}", videoId);
-        videoRepository.delete(videoId);
-    }
+  
 
  // ID로 비디오 조회 메서드
     public Video getVideoById(Long videoId) {

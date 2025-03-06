@@ -47,6 +47,9 @@ public class VideoController {
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         log.info("📌 Fetching video list - Page: {}", page);
+    	log.info("┌──────────────────┐");
+		log.info("│VideoList	 ()  │");
+		log.info("└──────────────────┘");
         Page<Video> paging = videoService.getPagedVideos(page, 10);
 
         List<Map<String, Object>> videoInfoList = new ArrayList<>();
@@ -108,6 +111,9 @@ public class VideoController {
  //YouTube URL을 embed URL로 변환
 
     private String convertToEmbedUrl(String url) {
+        log.info("┌────────────────────────┐");
+        log.info("│convertToEmbedUrl()     │");
+        log.info("└────────────────────────┘");
         if (url.contains("youtu.be/")) {
             return "https://www.youtube.com/embed/" + url.split("youtu.be/")[1].split("\\?")[0];
         } else if (url.contains("watch?v=")) {
@@ -115,6 +121,7 @@ public class VideoController {
         }
         return url;
     }
+    // 비디오 업로드 폼 띄우기
     @GetMapping("/upload")
     public String showUploadForm(Model model) {
         log.info("┌──────────────────┐");
@@ -159,6 +166,7 @@ public class VideoController {
             return "video/video_upload";
         }
     }
+    //비디오 삭제하기
     @GetMapping("/delete/{videoId}")
     public ResponseEntity<Map<String, String>> deleteVideo(@PathVariable("videoId") Long videoId) {
         log.info("📌 Deleting video - ID: {}", videoId);
