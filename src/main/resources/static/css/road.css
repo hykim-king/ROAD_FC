@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+/* 지도 상단 공지 오버레이 */
+.notice-overlay {
+	height: 60px;
+	width: 600px;
+	display: flex;
+	align-items: center;
+	border: 3px solid;
+	border-radius: 5px;
+	border-color: #4fa3fd;
+}
+/* 지도 상단 공지 오버레이 */
+
 /* 사고, 공사 CSS */
 .wrap {
 	position: absolute;
@@ -146,3 +158,35 @@
 	justify-content: center;
 }
 /* CCTV, 터널 CSS */
+
+/* 안전지수 CSS */
+.overlay-box {
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.overlay-content {
+	color: #333;
+}
+
+#safetyBtn {
+	padding: 8px 16px;
+	border: none;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+#safetyBtn.active {
+	background-color: green;
+}
+/* 안전지수 CSS */

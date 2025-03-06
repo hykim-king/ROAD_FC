@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.entity.TestRoad;
 
-public interface RoadRepository extends JpaRepository<Road, Integer> {
+public interface RoadRepository extends JpaRepository<Road, String> {
 	
 	@Query("SELECT r \r\n"
 			+ "FROM Road r \r\n"
