@@ -45,7 +45,8 @@ public class MapController {
 		List<Cctv> cctvInfo = mapService.cctvList();
 		List<Freezing> freezingInfo = mapService.freezingList();
 		List<Cctv> tunnelInfo = mapService.tunnelList();
-		List<SafetyIndexDTO> safetyIndex = testWeatherService.getSafetyIndex();
+		List<SafetyIndexDTO> avgSafetyIndex = testWeatherService.getAvgSafetyIndex();
+		List<SafetyIndexDTO> allSafetyIndex = testWeatherService.getAllSafetyIndex();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);
@@ -53,7 +54,8 @@ public class MapController {
 		log.info("CCTV 데이터: {}", cctvInfo);
 		log.info("결빙 데이터: {}", freezingInfo);
 		log.info("터널 데이터: {}", tunnelInfo);
-		log.info("안전 지수: {}", safetyIndex);
+		log.info("평균 안전 지수: {}", avgSafetyIndex);
+		log.info("전체 안전 지수: {}", allSafetyIndex);
 		
 		model.addAttribute("accidentList", accidentList);
 	    model.addAttribute("constructionList", constructionList);
@@ -61,7 +63,8 @@ public class MapController {
 	    model.addAttribute("cctvInfo", cctvInfo);
 	    model.addAttribute("freezingInfo", freezingInfo);
 	    model.addAttribute("tunnelInfo", tunnelInfo);
-	    model.addAttribute("safetyIndex", safetyIndex);
+	    model.addAttribute("avgSafetyIndex", avgSafetyIndex);
+	    model.addAttribute("allSafetyIndex", allSafetyIndex);
 	    
 	    model.addAttribute("currentUrl", request.getRequestURI());
 	    

@@ -15,7 +15,25 @@
 		<div class="col-12 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
         <button id="safetyBtn">안전지수</button>
       </div>
+      <div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<button id="nationwide" class="region-link nav-link p-2">전국</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<button id="seoul" class="region-link nav-link p-2">수도권</button>
+			</div>
 			<div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<button id="gangwon" class="region-link nav-link p-2">강원권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<button id="chungcheong" class="region-link nav-link p-2">충청권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-end border-opacity-25">
+				<button id="jeolla" class="region-link nav-link p-2">전라권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1">
+				<button id="gyeongsang" class="region-link nav-link p-2">경상권</button>
+			</div>
+			<!-- <div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('nationwide')"
 					style="--bs-link-hover-color: #0d6efd;">전국</a>
@@ -39,7 +57,7 @@
 			<div class="col-6 align-content-center px-2 py-1">
 				<a href="#" class="region-link nav-link p-2"
 					onclick="moveToRegion('gyeongsang')">경상권</a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -52,7 +70,8 @@
 	var cctvInfo = /*[[${cctvInfo}]]*/[];
 	var freezingInfo = /*[[${freezingInfo}]]*/[];
 	var tunnelInfo = /*[[${tunnelInfo}]]*/[];
-	var safetyIndex = /*[[${safetyIndex}]]*/[];
+	var avgSafetyIndex = /*[[${avgSafetyIndex}]]*/[];
+	var allSafetyIndex = /*[[${allSafetyIndex}]]*/[];
 
 	console.log(accidentList);
 	console.log(constructionList);
@@ -60,6 +79,7 @@
 	console.log(cctvInfo);
 	console.log(freezingInfo);
 	console.log(tunnelInfo);
-	console.log(safetyIndex);
+	console.log(avgSafetyIndex);
+	console.log(allSafetyIndex);
 </script>
 </html>

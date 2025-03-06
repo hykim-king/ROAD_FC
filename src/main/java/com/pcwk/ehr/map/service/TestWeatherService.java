@@ -25,55 +25,53 @@ public class TestWeatherService {
 	@Autowired
 	StationRepository stationRepository;
 
-	public List<SafetyIndexDTO> getSafetyIndex() {
+	public List<SafetyIndexDTO> getAvgSafetyIndex() {
 		List<Object[]> weatherStationInfo = weatherRepository.dataNeededForSafetyIndex();
 		Map<String, List<Integer>> areaScores = new HashMap<>();
-		
-		System.out.println("weather size: " + weatherStationInfo.size());
+
 		for (Object[] data : weatherStationInfo) {
 			String stationArea = (String) data[8];
 			int safetyIndex = calculateIndex(data);
-			
 			areaScores.computeIfAbsent(getRegionKey(stationArea), k -> new ArrayList<>()).add(safetyIndex);
 		}
-		
+
 		List<SafetyIndexDTO> result = new ArrayList<>();
-		
+
 		for (Map.Entry<String, List<Integer>> entry : areaScores.entrySet()) {
 			String region = entry.getKey();
 			List<Integer> scores = entry.getValue();
 			int avgSafetyIndex = (int) scores.stream().mapToInt(Integer::intValue).average().orElse(0);
 
-			//RegionData regionData = getRegionData(region);
-            //if (regionData != null) {
-                result.add(new SafetyIndexDTO(region, avgSafetyIndex));
-            //}
+			result.add(new SafetyIndexDTO(region, avgSafetyIndex));
 		}
-		log.info("🔥 최종 안전지수 리스트: {}", result);
 		return result;
 	}
-	
-    
-    private String getRegionKey(String area) {
-        if (area.contains("강원")) return "gangwon";
-        if (area.contains("충청")) return "chungcheong";
-        if (area.contains("전라")) return "jeolla";
-        if (area.contains("경상")) return "gyeongsang";
-        if (area.contains("서울") || area.contains("경기") || area.contains("인천")) return "seoul";
-        return "nationwide";
-    }
-    
-    private RegionData getRegionData(String region) {
-        Map<String, RegionData> regionMap = new HashMap<>();
-        regionMap.put("nationwide", new RegionData(36.5, 127.5));
-        regionMap.put("seoul", new RegionData(37.5665, 126.9780));
-        regionMap.put("gangwon", new RegionData(37.8304115, 128.2260705));
-        regionMap.put("chungcheong", new RegionData(36.6356, 127.4912));
-        regionMap.put("jeolla", new RegionData(35.7175, 126.8931));
-        regionMap.put("gyeongsang", new RegionData(35.2394, 128.6924));
 
-        return regionMap.getOrDefault(region, null);
-    }
+	public List<SafetyIndexDTO> getAllSafetyIndex() {
+		List<Object[]> weatherStationInfo = weatherRepository.dataNeededForSafetyIndex();
+		List<SafetyIndexDTO> result = new ArrayList<>();
+
+		for (Object[] data : weatherStationInfo) {
+			int stationId = (int) data[0];
+			String stationArea = (String) data[8];
+			int safetyIndex = calculateIndex(data);
+			double stationLat = ((BigDecimal) data[6]).doubleValue();
+		    double stationLon = ((BigDecimal) data[7]).doubleValue();
+			String region = getRegionKey(stationArea);
+
+			result.add(new SafetyIndexDTO(stationId, region, stationLat, stationLon, safetyIndex));
+		}
+		return result;
+	}
+
+	private String getRegionKey(String area) {
+		if (area.contains("강원")) return "gangwon";
+		if (area.contains("충청")) return "chungcheong";
+		if (area.contains("전라")) return "jeolla";
+		if (area.contains("경상")) return "gyeongsang";
+		if (area.contains("서울") || area.contains("경기") || area.contains("인천")) return "seoul";
+		return "nationwide";
+	}
 
 	private int calculateIndex(Object[] data) {
 		double temp = ((BigDecimal) data[5]).doubleValue();
@@ -81,7 +79,7 @@ public class TestWeatherService {
 		double visibility = ((BigDecimal) data[3]).doubleValue();
 		double precipitation = ((BigDecimal) data[1]).doubleValue();
 		double snowfall = ((BigDecimal) data[2]).doubleValue();
-		
+
 		double dangerScore = 0;
 
 		if (temp < 0) {
@@ -99,7 +97,7 @@ public class TestWeatherService {
 			dangerScore += calcVisibilityDistanceScore(visibility, 30);
 			dangerScore += calcPrecipitationScore(precipitation, 55);
 		}
-		
+
 		return (int) Math.round(100 - dangerScore);
 	}
 
