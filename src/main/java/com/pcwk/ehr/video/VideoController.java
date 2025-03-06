@@ -11,14 +11,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.view.RedirectView;
+
+import jakarta.validation.Valid;
 
 
 @RequestMapping("/video")
@@ -35,6 +43,7 @@ public class VideoController {
 		log.info("│VideoController() │");
 		log.info("└──────────────────┘");
     }
+    
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         log.info("📌 Fetching video list - Page: {}", page);
@@ -106,31 +115,76 @@ public class VideoController {
         }
         return url;
     }
-   
-    /**
-    @PreAuthorize("isAuthenticated()")
-	@GetMapping("/modify/{id}")
-	public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal princial) {
-		log.info("┌──────────────────┐");
-		log.info("│ questionModify() │");
-		log.info("└──────────────────┘");
+    @GetMapping("/upload")
+    public String showUploadForm(Model model) {
+        log.info("┌──────────────────┐");
+        log.info("│ showUploadForm() │");
+        log.info("└──────────────────┘");
 
-		log.info("id:{}", id);
+        model.addAttribute("videoDTO", new VideoDTO());
+        return "video/video_upload";
+    }
 
-		Video video  = videoService.getVideoAndIncrementViewCount(id);
-		log.info("question:{}", question);
+    // 비디오 업로드 처리
+    @PostMapping("/upload")
+    public String uploadVideo(@Valid @ModelAttribute VideoDTO videoDTO, 
+                               BindingResult bindingResult, 
+                               Model model) {
+        log.info("┌──────────────────┐");
+        log.info("│ uploadVideo()    │");
+        log.info("└──────────────────┘");
 
-		log.info("question.getAuthor().getUsername():{}", question.getAuthor().getUsername());
-		log.info("princial.getName():{}", princial.getName());
-		if (!question.getAuthor().getUsername().equals(princial.getName())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-		}
+        // 유효성 검사 실패 시
+        if (bindingResult.hasErrors()) {
+            log.warn("유효성 검사 실패: {}", bindingResult.getAllErrors());
+            return "video/video_upload";
+        }
 
-		//
-		questionForm.setSubject(video.getSubject());
-		questionForm.setContent(video.getContent());
+        try {
+            // YouTube ID 추출
+            String youtubeId = videoService.extractYoutubeId(videoDTO.getUrl());
+            
+            // 비디오 생성
+            Video createdVideo = videoService.createVideo(videoDTO);
+            
+            log.info("비디오 업로드 성공: {}", createdVideo.getTitle());
+            
+            // 업로드 후 목록 페이지로 리다이렉트
+            return "redirect:/video/list";
+        } catch (Exception e) {
+            log.error("비디오 업로드 중 오류 발생: {}", e.getMessage(), e);
+            
+            // 오류 메시지 추가
+            model.addAttribute("errorMessage", "비디오 업로드에 실패했습니다: " + e.getMessage());
+            return "video/video_upload";
+        }
+    }
+    @GetMapping("/delete/{videoId}")
+    public ResponseEntity<Map<String, String>> deleteVideo(@PathVariable("videoId") Long videoId) {
+        log.info("📌 Deleting video - ID: {}", videoId);
+        log.info("┌──────────────────┐");
+        log.info("│ deleteVideo()    │");
+        log.info("└──────────────────┘");
+        try {
+            Video video = videoService.getVideoById(videoId);
+            videoService.delete(video);
+            log.info("✅ Video deleted successfully: {}", videoId);
+            
+            // 성공 응답 메시지 반환
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "비디오가 삭제 되었습니다");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("❌ Error deleting video: {}", e.getMessage(), e);
+            
+            // 오류 응답 메시지 반환
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Error deleting video");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
-		return "question/question_form";
-	}
-**/
+    
 }
+
+

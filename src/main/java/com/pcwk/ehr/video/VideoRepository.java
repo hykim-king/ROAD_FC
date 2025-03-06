@@ -17,7 +17,7 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     Optional<Video> findByVideoId(Long videoId);
     Page<Video> findAll(Specification<Video> spec, Pageable pageable);
 
-    Page<Video> findByTitleContaining(String keyword, Pageable pageable);
+    //Page<Video> findByTitleContaining(String keyword, Pageable pageable);
     
     @Query("SELECT v FROM Video v WHERE v.videoId < :videoId ORDER BY v.videoId DESC LIMIT 4")
     List<Video> findTop4ByVideoIdLessThanOrderByVideoIdDesc(@Param("videoId") Long videoId);

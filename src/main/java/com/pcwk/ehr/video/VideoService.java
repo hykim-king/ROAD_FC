@@ -1,5 +1,6 @@
 package com.pcwk.ehr.video;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -20,15 +21,34 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class VideoService {
-
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final VideoRepository videoRepository;
 
     @Autowired
     public VideoService(VideoRepository videoRepository) {
-    	
         this.videoRepository = videoRepository;
     }
+
+    // 새 비디오 생성 메서드
+    @Transactional
+    public Video createVideo(VideoDTO videoDTO) {
+        try {
+            Video video = new Video();
+            video.setTitle(videoDTO.getTitle());
+            video.setUrl(videoDTO.getUrl());
+            video.setDescription(videoDTO.getDescription());
+            video.setRegDate(LocalDate.now());
+            video.setViewCount(0);
+            Video savedVideo = videoRepository.save(video);
+            log.info("✅ Video created successfully: {}", savedVideo.getTitle());
+            return savedVideo;
+        } catch (Exception e) {
+            log.error("❌ Error creating video: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to create video.", e);
+        }
+    }
+
+    
     //조회수 증가 로직
     @Transactional
     public Video getVideoAndIncrementViewCount(Long id) {
@@ -77,56 +97,16 @@ public class VideoService {
             return Collections.emptyList();
         }
     }
-    /**
-	public Question modify(Question question,String subject, String content) {
-		log.info("┌──────────────┐");
-		log.info("│ modify()     │");
-		log.info("└──────────────┘");	
-		
-		log.info("param|question:{}",question);
-		log.info("param|subject:{}",subject);
-		log.info("param|content:{}",content);
-		
-		question.setSubject(subject);
-		question.setContent(content);
-		question.setModifyDate(LocalDateTime.now());
-		
-		
-		Question mQuestion = questionRepository.save(question);
-		log.info("수정된|mQuestion:{}",mQuestion);
-		
-		return mQuestion;
-	}
-    public int create(String subject, String content,SiteUser author) {
-		log.info("┌──────────────┐");
-		log.info("│ create()     │");
-		log.info("└──────────────┘");
-		
-		log.info("1. param│subject:"+subject);
-		log.info("2. param│content:"+content);
-		
-		Question question=new Question();
-		question.setSubject(subject);
-		question.setContent(content);
-		question.setCreateDate(LocalDateTime.now());
-		question.setAuthor(author);
-		
-		Question outQuestion =questionRepository.save(question);
-		
-		return outQuestion.getId();
-	}
-	
 
-    public void delete(Video video) {
-		log.info("┌──────────────┐");
-		log.info("│ delete()     │");
-		log.info("└──────────────┘");			
-		
-		log.info("param|question:{}",video);
-		
-		videoRepository.delete(video);
-		
-	}
-	**/
-	
+    public void delete(Video videoId) {
+        log.info("Deleting video: {}", videoId);
+        videoRepository.delete(videoId);
+    }
+
+ // ID로 비디오 조회 메서드
+    public Video getVideoById(Long videoId) {
+        return videoRepository.findById(videoId)
+            .orElseThrow(() -> new DataNotFoundException("해당 비디오를 찾을 수 없습니다. ID: " + videoId));
+    }
 }
+

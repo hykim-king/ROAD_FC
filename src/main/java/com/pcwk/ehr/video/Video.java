@@ -14,12 +14,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Video {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "video_seq")
+    @SequenceGenerator(name = "video_seq", sequenceName = "VIDEO_SEQ", allocationSize = 1)
     @Column(name = "VIDEO_ID", nullable = false, unique = true)
-    private Long videoId; // ✅ String → Long 변경
-
+    private Long videoId;
+    
     @Column(name = "VIDEO_TITLE", nullable = false)
     private String title;
 
