@@ -1,50 +1,80 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>교통 통계 테이블</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #F4F4F4;
-        }
-        .highlight {
-            background-color: #007BFF;
-            color: white;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .smenu-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* 박스 간 간격 */
+        padding: 0;
+        list-style: none;
+    }
+    .smenu-grid li {
+        flex: 1 1 calc(50% - 10px); /* 2x2 형태로 배치 */
+        background-color: #f8f9fa; /* 박스 배경색 */
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .smenu-grid li a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+    
+	.header {
+	    display: flex;
+	    justify-content: space-between;
+	    z-index: 101;
+	    position: relative;
+	    width: 100%;
+	    height: 45px !important;
+	    background-color: #fff;
+	    border-bottom: 1px solid #E2E2E2;
+	}    
+	
+	.sub-top {
+    width: 100%;
+    margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
+    border-bottom: 4px solid #000;
+}
+
+.smenu-grid, .smenu-grid2, .smenu-grid3, .smenu-grid4 {
+    display: flex
+;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 33px;
+}
+</style>
 </head>
 <body>
-    <table>
-        <tr>
-            <td><a th:href="@{/traffic/condition}" th:text="교통여건"></a></td>
-            <td><a th:href="@{/traffic/accident-trend}" th:text="교통사고추세"></a></td>
-            <td><a th:href="@{/traffic/increase-decrease}" th:text="부문별 증감현황(전년대비)"></a></td>
-            <td><a th:href="@{/traffic/accident-5years}" th:text="부문별 사고현황(최근5년)"></a></td>
-        </tr>
-        <tr>
-            <td><a th:href="@{/traffic/regional-statistics}" th:text="지역별 교통사고 통계"></a></td>
-            <td><a th:href="@{/traffic/accidents-per-10000cars}" th:text="자동차 1만대당 교통사고"></a></td>
-            <td><a th:href="@{/traffic/accidents-per-100k-pop}" th:text="인구 10만명당 교통사고"></a></td>
-            <td><a th:href="@{/traffic/accidents-per-10km-road}" th:text="도로 10km당 교통사고"></a></td>
-        </tr>
-        <tr>
-            <td><a th:href="@{/traffic/oecd-statistics}"><b th:text="OECD국가교통사고 발생현황"></b></a></td>
-            <td><a th:href="@{/traffic/regional-safety-index}" th:text="지역별 교통안전지수"></a></td>
-        </tr>
-    </table>
+<div class="header">
+<div class="koroad_logo"></div>
+</div>
+<form id="listForm" name="listForm">
+<div class="subpage-toprapper">
+	<div class="sub-top">
+	<h3 style="cursor:pointer; padding-bottom:5px;"></h3>
+	<h2>교통사고 통계를 한 눈에 볼 수 있습니다.</h2>
+		<ul class="smenu-grid mt-30">
+		    <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
+		    <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
+		    <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
+		    <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+		</ul>
+    </div>
+    </div>
+</form>
 </body>
 </html>

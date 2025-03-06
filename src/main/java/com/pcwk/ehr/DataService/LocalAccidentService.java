@@ -113,32 +113,31 @@ public class LocalAccidentService {
 	}
 
 	public Page<LocalAccident> getPagedLocalAccidents(String keyword, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return localAccidentRepository.findAll(search(keyword), pageable);
+	    Pageable pageable = PageRequest.of(page, size);
+	    return localAccidentRepository.findAll(search(keyword), pageable);
 	}
 
-	public Page<LocalAccident> getAccidentsFilteredPaged(Integer year, String majorRegion, String minorRegion,
-			Pageable pageable) {
-		Specification<LocalAccident> spec = (root, query, criteriaBuilder) -> {
-			List<Predicate> predicates = new ArrayList<>();
+	public Page<LocalAccident> getAccidentsFilteredPaged(Integer year, String majorRegion, String minorRegion, Pageable pageable) {
+	    Specification<LocalAccident> spec = (root, query, criteriaBuilder) -> {
+	        List<Predicate> predicates = new ArrayList<>();
 
-			if (year != null) {
-				predicates.add(criteriaBuilder.equal(root.get("laYear"), year));
-			}
-			if (majorRegion != null && !majorRegion.isEmpty()) {
-				predicates.add(criteriaBuilder.equal(root.get("laMajorRegion"), majorRegion));
-			}
-			if (minorRegion != null && !minorRegion.isEmpty()) {
-				predicates.add(criteriaBuilder.equal(root.get("laMinorRegion"), minorRegion));
-			}
+	        if (year != null) {
+	            predicates.add(criteriaBuilder.equal(root.get("laYear"), year));
+	        }
+	        if (majorRegion != null && !majorRegion.isEmpty()) {
+	            predicates.add(criteriaBuilder.equal(root.get("laMajorRegion"), majorRegion));
+	        }
+	        if (minorRegion != null && !minorRegion.isEmpty()) {
+	            predicates.add(criteriaBuilder.equal(root.get("laMinorRegion"), minorRegion));
+	        }
 
-			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-		};
+	        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+	    };
 
-		return localAccidentRepository.findAll(spec, pageable);
+	    return localAccidentRepository.findAll(spec, pageable);
 	}
 
 	public Page<LocalAccident> getAllLocalAccidentsPaged(Pageable pageable) {
-		return localAccidentRepository.findAll(pageable);
+	    return localAccidentRepository.findAll(pageable);
 	}
 }

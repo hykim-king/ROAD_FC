@@ -66,12 +66,14 @@ public class YearAccidentService {
 		return result;
 	}
 
-    public Page<YearAccident> getAccidents(Integer tdYear, Integer tdAccident, Integer tdDeathCnt, Integer tdInjuryCnt, Integer taAccidentRate, Integer taFatalRate, String keyword, Pageable pageable) {
-        return yearAccidentRepository.getAccidents(tdYear, tdAccident, tdDeathCnt, tdInjuryCnt, taAccidentRate, taFatalRate, keyword, pageable);
+    public Page<YearAccident> getAccidents(Integer tdYear, Integer tdAccident, Integer tdDeathCnt, Integer tdInjuryCnt, Integer tdAccidentRate, Integer taFatalRate, String keyword, Pageable pageable) {
+        return yearAccidentRepository.getAccidents(tdYear, tdAccident, tdDeathCnt, tdInjuryCnt, tdAccidentRate, taFatalRate, keyword, pageable);
     }
 
-    public List<Object[]> getAllAccidents() {
-        return yearAccidentRepository.getAllAccidents();
+    public List<YearAccident> getAllAccidents() {
+        // 데이터베이스 쿼리를 통해 YearAccident 객체 리스트를 반환하도록 수정
+        return yearAccidentRepository.findAll();
     }
+
 
 }

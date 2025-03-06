@@ -3,13 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도로 날씨 별 사고 목록</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>도로 날씨 별 사고 데이터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body class="container mt-4">
+
+    <!-- 네비게이션 바 추가 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">사고 데이터</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/dlist">사고 증가량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/list">지역별 사고 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/clist">명절 교통량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/wlist">도로 날씨 별 사고 데이터</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 네비게이션 바 끝 -->
+
+    <!-- 🚀 2x2 박스형 메뉴 추가 -->
+    <style>
+        .smenu-grid {
+        	width : 50%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+            justify-content: center; /* 가운데 정렬 */
+        }
+        .smenu-grid li {
+            flex: 1 1 calc(50% - 10px);
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .smenu-grid li a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+    </style>
+	<div class= "d-flex justify-content-center">
+    <ul class="smenu-grid mt-3">
+        <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
+        <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
+        <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
+        <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+    </ul>
+    </div>
 
     <h2 class="text-center mb-4">사고 데이터</h2>
 
@@ -81,6 +148,7 @@
 	            </tr>
                 <tr th:if="${#lists.isEmpty(accidents)}">
                 <td colspan="11" class="text-center">데이터가 없습니다.</td>
+                </tr>
 	        </tbody>
 	    </table>
 	</div>
@@ -223,10 +291,10 @@ $(document).ready(function () {
         data.forEach((item, index) => {
             let row = `<tr>
                 <td>${index + 1}</td>
-                <td>${item.waYear || '-'}</td> // 🛠️ waYear로 수정
+                <td>${item.waYear || '-'}</td>
                 <td>${item.waRoadType || '-'}</td>
                 <td>${item.waAccidentType || '-'}</td>
-                <td>${item.waTotalCnt || 0}</td> // 🛠️ waTotalCnt로 수정
+                <td>${item.waTotalCnt || 0}</td>
                 <td>${item.waClearCnt || 0}</td>
                 <td>${item.waCloudyCnt || 0}</td>
                 <td>${item.waRainyCnt || 0}</td>
@@ -238,16 +306,6 @@ $(document).ready(function () {
         });
     }
 });
-
-// 📌 페이지네이션 이벤트 처리
-$(document).on("click", ".pagination .page-link", function() {
-    let page = $(this).data("page");
-    if (page !== undefined) {
-        let url = `/accidents/wlist?page=${page}&year=${$("#year").val()}&roadType=${$("#roadType").val()}&accidentType=${$("#accidentType").val()}`;
-        window.location.href = url; 
-    }
-});
 </script>
-
 </body>
 </html>

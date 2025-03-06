@@ -4,17 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>명절 교통량 비교</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body class="container mt-4">
 
-    <h2 class="text-center mb-4">명절 교통량 비교</h2>
+    <!-- 네비게이션 바 추가 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">사고 데이터</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/dlist">사고 증가량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/list">지역별 사고 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/clist">명절 교통량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/wlist">도로 날씨 별 사고 데이터</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 네비게이션 바 끝 -->
+
+    <!-- 🚀 2x2 박스형 메뉴 추가 -->
+    <style>
+        .smenu-grid {
+        	width : 50%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+            justify-content: center; /* 가운데 정렬 */
+        }
+        .smenu-grid li {
+            flex: 1 1 calc(50% - 10px);
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .smenu-grid li a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+    </style>
+	<div class= "d-flex justify-content-center">
+    <ul class="smenu-grid mt-3">
+        <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
+        <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
+        <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
+        <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+    </ul>
+    </div>
+
+    <h2 class="text-center mb-4">명절 교통량 데이터</h2>
     
     <!-- 필터링  -->
-    <form method="get" th:action="@{/DataChart/clist}" class="row g-3">
+    <form method="get" th:action="@{/accidents/clist}" class="row g-3">
         <div class="col-md-3">
             <label for="year" class="form-label">연도</label>
             <select class="form-select" id="year" name="year">
@@ -57,7 +124,7 @@
     
     <!-- 교통량 데이터 -->
     <div class="mt-4">
-        <table id="trafficTable" class="table table-hover">
+        <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -85,11 +152,11 @@
                 </tr>
                 <tr th:if="${#lists.isEmpty(comparisons)}">
                     <td colspan="9" class="text-center">데이터가 없습니다.</td>
-                </tr> <!-- 추가된 닫는 tr 태그 -->
+                </tr>
             </tbody>
         </table>
     </div>
-
+	
     <!-- paging start -->
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
@@ -123,96 +190,146 @@
 <canvas id="trafficChart" style="width: 100%; height: 400px;"></canvas>
     
 <script th:inline="javascript">
-let chart = null; // 전역 차트 변수
-
-// 기존 차트를 제거하는 함수
-function removeChart() {
-    if (chart) {
-        chart.destroy();  // 기존 차트 제거
-        chart = null;     // 차트 변수 초기화
-    }
-}
-
-$(document).ready(function() {
-    // 초기 데이터가 있을 때 차트를 그립니다.
-    let initialData = /*[[${comparisonData}]]*/ [];
-    console.log("Fetched Data on Load:", initialData);
-
-    // 기존 차트를 제거하고 새로운 차트 생성
-    if (initialData && initialData.length > 0) {
-        removeChart();  // 기존 차트가 있으면 제거
-        chart = createChart(initialData);  // 새로운 차트 생성
-    } else {
-        console.warn("🚨 초기 데이터가 없습니다. 차트 생성을 중단합니다.");
-    }
-});
-
-// 필터링된 데이터로 차트를 업데이트하는 함수
-$("form").on("submit", function(event) {
-    event.preventDefault();
+$(document).ready(function () {
+    let chart = null;
+    let rawData = /*[[${comparisonDataJson}]]*/ '[]';
+    let initialData = parseJSONData(rawData);  
     
-    let year = $("#year").val();
-    let specialDay = $("#specialDay").val();
-    let specialDayType = $("#specialDayType").val();
-    let hour = $("#hour").val();
-    let prevTrfl = $("#prevTrfl").val();
-    let changeTrfl = $("#changeTrfl").val();
-    let rateTrfl = $("#rateTrfl").val();
+    console.log("📊 초기 데이터 로드:", initialData);
+    createMixedChart(initialData);
     
-    let url = `/DataChart/clist1/json?year=${year}&specialDay=${encodeURIComponent(specialDay)}&specialDayType=${encodeURIComponent(specialDayType)}&hour=${hour}&prevTrfl=${prevTrfl}&changeTrfl=${changeTrfl}&rateTrfl=${rateTrfl}`;
-
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text(); // JSON이 아닌 경우 텍스트로 받아옴
-    })
-    .then(text => {
-        try {
-            const data = JSON.parse(text); // JSON으로 파싱
-            console.log("Filtered Data:", data);
-            
-            // 데이터가 배열인지 확인하고 배열이 아니면 빈 배열로 설정
-            if (!Array.isArray(data)) {
-                console.warn("🚨 유효한 차트 데이터가 아님:", data);
-                data = []; // 빈 배열로 설정
-            }
-
-            removeChart();  // 기존 차트 제거
-            chart = createChart(data);  // 새로운 차트 생성
-            updateTable(data);  // 테이블 업데이트
-        } catch (error) {
-            console.error("응답 데이터를 JSON으로 변환하는 데 실패했습니다:", error);
-        }
-    })
-    .catch(error => console.error("Error fetching filtered data:", error));
-
-
-// 차트를 생성하는 함수
-function createLineChart(data) {
-    let ctx = document.getElementById('trafficChart').getContext('2d');
-    return new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: data.map(item => item.tcSydHour),
-            datasets: [{
-                label: '교통량(대)',
-                data: data.map(item => item.tcTrfl),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true
-            }]
-        },
-        options: {
-            scales: {
-                x: { title: { display: true, text: '시간대' }},
-                y: { title: { display: true, text: '교통량(대)' }}
-            }
-        }
+    $("form").on("submit", function(event) {
+        event.preventDefault();
+        fetchDataAndUpdateChart();
     });
+    
+    async function fetchDataAndUpdateChart() {
+        let year = $("#year").val();
+        let specialday = $("#specialday").val();  
+        let specialdaytype = $("#specialdaytype").val();  
+        let hour = $('#hour').val();
+        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}`;
 
-}
+        try {
+            let response = await fetch(url);
+            if (!response.ok) throw new Error("Network response was not ok");
+            let data = await response.json();
+            console.log("📊 필터링된 데이터:", data);
+
+            if (!Array.isArray(data)) throw new Error("Invalid data format");
+            updateChart(data);
+            updateTable(data);
+        } catch (error) {
+            console.error("❌ 데이터 불러오기 오류:", error);
+        }
+    }
+
+    function parseJSONData(rawData) {
+        try {
+            return JSON.parse(rawData);
+        } catch (e) {
+            console.error("JSON parsing error:", e);
+            return [];
+        }
+    }
+
+    function createMixedChart(data) {
+        if (chart) {
+            chart.destroy(); // 이전 차트 파괴
+        }
+
+        let ctx = document.getElementById('trafficChart').getContext('2d');
+        
+        chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: data.map(item => item.tcStdYear), // 데이터가 없으면 '데이터 없음'으로 표시
+                datasets: [
+                    {
+                        label: "총 교통량",
+                        data: data.map(item => item.tcTrfl), // 데이터가 없으면 0으로 처리
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "전년도 교통량",
+                        data: data.map(item => item.tcPrevTrfl), // 데이터가 없으면 0으로 처리
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "증가 교통량",
+                        data: data.map(item => item.tcChangeTrfl), // 데이터가 없으면 0으로 처리
+                        backgroundColor: "rgba(75, 192, 192, 0.5)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: { 
+                        title: {
+                            display: true,
+                            text: "연도"
+                        }
+                    },
+                    y: { 
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "교통량 (건)"
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    
+    // 📌 차트 업데이트 함수
+    function updateChart(data) {
+		if(chart){
+	        chart.data.labels = data.map(item => item.tcStdYear);
+	        chart.data.datasets[0].data = data.map(item => item.tcTrfl); 
+	        chart.data.datasets[1].data = data.map(item => item.tcPrevTrfl);
+	        chart.data.datasets[2].data = data.map(item => item.tcChangeTrfl);
+	        chart.update(); // ✅ 업데이트 반영
+	
+		} else{
+			createMixedChart(data);
+		}
+    }
+    
+    // 📌 테이블 업데이트 함수
+    function updateTable(data) {
+        let tableBody = $(".table tbody");
+        tableBody.empty();
+
+        if (!Array.isArray(data) || data.length === 0) {
+            tableBody.append('<tr><td colspan="9" class="text-center">데이터가 없습니다.</td></tr>');
+            return;
+        }
+
+    	data.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.tcStdYear || '데이터 없음'}</td> <!-- year 사용 -->
+                <td>${item.tcSphldfttNm || '데이터 없음'}</td> <!-- specialday 사용 -->
+                <td>${item.tcSphldfttScopTypeNm || '데이터 없음'}</td> <!-- specialdaytype 사용 -->
+                <td>${item.tcSydHour !== null && item.tcSydHour !== undefined ? item.tcSydHour : '데이터 없음'}</td> <!-- hour 사용 -->
+                <td>${item.tcTrfl !== null && item.tcTrfl !== undefined ? item.tcTrfl : '데이터 없음'}</td> <!-- tcTrfl이 없으면 '데이터 없음'으로 표시 -->
+                <td>${item.tcPrevTrfl !== null && item.tcPrevTrfl !== undefined ? item.tcPrevTrfl : '데이터 없음'}</td> <!-- tcPrevTrfl이 없으면 '데이터 없음'으로 표시 -->
+                <td>${item.tcChangeTrfl !== null && item.tcChangeTrfl !== undefined ? item.tcChangeTrfl : '데이터 없음'}</td> <!-- tcChangeTrfl이 없으면 '데이터 없음'으로 표시 -->
+                <td>${item.tcRateTrfl !== null && item.tcRateTrfl !== undefined ? item.tcRateTrfl.toFixed(2) + '%' : '데이터 없음'}</td> <!-- 증가율을 소수점 두자리로 표시 -->
+            </tr>`;
+            tableBody.append(row);
+        });
+    }
 });
 </script>
 </body>

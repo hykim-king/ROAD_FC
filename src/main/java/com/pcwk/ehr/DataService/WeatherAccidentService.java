@@ -88,7 +88,11 @@ public class WeatherAccidentService {
 	        return weatherAccidentRepository.findAll(search(keyword), pageable);
 	    }
 
-	    public Page<WeatherAccident> getAccidentsFilteredPaged(Integer year, String roadType, String accidentType, Pageable pageable) {
+	    public Page<WeatherAccident> getAccidentsFilteredPaged(
+	    		Integer year, 
+	    		String roadType, 
+	    		String accidentType, 
+	    		Pageable pageable) {
 	        Specification<WeatherAccident> spec = (root, query, criteriaBuilder) -> {
 	            List<Predicate> predicates = new ArrayList<>();
 	            

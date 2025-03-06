@@ -3,13 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지역별 사고 목록</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>지역별 사고 데이터</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body class="container mt-4">
+
+    <!-- 네비게이션 바 추가 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">사고 데이터</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/dlist">사고 증가량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/list">지역별 사고 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/clist">명절 교통량 데이터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/DataChart/wlist">도로 날씨 별 사고 데이터</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 네비게이션 바 끝 -->
+
+    <!-- 🚀 2x2 박스형 메뉴 추가 -->
+    <style>
+        .smenu-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0;
+            list-style: none;
+            justify-content: center; /* 가운데 정렬 */
+        }
+        .smenu-grid li {
+            flex: 1 1 calc(50% - 10px);
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .smenu-grid li a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+
+	<div class= "d-flex justify-content-center">
+    <ul class="smenu-grid mt-3">
+        <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
+        <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
+        <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
+        <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+    </ul>
+    </div>
+
     <h2 class="text-center mb-4">지역별 사고 데이터</h2>
 
     <!-- 필터링 폼 -->
@@ -56,6 +123,12 @@
                     <th>시/도</th>
                     <th>시/군/구</th>
                     <th>사고 건수</th>
+                    <th>사망사고 건수</th>
+                    <th>부상사고 건수</th>
+                    <th>중상자 발생 사고 건수</th>
+                    <th>경상자 발생 사고 건수</th>
+                    <th>지역 안전 점수</th>
+                    <th>안전 점수 등급</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,9 +138,15 @@
                     <td th:text="${accident.laMajorRegion}"></td>
                     <td th:text="${accident.laMinorRegion}"></td>
                     <td th:text="${accident.laLocalCnt}"></td>
+                    <td th:text="${accident.laDeathCnt}"></td>
+                    <td th:text="${accident.laInjuryCnt}"></td>
+                    <td th:text="${accident.laSeriousCnt}"></td>
+                    <td th:text="${accident.laMinorCnt}"></td>
+                    <td th:text="${accident.laSafeScore}"></td>
+                    <td th:text="${accident.laGrade}"></td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(accidents)}">
-                <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                <td colspan="11" class="text-center">데이터가 없습니다.</td>
                 </tr>
             </tbody>
         </table>
@@ -101,11 +180,31 @@
         </ul>
     </div>  
 <!-- paging end--------------------------------------------- -->
+<form th:action="@{/DataChart/list}" method="get" id="searchForm" name="searchForm">    	
+    <input type="hidden" id="page" name="page" th:value="${paging.number}">
+    <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
+    <input type="hidden" id="formMajorRegion" name="majorRegion" th:value="${selectedMajorRegion}">
+    <input type="hidden" id="formMinorRegion" name="minorRegion" th:value="${selectedMinorRegion}">
+</form>
 
 <canvas id="accidentChart"></canvas>
 
 <script th:inline="javascript">
+
+//page-link
+const page_elements = document.getElementsByClassName("page-link");
+console.log(page_elements);
+
+Array.from(page_elements).forEach(function(element){
+	element.addEventListener("click",function(){
+		console.log('element_click:'+this.dataset.page);
+		document.getElementById("page").value = this.dataset.page;		
+		document.getElementById("searchForm").submit();
+	});
+});
+
 $(document).ready(function () {
+
     let chart; // 전역 변수 선언 (차트 객체)
 
     // 📌 시/도 변경 시 시/군/구 업데이트
@@ -145,18 +244,97 @@ $(document).ready(function () {
         let year = $("#year").val();
         let majorRegion = $("#majorRegion").val();
         let minorRegion = $("#minorRegion").val();
-
+        
+        // 페이징 폼의 hidden 필드들도 업데이트
+        $("#formYear").val(year);
+        $("#formMajorRegion").val(majorRegion);
+        $("#formMinorRegion").val(minorRegion);
+        $("#page").val(0); // 필터링 시 첫 페이지로 이동
+        
         let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}`;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 console.log("Filtered Data:", data);
-                updateChart(chart, data); // 차트 업데이트
-                updateTable(data); // 📌 테이블도 업데이트!
+                updateChart(chart, data);
+                updateTable(data);
+                
+                // 페이징 정보도 업데이트
+                updatePagination(data);
             })
             .catch(error => console.error("Error fetching filtered data:", error));
     });
+
+    // 페이징 정보 업데이트 함수 추가
+    function updatePagination(data) {
+        if (!data.pageable) return;
+        
+        // 페이징 요소 업데이트 로직
+        const pagination = $(".pagination");
+        pagination.empty();
+        
+        // 페이징 UI 재구성 (서버에서 받은 페이징 정보에 맞게)
+        // 여기서는 간략하게 작성했지만, 실제로는 기존 페이징 UI와 일치하도록 구현해야 합니다
+        
+        // 맨 처음
+        pagination.append(`
+            <li class="page-item ${data.first ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
+            </li>
+        `);
+        
+        // 이전
+        pagination.append(`
+            <li class="page-item ${!data.hasPrevious ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" data-page="${data.number-1}"><span>이전</span></a>
+            </li>
+        `);
+        
+        // 페이지 번호들
+        const startPage = data.number <= 2 ? 0 : data.number - 2;
+        const endPage = data.number <= 2 ? 4 : data.number + 2;
+        
+        for (let i = startPage; i <= endPage; i++) {
+            if (i >= 0 && i < data.totalPages) {
+                pagination.append(`
+                    <li class="page-item ${i === data.number ? 'active' : ''}">
+                        <a class="page-link" href="javascript:void(0)" data-page="${i}">${i + 1}</a>
+                    </li>
+                `);
+            }
+        }
+        
+        // 다음
+        pagination.append(`
+            <li class="page-item ${!data.hasNext ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" data-page="${data.number+1}">다음</a>
+            </li>
+        `);
+        
+        // 맨 끝
+        pagination.append(`
+            <li class="page-item ${data.last ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0)" data-page="${data.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
+            </li>
+        `);
+        
+        // 페이지 링크에 이벤트 다시 연결
+        attachPageLinkEvents();
+    }
+
+    // 페이지 링크 이벤트 연결 함수
+    function attachPageLinkEvents() {
+        const page_elements = document.getElementsByClassName("page-link");
+        
+        Array.from(page_elements).forEach(function(element){
+            element.addEventListener("click", function(){
+                console.log('element_click:'+this.dataset.page);
+                document.getElementById("page").value = this.dataset.page;
+                document.getElementById("searchForm").submit();
+            });
+        });
+    }
 
     // 📌 차트 생성 함수
     function createChart(data) {
@@ -235,11 +413,19 @@ $(document).ready(function () {
                 <td>${item.laMajorRegion}</td>
                 <td>${item.laMinorRegion}</td>
                 <td>${item.laLocalCnt}</td>
+                <td>${item.laDeathCnt}</td>
+                <td>${item.laInjuryCnt}</td>
+                <td>${item.laSeriousCnt}</td>
+                <td>${item.laMinorCnt}</td>
+                <td>${item.laSafeScore}</td>
+                <td>${item.laGrade}</td>
             </tr>`;
             tableBody.append(row);
         });
     }
+
 });
-</script> 
+</script>
+
 </body>
 </html>

@@ -71,5 +71,18 @@ public interface TrafficComparisonRepository
 			@Param("specialdayType") String specialdayType, @Param("hour") Integer hour,
 			@Param("prevTrFl") Integer prevTrFl, // Integer 타입으로 변경
 			@Param("changeTrFl") Integer changeTrFl, @Param("rateTrFl") Integer rateTrFl);
-
-}
+	
+	
+	
+    @Query("SELECT t FROM TrafficComparison t " +
+            "WHERE (:year IS NULL OR t.tcStdYear = :year) " +
+            "AND (:specialday IS NULL OR t.tcSphldfttNm = :specialday) " +
+            "AND (:specialdayType IS NULL OR t.tcSphldfttScopTypeNm = :specialdayType) " +
+            "AND (:hour IS NULL OR t.tcSydHour = :hour)")
+     List<TrafficComparison> findFilteredTrafficData(
+             @Param("year") Integer year,
+             @Param("specialday") String specialday,
+             @Param("specialdayType") String specialdayType,
+             @Param("hour") Integer hour,
+             Pageable pageable);
+ }
