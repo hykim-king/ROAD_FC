@@ -80,7 +80,7 @@
     <h2 class="text-center mb-4">지역별 사고 데이터</h2>
 
     <!-- 필터링 폼 -->
-    <form method="get" th:action="@{/accidents/list}" class="row g-3">
+    <form method="get" th:action="@{/DataChart/list}" class="row g-3" id="filterForm">
         <div class="col-md-3">
             <label for="year" class="form-label">연도 선택</label>
             <select class="form-select" id="year" name="year">
@@ -107,7 +107,7 @@
             </select>
         </div>
 
-        <div class="col-md-3 d-flex align-items-end">
+        <div class="col-md-3 d-flex align-items-end">        	
             <button type="submit" class="btn btn-primary w-100">검색</button>
         </div>
     </form>
@@ -164,15 +164,18 @@
             <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
             </li>
+            
             <!-- 1,2,3,.... 페이지 번호 제한 -->
             <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
                 <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
             </li>
+            
             <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
             <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
             </li>
+            
            <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
             <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
@@ -189,23 +192,18 @@
 
 <canvas id="accidentChart"></canvas>
 
+<!-- 스크립트 -->
 <script th:inline="javascript">
-
-//page-link
-const page_elements = document.getElementsByClassName("page-link");
-console.log(page_elements);
-
-Array.from(page_elements).forEach(function(element){
-	element.addEventListener("click",function(){
-		console.log('element_click:'+this.dataset.page);
-		document.getElementById("page").value = this.dataset.page;		
-		document.getElementById("searchForm").submit();
-	});
-});
-
 $(document).ready(function () {
-
-    let chart; // 전역 변수 선언 (차트 객체)
+	// 전역 변수 선언 (차트 객체)
+    let chart;
+    // 📌 페이지 로드 시 최초 차트 데이터 가져오기
+    // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
+    let rawData = /*[[${yearlyAccidentDataJson}]]*/ []; 
+    let initialData = parseJSONData(rawData); 
+    console.log("📊 초기 데이터 로드:", initialData);
+	// 차트 생성
+    createBarChart(initialData);
 
     // 📌 시/도 변경 시 시/군/구 업데이트
     $("#majorRegion").change(function () {
@@ -231,201 +229,215 @@ $(document).ready(function () {
             });
         }
     });
-
-    // 📌 페이지 로드 시 최초 차트 데이터 가져오기
-    let initialData = /*[[${yearlyAccidentDataJson}]]*/ []; // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
-    console.log("Fetched Data on Load:", initialData);
-    chart = createChart(initialData); // 차트 생성
-
-    // 📌 폼 제출 시 데이터 가져오기 및 차트 업데이트
-    $("form").on("submit", function(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
-
-        let year = $("#year").val();
-        let majorRegion = $("#majorRegion").val();
-        let minorRegion = $("#minorRegion").val();
-        
-        // 페이징 폼의 hidden 필드들도 업데이트
-        $("#formYear").val(year);
-        $("#formMajorRegion").val(majorRegion);
-        $("#formMinorRegion").val(minorRegion);
-        $("#page").val(0); // 필터링 시 첫 페이지로 이동
-        
-        let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Filtered Data:", data);
-                updateChart(chart, data);
-                updateTable(data);
-                
-                // 페이징 정보도 업데이트
-                updatePagination(data);
-            })
-            .catch(error => console.error("Error fetching filtered data:", error));
+    
+    // 페이지네이션 링크 이벤트 처리
+    const page_elements = document.getElementsByClassName("page-link");
+    Array.from(page_elements).forEach(function(element){
+        element.addEventListener("click", function(){
+            console.log('element_click:' + this.dataset.page);                                            
+            
+            // 현재 선택된 필터 값들을 가져오기
+            let currentYear = document.getElementById("year").value;
+            let currentMajorRegion = document.getElementById("majorRegion").value;
+            let currentMinorRegion = document.getElementById("minorRegion").value;
+            
+            // 페이지 번호 업데이트
+            document.getElementById("page").value = this.dataset.page;
+            
+            // 현재 필터 값을 숨겨진 폼에 명시적으로 설정
+            document.getElementById("formYear").value = currentYear;
+            document.getElementById("formMajorRegion").value = currentMajorRegion;
+            document.getElementById("formMinorRegion").value = currentMinorRegion;
+            
+            // 폼 제출 전에 차트 데이터도 함께 업데이트
+            fetchDataForPageChange(this.dataset.page);
+        });
     });
+         
+    // 페이지 변경 시 데이터 가져오기 함수
+    async function fetchDataForPageChange(page) {
+        let year = $("#year").val();
+        let majorRegion = $("#majorRegion").val();  
+        let minorRegion = $("#minorRegion").val();  
+        let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
 
-    // 페이징 정보 업데이트 함수 추가
-    function updatePagination(data) {
-        if (!data.pageable) return;
-        
-        // 페이징 요소 업데이트 로직
-        const pagination = $(".pagination");
-        pagination.empty();
-        
-        // 페이징 UI 재구성 (서버에서 받은 페이징 정보에 맞게)
-        // 여기서는 간략하게 작성했지만, 실제로는 기존 페이징 UI와 일치하도록 구현해야 합니다
-        
-        // 맨 처음
-        pagination.append(`
-            <li class="page-item ${data.first ? 'disabled' : ''}">
-                <a class="page-link" href="javascript:void(0)" data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
-            </li>
-        `);
-        
-        // 이전
-        pagination.append(`
-            <li class="page-item ${!data.hasPrevious ? 'disabled' : ''}">
-                <a class="page-link" href="javascript:void(0)" data-page="${data.number-1}"><span>이전</span></a>
-            </li>
-        `);
-        
-        // 페이지 번호들
-        const startPage = data.number <= 2 ? 0 : data.number - 2;
-        const endPage = data.number <= 2 ? 4 : data.number + 2;
-        
-        for (let i = startPage; i <= endPage; i++) {
-            if (i >= 0 && i < data.totalPages) {
-                pagination.append(`
-                    <li class="page-item ${i === data.number ? 'active' : ''}">
-                        <a class="page-link" href="javascript:void(0)" data-page="${i}">${i + 1}</a>
-                    </li>
-                `);
-            }
+        try {
+            let response = await fetch(url);
+            if (!response.ok) throw new Error("Network response was not ok");
+            let data = await response.json();
+            console.log("📊 페이지 변경에 따른 데이터:", data);
+
+            if (!Array.isArray(data)) throw new Error("Invalid data format");
+            updateChart(data);
+            
+            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
+            document.getElementById("searchForm").submit();
+            document.getElementById("filterForm").submit();
+        } catch (error) {
+            console.error("❌ 페이지 변경 데이터 불러오기 오류:", error);
+            // 오류 발생 시에도 폼은 제출
+            document.getElementById("searchForm").submit();
         }
-        
-        // 다음
-        pagination.append(`
-            <li class="page-item ${!data.hasNext ? 'disabled' : ''}">
-                <a class="page-link" href="javascript:void(0)" data-page="${data.number+1}">다음</a>
-            </li>
-        `);
-        
-        // 맨 끝
-        pagination.append(`
-            <li class="page-item ${data.last ? 'disabled' : ''}">
-                <a class="page-link" href="javascript:void(0)" data-page="${data.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
-            </li>
-        `);
-        
-        // 페이지 링크에 이벤트 다시 연결
-        attachPageLinkEvents();
     }
 
-    // 페이지 링크 이벤트 연결 함수
-    function attachPageLinkEvents() {
-        const page_elements = document.getElementsByClassName("page-link");
-        
-        Array.from(page_elements).forEach(function(element){
-            element.addEventListener("click", function(){
-                console.log('element_click:'+this.dataset.page);
-                document.getElementById("page").value = this.dataset.page;
-                document.getElementById("searchForm").submit();
-            });
-        });
+    // 폼 제출 핸들러
+    $("form").on("submit", function(event) {
+        event.preventDefault();
+        fetchDataAndUpdateChart();
+    });
+    
+    // 데이터 가져오기 및 차트 업데이트 함수
+	async function fetchDataAndUpdateChart() {
+	    let year = $("#year").val();
+	    let majorRegion = $("#majorRegion").val();
+	    let minorRegion = $("#minorRegion").val();
+	    let page = $('#page').val();
+	    let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
+	
+	    try {
+	        let response = await fetch(url);
+	        if (!response.ok) throw new Error("Network response was not ok");
+	        let data = await response.json();
+	        console.log("📊 필터링된 데이터:", data);
+	
+	        // 여기를 수정: data가 배열인지 확인하고, 아니면 data.content와 같은 속성을 확인
+	        let chartData = Array.isArray(data) ? data : (data.content || []);
+	        
+	        updateChart(chartData);
+	        updateTable(chartData);
+	    } catch (error) {
+	        console.error("❌ 데이터 불러오기 오류:", error);
+	    }
+	}
+
+    // JSON 데이터 파싱 함수
+    function parseJSONData(rawData) {
+        try {
+            return JSON.parse(rawData);
+        } catch (e) {
+            console.error("JSON parsing error:", e);
+            return [];
+        }
     }
 
     // 📌 차트 생성 함수
-    function createChart(data) {
-        let yearlyAccidentData = (typeof data === "string") ? JSON.parse(data) : data;
+    function createBarChart(data) {
 
-        console.log("Final parsed data:", yearlyAccidentData);
-
-        let labels = yearlyAccidentData.map(item => item.year); // 연도
-        let accidentCounts = yearlyAccidentData.map(item => item.accidentCount); // 사고 건수
-
-        console.log("Labels:", labels);
-        console.log("Accident Counts:", accidentCounts);
-
-        let ctx = document.getElementById('accidentChart').getContext('2d');
-        return new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '연도별 사고 건수',
-                    data: accidentCounts,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    }
-
-    // 📌 차트 업데이트 함수
-    function updateChart(chart, data) {
-        let yearlyAccidentData = Array.isArray(data.content) ? data.content : [];
-
-        console.log("Updating chart with data:", yearlyAccidentData);
-
-        if (yearlyAccidentData.length === 0) {
-            console.warn("No data available for chart update.");
-            return; // 데이터가 없으면 업데이트 중단
+    	// 이전 차트 파괴
+        if (chart) {
+            chart.destroy(); 
         }
 
-        // 🚀 필터링된 데이터에 맞게 수정!
-        let labels = yearlyAccidentData.map(item => item.laYear); // 연도
-        let accidentCounts = yearlyAccidentData.map(item => item.laLocalCnt); // 사고 건수
+        let ctx = document.getElementById('accidentChart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+            	labels: data.map(item => item.laMinorRegion || item.laMajorRegion),
+                datasets: [
+               		{
+	                    label: '연도별 총 사고 건수',
+	                    data: data.map(item => item.laLocalCnt),
+	                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+	                    borderColor: 'rgba(54, 162, 235, 1)',
+	                    borderWidth: 1
+	                },
+	                {
+	                	label: "사망자 사고 발생 건수",
+	                	data: data.map(item => item.laDeathCnt),
+	                	backgroundColor : 'rgba(242, 2, 2, 0.5)',
+	                	borderColor : "rgba(242, 2, 2, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "부상자 발생 사고 건수",
+	                	data : data.map(item => item.laInjuryCnt),
+	                	backgroundColor : 'rgba(220, 214, 24, 0.5)',
+	                	borderColor : "rgba(220, 214, 24, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "중상자 발생 사고 건수",
+	                	data : data.map(item => item.laSeriousCnt),
+	                	backgroundColor : 'rgba(121, 26, 255, 0.5)',
+	                	borderColor : "rgba(121, 26, 255, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "경상자 발생 사고 건수",
+	                	data : data.map(item => item.laMinorCnt),
+	                	backgroundColor : 'rgba(140, 242, 235, 0.5)',
+	                	borderColor : "rgba(140, 242, 235, 1)",
+	                	borderWidth : 1
+	                }
+                ],
+           	},
+               options: {
+                   responsive: true,
+                   maintainAspectRatio: true,
+                   scales: {
+                       x: { 
+                           title: {
+                               display: true,
+                               text: "지역"
+                           }
+                       },
+                       y: { 
+                           beginAtZero: true,
+                           title: {
+                               display: true,
+                               text: "사고 건수 (건)"
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
-        console.log("Updated Labels:", labels);
-        console.log("Updated Accident Counts:", accidentCounts);
-
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = accidentCounts;
-        chart.update();
+    // 📌 차트 업데이트 함수
+    function updateChart(data) {
+        if (chart) {
+        	chart.data.labels = data.map(item => item.laMinorRegion || item.laMajorRegion);
+            chart.data.datasets[0].data = data.map(item => item.laLocalCnt);
+            chart.data.datasets[1].data = data.map(item => item.laDeathCnt);
+            chart.data.datasets[2].data = data.map(item => item.laInjuryCnt);
+            chart.data.datasets[3].data = data.map(item => item.laSeriousCnt);
+            chart.data.datasets[4].data = data.map(item => item.laMinorCnt);
+            chart.update(); // ✅ 업데이트 반영
+        } else {
+            createBarChart(data);
+        }
     }
 
     // 📌 테이블 업데이트 함수
     function updateTable(data) {
-        let tableBody = $(".table tbody"); // 테이블의 tbody 선택
-        tableBody.empty(); // 기존 데이터 초기화
+    	// 테이블의 tbody 선택
+        let tableBody = $(".table tbody");
+     	// 기존 데이터 초기화
+        tableBody.empty();
 
-        let yearlyAccidentData = Array.isArray(data.content) ? data.content : [];
-
-        if (yearlyAccidentData.length === 0) {
-            console.warn("No data available for table update.");
-            tableBody.append("<tr><td colspan='5' class='text-center'>데이터가 없습니다.</td></tr>");
+        if (!Array.isArray(data) || data.length === 0) {
+            tableBody.append('<tr><td colspan="11" class="text-center">데이터가 없습니다.</td></tr>');
             return;
         }
 
-        yearlyAccidentData.forEach((item, index) => {
+        data.forEach((item, index) => {
             let row = `<tr>
                 <td>${index + 1}</td>
-                <td>${item.laYear}</td>
-                <td>${item.laMajorRegion}</td>
-                <td>${item.laMinorRegion}</td>
-                <td>${item.laLocalCnt}</td>
-                <td>${item.laDeathCnt}</td>
-                <td>${item.laInjuryCnt}</td>
-                <td>${item.laSeriousCnt}</td>
-                <td>${item.laMinorCnt}</td>
-                <td>${item.laSafeScore}</td>
-                <td>${item.laGrade}</td>
+                <td>${item.laYear || 0}</td>
+                <td>${item.laMajorRegion || '-'}</td>
+                <td>${item.laMinorRegion || '-'}</td>
+                <td>${item.laLocalCnt || 0}</td>
+                <td>${item.laDeathCnt || 0}</td>
+                <td>${item.laInjuryCnt || 0}</td>
+                <td>${item.laSeriousCnt || 0}</td>
+                <td>${item.laMinorCnt || 0}</td>
+                <td>${item.laSafeScore || 0}</td>
+                <td>${item.laGrade || 0}</td>
             </tr>`;
             tableBody.append(row);
         });
     }
-
 });
 </script>
-
 </body>
 </html>

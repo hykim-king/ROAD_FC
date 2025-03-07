@@ -1,6 +1,5 @@
 package com.pcwk.ehr.data;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 

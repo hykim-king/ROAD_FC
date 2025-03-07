@@ -10,6 +10,33 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
+<!-- 🚀 2x2 박스형 메뉴 추가 -->
+<style>
+    .smenu-grid {
+    	width : 50%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+        list-style: none;
+        justify-content: center; /* 가운데 정렬 */
+    }
+    .smenu-grid li {
+        flex: 1 1 calc(50% - 10px);
+        background-color: #f8f9fa;
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .smenu-grid li a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+</style>
 <body class="container mt-4">
 
     <!-- 네비게이션 바 추가 -->
@@ -42,33 +69,6 @@
     </nav>
     <!-- 네비게이션 바 끝 -->
 
-    <!-- 🚀 2x2 박스형 메뉴 추가 -->
-    <style>
-        .smenu-grid {
-        	width : 50%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 0;
-            list-style: none;
-            justify-content: center; /* 가운데 정렬 */
-        }
-        .smenu-grid li {
-            flex: 1 1 calc(50% - 10px);
-            background-color: #f8f9fa;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .smenu-grid li a {
-            display: block;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-
-    </style>
 	<div class= "d-flex justify-content-center">
     <ul class="smenu-grid mt-3">
         <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
@@ -78,10 +78,10 @@
     </ul>
     </div>
 
-    <h2 class="text-center mb-4">사고 데이터</h2>
+    <h2 class="text-center mb-4">도로 날씨 별 사고 데이터</h2>
 
 	<!-- 필터링 -->
-    <form method="get" th:action="@{/accidents/wlist}" class="row g-3">
+    <form method="get" th:action="@{/DataChart/wlist}" class="row g-3">
     	<div class="col-md-3">
 	        <label for="year" class="form-label">연도</label>
 	        <select class="form-select" id="year" name="year">
@@ -113,7 +113,8 @@
             <button type="submit" class="btn btn-primary w-100">검색</button>
         </div>
     </form>
-
+    <!-- 필터링 폼 -->
+    
 	<!-- 사고 데이터 테이블 -->
 	<div class= "mt-4">
 	    <table class="table table-hover">
@@ -182,10 +183,17 @@
     </div>
     
     <!-- paging end--------------------------------------------- -->
+ 
+ <form th:action="@{/DataChart/wlist}" method="get" id="searchForm" name="searchForm">    	
+    <input type="hidden" id="page" name="page" th:value="${paging.number}">
+    <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
+    <input type="hidden" id="formRoadType" name="roadType" th:value="${selectedRoadType}">
+    <input type="hidden" id="formAccidentType" name="accidentType" th:value="${selectedAccidentType}">    
+</form>
+     
+<canvas id="roadChart" style="width: 800px; height: 400px;"></canvas>
     
-  <canvas id="roadChart" style="width: 800px; height: 400px;"></canvas>
-    
-	<!-- 스크립트 -->
+<!-- 스크립트 -->
 <script th:inline="javascript">
 $(document).ready(function () {
     let chart = null;
@@ -194,17 +202,64 @@ $(document).ready(function () {
 
     console.log("📊 초기 데이터 로드:", initialData);
     createBarChart(initialData);
+    
+    // 페이지네이션 링크 이벤트 처리
+    const page_elements = document.getElementsByClassName("page-link");
+    Array.from(page_elements).forEach(function(element){
+        element.addEventListener("click", function(){
+            console.log('element_click:' + this.dataset.page);
+            
+            // 페이지 번호 업데이트
+            document.getElementById("page").value = this.dataset.page;
+    
+            // 현재 필터 값을 숨겨진 폼에 복사
+            document.getElementById("formYear").value = document.getElementById("year").value;
+            document.getElementById("formRoadType").value = document.getElementById("roadType").value;
+            document.getElementById("formAccidentType").value = document.getElementById("accidentType").value;
+            
+            // 폼 제출 전에 차트 데이터도 함께 업데이트
+            fetchDataForPageChange(this.dataset.page);
+        });
+    });
+    
+    // 페이지 변경 시 데이터 가져오기 함수
+    async function fetchDataForPageChange(page) {
+        let year = $("#year").val();
+        let roadType = $("#roadType").val();  
+        let accidentType = $("#accidentType").val();  
+        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${page}`;
 
+        try {
+            let response = await fetch(url);
+            if (!response.ok) throw new Error("Network response was not ok");
+            let data = await response.json();
+            console.log("📊 페이지 변경에 따른 데이터:", data);
+
+            if (!Array.isArray(data)) throw new Error("Invalid data format");
+            updateChart(data);
+            
+            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
+            document.getElementById("searchForm").submit();
+        } catch (error) {
+            console.error("❌ 페이지 변경 데이터 불러오기 오류:", error);
+            // 오류 발생 시에도 폼은 제출
+            document.getElementById("searchForm").submit();
+        }
+    }
+    
+    // 폼 제출 핸들러
     $("form").on("submit", function(event) {
         event.preventDefault();
         fetchDataAndUpdateChart();
     });
 
+    // 데이터 가져오기 및 차트 업데이트 함수
     async function fetchDataAndUpdateChart() {
         let year = $("#year").val();
         let roadType = $("#roadType").val();  
         let accidentType = $("#accidentType").val();  
-        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}`;
+        let page = $('#page').val();
+        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${page}`;
 
         try {
             let response = await fetch(url);
@@ -220,6 +275,7 @@ $(document).ready(function () {
         }
     }
 
+    // JSON 데이터 파싱 함수
     function parseJSONData(rawData) {
         try {
             return JSON.parse(rawData);
@@ -229,20 +285,60 @@ $(document).ready(function () {
         }
     }
 
+    // 📌 차트 생성 함수
     function createBarChart(data) {
-        if (chart) chart.destroy();
+    	
+    	// 이전 차트 파괴
+        if (chart) {
+            chart.destroy(); 
+        }
 
         let ctx = document.getElementById('roadChart').getContext("2d");
         chart = new Chart(ctx, {
             type: "bar",
             data: {
-                labels: data.map(item => item.waYear), // 🛠️ waYear로 수정
+                labels: data.map(item => item.waYear),
                 datasets: [
                     {
                         label: "총 사고 건수",
-                        data: data.map(item => item.waTotalCnt), // 🛠️ waTotalCnt로 수정
+                        data: data.map(item => item.waTotalCnt),
                         backgroundColor: "rgba(255, 99, 132, 0.5)",
                         borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "맑음",
+                        data: data.map(item => item.waClearCnt),
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "흐림",
+                        data: data.map(item => item.waCloudyCnt),
+                        backgroundColor: "rgba(153, 102, 255, 0.5)",
+                        borderColor: "rgba(153, 102, 255, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "안개",
+                        data: data.map(item => item.waFoggyCnt),
+                        backgroundColor: "rgba(75, 192, 192, 0.5)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "비",
+                        data: data.map(item => item.waRainyCnt),
+                        backgroundColor: "rgba(255, 159, 64, 0.5)",
+                        borderColor: "rgba(255, 159, 64, 1)",
+                        borderWidth: 1
+                    },
+                    {
+                        label: "눈",
+                        data: data.map(item => item.waSnowyCnt),
+                        backgroundColor: "rgba(255, 206, 86, 0.5)",
+                        borderColor: "rgba(255, 206, 86, 1)",
                         borderWidth: 1
                     }
                 ],
@@ -261,7 +357,7 @@ $(document).ready(function () {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: "총 사고 건수 (건)"
+                            text: "사고 건수 (건)"
                         }
                     }
                 }
@@ -269,22 +365,29 @@ $(document).ready(function () {
         });
     }
 
+    // 📌 차트 업데이트 함수
     function updateChart(data) {
         if (chart) {
-            chart.data.labels = data.map(item => item.waYear); // 🛠️ waYear로 수정
-            chart.data.datasets[0].data = data.map(item => item.waTotalCnt); // 🛠️ waTotalCnt로 수정
+            chart.data.labels = data.map(item => item.waYear);
+            chart.data.datasets[0].data = data.map(item => item.waTotalCnt);
+            chart.data.datasets[1].data = data.map(item => item.waClearCnt);
+            chart.data.datasets[2].data = data.map(item => item.waCloudyCnt);
+            chart.data.datasets[3].data = data.map(item => item.waFoggyCnt);
+            chart.data.datasets[4].data = data.map(item => item.waRainyCnt);
+            chart.data.datasets[5].data = data.map(item => item.waSnowyCnt);
             chart.update(); // ✅ 업데이트 반영
         } else {
             createBarChart(data);
         }
     }
 
+    // 📌 테이블 업데이트 함수
     function updateTable(data) {
         let tableBody = $(".table tbody");
         tableBody.empty();
 
         if (!Array.isArray(data) || data.length === 0) {
-            tableBody.append('<tr><td colspan="5" class="text-center">데이터가 없습니다.</td></tr>');
+            tableBody.append('<tr><td colspan="11" class="text-center">데이터가 없습니다.</td></tr>');
             return;
         }
 

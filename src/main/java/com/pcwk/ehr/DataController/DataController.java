@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pcwk.ehr.DataService.LocalAccidentService;
-import com.pcwk.ehr.DataService.TrafficAccidentService;
 import com.pcwk.ehr.DataService.TrafficComparisonService;
 import com.pcwk.ehr.DataService.WeatherAccidentService;
 import com.pcwk.ehr.DataService.YearAccidentRateService;
@@ -35,7 +34,6 @@ import com.pcwk.ehr.data.TrafficComparison;
 import com.pcwk.ehr.data.WeatherAccident;
 import com.pcwk.ehr.data.YearAccident;
 import com.pcwk.ehr.data.YearAccidentRate;
-import com.pcwk.ehr.PaginationUtil;
 
 @Controller
 @RequestMapping("/DataChart")
@@ -45,8 +43,9 @@ public class DataController {
 	@Autowired
 	LocalAccidentService localAccidentService;
 
-	@Autowired
-	TrafficAccidentService trafficAccidentService;
+	/*
+	 * @Autowired TrafficAccidentService trafficAccidentService;
+	 */
 
 	@Autowired
 	TrafficComparisonService trafficComparisonService;
