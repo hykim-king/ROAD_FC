@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.DataNotFoundException;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import com.pcwk.ehr.member.*;
 
 @Service
 public class VideoService {
@@ -54,17 +58,42 @@ public class VideoService {
         videoRepository.delete(videoId);
     }
     
-    //조회수 증가 로직
     @Transactional
-    public Video getVideoAndIncrementViewCount(Long id) {
+    public Video getVideoAndIncrementViewCount(Long id, HttpServletRequest request, HttpServletResponse response) {
         try {
             Video video = videoRepository.findById(id)
                     .orElseThrow(() -> new DataNotFoundException("해당 비디오를 찾을 수 없습니다. ID: " + id));
-
+            
             log.info("✅ 비디오 불러오기 성공: {}", video.getTitle());
-
-            video.setViewCount((video.getViewCount() != null ? video.getViewCount() : 0) + 1);
-            return videoRepository.save(video);
+            
+            // 쿠키를 통한 중복 조회 방지
+            String viewedVideoCookieName = "viewed_video_" + id;
+            boolean hasViewed = false;
+            
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (viewedVideoCookieName.equals(cookie.getName())) {
+                        hasViewed = true;
+                        break;
+                    }
+                }
+            }
+            
+            // 조회한 적이 없는 경우에만 조회수 증가
+            if (!hasViewed) {
+                video.setViewCount((video.getViewCount() != null ? video.getViewCount() : 0) + 1);
+                
+                // 쿠키 설정 (24시간 유효)
+                Cookie viewedCookie = new Cookie(viewedVideoCookieName, "true");
+                viewedCookie.setMaxAge(24 * 60 * 60); // 24시간
+                viewedCookie.setPath("/");
+                response.addCookie(viewedCookie);
+                
+                videoRepository.save(video);
+            }
+            
+            return video;
         } catch (Exception e) {
             log.error("❌ 비디오 조회 중 예외 발생: {}", e.getMessage(), e);
             return null;

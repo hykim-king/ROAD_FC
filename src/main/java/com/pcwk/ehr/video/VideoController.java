@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 
@@ -68,14 +70,17 @@ public class VideoController {
     }
 
     @GetMapping("/detail/{videoId}")
-    public String detail(Model model, @PathVariable("videoId") Long videoId) {
-    	log.info("┌──────────────────┐");
-		log.info("│detail()          │");
-		log.info("└──────────────────┘");
+    public String detail(Model model, @PathVariable("videoId") Long videoId,
+                        HttpServletRequest request,
+                        HttpServletResponse response) {
+        log.info("┌──────────────────┐");
+        log.info("│detail() │");
+        log.info("└──────────────────┘");
         log.info("Fetching video details - Video ID: {}", videoId);
 
         try {
-            Video video = videoService.getVideoAndIncrementViewCount(videoId);
+            // HttpServletRequest와 HttpServletResponse 파라미터 추가
+            Video video = videoService.getVideoAndIncrementViewCount(videoId, request, response);
             if (video == null) {
                 log.warn("🚨 Video not found - ID: {}", videoId);
                 return "redirect:/error/404";
@@ -86,21 +91,21 @@ public class VideoController {
 
             // 이전 영상 4개 가져오기
             List<Video> prevVideos = videoService.getPreviousVideos(videoId);
-            
+
             // 각 비디오에 대한 썸네일 URL 생성
             List<Map<String, Object>> prevVideoInfoList = new ArrayList<>();
             for (Video prevVideo : prevVideos) {
                 Map<String, Object> videoInfo = new HashMap<>();
                 videoInfo.put("video", prevVideo);
-                videoInfo.put("thumbnailUrl", "https://img.youtube.com/vi/" + 
-                    videoService.extractYoutubeId(prevVideo.getUrl()) + "/mqdefault.jpg");
+                videoInfo.put("thumbnailUrl", "https://img.youtube.com/vi/" +
+                        videoService.extractYoutubeId(prevVideo.getUrl()) + "/mqdefault.jpg");
                 prevVideoInfoList.add(videoInfo);
             }
 
             model.addAttribute("video", video);
             model.addAttribute("embedUrl", embedUrl);
             model.addAttribute("prevVideoInfoList", prevVideoInfoList);
-            
+
             return "video/video_detail";
 
         } catch (Exception e) {

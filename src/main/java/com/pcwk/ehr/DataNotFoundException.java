@@ -8,6 +8,10 @@ public class DataNotFoundException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
+	public DataNotFoundException() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void DateNotFoundException() {
 		
 	}
