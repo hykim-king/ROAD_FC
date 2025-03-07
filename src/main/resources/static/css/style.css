@@ -14,7 +14,7 @@ input[type=submit] {
 	margin-top: 10px;
 }
 
-/* 왼쪽 내비 CSS */
+/* 왼쪽 내비 */
 .sidebar {
 	height: 100vh;
 }
@@ -49,21 +49,21 @@ input[type=submit] {
 }
 
 .typeBtn {
-	background-color: #f1f1f1; /* 기본 배경색 */
-	color: #454545; /* 기본 글자색 */
+	background-color: #f1f1f1;
+	color: #454545;
 	padding: 10px 15px;
 	border-radius: 5px;
 	transition: background 0.3s, color 0.3s;
 }
 
 .typeBtn.active {
-	background-color: #9bcbff; /* 활성화 시 배경색 */
-	color: white; /* 활성화 시 글자색 */
+	background-color: #9bcbff;
+	color: white;
 }
 
 .info-section {
-	max-height: calc(100vh - 290px); /* 네비게이션 높이를 제한 */
-	overflow-y: auto; /* 내용이 많으면 내부에서만 스크롤 */
+	max-height: calc(100vh - 290px);
+	overflow-y: auto;
 	color: black;
 	background-color: #fff;
 }
@@ -106,9 +106,75 @@ input[type=submit] {
 
 }
 
-/* 왼쪽 내비 CSS */
+/* 왼쪽 내비 */
 
-/* 회원가입 CSS */
+/* 지도 메인 */
+.map-container {
+	height: calc(100vh - 80px);
+	margin-top: 80px;
+	margin-left: 400px;
+}
+/* 지도 메인 */
+
+/* 지도 상단 오버레이 */
+.notice-overlay {
+	top: 3%;
+	z-index: 1000;
+}
+/* 지도 상단 오버레이 */
+
+/* 안전 지수 버튼 오버레이 */
+.safety-btn-container {
+	top: 4%;
+	right: 2%;
+	z-index: 1000;
+	border: 2px solid #515151;
+}
+/* 안전 지수 버튼 오버레이 */
+
+/* 안전 지수 정보 오버레이 */
+.safety-info-container {
+	bottom: 4%;
+	left: 2%;
+	z-index: 1000;
+	border: 2px solid #515151;
+}
+
+.safety-item {
+	width: 85px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.safety-img {
+	height: 50px;
+	width: 50px;
+	margin-bottom: 5px;
+}
+
+.safety-state {
+	font-weight: 600;
+}
+
+.state-safe {
+	color: #0db944;
+}
+
+.state-caution {
+	color: #f5b71f;
+}
+
+.state-danger {
+	color: #ec532d;
+}
+
+.safety-score {
+	font-size: 12px;
+}
+/* 안전 지수 정보 오버레이 */
+
+/* 회원가입 */
 .underline-input {
 	border: none;
 	border-bottom: 2px solid lightgray;
@@ -120,12 +186,12 @@ input[type=submit] {
 .underline-input:focus {
 	border-bottom: 2px solid lightgray;
 }
-/* 회원가입 CSS */
+/* 회원가입 */
 
-/* 로그인 CSS */
+/* 로그인 */
 .myContainer {
 	max-width: 500px !important;
-	margin: 100px auto; /* 수직 및 수평 중앙 배치 */
+	margin: 100px auto;
 	margin-top: 80px !important;
 	padding: 20px;
 }
@@ -135,9 +201,9 @@ input[type=submit] {
 }
 
 .btn-dark {
-	font-size: 1.25em; /* 버튼 크기를 크게 조정 */
-	padding: 10px 20px; /* 버튼 패딩 조정 */
-	width: 100%; /* 버튼 너비를 100%로 설정 */
+	font-size: 1.25em;
+	padding: 10px 20px;
+	width: 100%;
 }
 
 .btn-light:hover {
@@ -150,7 +216,7 @@ input[type=submit] {
 }
 
 .form-control {
-	height: 50px; /* 입력란 높이 조정 */
+	height: 50px;
 }
 
 .alert-danger {
@@ -174,17 +240,17 @@ input[type=submit] {
 	font-size: 0.8em;
 	margin-top: 5px;
 }
-/* 로그인 CSS */
+/* 로그인 */
 
-/* 게시판 CSS */
+/* 게시판 */
 .myMargin {
-	margin: 100px auto; /* 수직 및 수평 중앙 배치 */
+	margin: 100px auto;
 	margin-top: 80px !important;
 	padding: 20px;
 }
-/* 게시판 CSS */
+/* 게시판 */
 
-/* FAQ CSS */
+/* FAQ */
 .faq-title {
 	border: 1px solid #ccc;
 	padding: 10px;
@@ -202,4 +268,4 @@ input[type=submit] {
 	font-size: 14px;
 	margin-right: 10px;
 }
-/* FAQ CSS */
+/* FAQ */

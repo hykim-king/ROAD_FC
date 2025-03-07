@@ -1,17 +1,11 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content"
-	class="container-fluid flex-grow-1 position-relative" id="map"
-	style="height: calc(100vh - 80px); margin-top: 80px; margin-left: 400px;">
-	<div
-		class="notice-overlay position-absolute start-50 translate-middle-x
-		bg-white shadow p-3"
-		style="top: 3%; z-index: 1000;">
-		<marquee behavior="scroll" direction="left" scrollamount="5"
-			class="fs-5 fw-bold text-danger"> 🚨 [공지] 현재 서울 강남구 일대 도로
-			공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨 </marquee>
+<div layout:fragment="content" class="map-container container-fluid flex-grow-1 position-relative" id="map">
+	<div class="notice-overlay position-absolute start-50 translate-middle-x bg-white shadow p-3">
+		<marquee behavior="scroll" direction="left" scrollamount="5"class="fs-5 fw-bold text-danger">
+			🚨 [공지] 현재 서울 강남구 일대 도로 공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨
+		</marquee>
 	</div>
-	<div class="position-absolute bg-white shadow rounded-1"
-		style="top: 4%; right: 2%; z-index: 1000; border: 2px solid #ccc;">
+	<div class="safety-btn-container position-absolute bg-white shadow rounded-1">
 		<div class="row m-0 text-center" style="width: 170px;">
 		  <div class="col-12 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
         <button id="safetyBtn">안전지수</button>
@@ -33,6 +27,31 @@
 			</div>
 			<div class="col-6 align-content-center px-2 py-1">
 				<button id="gyeongsang" class="region region-link nav-link p-2" data-region="gyeongsang">경상권</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="safety-info-container position-absolute bg-white shadow rounded-1">
+		<div class="safety-info container px-3 py-1">
+			<!-- <div class="safety-info-header">
+				<span>안전지수</span>
+			</div> -->
+			<div class="safety-info-content row text-nowrap">
+				<div class="safety-item safety-safe col align-content-center px-3 py-1 border-end border-opacity-25">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_safe.png}">
+					<span class="safety-state state-safe">안전</span>
+					<span class="safety-score">(81점 이상)</span>
+				</div>
+				<div class="safety-item safety-caution col align-content-center px-3 py-1 border-end border-opacity-25">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_caution.png}">
+					<span class="safety-state state-caution">주의</span>
+					<span class="safety-score">(80~40점)</span>
+				</div>
+				<div class="safety-item safety-danger col align-content-center px-3 py-1">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_danger.png}">
+					<span class="safety-state state-danger">위험</span>
+					<span class="safety-score">(40점 미만)</span>
+				</div>
 			</div>
 		</div>
 	</div>
