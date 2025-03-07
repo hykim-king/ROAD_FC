@@ -43,10 +43,6 @@ public class DataController {
 	@Autowired
 	LocalAccidentService localAccidentService;
 
-	/*
-	 * @Autowired TrafficAccidentService trafficAccidentService;
-	 */
-
 	@Autowired
 	TrafficComparisonService trafficComparisonService;
 

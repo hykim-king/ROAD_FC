@@ -114,7 +114,7 @@
             </thead>
             <tbody>
                 <tr th:each="accident, iterStat : ${accidents}">
-                    <td th:text="${iterStat.count}"></td>
+  					<td th:text="${paging.number * paging.size + iterStat.count}"></td>
                     <td th:text="${accident.tdYear}"></td>
                     <td th:text="${accident.tdAccident}"></td>
                     <td th:text="${#numbers.formatDecimal(accident.yearAccidentRate.taAccidentRate != null ? accident.yearAccidentRate.taAccidentRate : 0, 1, 1) + '%'}"></td>

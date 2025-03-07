@@ -135,7 +135,7 @@
 	        </thead>
 	        <tbody>
 	            <tr th:each="accident, iterStat : ${accidents}">
-	            	<td th:text="${iterStat.count}"></td>
+  					<td th:text="${paging.number * paging.size + iterStat.count}"></td>
 	                <td th:text="${accident.waYear}"></td>
 	                <td th:text="${accident.waRoadType}"></td>
 	                <td th:text="${accident.waAccidentType}"></td>
@@ -154,8 +154,8 @@
 	    </table>
 	</div>
 	
- <!-- paging start -->
-    <div th:if="${!paging.isEmpty()}">
+<!-- paging start -->
+    <div th:if="${!paging.isEmpty()&& paging.totalPages > 1}">
         <ul class="pagination justify-content-center">
             <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
             <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
@@ -181,8 +181,7 @@
             </li>
         </ul>
     </div>
-    
-    <!-- paging end--------------------------------------------- -->
+<!-- paging end--------------------------------------------- -->
  
  <form th:action="@{/DataChart/wlist}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">

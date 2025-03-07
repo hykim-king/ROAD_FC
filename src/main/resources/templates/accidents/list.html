@@ -133,7 +133,7 @@
             </thead>
             <tbody>
                 <tr th:each="accident, iterStat : ${accidents}">
-                    <td th:text="${iterStat.count}"></td>
+  					<td th:text="${paging.number * paging.size + iterStat.count}"></td>
                     <td th:text="${accident.laYear}"></td>
                     <td th:text="${accident.laMajorRegion}"></td>
                     <td th:text="${accident.laMinorRegion}"></td>
@@ -269,6 +269,10 @@ $(document).ready(function () {
 
             if (!Array.isArray(data)) throw new Error("Invalid data format");
             updateChart(data);
+            updateTable(data);
+            
+         	// 데이터가 10건 이하일 경우 페이징 숨기기
+            updatePagingVisibility(data);
             
             // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
             document.getElementById("searchForm").submit();
@@ -286,6 +290,19 @@ $(document).ready(function () {
         fetchDataAndUpdateChart();
     });
     
+	 // 📌 페이징 표시 여부 업데이트 함수
+	    function updatePagingVisibility(data) {
+	        let paginationElement = $(".pagination"); // 페이지네이션 요소 선택
+	        // ✅ 필터링된 데이터 개수가 아니라, 전체 데이터 개수를 기준으로 체크
+	        let totalElements = data.totalElements || (Array.isArray(data) ? data.length : 0);
+
+	        if (totalElements <= 10) {
+	            paginationElement.hide();
+	        } else {
+	            paginationElement.show();
+	        }
+	    }
+    
     // 데이터 가져오기 및 차트 업데이트 함수
 	async function fetchDataAndUpdateChart() {
 	    let year = $("#year").val();
@@ -300,16 +317,50 @@ $(document).ready(function () {
 	        let data = await response.json();
 	        console.log("📊 필터링된 데이터:", data);
 	
-	        // 여기를 수정: data가 배열인지 확인하고, 아니면 data.content와 같은 속성을 확인
+	        if (!Array.isArray(data)) throw new Error("Invalid data format");
+	        updateChart(data);
+	        updateTable(data);
+	        
+            // 데이터가 10건 이하일 경우 페이징 숨기기
+            updatePagingVisibility(chartData);
+            
+            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
+            document.getElementById("searchForm").submit();
+            document.getElementById("filterForm").submit();
+	    } catch (error) {
+	        console.error("❌ 데이터 불러오기 오류:", error);
+	        // 오류 발생 시에도 폼은 제출
+	        document.getElementById("searchForm").submit();
+	    }
+	}
+
+	// 📌 데이터 가져오기 및 차트 업데이트 함수
+	async function fetchDataAndUpdateChart() {
+	    let year = $("#year").val();
+	    let majorRegion = $("#majorRegion").val();
+	    let minorRegion = $("#minorRegion").val();
+	    let page = $('#page').val();
+	    let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
+
+	    try {
+	        let response = await fetch(url);
+	        if (!response.ok) throw new Error("Network response was not ok");
+	        let data = await response.json();
+	        console.log("📊 필터링된 데이터:", data);
+
+	        // ✅ data가 배열인지 확인하고, 아니면 data.content와 같은 속성을 확인
 	        let chartData = Array.isArray(data) ? data : (data.content || []);
 	        
 	        updateChart(chartData);
 	        updateTable(chartData);
+	        
+	        // ✅ 데이터 개수가 10건 이하일 경우 페이징 숨기기
+	        updatePagingVisibility(chartData);
 	    } catch (error) {
 	        console.error("❌ 데이터 불러오기 오류:", error);
 	    }
 	}
-
+    
     // JSON 데이터 파싱 함수
     function parseJSONData(rawData) {
         try {

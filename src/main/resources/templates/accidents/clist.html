@@ -82,6 +82,7 @@
     
     <!-- 필터링  -->
     <form method="get" th:action="@{/DataChart/clist}" class="row g-3">
+    
         <div class="col-md-3">
             <label for="year" class="form-label">연도</label>
             <select class="form-select" id="year" name="year">
@@ -138,22 +139,22 @@
                     <th>증가율(%)</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr th:each="comparison, iterStat: ${comparisons}">
-                	<td th:text="${iterStat.count}"></td>
-                	<td th:text="${comparison.tcStdYear}"></td>
-                	<td th:text="${comparison.tcSphldfttNm}"></td>
-                	<td th:text="${comparison.tcSphldfttScopTypeNm}"></td>
-                	<td th:text="${comparison.tcSydHour}"></td>
-                	<td th:text="${comparison.tcTrfl}"></td>
-                	<td th:text="${comparison.tcPrevTrfl}"></td>
-                	<td th:text="${comparison.tcChangeTrfl}"></td>
-                	<td th:text="${comparison.tcRateTrfl}"></td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(comparisons)}">
-                    <td colspan="9" class="text-center">데이터가 없습니다.</td>
-                </tr>
-            </tbody>
+				<tbody>
+				    <tr th:each="comparison, iterStat: ${comparisons}">
+				        <td th:text="${paging.number * paging.size + iterStat.count}"></td>
+				        <td th:text="${comparison.tcStdYear}"></td>
+				        <td th:text="${comparison.tcSphldfttNm}"></td>
+				        <td th:text="${comparison.tcSphldfttScopTypeNm}"></td>
+				        <td th:text="${comparison.tcSydHour}"></td>
+				        <td th:text="${comparison.tcTrfl}"></td>
+				        <td th:text="${comparison.tcPrevTrfl}"></td>
+				        <td th:text="${comparison.tcChangeTrfl}"></td>
+				        <td th:text="${comparison.tcRateTrfl}"></td>
+				    </tr>
+				    <tr th:if="${#lists.isEmpty(comparisons)}">
+				        <td colspan="9" class="text-center">데이터가 없습니다.</td>
+				    </tr>
+				</tbody>
         </table>
     </div>
 	
