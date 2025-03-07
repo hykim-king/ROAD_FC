@@ -2,14 +2,14 @@
 <div layout:fragment="content" class="map-container container-fluid flex-grow-1 position-relative" id="map">
 	<div class="notice-overlay position-absolute start-50 translate-middle-x bg-white shadow p-3">
 		<marquee behavior="scroll" direction="left" scrollamount="5"class="fs-5 fw-bold text-danger">
-			🚨 [공지] 현재 서울 강남구 일대 도로 공사로 인해 정체가 심합니다. 우회 도로를 이용해주세요! 🚨
+			양보운전 미덕속에 풀려가는 교통체증 
 		</marquee>
 	</div>
 	<div class="safety-btn-container position-absolute bg-white shadow rounded-1">
 		<div class="row m-0 text-center" style="width: 170px;">
-		  <div class="col-12 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
-        <button id="safetyBtn">안전지수</button>
-      </div>
+		  <button id="safetyBtn" class="col-12 align-content-center px-2 py-1" title="활성화 후 아래 지역 버튼을 눌러보세요.">
+        <span id="safetyBtnText">권역별 안전지수 보기</span>
+      </button>
       <div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
 				<button id="nationwide" class="region-link nav-link p-2" data-region="nationwide">전국</button>
 			</div>
