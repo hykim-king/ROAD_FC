@@ -1,4 +1,15 @@
 <html layout:decorate="~{layout}">
+<style layout:fragment="style">
+[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
+}
+.table {
+	white-space : nowrap;
+	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
 <div layout:fragment="content" class="container my-3">
     <!-- 제목 -->
     <h5 class="border-bottom py-2">유저목록</h5>
@@ -19,9 +30,9 @@
                 </div>
             </div>
         </div>
-        <table class="table">
-            <thead class="table-dark">
-                <tr class="text-center">
+        <table class="table text-center table-hover">
+            <thead>
+                <tr class="text-muted">
                     <td>번호</td>
                     <td>아이디</td>
                     <td>이름</td>
@@ -42,7 +53,7 @@
                     <!-- 등급에 따른 텍스트 표시 -->
                     <td class="text-center" th:if="${member.userGrade == 1}" th:text="'관리자'"></td>
                     <td class="text-center" th:if="${member.userGrade == 0}" th:text="'사용자'"></td>
-                    <td class="text-center"><input type="checkbox" name="memberIds" th:value="${member.id}"></td>
+                    <td class="text-center"><input type="checkbox" name="memberIds" id="check_btn" th:value="${member.id}"></td>
                     <td style="display:none;" th:text="${member.id}">id</td>
                 </tr>
             </tbody>
@@ -89,6 +100,7 @@
     </form>
 </div>
 <script layout:fragment="script">
+
     function isCheckboxChecked() {
         const checkboxes = document.querySelectorAll('input[name="memberIds"]:checked');
         return checkboxes.length > 0;
