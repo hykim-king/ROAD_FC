@@ -26,8 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.pcwk.ehr.member.Member;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -127,24 +130,38 @@ public class VideoController {
         return url;
     }
     // 비디오 업로드 폼 띄우기
-    @GetMapping("/upload")
-    public String showUploadForm(Model model) {
+    public String showUploadForm(Model model, HttpSession session) {
         log.info("┌──────────────────┐");
         log.info("│ showUploadForm() │");
         log.info("└──────────────────┘");
-
+        
+        // 사용자 권한 체크 (세션에서 사용자 정보 가져오기)
+        Member member = (Member) session.getAttribute("member");
+        if (member == null || member.getUserGrade() != 1) {
+            log.warn("Unauthorized access attempt to upload form");
+            return "redirect:/"; // 권한 없음, 메인 페이지로 리다이렉트
+        }
+        
         model.addAttribute("videoDTO", new VideoDTO());
         return "video/video_upload";
     }
 
-    // 비디오 업로드 처리
+    // 비디오 업로드 처리 - 관리자만 접근 가능
     @PostMapping("/upload")
     public String uploadVideo(@Valid @ModelAttribute VideoDTO videoDTO, 
-                               BindingResult bindingResult, 
-                               Model model) {
+                              BindingResult bindingResult, 
+                              Model model,
+                              HttpSession session) {
         log.info("┌──────────────────┐");
         log.info("│ uploadVideo()    │");
         log.info("└──────────────────┘");
+        
+        // 사용자 권한 체크
+        Member member = (Member) session.getAttribute("member");
+        if (member == null || member.getUserGrade() != 1) {
+            log.warn("Unauthorized upload attempt");
+            return "redirect:/";
+        }
 
         // 유효성 검사 실패 시
         if (bindingResult.hasErrors()) {
@@ -171,18 +188,26 @@ public class VideoController {
             return "video/video_upload";
         }
     }
-    //비디오 삭제하기
+ // 비디오 삭제하기 - 관리자만 접근 가능
     @GetMapping("/delete/{videoId}")
-    public ResponseEntity<Map<String, String>> deleteVideo(@PathVariable("videoId") Long videoId) {
+    public ResponseEntity<Map<String, String>> deleteVideo(@PathVariable("videoId") Long videoId,
+                                                         HttpSession session) {
         log.info("📌 Deleting video - ID: {}", videoId);
         log.info("┌──────────────────┐");
         log.info("│ deleteVideo()    │");
         log.info("└──────────────────┘");
+        
+        // 사용자 권한 체크
+        Member member = (Member) session.getAttribute("member");
+        if (member == null || member.getUserGrade() != 1) {
+            log.warn("Unauthorized delete attempt for video ID: {}", videoId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "권한이 없습니다");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+        
         try {
-            Video video = videoService.getVideoById(videoId);
-            videoService.delete(video);
-            log.info("✅ Video deleted successfully: {}", videoId);
-            
+            // 기존 코드...
             // 성공 응답 메시지 반환
             Map<String, String> response = new HashMap<>();
             response.put("message", "비디오가 삭제 되었습니다");

@@ -67,8 +67,11 @@
             </p>
         </div>
 
-        <!-- 🚫 삭제 버튼 -->
-        <button class="btn btn-danger mt-3" th:attr="data-video-id=${video.videoId}" onclick="deleteVideo(this)">삭제</button>
+<!-- 삭제 버튼 (관리자만 볼 수 있음) -->
+<button class="btn btn-danger mt-3" 
+        th:if="${session.member != null && session.member.userGrade == 1}"
+        th:attr="data-video-id=${video.videoId}" 
+        onclick="deleteVideo(this)">삭제</button>
 
         <!-- 📌 관련 영상 -->
         <div class="container mt-4" th:if="${!prevVideoInfoList.empty}">

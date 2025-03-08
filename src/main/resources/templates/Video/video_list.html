@@ -52,9 +52,13 @@
     <!-- 제목 옆에 업로드 버튼 추가 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-center mb-0">교육/예방 자료</h1>
-        <a th:href="@{/video/upload}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> 영상 업로드
-        </a>
+  	  <!-- 영상 업로드 버튼 (관리자만 볼 수 있음) -->
+<!-- 영상 업로드 버튼 (관리자만 볼 수 있음) -->
+<a th:href="@{/video/upload}" 
+   th:if="${session.member != null && session.member.userGrade == 1}"
+   class="btn btn-primary">
+   <i class="bi bi-plus-circle"></i> 영상 업로드
+</a>
     </div>
 
     <div class="video-container">
