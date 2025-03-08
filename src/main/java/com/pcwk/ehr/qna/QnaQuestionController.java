@@ -142,13 +142,17 @@ public class QnaQuestionController {
 	}
 	
 	@GetMapping(value="/detail/{id}")
-	public String detail(Model model,@PathVariable("id") Integer id,QnaAnswerForm answerForm, Principal principal) {
+	public String detail(Model model,@PathVariable("id") Integer id,
+			QnaAnswerForm answerForm,
+			Principal principal,
+			HttpServletRequest request) {
 		
 		// 제목을 클릭할 때 조회수 증가
 		service.increaseViewCount(id);
 		
 		QnaQuestion question = service.getQuestion(id);
 		model.addAttribute("question",question);
+		model.addAttribute("currentUrl", request.getRequestURI());
 		
 		String username = principal.getName();
         List<Member> members = memberService.findByMember(username);

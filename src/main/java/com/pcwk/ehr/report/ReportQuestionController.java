@@ -150,7 +150,9 @@ public class ReportQuestionController {
 	
 	@GetMapping(value="/detail/{id}")
 	public String detail(Model model,@PathVariable("id") Integer id,ReportAnswerForm answerForm,
-			@RequestParam(value = "page", defaultValue = "0")int page,@AuthenticationPrincipal UserDetails userDetails) {
+			@RequestParam(value = "page", defaultValue = "0")int page,
+			@AuthenticationPrincipal UserDetails userDetails,
+			HttpServletRequest request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String currentUsername = null;
@@ -178,6 +180,7 @@ public class ReportQuestionController {
 		model.addAttribute("question",question);
 		model.addAttribute("paging", paging);
 		model.addAttribute("userGrade", member.getUserGrade());
+		model.addAttribute("currentUrl", request.getRequestURI());
 				
 		return "report/question/question_detail";	
 	}

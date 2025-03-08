@@ -9,6 +9,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee7b903ee11f7e01af4335ff1229cdf&libraries=services,clusterer"></script>
 <script type="text/javascript" th:src="@{/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/road.js}" th:if="${currentUrl == '/map/map'}" defer></script>
+<link rel="icon" th:href="@{/images/roma_ico.png}" type="image/x-icon">
 <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/road.css}">
@@ -30,11 +31,11 @@
 		<div th:if="${currentUrl == '/map/map'}">
 		  <div th:replace="~{left_navbar :: leftNavbarFragment}"></div>
 		</div>
-		<div th:if="|${currentUrl != null and
+		<div th:if="${currentUrl != null and
 									(#strings.startsWith(currentUrl, '/notice/question') or
 									 #strings.startsWith(currentUrl, '/report/question') or
 									 #strings.startsWith(currentUrl, '/qna/question') or
-									 #strings.startsWith(currentUrl, '/faq/question'))}|">
+									 #strings.startsWith(currentUrl, '/faq/question'))}">
 			<div th:replace="~{bsidebar :: sidebarFragment}"></div> 
 		</div>
 		<!-- left menu end -->

@@ -150,7 +150,9 @@ public class NoticeQuestionController {
 	}
 	
 	@GetMapping(value="/detail/{id}")
-	public String detail(Model model,@PathVariable("id") Integer id,NoticeAnswerForm answerForm) {
+	public String detail(Model model,@PathVariable("id") Integer id,
+			NoticeAnswerForm answerForm,
+			HttpServletRequest request) {
 		
 		// 제목을 클릭할 때 조회수 증가
 		service.increaseViewCount(id);
@@ -166,6 +168,7 @@ public class NoticeQuestionController {
 		model.addAttribute("question",question);
 	    model.addAttribute("prevQuestion", prevQuestion);
 	    model.addAttribute("nextQuestion", nextQuestion);
+	    model.addAttribute("currentUrl", request.getRequestURI());
 		
 		return "notice/question/question_detail";	
 	}
