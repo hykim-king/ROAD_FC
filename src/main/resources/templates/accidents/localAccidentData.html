@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>명절 교통량 비교</title>
+    <title>지역별 사고 데이터</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -57,6 +57,7 @@
         border-radius: var(--border-radius);
         margin-bottom: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #000;
     }
     
     .navbar-brand, .nav-link {
@@ -300,6 +301,23 @@
             flex: 1 1 100%;
         }
     }
+    
+    .search-area_gus{
+    width:100%;
+    margin-bottom: 31px;
+    padding: 14px 0 14px 30px;
+    box-sizing: border-box;
+    background-color: #F4F5FB;
+    border: 1px solid #DEDEDE;
+    }
+    
+    .sub-top{
+    width:100%;
+    margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
+    border-bottom: 4px solid #ADD8E6;
+    }
+    
 </style>
 <body class="container mt-4">
 
@@ -320,145 +338,173 @@
             </div>
         </div>
     </nav>
-
+   <div class="sub-top">
+    <!-- 네비게이션 바 끝 -->
+    <h5 class="text-left mb-4" style="padding-bottom:5px;"><i class="bi bi-graph-up me-2"></i>주요 교통사고 통계</h5>
+    <h2 class="text-left mb-4">지역별 사고 데이터</h2>
+    <h5 class="text-left mb-4">교통사고 통계를 한눈에 볼수 있습니다.</h5>
+	</div>
 	<div class= "d-flex justify-content-center">
-    <ul class="smenu-grid mt-3">
-        <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
-        <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
-        <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
-        <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+    <ul class="smenu-grid mt-30">
+        <li><a href="/DataChart/datalist">사고 증가량 데이터</a></li>
+        <li><a href="/DataChart/localAccidentData">지역별 사고 데이터</a></li>
+        <li><a href="/DataChart/comparisonData">명절 교통량 데이터</a></li>
+        <li><a href="/DataChart/weatherAccidentData">도로 날씨 별 사고 데이터</a></li>
     </ul>
     </div>
 
-    <h2 class="text-center mb-4">명절 교통량 데이터</h2>
-    
-    <!-- 필터링  -->
-    <form method="get" th:action="@{/DataChart/clist}" class="row g-3">
+
+    <!-- 필터링 폼 -->
+   <div class="search-area_gus">
+    <form method="get" th:action="@{/DataChart/localAccidentData}" class="row g-3" id="filterForm">
         <div class="col-md-3">
-            <label for="year" class="form-label">연도</label>
+            <label for="year" class="form-label">연도 선택</label>
             <select class="form-select" id="year" name="year">
                 <option value="">전체</option>
-                <option th:each="year :${years}" th:value="${year}" th:text="${year}" th:selected="${selected == year}"></option>
+                <option th:each="year : ${years}" th:value="${year}" 
+                		th:text="${year}" th:selected="${selectedYear == year}"></option>
             </select>
         </div>
-    
+
         <div class="col-md-3">
-            <label for="specialday" class="form-label">명절</label>
-            <select class="form-select" id="specialday" name="specialday">
+            <label for="majorRegion" class="form-label">시/도 선택</label>
+            <select class="form-select" id="majorRegion" name="majorRegion">
                 <option value="">전체</option>
-                <option th:each="specialday : ${specialday}" th:value="${specialday}"
-                        th:text="${specialday}" th:selected="${selectedDay == specialday}"></option>
+                <option th:each="majorRegion : ${majorRegions}" th:value="${majorRegion}"
+                        th:text="${majorRegion}" th:selected="${selectedMajorRegion == majorRegion}"></option>
             </select>
         </div>
-        
+
         <div class="col-md-3">
-            <label for="specialdaytype" class="form-label">세부날짜</label>
-            <select class="form-select" id="specialdaytype" name="specialdaytype">
+            <label for="minorRegion" class="form-label">시/군/구 선택</label>
+            <select class="form-select" id="minorRegion" name="minorRegion">
                 <option value="">전체</option>
-                <option th:each="specialdaytype : ${specialdaytype}" th:value="${specialdaytype}"
-                        th:text="${specialdaytype}" th:selected="${selectedType == specialdaytype}"></option>
+                <option th:each="minorRegion : ${minorRegions}" th:value="${minorRegion}"
+                        th:text="${minorRegion}" th:selected="${selectedMinorRegion == minorRegion}"></option>
             </select>
         </div>
-        
-        <div class="col-md-3">
-            <label for="hour" class="form-label">시간대</label>
-            <select class="form-select" id="hour" name="hour">
-                <option value="">전체</option>
-                <option th:each="time : ${hour}" th:value="${time}"
-                        th:text="${time}" th:selected="${selectedHour == time}"></option>
-            </select>
-        </div>
-        
-        <div class="col-md-3 d-flex align-items-end">
+
+        <div class="col-md-3 d-flex align-items-end">        	
             <button type="submit" class="btn btn-primary w-100" id="searchBtn">검색</button>
         </div>
     </form>
+    </div>
     <!-- 필터링 폼 -->
     
-    <!-- 교통량 데이터 -->
+    <!-- 사고 데이터 테이블 -->
     <div class="mt-4">
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
                     <th>연도</th>
-                    <th>명절</th>
-                    <th>세부날짜</th>
-                    <th>시간대</th>
-                    <th>교통량(대)</th>
-                    <th>전년교통량(대)</th>
-                    <th>증가량(대)</th>
-                    <th>증가율(%)</th>
+                    <th>시/도</th>
+                    <th>시/군/구</th>
+                    <th>사고 건수</th>
+                    <th>사망사고 건수</th>
+                    <th>부상사고 건수</th>
+                    <th>중상자 발생 사고 건수</th>
+                    <th>경상자 발생 사고 건수</th>
+                    <th>지역 안전 점수</th>
+                    <th>안전 점수 등급</th>
                 </tr>
             </thead>
-				<tbody>
-				    <tr th:each="comparison, iterStat: ${comparisons}">
-				        <td th:text="${paging.number * paging.size + iterStat.count}"></td>
-				        <td th:text="${comparison.tcStdYear}"></td>
-				        <td th:text="${comparison.tcSphldfttNm}"></td>
-				        <td th:text="${comparison.tcSphldfttScopTypeNm}"></td>
-				        <td th:text="${comparison.tcSydHour}"></td>
-				        <td th:text="${comparison.tcTrfl}"></td>
-				        <td th:text="${comparison.tcPrevTrfl}"></td>
-				        <td th:text="${comparison.tcChangeTrfl}"></td>
-				        <td th:text="${comparison.tcRateTrfl}"></td>
-				    </tr>
-				    <tr th:if="${#lists.isEmpty(comparisons)}">
-				        <td colspan="9" class="text-center">데이터가 없습니다.</td>
-				    </tr>
-				</tbody>
+            <tbody>
+                <tr th:each="accident, iterStat : ${accidents}">
+  					<td th:text="${paging.number * paging.size + iterStat.count}"></td>
+                    <td th:text="${accident.laYear}"></td>
+                    <td th:text="${accident.laMajorRegion}"></td>
+                    <td th:text="${accident.laMinorRegion}"></td>
+                    <td th:text="${accident.laLocalCnt}"></td>
+                    <td th:text="${accident.laDeathCnt}"></td>
+                    <td th:text="${accident.laInjuryCnt}"></td>
+                    <td th:text="${accident.laSeriousCnt}"></td>
+                    <td th:text="${accident.laMinorCnt}"></td>
+                    <td th:text="${accident.laSafeScore}"></td>
+                    <td th:text="${accident.laGrade}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(accidents)}">
+                <td colspan="11" class="text-center">데이터가 없습니다.</td>
+                </tr>
+            </tbody>
         </table>
     </div>
-	
-    <!-- paging start -->
-	<div th:if="${!paging.isEmpty()}">
-	    <ul class="pagination justify-content-center">
-	        <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
-	        <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-	            <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
-	        </li>
-	    
-	        <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
-	        <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
-	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
-	        </li>
-	        
-	        <!-- 1,2,3,.... 페이지 번호 제한 -->
-	        <li th:each="page : ${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
-	            th:classappend="${page == paging.number} ? 'active'" class="page-item">
-	            <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
-	        </li>
-	        
-	        <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
-	        <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
-	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
-	        </li>
-	        
-	       <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
-	        <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
-	        </li>
-	    </ul>
-	</div> 
-    <!-- paging end -->
-    
- <form th:action="@{/DataChart/clist}" method="get" id="searchForm" name="searchForm">    	
+
+ <!-- paging start -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
+            </li>
+        
+            <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
+            </li>
+            
+            <!-- 1,2,3,.... 페이지 번호 제한 -->
+            <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
+                th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
+            </li>
+            
+            <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
+            </li>
+            
+           <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
+            <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
+            </li>
+        </ul>
+    </div>  
+<!-- paging end--------------------------------------------- -->
+
+<form th:action="@{/DataChart/localAccidentData}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
     <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
-    <input type="hidden" id="formSpecialDay" name="specialday" th:value="${selectedDay}">
-    <input type="hidden" id="formSpecialDayType" name="specialdaytype" th:value="${selectedType}">
-    <input type="hidden" id="formHour" name="hour" th:value="${selectedHour}">    
+    <input type="hidden" id="formMajorRegion" name="majorRegion" th:value="${selectedMajorRegion}">
+    <input type="hidden" id="formMinorRegion" name="minorRegion" th:value="${selectedMinorRegion}">
 </form>
-    
-<canvas id="trafficChart" style="width: 100%; height: 400px;"></canvas>
-  
-<!-- 스크립트 -->  
+
+<canvas id="accidentChart"></canvas>
+
+<!-- 스크립트 -->
 <script th:inline="javascript">
+// 📌 시/도 변경 시 시/군/구 업데이트
+$("#majorRegion").change(function () {
+    let selectedMajorRegion = $(this).val();
+    let minorRegionDropdown = $("#minorRegion");
+
+    // 기존 옵션 제거 후 기본 옵션 추가
+    minorRegionDropdown.empty().append("<option value=''>전체</option>");
+
+    if (selectedMajorRegion) {
+        $.get("/DataChart/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
+            console.log("Received minorRegions data:", data); // 데이터 확인
+
+            if (Array.isArray(data)) {
+                $.each(data, function (index, value) {
+                    minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
+                });
+            } else {
+                console.error("Unexpected data format:", data);
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error fetching minorRegions:", status, error);
+        });
+    }
+});
+
 $(document).ready(function () {
+	// 전역 변수 선언 (차트 객체)
+    // 📌 페이지 로드 시 최초 차트 데이터 가져오기
+    // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
     let chart = null;
-    let rawData = /*[[${comparisonDataJson}]]*/ '[]';
-    let initialData = parseJSONData(rawData);  
-    
+    let rawData = /*[[${yearlyAccidentDataJson}]]*/ '[]'; 
+    let initialData = parseJSONData(rawData); 
     console.log("📊 초기 데이터 로드:", initialData);
     createBarChart(initialData);
     
@@ -475,7 +521,7 @@ $(document).ready(function () {
     });
     
     // 필터 값이 변경될 때마다 hidden 폼 값 업데이트
-    $("#year, #specialday, #specialdaytype, #hour").on("change", function() {
+    $("#year, #majorRegion, #minorRegion").on("change", function() {
         updateHiddenFormValues();
     });
     
@@ -483,39 +529,29 @@ $(document).ready(function () {
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function(element){
         element.addEventListener("click", function(e){
-            e.preventDefault();
+            e.preventDefault(); // 기본 동작 방지
+            console.log('element_click:' + this.dataset.page);
             
             // 페이지 번호 업데이트
             document.getElementById("page").value = this.dataset.page;
             
             // 현재 선택된 필터 값들을 그대로 유지
             document.getElementById("formYear").value = $("#year").val() || "";
-            document.getElementById("formSpecialDay").value = $("#specialday").val() || "";
-            document.getElementById("formSpecialDayType").value = $("#specialdaytype").val() || "";
-            document.getElementById("formHour").value = $("#hour").val() || "";
-            
+            document.getElementById("formMajorRegion").value = $("#majorRegion").val() || "";
+            document.getElementById("formMinorRegion").value = $("#minorRegion").val() || "";
+        
             // 폼 제출
             document.getElementById("searchForm").submit();
-            
-            // 페이지 이동 후 차트 업데이트
-            // 주의: submit 이후에는 페이지가 새로고침되므로 이 코드는 실행되지 않습니다.
-            // 페이지 로드 완료 후 fetchDataAndUpdateChart가 호출되도록 해야 합니다.
+
         });
     });
-    
+
+   
     // hidden 폼 값 업데이트 함수
     function updateHiddenFormValues() {
-        document.getElementById("formYear").value = $("#year").val() || "";
-        document.getElementById("formSpecialDay").value = $("#specialday").val() || "";
-        document.getElementById("formSpecialDayType").value = $("#specialdaytype").val() || "";
-        document.getElementById("formHour").value = $("#hour").val() || "";
-        
-        console.log("폼 값 업데이트:", {
-            year: $("#year").val(),
-            specialDay: $("#specialday").val(),
-            specialDayType: $("#specialdaytype").val(),
-            hour: $("#hour").val()
-        });
+        document.getElementById("formYear").value = document.getElementById("year").value;
+        document.getElementById("formMajorRegion").value = document.getElementById("majorRegion").value;
+        document.getElementById("formMinorRegion").value = document.getElementById("minorRegion").value;
     }
     
     // 폼 제출 핸들러
@@ -528,32 +564,16 @@ $(document).ready(function () {
             document.getElementById("searchForm").submit();
         }
     });
-    
+         
     // 데이터 가져오기 및 차트 업데이트 함수
     async function fetchDataAndUpdateChart() {
-        let year = $("#year").val() || "";
-        let specialday = $("#specialday").val() || "";  
-        let specialdaytype = $("#specialdaytype").val() || "";  
-        let hour = $('#hour').val() || "";
-        let currentPage = $('#page').val() || 0;
-        
-        // 이미 필터링된 값이 있는지 확인
-        if (year === "" && specialday === "" && specialdaytype === "" && hour === "") {
-            // 필터링이 없으면 hidden 폼에서 값 가져오기 (페이지 리로드 후에도 유지)
-            year = $("#formYear").val() || "";
-            specialday = $("#formSpecialDay").val() || "";
-            specialdaytype = $("#formSpecialDayType").val() || "";
-            hour = $("#formHour").val() || "";
-            
-            // 선택 필드에도 값 반영
-            if (year) $("#year").val(year);
-            if (specialday) $("#specialday").val(specialday);
-            if (specialdaytype) $("#specialdaytype").val(specialdaytype);
-            if (hour) $("#hour").val(hour);
-        }
-        
-        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}&page=${currentPage}`;
+        let year = $("#year").val();
+        let majorRegion = $("#majorRegion").val();  
+        let minorRegion = $("#minorRegion").val();  
+        let currentPage = $('#page').val();
 
+        let url = `/DataChart/localAccidentData1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${currentPage}`;
+        
         try {
             let response = await fetch(url);
             if (!response.ok) throw new Error("Network response was not ok");
@@ -587,75 +607,91 @@ $(document).ready(function () {
     // 📌 차트 생성 함수
     function createBarChart(data) {
         if (chart) {
-            chart.destroy(); // 이전 차트 파괴
+            chart.destroy(); 
         }
 
-        let ctx = document.getElementById('trafficChart').getContext('2d');
+        let ctx = document.getElementById('accidentChart').getContext('2d');
         
         chart = new Chart(ctx, {
-            type: "bar",
+            type: 'bar',
             data: {
-                labels: data.map(item => item.tcSphldfttNm),
+            	labels: data.map(item => item.laMinorRegion || item.laMajorRegion),
                 datasets: [
-                    {
-                        label: "총 교통량",
-                        data: data.map(item => item.tcTrfl),
-                        backgroundColor: "rgba(255, 99, 132, 0.5)",
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        borderWidth: 1
-                    },
-                    {
-                        label: "전년도 교통량",
-                        data: data.map(item => item.tcPrevTrfl),
-                        backgroundColor: "rgba(54, 162, 235, 0.5)",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        borderWidth: 1
-                    },
-                    {
-                        label: "증가 교통량",
-                        data: data.map(item => item.tcChangeTrfl),
-                        backgroundColor: "rgba(75, 192, 192, 0.5)",
-                        borderColor: "rgba(75, 192, 192, 1)",
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                scales: {
-                    x: { 
-                        title: {
-                            display: true,
-                            text: "연도"
-                        }
-                    },
-                    y: { 
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: "교통량 (건)"
+               		{
+	                    label: '연도별 총 사고 건수',
+	                    data: data.map(item => item.laLocalCnt),
+	                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+	                    borderColor: 'rgba(54, 162, 235, 1)',
+	                    borderWidth: 1
+	                },
+	                {
+	                	label: "사망자 사고 발생 건수",
+	                	data: data.map(item => item.laDeathCnt),
+	                	backgroundColor : 'rgba(242, 2, 2, 0.5)',
+	                	borderColor : "rgba(242, 2, 2, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "부상자 발생 사고 건수",
+	                	data : data.map(item => item.laInjuryCnt),
+	                	backgroundColor : 'rgba(220, 214, 24, 0.5)',
+	                	borderColor : "rgba(220, 214, 24, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "중상자 발생 사고 건수",
+	                	data : data.map(item => item.laSeriousCnt),
+	                	backgroundColor : 'rgba(121, 26, 255, 0.5)',
+	                	borderColor : "rgba(121, 26, 255, 1)",
+	                	borderWidth : 1
+	                },
+	                {
+	                	label: "경상자 발생 사고 건수",
+	                	data : data.map(item => item.laMinorCnt),
+	                	backgroundColor : 'rgba(140, 242, 235, 0.5)',
+	                	borderColor : "rgba(140, 242, 235, 1)",
+	                	borderWidth : 1
+	                }
+                ],
+           	},
+               options: {
+                   responsive: true,
+                   maintainAspectRatio: true,
+                   scales: {
+                       x: { 
+                           title: {
+                               display: true,
+                               text: "지역"
+                           }
+                       },
+                       y: { 
+                           beginAtZero: true,
+                           title: {
+                               display: true,
+                               text: "사고 건수 (건)"
+                            }
                         }
                     }
                 }
-            }
-        });
-    }
-    
+            });
+        }
+
     // 📌 차트 업데이트 함수
     function updateChart(data) {
-        if(chart){
-            chart.data.labels = data.map(item => item.tcSphldfttNm);
-            chart.data.datasets[0].data = data.map(item => item.tcTrfl); 
-            chart.data.datasets[1].data = data.map(item => item.tcPrevTrfl);
-            chart.data.datasets[2].data = data.map(item => item.tcChangeTrfl);
-            chart.update(); // 업데이트 반영
-        } else{
+        if (chart) {
+        	chart.data.labels = data.map(item => item.laMinorRegion || item.laMajorRegion);
+            chart.data.datasets[0].data = data.map(item => item.laLocalCnt);
+            chart.data.datasets[1].data = data.map(item => item.laDeathCnt);
+            chart.data.datasets[2].data = data.map(item => item.laInjuryCnt);
+            chart.data.datasets[3].data = data.map(item => item.laSeriousCnt);
+            chart.data.datasets[4].data = data.map(item => item.laMinorCnt);
+            chart.update(); // ✅ 업데이트 반영
+        } else {
             createBarChart(data);
         }
     }
-    
-    // 테이블 업데이트 함수
+
+    // 📌 테이블 업데이트 함수
     function updateTable(data) {
         let tableBody = $(".table tbody");
         tableBody.empty();
@@ -664,26 +700,28 @@ $(document).ready(function () {
         let currentPage = parseInt($("#page").val() || 0);
         // 페이지 크기(default:10)
         let pageSize = 10;
-
+        
         if (!Array.isArray(data) || data.length === 0) {
-            tableBody.append('<tr><td colspan="9" class="text-center">데이터가 없습니다.</td></tr>');
+            tableBody.append('<tr><td colspan="11" class="text-center">데이터가 없습니다.</td></tr>');
             return;
         }
 
         data.forEach((item, index) => {
-            
-            let itemNumber = (currentPage * pageSize) + (index +1);
-            
+        	
+        	let itemNumber = (currentPage * pageSize) + (index +1);
+        	
             let row = `<tr>
                 <td>${itemNumber}</td>
-                <td>${item.tcStdYear || '데이터 없음'}</td>
-                <td>${item.tcSphldfttNm || '데이터 없음'}</td>
-                <td>${item.tcSphldfttScopTypeNm || '데이터 없음'}</td>
-                <td>${item.tcSydHour || 0}</td>
-                <td>${item.tcTrfl || 0}</td>
-                <td>${item.tcPrevTrfl || 0}</td>
-                <td>${item.tcChangeTrfl || 0}</td>
-                <td>${item.tcRateTrfl || 0}</td>
+                <td>${item.laYear || 0}</td>
+                <td>${item.laMajorRegion || '-'}</td>
+                <td>${item.laMinorRegion || '-'}</td>
+                <td>${item.laLocalCnt || 0}</td>
+                <td>${item.laDeathCnt || 0}</td>
+                <td>${item.laInjuryCnt || 0}</td>
+                <td>${item.laSeriousCnt || 0}</td>
+                <td>${item.laMinorCnt || 0}</td>
+                <td>${item.laSafeScore || 0}</td>
+                <td>${item.laGrade || 0}</td>
             </tr>`;
             tableBody.append(row);
         });
@@ -691,4 +729,4 @@ $(document).ready(function () {
 });
 </script>
 </body>
-</html>        
+</html>

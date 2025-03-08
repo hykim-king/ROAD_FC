@@ -66,7 +66,7 @@ public class DataController {
 	/**
 	 * 1 연도별 사건사고 데이터
 	 */
-	@GetMapping("/list")
+	@GetMapping("/localAccidentData")
 	public String listAllAccidents(@RequestParam(value = "year", required = false) Integer year,
 	        @RequestParam(value = "majorRegion", required = false) String majorRegion,
 	        @RequestParam(value = "minorRegion", required = false) String minorRegion,
@@ -115,13 +115,13 @@ public class DataController {
 	    model.addAttribute("keyword", keyword);
 	    model.addAttribute("yearlyAccidentDataJson", new ObjectMapper().writeValueAsString(transformedData));
 
-	    return "accidents/list";
+	    return "accidents/localAccidentData";
 	}
 
 	/**
 	 * 1 연도별 사고 건수 데이터를 JSON으로 반환하는 API
 	 */
-	@GetMapping("/list/json")
+	@GetMapping("/localAccidentData/json")
 	public ResponseEntity<List<Map<String, Object>>> getYearlyAccidentData() throws JsonProcessingException {
 		List<Object[]> yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
 		List<Map<String, Object>> transData = new ArrayList<>();
@@ -151,7 +151,7 @@ public class DataController {
 	/**
 	 * 1 필터링된 사고 데이터를 JSON으로 반환하는 API
 	 */
-	@GetMapping("/list1/json")
+	@GetMapping("/localAccidentData1/json")
 	public ResponseEntity<List<LocalAccident>> getAccidentData(
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "majorRegion", required = false) String majorRegion,
@@ -177,7 +177,7 @@ public class DataController {
 	/**
 	 * 2 명절교통량비교테이블
 	 */
-	@GetMapping("/clist")
+	@GetMapping("/comparisonData")
 	public String listAllComparison(
 	        @RequestParam(value = "year", required = false) Integer year,
 	        @RequestParam(value = "specialday", required = false) String specialday,
@@ -238,7 +238,7 @@ public class DataController {
 	    model.addAttribute("selectedKeyword", keyword);
 	    model.addAttribute("comparisonDataJson",new ObjectMapper().writeValueAsString(comparisonData));
 
-	    return "accidents/clist";
+	    return "accidents/comparisonData";
 	}
 	
 	@GetMapping("/clist/json")
@@ -256,7 +256,7 @@ public class DataController {
 	}
 
 
-	@GetMapping("/clist1/json")
+	@GetMapping("/comparisonData1/json")
 	@ResponseBody
 	public ResponseEntity<List<TrafficComparison>> comparisonData(
 	    @RequestParam(value = "year", required = false) Integer year,
@@ -301,7 +301,7 @@ public class DataController {
 	 * 3 도로날씨별 사고 데이터
 	 * @throws JsonProcessingException 
 	 */
-	@GetMapping("/wlist")
+	@GetMapping("/weatherAccidentData")
 	public String listAllWeather(
 		    @RequestParam(value = "year", required = false) Integer year,
 		    @RequestParam(value = "roadType", required = false) String roadType,
@@ -349,10 +349,10 @@ public class DataController {
 	    model.addAttribute("getYearlyWeatherDataJson", new ObjectMapper().writeValueAsString(transData));
 
 
-	    return "accidents/wlist";
+	    return "accidents/weatherAccidentData";
 	}
 
-	@GetMapping("/wlist/json")
+	@GetMapping("/weatherAccidentData/json")
 	public ResponseEntity<List<Map<String, Object>>> getYearlyWeatherData() {
 	    List<Object[]> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
 	    List<Map<String, Object>> transData = new ArrayList<>();
@@ -368,7 +368,7 @@ public class DataController {
 	}
 
 
-	@GetMapping("/wlist1/json")
+	@GetMapping("/weatherAccidentData1/json")
 	public ResponseEntity<List<WeatherAccident>> getWeatherData(
 	        @RequestParam(value = "year", required = false) Integer year,
 	        @RequestParam(value = "roadType", required = false) String roadType,
@@ -396,7 +396,7 @@ public class DataController {
 	/**
 	 * 4. 교통사고데이터
 	 */
-	@GetMapping("/dlist")
+	@GetMapping("/datalist")
 	public String listYearData(@RequestParam(value = "year", required = false) Integer tdYear,
 			@RequestParam(value = "accident", required = false) Integer tdAccident,
 			@RequestParam(value = "death", required = false) Integer tdDeathCnt,
@@ -431,12 +431,12 @@ public class DataController {
 		model.addAttribute("allDataJson", jsonData); // 전체 데이터 JSON 추가
 		model.addAttribute("paging", pageAccidents);  // ✅ 페이징 객체 추가
 
-		return "accidents/dlist";
+		return "accidents/datalist";
 	}
 	
 	
 	
-	@GetMapping("/dlist/json")
+	@GetMapping("/datalist/json")
 	public ResponseEntity<List<Map<String, Object>>> getYearTrafficData() {
 		List<YearAccident> getYearTrafficData = yearAccidentService.getAllAccidents();
 		List<Map<String, Object>> transData = new ArrayList<>();
@@ -450,7 +450,7 @@ public class DataController {
 		return ResponseEntity.ok(transData);
 	}
 	
-	@GetMapping("/dlist1/json")
+	@GetMapping("/datalist1/json")
 	public ResponseEntity<List<Map<String, Object>>> getYearData
 	(@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "accident", required = false) Integer accident,

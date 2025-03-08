@@ -327,14 +327,14 @@
         <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
         <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
         <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
-        <li><a href="/DataChart/wlist">도로 날씨 별 사고 데이터</a></li>
+        <li><a href="/DataChart/weatherAccidentData">도로 날씨 별 사고 데이터</a></li>
     </ul>
     </div>
 
     <h2 class="text-center mb-4">도로 날씨 별 사고 데이터</h2>
 
 	<!-- 필터링 -->
-    <form method="get" th:action="@{/DataChart/wlist}" class="row g-3">
+    <form method="get" th:action="@{/DataChart/weatherAccidentData}" class="row g-3">
     	<div class="col-md-3">
 	        <label for="year" class="form-label">연도</label>
 	        <select class="form-select" id="year" name="year">
@@ -439,7 +439,7 @@
     </div>
 <!-- paging end--------------------------------------------- -->
  
- <form th:action="@{/DataChart/wlist}" method="get" id="searchForm" name="searchForm">    	
+ <form th:action="@{/DataChart/weatherAccidentData}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
     <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
     <input type="hidden" id="formRoadType" name="roadType" th:value="${selectedRoadType}">
@@ -533,7 +533,7 @@ $(document).ready(function () {
         let accidentType = $("#accidentType").val();
         let currentPage = $('#page').val();
         
-        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${currentPage}`;
+        let url = `/DataChart/weatherAccidentData1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${currentPage}`;
 
         try {
             let response = await fetch(url);
