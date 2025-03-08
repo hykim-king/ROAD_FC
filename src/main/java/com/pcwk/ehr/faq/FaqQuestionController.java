@@ -28,6 +28,7 @@ import com.pcwk.ehr.faq.FaqAnswerForm;
 import com.pcwk.ehr.member.Member;
 import com.pcwk.ehr.member.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RequestMapping("/faq/question")
@@ -201,13 +202,15 @@ public class FaqQuestionController {
 	public String list(Model model,
 			@RequestParam(value = "page", defaultValue = "0")int page
 			,@RequestParam(value = "keyword", defaultValue = "")String keyword
-			,Principal principal) {
+			,Principal principal
+			, HttpServletRequest request) {
 		
 		
 		Page<FaqQuestion> paging = service.getList(page,keyword);
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("currentUrl", request.getRequestURI());
 		log.info("size:"+paging.getSize());
 		
 		// 로그인한 사용자의 userGrade 가져오기

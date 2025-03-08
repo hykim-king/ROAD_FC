@@ -1,7 +1,5 @@
 package com.pcwk.ehr.station;
 
-
-
 import com.pcwk.ehr.map.entity.Weather;
 
 import jakarta.persistence.CascadeType;
@@ -19,7 +17,6 @@ import lombok.ToString;
 @Entity
 @ToString
 public class Station {
-
 	@Id
 	@Column(name="station_id")
 	private Integer stationId;

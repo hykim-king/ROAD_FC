@@ -92,7 +92,7 @@ input[type=submit] {
 	color: #fff;
 }
 
-.infoHeader > h4 {
+.infoHeader>h4 {
 	margin: 0;
 	padding: 10px;
 }
@@ -103,7 +103,6 @@ input[type=submit] {
 
 .titleInfo, .addrInfo, .timeInfo {
 	margin: 5px 0;
-
 }
 
 /* 왼쪽 내비 */
@@ -215,10 +214,6 @@ input[type=submit] {
 	font-weight: bold;
 }
 
-.form-control {
-	height: 50px;
-}
-
 .alert-danger {
 	color: #dc3545;
 }
@@ -244,9 +239,22 @@ input[type=submit] {
 
 /* 게시판 */
 .myMargin {
+	height: calc(100% - 80px);
 	margin: 100px auto;
-	margin-top: 80px !important;
-	padding: 20px;
+	margin-top: 100px !important;
+	padding: 20px 30px;
+	width: 55%;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px #ccc;
+  border-radius: 20px;
+}
+
+.myMargin h5 {
+	font-size: 30px;
+}
+
+.table>thead {
+	border-bottom: 1px solid;
 }
 /* 게시판 */
 
@@ -269,3 +277,67 @@ input[type=submit] {
 	margin-right: 10px;
 }
 /* FAQ */
+
+/* 게시판 사이드바 */
+.lnb_wrap {
+	display: block;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px #ccc;
+}
+
+.side-bar {
+	display: flex;
+	position: absolute;
+	top: 20%;
+	left: 8%;
+}
+
+.left_title {
+	font-size: 23px;
+	color: #fff;
+	background: linear-gradient(to right, #4d7af9, #123de3);
+	padding: 15px;
+	margin-bottom: 0;
+	border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nav-group {
+	width: 200px;
+	border: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.list-group-item {
+	height: 50px;
+	align-content: center;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+.list-group-item:first-child {
+	border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.list-group-item:hover {
+	background: #d3e8ff;
+}
+
+table tr:hover {
+	background-color: #d3e8ff;
+}
+
+.search-btn:hover {
+	background-color: #d3e8ff;
+	border-color: #d3e8ff;
+}
+/* 게시판 사이드바 */
+
+.active > .page-link {
+	background-color: #71b5f7;
+	border-color: #71b5f7;
+	color: #fff;
+}

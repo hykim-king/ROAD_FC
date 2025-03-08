@@ -14,8 +14,7 @@ import com.pcwk.ehr.map.entity.Cctv;
 import com.pcwk.ehr.map.entity.Road;
 import com.pcwk.ehr.map.entity.RoadWeatherInterface;
 import com.pcwk.ehr.map.service.MapService;
-import com.pcwk.ehr.map.service.TestWeatherService;
-import com.pcwk.ehr.map.service.WeatherService;
+import com.pcwk.ehr.map.service.SafetyIndexService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +27,10 @@ public class MapController {
 	MapService mapService;
 	
 	@Autowired
-	WeatherService weatherService;
+	SafetyIndexService safetyIndexService;
 	
 	@Autowired
-	TestWeatherService testWeatherService;
+	SafetyIndexService testWeatherService;
 	
 	@GetMapping("/map")
 	public String cctvMap(Model model, HttpServletRequest request) {
@@ -45,8 +44,8 @@ public class MapController {
 		List<Cctv> cctvInfo = mapService.cctvList();
 		List<Freezing> freezingInfo = mapService.freezingList();
 		List<Cctv> tunnelInfo = mapService.tunnelList();
-		List<SafetyIndexDTO> avgSafetyIndex = testWeatherService.getAvgSafetyIndex();
-		List<SafetyIndexDTO> allSafetyIndex = testWeatherService.getAllSafetyIndex();
+		List<SafetyIndexDTO> avgSafetyIndex = safetyIndexService.getAvgSafetyIndex();
+		List<SafetyIndexDTO> allSafetyIndex = safetyIndexService.getAllSafetyIndex();
 		
 		log.info("사고 데이터: {}", accidentList);
 		log.info("공사 데이터: {}", constructionList);

@@ -40,7 +40,6 @@ kakao.maps.load(function() {
   //---------------공통-----------------------------
 
   //---------------안전지수--------------------------
-  var safetyMarkers = [];
   var safetyImageSafeSrc = "/images/marker/safety_marker_safe.png";
   var safetyImageCautionSrc = "/images/marker/safety_marker_caution.png";
   var safetyImageDangerSrc = "/images/marker/safety_marker_danger.png";

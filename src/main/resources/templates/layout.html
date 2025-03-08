@@ -30,6 +30,13 @@
 		<div th:if="${currentUrl == '/map/map'}">
 		  <div th:replace="~{left_navbar :: leftNavbarFragment}"></div>
 		</div>
+		<div th:if="|${currentUrl != null and
+									(#strings.startsWith(currentUrl, '/notice/question') or
+									 #strings.startsWith(currentUrl, '/report/question') or
+									 #strings.startsWith(currentUrl, '/qna/question') or
+									 #strings.startsWith(currentUrl, '/faq/question'))}|">
+			<div th:replace="~{bsidebar :: sidebarFragment}"></div> 
+		</div>
 		<!-- left menu end -->
 	</nav>
 	<!-- 기본 템플릿 안에 삽입될 내용 start -->
