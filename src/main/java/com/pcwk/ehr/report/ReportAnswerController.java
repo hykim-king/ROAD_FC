@@ -55,8 +55,9 @@ public class ReportAnswerController {
 	@GetMapping("/delete/{id}")
 	public String questionDelete(@PathVariable("id")Integer id, Principal principal) {
 		ReportAnswer answer = aservice.getAnswer(id);
+		Member member = memberService.getMember(principal.getName());
 		
-		if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+		if(!answer.getAuthor().getUsername().equals(principal.getName())&& member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
 		}
 		

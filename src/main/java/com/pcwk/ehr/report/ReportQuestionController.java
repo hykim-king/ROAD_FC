@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -148,10 +149,11 @@ public class ReportQuestionController {
 	
 	@GetMapping(value="/detail/{id}")
 	public String detail(Model model,@PathVariable("id") Integer id,ReportAnswerForm answerForm,
-			@RequestParam(value = "page", defaultValue = "0")int page) {
+			@RequestParam(value = "page", defaultValue = "0")int page,@AuthenticationPrincipal UserDetails userDetails) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String currentUsername = null;
+	    Member member = memberService.getMember(userDetails.getUsername());
 	    
 	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 	        currentUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
@@ -166,7 +168,8 @@ public class ReportQuestionController {
 		
 		model.addAttribute("question",question);
 		model.addAttribute("paging", paging);
-		
+		model.addAttribute("userGrade", member.getUserGrade());
+				
 		return "report/question/question_detail";	
 	}
 	
@@ -189,10 +192,10 @@ public class ReportQuestionController {
 	@GetMapping("/delete/{id}")
 	public String questionDelete(@PathVariable("id")Integer id, Principal principal) {
 		ReportQuestion question = service.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
-		}
+		Member member = memberService.getMember(principal.getName());
+		 if (!question.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
+		        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+		 }
 		
 		service.delete(question);
 		
