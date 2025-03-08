@@ -6,12 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.pcwk.ehr.member.Member;
 //Table, PK:Type
 public interface NoticeQuestionRepository extends JpaRepository<NoticeQuestion, Integer> {
+	
+	@Modifying
+    @Query("DELETE FROM NoticeQuestion n WHERE n.author.id = :authorId")
+    void deleteByAuthorId(@Param("authorId") Long authorId);
 	
 	//검색: 제목, 내용, 질문 작성자, 답변 내용, 답변 작성자
 	Page<NoticeQuestion> findAll(Specification<NoticeQuestion> spec, Pageable pageable);

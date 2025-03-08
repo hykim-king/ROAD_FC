@@ -22,6 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import com.pcwk.ehr.DataNotFoundException;
+import com.pcwk.ehr.faq.FaqQuestionRepository;
+import com.pcwk.ehr.notice.NoticeQuestionRepository;
+import com.pcwk.ehr.qna.QnaAnswerRepository;
+import com.pcwk.ehr.qna.QnaQuestionRepository;
+import com.pcwk.ehr.report.ReportAnswerRepository;
+import com.pcwk.ehr.report.ReportQuestionRepository;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -37,6 +43,18 @@ public class MemberService {
 	final MemberRepository memberRepository;
 	final PasswordEncoder passwordEncoder;
 
+	final QnaQuestionRepository qnaQuestionRepository;
+
+	final ReportQuestionRepository reportQuestionRepository;
+
+	final FaqQuestionRepository faqQuestionRepository;
+
+	final NoticeQuestionRepository noticeQuestionRepository;
+	
+	final QnaAnswerRepository qnaanswerRepository;
+	
+	final ReportAnswerRepository reportAnswerRepository;
+
 	public Specification<Member> search(String keyword) {
 		return new Specification<>() {
 			@Override
@@ -49,6 +67,24 @@ public class MemberService {
 				);
 			}
 		};
+	}
+
+	@Transactional
+	public void deleteMember(Long memberId) {
+		qnaanswerRepository.deleteByQuestionAuthorId(memberId);
+		reportAnswerRepository.deleteByQuestionAuthorId(memberId);
+		// 해당 멤버가 작성한 모든 질문 삭제
+		qnaQuestionRepository.deleteByAuthorId(memberId);
+		reportQuestionRepository.deleteByAuthorId(memberId);
+		faqQuestionRepository.deleteByAuthorId(memberId);
+		noticeQuestionRepository.deleteByAuthorId(memberId);
+	}
+
+	@Transactional
+	public void deleteMembers(List<Long> memberIds) {
+		for (Long memberId : memberIds) {
+			deleteMember(memberId);
+		}
 	}
 
 	public Optional<Member> findByEmail(String email) {
@@ -83,21 +119,21 @@ public class MemberService {
 			memberRepository.save(value);
 		});
 	}
-	
-	//principal의 아이디와 비밀번호를 입력받아 일치하는 계정 찾기
-    public boolean checkCurrentPassword(String currentPassword) {
-        // 현재 로그인된 사용자 가져오기
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Member> optionalUser = memberRepository.findByusername(username);
 
-        if (!optionalUser.isPresent()) {
-            throw new UsernameNotFoundException("User not found");
-        }
+	// principal의 아이디와 비밀번호를 입력받아 일치하는 계정 찾기
+	public boolean checkCurrentPassword(String currentPassword) {
+		// 현재 로그인된 사용자 가져오기
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Optional<Member> optionalUser = memberRepository.findByusername(username);
 
-        // 비밀번호 비교
-        Member user = optionalUser.get();
-        return passwordEncoder.matches(currentPassword, user.getPassword());
-    }
+		if (!optionalUser.isPresent()) {
+			throw new UsernameNotFoundException("User not found");
+		}
+
+		// 비밀번호 비교
+		Member user = optionalUser.get();
+		return passwordEncoder.matches(currentPassword, user.getPassword());
+	}
 
 	public boolean checkUsernameExists(String username) {
 		try {
@@ -128,35 +164,33 @@ public class MemberService {
 			throw new DataNotFoundException();
 		}
 	}
-	
+
 	public Member changePassword(String username, MemberChPass pass, BindingResult bindingResult) {
-        Optional<Member> optionalMember = memberRepository.findByusername(username);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            
-            // 현재 비밀번호 확인
-            if (!passwordEncoder.matches(pass.getPassword(), member.getPassword())) {
-                bindingResult.rejectValue("password", "passwordInCorrect", "현재 비밀번호가 일치하지 않습니다.");
-                return null;
-            }
+		Optional<Member> optionalMember = memberRepository.findByusername(username);
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
 
-            // 새 비밀번호 확인
-            if (!pass.getPassword1().equals(pass.getPassword2())) {
-                bindingResult.rejectValue("password2", "passwordInCorrect", "새 비밀번호가 일치하지 않습니다.");
-                return null;
-            }
+			// 현재 비밀번호 확인
+			if (!passwordEncoder.matches(pass.getPassword(), member.getPassword())) {
+				bindingResult.rejectValue("password", "passwordInCorrect", "현재 비밀번호가 일치하지 않습니다.");
+				return null;
+			}
 
-            // 새 비밀번호 암호화 후 저장
-            member.setPassword(passwordEncoder.encode(pass.getPassword1()));
-            memberRepository.save(member);
-            return member;
-        } else {
-            bindingResult.reject("userNotFound", "사용자를 찾을 수 없습니다.");
-            return null;
-        }
+			// 새 비밀번호 확인
+			if (!pass.getPassword1().equals(pass.getPassword2())) {
+				bindingResult.rejectValue("password2", "passwordInCorrect", "새 비밀번호가 일치하지 않습니다.");
+				return null;
+			}
+
+			// 새 비밀번호 암호화 후 저장
+			member.setPassword(passwordEncoder.encode(pass.getPassword1()));
+			memberRepository.save(member);
+			return member;
+		} else {
+			bindingResult.reject("userNotFound", "사용자를 찾을 수 없습니다.");
+			return null;
+		}
 	}
-    
-
 
 	public Member create(String username, String password, String email, String userDisName) {
 		Member member = new Member();
@@ -204,9 +238,9 @@ public class MemberService {
 		memberRepository.deleteByIdsInQuery(ids);
 	}
 
-	public void delete(Member member) {
-		memberRepository.delete(member);
-	}
+	
+	public void delete(Member member) { memberRepository.delete(member); }
+	
 
 	public Member modify(Member member, String username, String password, String email, String userDisName) {
 		member.setUsername(username);

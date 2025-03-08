@@ -4,6 +4,7 @@
 	<!-- 제목 -->
 	<h5 class="border-bottom py-2">공지 목록</h5>
 	<!-- 버튼 -->
+	<!-- <div th:replace="~{bsidebar :: sidebarFragment}"></div> -->
 	<div class="row my-3">
 		<div class="col-8">
 			<a th:href="@{/notice/question/create}" class="btn btn-primary" th:if="${userGrade == 1}">공지 등록</a>

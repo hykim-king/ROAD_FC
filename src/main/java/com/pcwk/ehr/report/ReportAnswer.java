@@ -7,6 +7,7 @@ import java.util.Set;
 import com.pcwk.ehr.report.ReportQuestion;
 import com.pcwk.ehr.member.Member;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

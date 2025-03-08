@@ -63,6 +63,11 @@ public class ReportQuestionService {
 		};
 	}
 	
+	public Page<ReportQuestion> getPaging(int page){
+		Pageable pageable = PageRequest.of(page, 10);
+		return questionRepository.findAll(pageable);
+	}
+	
 
 	public Page<ReportQuestion> getQuestionsByAuthor(Member author, int page) {
 	    Pageable pageable = PageRequest.of(page, 10); // 페이지 크기와 함께 Pageable 객체 생성

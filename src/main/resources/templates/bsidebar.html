@@ -2,9 +2,10 @@
     <div id="mypage_lmenu" class="lnb_wrap text-center" style="display: block;">
         <div class="left_title box-title my-4">공지사항</div>
         <div class="list-group text-center">
-            <a th:href="@{/member/profile}" th:classappend="${page == 'profile'} ? 'active'" class="list-group-item list-group-item-action" title="나의 정보">나의 정보</a>
-            <a th:href="@{/member/change}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="비밀번호 변경">비밀번호 변경</a>
-            <a th:if="${member.userGrade == 1}" th:href="@{/member/list}" th:classappend="${page == 'manage'} ? 'active'" class="list-group-item list-group-item-action" title="회원관리">회원관리</a>
+            <a th:href="@{/notice/question/list}" th:classappend="${page == 'profile'} ? 'active'" class="list-group-item list-group-item-action" title="공지사항">공지사항</a>
+            <a th:href="@{/qna/question/list}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="QnA">QnA</a>
+            <a th:href="@{/faq/question/list}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="FaQ">FaQ</a>
+            <a th:href="@{/report/question/list}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="제보 게시판">제보 게시판</a>
         </div>
     </div>
 </aside>

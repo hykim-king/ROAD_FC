@@ -1,6 +1,7 @@
 package com.pcwk.ehr.report;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.DataNotFoundException;
@@ -33,7 +35,14 @@ public class ReportAnswerService {
 //		log.info("└──────────────────────┘");
 //	}
 	
-
+	
+	public Page<ReportAnswer> getPaging(Integer questionId,int page){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return answerRepository.findByQuestionId(questionId,pageable);
+	}
+	
 	public Page<ReportAnswer> getQuestionsByAuthor(Member author, int page) {
 	    Pageable pageable = PageRequest.of(page, 10); // 페이지 크기와 함께 Pageable 객체 생성
 	    Page<ReportAnswer> pagedAnswers = answerRepository.findByAuthor(author, pageable);

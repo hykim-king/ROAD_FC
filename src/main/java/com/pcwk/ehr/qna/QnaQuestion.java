@@ -52,12 +52,12 @@ public class QnaQuestion {
 	//1:N
 	// cascade = CascadeType.REMOVE => Oracle On delete cascade : 
 	// 부모 데이터 삭제시 관련 자식(Answer)데이터도 같이 삭제.
-	@OneToMany(mappedBy ="question", cascade = CascadeType.REMOVE )
-	private List<QnaAnswer> answerList;
-	
-	//한명이 질문을 여러개 작성
-	@ManyToOne
-	private Member author;
+	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<QnaAnswer> answerList;
+    
+	//한명이 질문 여러개를 작성
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private Member author;
 	
 	private LocalDateTime modifyDate; //수정일
 	

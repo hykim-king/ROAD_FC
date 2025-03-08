@@ -2,7 +2,7 @@
 <div layout:fragment="content" class="container my-3">
     <!-- 제목 -->
     <h5 class="border-bottom py-2">유저목록</h5>
-    <form th:action="@{/member/delete}" method="post" id="mainForm">
+    <form th:action="@{/member/delete}" method="post" id="mainForm" onsubmit="return handleDeleteSubmit(event)">
         <!-- 버튼 -->
         <div class="row my-3">
             <div class="col-3 text-start">
@@ -121,24 +121,43 @@
         });
     }
 
-    const btn_delete = document.getElementById("btn_delete");
-    if (btn_delete) {
-        //console.log("btn_delete found"); // 디버그 로그
-        btn_delete.addEventListener('click', function(event) {
-            //console.log("btn_delete clicked"); // 디버그 로그
-            if (!isCheckboxChecked()) {
-                alert("적어도 하나의 항목을 선택해야 합니다.");
-                event.preventDefault(); // 기본 동작 막기
-                return false;
-            }
-            if (confirm("삭제하시겠습니까?") === true) {
-                document.getElementById("mainForm").submit();
-            } else {
-                event.preventDefault(); // 확인 창에서 취소를 누를 시 기본 동작 막기
-            }
-        });
-    } else {
-        console.error("btn_delete element not found");
+    // 삭제 폼 전송 핸들러
+    function handleDeleteSubmit(event) {
+        event.preventDefault(); // 기본 폼 제출 동작 막기
+
+        // 체크박스 선택 여부 확인
+        if (!isCheckboxChecked()) {
+            alert("적어도 하나의 항목을 선택해야 합니다.");
+            return false;
+        }
+
+        if (confirm("삭제하시겠습니까?")) {
+            // AJAX 요청 보내기
+            const form = document.getElementById("mainForm");
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("서버 오류");
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert("삭제가 완료되었습니다.");
+                location.reload(); // 페이지 새로고침
+            })
+            .catch(error => {
+                alert("삭제 중 오류가 발생했습니다. 다시 시도해 주세요.(댓글을 확인해주세요.)");
+            });
+
+            return false; // 폼 제출 중단
+        } else {
+            return false; // 확인 창에서 취소를 누를 시 기본 동작 막기
+        }
     }
 
     const btn_promote = document.getElementById("btn_promote");

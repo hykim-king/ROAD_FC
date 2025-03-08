@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +44,9 @@ public class ReportQuestionController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ReportAnswerService answerService;
 	
 	private final String uploadDir = "C:/Users/82109/Desktop/JAP_20240909/04_SPRING/boot/workspace/project_oracle/src/main/resources/static/img/report/";  // 이미지 저장할 경로 설정
 	
@@ -141,13 +147,25 @@ public class ReportQuestionController {
 	}
 	
 	@GetMapping(value="/detail/{id}")
-	public String detail(Model model,@PathVariable("id") Integer id,ReportAnswerForm answerForm) {
+	public String detail(Model model,@PathVariable("id") Integer id,ReportAnswerForm answerForm,
+			@RequestParam(value = "page", defaultValue = "0")int page) {
 		
-		// 제목을 클릭할 때 조회수 증가
-		service.increaseViewCount(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String currentUsername = null;
+	    
+	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+	        currentUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
+	    }
 		
 		ReportQuestion question = service.getQuestion(id);
+		Page<ReportAnswer> paging = answerService.getPaging(id,page);
+		
+		if (currentUsername != null && !currentUsername.equals(question.getAuthor().getUsername())) {
+		        service.increaseViewCount(id);
+		}
+		
 		model.addAttribute("question",question);
+		model.addAttribute("paging", paging);
 		
 		return "report/question/question_detail";	
 	}
