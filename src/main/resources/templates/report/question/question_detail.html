@@ -98,7 +98,7 @@
                     </div>
                     <!-- Modify/Delete buttons -->
                     <div>
-                        <a th:href="@{|/report/question/modify/${question.id}|}" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
+                        <a th:href="@{|/report/question/modify/${question.id}|}" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
                         <a href="javascript:void(0);" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}" th:text="삭제" th:data-uri="@{|/report/question/delete/${question.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                         </div>
                         <!-- Modify/Delete buttons -->
                         <div>
-                            <a th:href="@{|/report/answer/modify/${answer.id}|}" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username or userGrade == 1}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
+                            <a th:href="@{|/report/answer/modify/${answer.id}|}" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
                             <a href="javascript:void(0);" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username or userGrade == 1}" th:text="삭제" th:data-uri="@{|/report/answer/delete/${answer.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
                         </div>
                     </div>
