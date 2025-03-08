@@ -9,7 +9,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.RegionData;
 import com.pcwk.ehr.SafetyIndexDTO;
 import com.pcwk.ehr.map.repository.WeatherRepository;
 import com.pcwk.ehr.station.StationRepository;
