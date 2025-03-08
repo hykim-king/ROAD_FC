@@ -5,24 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest" defer></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee7b903ee11f7e01af4335ff1229cdf&libraries=services,clusterer"></script>
+<script type="text/javascript" th:src="@{/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/road.js}" th:if="${currentUrl == '/map/map'}" defer></script>
 <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/road.css}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<th:block layout:fragment="style"></th:block>
-<title>Spring Bootstrap</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>로드 마스터</title>
 </head>
 <body>
-<!-- top menu -->
-	<div th:replace="~{navbar :: navbarFragment}"></div>
-<!-- top menu end -->
-<!-- 기본 템플릿 안에 삽입될 내용 start -->
+<div class="d-flex">
+	<nav>
+		<!-- top menu -->
+		<div th:replace="~{top_navbar :: topNavbarFragment}"></div>
+		<!-- top menu end -->
+		<!-- left menu -->
+		<!-- 지도 페이지를 열때만 왼쪽 내비게이션 활성화 -->
+		<div th:if="${currentUrl == '/map/map'}">
+		  <div th:replace="~{left_navbar :: leftNavbarFragment}"></div>
+		</div>
+		<div th:if="|${currentUrl != null and
+									(#strings.startsWith(currentUrl, '/notice/question') or
+									 #strings.startsWith(currentUrl, '/report/question') or
+									 #strings.startsWith(currentUrl, '/qna/question') or
+									 #strings.startsWith(currentUrl, '/faq/question'))}|">
+			<div th:replace="~{bsidebar :: sidebarFragment}"></div> 
+		</div>
+		<!-- left menu end -->
+	</nav>
+	<!-- 기본 템플릿 안에 삽입될 내용 start -->
 	<th:block layout:fragment="content"></th:block>
-<!-- 기본 템플릿 안에 삽입될 내용 end -->
-<script th:src="@{/bootstrap.min.js}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!-- javascript 시작 -->
+	<!-- 기본 템플릿 안에 삽입될 내용 end -->
+	<script th:src="@{/bootstrap.min.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- javascript 시작 -->
 	<th:block layout:fragment="script"></th:block>
-<!-- javascript 종료 -->
+	<!-- javascript 종료 -->
+</div>
 </body>
 </html>

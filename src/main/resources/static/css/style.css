@@ -1,0 +1,343 @@
+@charset "UTF-8";
+
+body {
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+textarea {
+	width: 100%;
+}
+
+input[type=submit] {
+	margin-top: 10px;
+}
+
+/* 왼쪽 내비 */
+.sidebar {
+	height: 100vh;
+}
+
+.region-link {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	width: 100%;
+	padding: 10px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.region-link:hover {
+	color: #0d6efd !important;
+	--bs-link-transform: translate3d(0, -.125rem, 0);
+}
+
+.iconDiv {
+	width: 100px;
+	margin: auto;
+}
+
+.icon {
+	margin: 0 10px;
+	align-content: center;
+}
+
+.iconText {
+	align-items: center;
+}
+
+.typeBtn {
+	background-color: #f1f1f1;
+	color: #454545;
+	padding: 10px 15px;
+	border-radius: 5px;
+	transition: background 0.3s, color 0.3s;
+}
+
+.typeBtn.active {
+	background-color: #9bcbff;
+	color: white;
+}
+
+.info-section {
+	max-height: calc(100vh - 290px);
+	overflow-y: auto;
+	color: black;
+	background-color: #fff;
+}
+
+.info-section ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.info-section li {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.info-section li:last-child {
+	border-bottom: none;
+}
+
+.infoHeader {
+	display: flex;
+	justify-content: center;
+	padding: 10px 0;
+	border-bottom: 2px solid lightgray;
+	background-color: #353535;
+	color: #fff;
+}
+
+.infoHeader>h4 {
+	margin: 0;
+	padding: 10px;
+}
+
+.timeInfo {
+	font-size: 11px;
+}
+
+.titleInfo, .addrInfo, .timeInfo {
+	margin: 5px 0;
+}
+
+/* 왼쪽 내비 */
+
+/* 지도 메인 */
+.map-container {
+	height: calc(100vh - 80px);
+	margin-top: 80px;
+	margin-left: 400px;
+}
+/* 지도 메인 */
+
+/* 지도 상단 오버레이 */
+.notice-overlay {
+	top: 3%;
+	z-index: 1000;
+}
+/* 지도 상단 오버레이 */
+
+/* 안전 지수 버튼 오버레이 */
+.safety-btn-container {
+	top: 4%;
+	right: 2%;
+	z-index: 1000;
+	border: 2px solid #515151;
+}
+/* 안전 지수 버튼 오버레이 */
+
+/* 안전 지수 정보 오버레이 */
+.safety-info-container {
+	bottom: 4%;
+	left: 2%;
+	z-index: 1000;
+	border: 2px solid #515151;
+}
+
+.safety-item {
+	width: 85px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.safety-img {
+	height: 50px;
+	width: 50px;
+	margin-bottom: 5px;
+}
+
+.safety-state {
+	font-weight: 600;
+}
+
+.state-safe {
+	color: #0db944;
+}
+
+.state-caution {
+	color: #f5b71f;
+}
+
+.state-danger {
+	color: #ec532d;
+}
+
+.safety-score {
+	font-size: 12px;
+}
+/* 안전 지수 정보 오버레이 */
+
+/* 회원가입 */
+.underline-input {
+	border: none;
+	border-bottom: 2px solid lightgray;
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+}
+
+.underline-input:focus {
+	border-bottom: 2px solid lightgray;
+}
+/* 회원가입 */
+
+/* 로그인 */
+.myContainer {
+	max-width: 500px !important;
+	margin: 100px auto;
+	margin-top: 80px !important;
+	padding: 20px;
+}
+
+.border-bottom {
+	border-bottom: 2px solid #4fa3fd;
+}
+
+.btn-dark {
+	font-size: 1.25em;
+	padding: 10px 20px;
+	width: 100%;
+}
+
+.btn-light:hover {
+	background-color: #4fa3fd;
+	color: #fff;
+}
+
+.form-label {
+	font-weight: bold;
+}
+
+.alert-danger {
+	color: #dc3545;
+}
+
+.additional-links a {
+	font: bold;
+	font-size: 0.9em;
+	color: gray;
+	text-decoration: none;
+	margin-right: 10px;
+}
+
+.additional-links a:hover {
+	text-decoration: underline;
+}
+
+.error-message {
+	color: red;
+	font-size: 0.8em;
+	margin-top: 5px;
+}
+/* 로그인 */
+
+/* 게시판 */
+.myMargin {
+	height: calc(100% - 80px);
+	margin: 100px auto;
+	margin-top: 100px !important;
+	padding: 20px 30px;
+	width: 55%;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px #ccc;
+  border-radius: 20px;
+}
+
+.myMargin h5 {
+	font-size: 30px;
+}
+
+.table>thead {
+	border-bottom: 1px solid;
+}
+/* 게시판 */
+
+/* FAQ */
+.faq-title {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+.circle-number {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	margin-right: 10px;
+}
+/* FAQ */
+
+/* 게시판 사이드바 */
+.lnb_wrap {
+	display: block;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px #ccc;
+}
+
+.side-bar {
+	display: flex;
+	position: absolute;
+	top: 20%;
+	left: 8%;
+}
+
+.left_title {
+	font-size: 23px;
+	color: #fff;
+	background: linear-gradient(to right, #4d7af9, #123de3);
+	padding: 15px;
+	margin-bottom: 0;
+	border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nav-group {
+	width: 200px;
+	border: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.list-group-item {
+	height: 50px;
+	align-content: center;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+.list-group-item:first-child {
+	border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.list-group-item:hover {
+	background: #d3e8ff;
+}
+
+table tr:hover {
+	background-color: #d3e8ff;
+}
+
+.search-btn:hover {
+	background-color: #d3e8ff;
+	border-color: #d3e8ff;
+}
+/* 게시판 사이드바 */
+
+.active > .page-link {
+	background-color: #71b5f7;
+	border-color: #71b5f7;
+	color: #fff;
+}

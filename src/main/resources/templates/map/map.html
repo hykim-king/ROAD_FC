@@ -1,0 +1,80 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="map-container container-fluid flex-grow-1 position-relative" id="map">
+	<div class="notice-overlay position-absolute start-50 translate-middle-x bg-white shadow p-3">
+		<marquee behavior="scroll" direction="left" scrollamount="5"class="fs-5 fw-bold text-danger">
+			양보운전 미덕속에 풀려가는 교통체증 
+		</marquee>
+	</div>
+	<div class="safety-btn-container position-absolute bg-white shadow rounded-1">
+		<div class="row m-0 text-center" style="width: 170px;">
+		  <button id="safetyBtn" class="col-12 align-content-center px-2 py-1" title="활성화 후 아래 지역 버튼을 눌러보세요.">
+        <span id="safetyBtnText">권역별 안전지수 보기</span>
+      </button>
+      <div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<button id="nationwide" class="region-link nav-link p-2" data-region="nationwide">전국</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<button id="seoul" class="region region-link nav-link p-2" data-region="seoul">수도권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-end border-opacity-25">
+				<button id="gangwon" class="region region-link nav-link p-2" data-region="gangwon">강원권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-bottom border-opacity-25">
+				<button id="chungcheong" class="region region-link nav-link p-2" data-region="chungcheong">충청권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1 border-end border-opacity-25">
+				<button id="jeolla" class="region region-link nav-link p-2" data-region="jeolla">전라권</button>
+			</div>
+			<div class="col-6 align-content-center px-2 py-1">
+				<button id="gyeongsang" class="region region-link nav-link p-2" data-region="gyeongsang">경상권</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="safety-info-container position-absolute bg-white shadow rounded-1">
+		<div class="safety-info container px-3 py-1">
+			<!-- <div class="safety-info-header">
+				<span>안전지수</span>
+			</div> -->
+			<div class="safety-info-content row text-nowrap">
+				<div class="safety-item safety-safe col align-content-center px-3 py-1 border-end border-opacity-25">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_safe.png}">
+					<span class="safety-state state-safe">안전</span>
+					<span class="safety-score">(81점 이상)</span>
+				</div>
+				<div class="safety-item safety-caution col align-content-center px-3 py-1 border-end border-opacity-25">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_caution.png}">
+					<span class="safety-state state-caution">주의</span>
+					<span class="safety-score">(80~40점)</span>
+				</div>
+				<div class="safety-item safety-danger col align-content-center px-3 py-1">
+					<img class="safety-img" th:src="@{/images/marker/safety_marker_danger.png}">
+					<span class="safety-state state-danger">위험</span>
+					<span class="safety-score">(40점 미만)</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- script태그 안에있는 thymeleaf문 해석하려고 th:inline 사용 -->
+<script layout:fragment="script" th:inline="javascript">
+	var accidentList = /*[[${accidentList}]]*/[];
+	var constructionList = /*[[${constructionList}]]*/[];
+	var findNowWeather = /*[[${findNowWeather}]]*/[];
+	var cctvInfo = /*[[${cctvInfo}]]*/[];
+	var freezingInfo = /*[[${freezingInfo}]]*/[];
+	var tunnelInfo = /*[[${tunnelInfo}]]*/[];
+	var avgSafetyIndex = /*[[${avgSafetyIndex}]]*/[];
+	var allSafetyIndex = /*[[${allSafetyIndex}]]*/[];
+
+	console.log(accidentList);
+	console.log(constructionList);
+	console.log(findNowWeather);
+	console.log(cctvInfo);
+	console.log(freezingInfo);
+	console.log(tunnelInfo);
+	console.log(avgSafetyIndex);
+	console.log(allSafetyIndex);
+</script>
+</html>
