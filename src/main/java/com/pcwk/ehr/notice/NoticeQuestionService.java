@@ -171,5 +171,12 @@ public class NoticeQuestionService {
 		return questionRepository.findAll();
 	}
 	
-	
+
+	public NoticeQuestion getPreviousQuestion(Integer id) {
+	    return questionRepository.findTopByIdLessThanOrderByIdDesc(id).orElse(null);
+	}
+
+	public NoticeQuestion getNextQuestion(Integer id) {
+	    return questionRepository.findTopByIdGreaterThanOrderByIdAsc(id).orElse(null);
+	}
 }

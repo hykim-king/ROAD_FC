@@ -155,7 +155,16 @@ public class NoticeQuestionController {
 		service.increaseViewCount(id);
 		
 		NoticeQuestion question = service.getQuestion(id);
+		
+	    // 이전글 조회 (현재 id보다 작은 값 중 가장 큰 값)
+	    NoticeQuestion prevQuestion = service.getPreviousQuestion(id);
+	    
+	    // 다음글 조회 (현재 id보다 큰 값 중 가장 작은 값)
+	    NoticeQuestion nextQuestion = service.getNextQuestion(id);
+	    
 		model.addAttribute("question",question);
+	    model.addAttribute("prevQuestion", prevQuestion);
+	    model.addAttribute("nextQuestion", nextQuestion);
 		
 		return "notice/question/question_detail";	
 	}

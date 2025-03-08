@@ -200,5 +200,14 @@ public class ReportQuestionService {
 		return questionRepository.findAll();
 	}
 	
+	public ReportQuestion getPreviousQuestion(Integer id) {
+	    return questionRepository.findTopByIdLessThanOrderByIdDesc(id).orElse(null);
+	}
+
+	public ReportQuestion getNextQuestion(Integer id) {
+	    return questionRepository.findTopByIdGreaterThanOrderByIdAsc(id).orElse(null);
+	}
+	
+	
 	
 }

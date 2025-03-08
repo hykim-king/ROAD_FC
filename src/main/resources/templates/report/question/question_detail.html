@@ -179,7 +179,33 @@
 			    <input type="hidden" id="page" name="page" th:value="${paging.number}">
 			  </form>
 
-        </div>
+	        </div>
+	    </div>
+	      <div class="d-flex justify-content-end align-items-end mt-auto">
+			<a th:href="@{/report/question/list}" class="btn btn-sm btn-outline-primary">메뉴</a>
+		</div>
+		<!-- 이전글/다음글 -->
+		<div class="border-top border-bottom my-5 py-3">
+			<!-- 이전글 -->
+			<div class="d-flex align-items-center py-2">
+				<span class="fw-bold">▲</span>
+				<strong class="mx-3">이전글</strong>
+				<a th:if="${prevQuestion != null}" 
+					th:href="@{|/report/question/detail/${prevQuestion.id}|}" 
+					th:text="${#strings.abbreviate(prevQuestion.subject, 30)}"></a>
+				<span th:if="${prevQuestion == null}">이전글이 없습니다.</span>
+			</div>
+				
+			<!-- 다음글 -->
+			<div class="d-flex align-items-center py-2">
+				<span class="fw-bold">▼</span>
+				<strong class="mx-3">다음글</strong>
+				<a th:if="${nextQuestion != null}" 
+					th:href="@{|/report/question/detail/${nextQuestion.id}|}" 
+					th:text="${#strings.abbreviate(nextQuestion.subject, 30)}"></a>
+				 <span th:if="${nextQuestion == null}">다음글이 없습니다.</span>
+			</div>
+		</div>
     </div>
     
     <script layout:fragment="script">

@@ -166,6 +166,14 @@ public class ReportQuestionController {
 		        service.increaseViewCount(id);
 		}
 		
+		  // 이전글 조회 (현재 id보다 작은 값 중 가장 큰 값)
+	    ReportQuestion prevQuestion = service.getPreviousQuestion(id);
+	    
+	    // 다음글 조회 (현재 id보다 큰 값 중 가장 작은 값)
+	    ReportQuestion nextQuestion = service.getNextQuestion(id);
+		
+	    model.addAttribute("prevQuestion", prevQuestion);
+	    model.addAttribute("nextQuestion", nextQuestion);
 		model.addAttribute("question",question);
 		model.addAttribute("paging", paging);
 		model.addAttribute("userGrade", member.getUserGrade());

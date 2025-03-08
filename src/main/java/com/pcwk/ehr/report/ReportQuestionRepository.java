@@ -1,6 +1,7 @@
 package com.pcwk.ehr.report;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +50,8 @@ public interface ReportQuestionRepository extends JpaRepository<ReportQuestion, 
 	ReportQuestion findBySubjectAndContent(String subject, String content);
 	
 	Page<ReportQuestion> findByAuthor(Member author, Pageable pageable);
+	
+    Optional<ReportQuestion> findTopByIdLessThanOrderByIdDesc(Integer id); // 이전글
+    Optional<ReportQuestion> findTopByIdGreaterThanOrderByIdAsc(Integer id); // 다음글
 	
 }

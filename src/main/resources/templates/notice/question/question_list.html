@@ -4,7 +4,6 @@
 	<!-- 제목 -->
 	<h5 class="border-bottom py-2">공지 목록</h5>
 	<!-- 버튼 -->
-	<!-- <div th:replace="~{bsidebar :: sidebarFragment}"></div> -->
 	<div class="row my-3">
 		<div class="col-8">
 			<a th:href="@{/notice/question/create}" class="btn btn-primary" th:if="${userGrade == 1}">공지 등록</a>
@@ -34,12 +33,6 @@
                 <td>
                     <a th:href="@{|/notice/question/detail/${question.id}|}" th:text="${#strings.length(question.subject) > 30 ? #strings.substring(question.subject, 0, 30) + '...' : question.subject}" class="text-decoration-none text-dark"></a>
                     <span></span>
-                    <i class="bi bi-chat-left-dots"></i>
-                    <span class="text-danger" 
-                          th:text="${#lists.size(question.answerList)}"></span> <!-- th:if="${#lists.size(question.answerList) > 0}" -->
-                     <i class="bi bi-hand-thumbs-up"></i>
-                     <span class="text-danger" 
-                          th:text="${#lists.size(question.voter)}"></span>
                 </td>
                 <td class="text-center"><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
                 <td class="text-center" th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}">작성일</td>
