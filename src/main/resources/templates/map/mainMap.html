@@ -26,6 +26,15 @@ var freezingMarkerImage = new kakao.maps.MarkerImage(freezingImageSrc, imageSize
 
 var freezingMarkers = [];
 var freezingInfo = /*[[${freezingInfo}]]*/ [];
+//var stationList =  /*[[${stationList}]]*/ [];
+
+//stationList.forEach(function(station){
+//	var marker = new kakao.maps.Marker({
+//		position: new kakao.maps.LatLng(station.stationLat, station.stationLong),
+//		image: freezingMarkerImage		
+//	});
+//	marker.setMap(map);
+//});
 
 // 마커 생성 및 배열에 추가
 freezingInfo.forEach(function(freezing) {

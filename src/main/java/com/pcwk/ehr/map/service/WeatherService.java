@@ -43,7 +43,7 @@ public class WeatherService {
 //	System.out.println("Station Longitude: " + data[7]);
 //}
 
-	public void getSafetyIndex() {
+	public int getSafetyIndex() {
 	    List<Object[]> weatherStationInfo = weatherRepository.dataNeededForSafetyIndex();
 	    
 	    double temp = 0;
@@ -59,28 +59,30 @@ public class WeatherService {
 	            dangerScore += calcPrecipitationScore(((BigDecimal) data[1]).doubleValue(), 30);
 	            dangerScore += calcSnowfallScore(((BigDecimal) data[2]).doubleValue(), 30);
 	            
-	            System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
-	            //return (int) Math.round(100 - dangerScore);
+	            //System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
+	            return (int) Math.round(100 - dangerScore);
 	        } else if (0 <= temp && temp <= 5) { // 0 ~ 5도일 때
-	            dangerScore += calcWindSpeedScore(((BigDecimal) data[4]).doubleValue(), 15);
+	            dangerScore += calcWindSpeedScore(((BigDecimal) data[4]).doubleValue(), 5);
 	            dangerScore += calcVisibilityDistanceScore(((BigDecimal) data[3]).doubleValue(), 30);
 	            dangerScore += calcPrecipitationScore(((BigDecimal) data[1]).doubleValue(), 30);
 	            dangerScore += calcSnowfallScore(((BigDecimal) data[2]).doubleValue(), 25);
 	            
-	            System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
-	            //return (int) Math.round(100 - dangerScore);
+	            //System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
+	            return (int) Math.round(100 - dangerScore);
 	        } else if (5 < temp) { // 6도 이상일 때  
 	            dangerScore += calcWindSpeedScore(((BigDecimal) data[4]).doubleValue(), 15);
 	            dangerScore += calcVisibilityDistanceScore(((BigDecimal) data[3]).doubleValue(), 30);
 	            dangerScore += calcPrecipitationScore(((BigDecimal) data[1]).doubleValue(), 55);
 	            // dangerScore += calcSnowfallScore(((BigDecimal) data[2]).doubleValue(), 0);
 	            
-	            System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
-	            //return (int) Math.round(100 - dangerScore);
+	            //System.out.println("안전지수: " + (int) Math.round(100 - dangerScore));
+	            return (int) Math.round(100 - dangerScore);
 	        } else {
-	            System.out.println("SOMETHING'S WRONG WITH YOUR TEMPERATURE");	            
+	            //System.out.println("SOMETHING'S WRONG WITH YOUR TEMPERATURE");	        
+	        	return 0;
 	        }
 	    }
+	    return 0;
 	}
 	
 	private double calcWindSpeedScore(double ws, int weight) {

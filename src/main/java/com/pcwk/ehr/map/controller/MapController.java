@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pcwk.ehr.map.entity.Freezing;
 import com.pcwk.ehr.map.service.FreezingService;
+import com.pcwk.ehr.map.service.WeatherService;
+import com.pcwk.ehr.station.Station;
 
 @RequestMapping("/map")
 @Controller
@@ -17,13 +19,18 @@ public class MapController {
 	
 	@Autowired
 	FreezingService freezingService;
+	
+	@Autowired
+	WeatherService weatherService;
 
 	@GetMapping("mainMap")
 	public String mainMap(Model model) {
 		
-		//List<Freezing> freezingInfo = freezingService.list();
+		List<Freezing> freezingInfo = freezingService.freezingList();
 		 
-		//model.addAttribute("freezingInfo", freezingInfo);
+		model.addAttribute("freezingInfo", freezingInfo);
+		List<Station> staionList = weatherService.stationList();
+		model.addAttribute("stationList", staionList);
 		
 		return "map/mainMap";
 	}
