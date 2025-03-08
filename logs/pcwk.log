@@ -6507,3 +6507,213 @@ Caused by: java.lang.ClassNotFoundException: ResponseEntity
 2025-03-08 14:24:27.803  WARN 22232 --- [project_oracle] [restartedMain] org.hibernate.dialect.Dialect            : HHH000511: The 18.0.0 version for [org.hibernate.dialect.OracleDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 19.0.0. Check the community dialects project for available legacy versions.
 2025-03-08 14:24:27.804  WARN 22232 --- [project_oracle] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
 2025-03-08 14:24:28.028  INFO 22232 --- [project_oracle] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-08 14:24:44.049  INFO 22232 --- [project_oracle] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-08 14:24:44.076  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.report.ReportQuestionService  : ┌──────────────────────┐
+2025-03-08 14:24:44.076  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.report.ReportQuestionService  : │ QuestionService()    │
+2025-03-08 14:24:44.076  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.report.ReportQuestionService  : └──────────────────────┘
+2025-03-08 14:24:44.186  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:24:44.187  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.qna.QnaQuestionService      : │ QuestionService()    │
+2025-03-08 14:24:44.187  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:24:44.287  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.faq.FaqQuestionService      : ┌──────────────────────┐
+2025-03-08 14:24:44.287  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.faq.FaqQuestionService      : │ QuestionService()    │
+2025-03-08 14:24:44.287  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.faq.FaqQuestionService      : └──────────────────────┘
+2025-03-08 14:24:44.446  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:24:44.446  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : │ MemberController()   │
+2025-03-08 14:24:44.446  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:24:44.475  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:24:44.475  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.notice.NoticeQuestionService  : │ QuestionService()    │
+2025-03-08 14:24:44.475  INFO 22232 --- [project_oracle] [restartedMain] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:24:44.576  WARN 22232 --- [project_oracle] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-08 14:24:44.601  INFO 22232 --- [project_oracle] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name memberSecurityService
+2025-03-08 14:24:44.628  INFO 22232 --- [project_oracle] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: URL [file:src/main/resources/static/index.html]
+2025-03-08 14:24:44.930  INFO 22232 --- [project_oracle] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-03-08 14:24:45.108  INFO 22232 --- [project_oracle] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-03-08 14:24:45.131  INFO 22232 --- [project_oracle] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-08 14:24:45.136  INFO 22232 --- [project_oracle] [restartedMain] com.pcwk.ehr.Ehr01Application            : Started Ehr01Application in 18.815 seconds (process running for 428.646)
+2025-03-08 14:24:45.139  INFO 22232 --- [project_oracle] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-03-08 14:25:19.568  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-08 14:25:19.568  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-08 14:25:19.569  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-03-08 14:25:19.578  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:19.579  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : │ getList()    		 │
+2025-03-08 14:25:19.579  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:19.579  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : param:page0
+2025-03-08 14:25:19.579  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : keyword:
+2025-03-08 14:25:19.617  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.p.ehr.notice.NoticeQuestionController  : size:10
+2025-03-08 14:25:22.675  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:22.676  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:22.676  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:22.742  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:22.742  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:22.742  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:22.742  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:21 
+2025-03-08 14:25:25.137  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:25.137  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:25.137  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:25.210  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:25.210  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:25.210  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:25.210  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:1 
+2025-03-08 14:25:27.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:27.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:27.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:27.366  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:27.366  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:27.366  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:27.366  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:21 
+2025-03-08 14:25:29.159  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:29.159  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionService      : │ getList()    		 │
+2025-03-08 14:25:29.159  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionService      : └──────────────────────┘
+2025-03-08 14:25:29.159  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionService      : param:page0
+2025-03-08 14:25:29.159  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionService      : keyword:
+2025-03-08 14:25:29.228  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.faq.FaqQuestionController   : size:10
+2025-03-08 14:25:31.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:31.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.notice.NoticeQuestionService  : │ getList()    		 │
+2025-03-08 14:25:31.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:31.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.notice.NoticeQuestionService  : param:page0
+2025-03-08 14:25:31.332  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.notice.NoticeQuestionService  : keyword:
+2025-03-08 14:25:31.387  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.p.ehr.notice.NoticeQuestionController  : size:10
+2025-03-08 14:25:34.280  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:34.281  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:34.281  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:34.414  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:34.414  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:34.415  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:34.415  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:21 
+2025-03-08 14:25:35.716  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:35.716  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:35.716  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:35.754  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:35.755  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:35.755  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:35.755  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:1 
+2025-03-08 14:25:36.915  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:36.916  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : │ increaseViewCount()  │
+2025-03-08 14:25:36.916  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:36.949  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : ┌──────────────────────┐
+2025-03-08 14:25:36.949  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : │ getQuestion()    	 │
+2025-03-08 14:25:36.949  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : └──────────────────────┘
+2025-03-08 14:25:36.949  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] c.pcwk.ehr.notice.NoticeQuestionService  : 1.param|id:21 
+2025-03-08 14:25:39.128  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:39.129  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:25:39.129  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:25:39.129  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:25:39.129  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:25:39.154  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:25:40.240  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:40.240  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : │ increaseViewCount()  │
+2025-03-08 14:25:40.240  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:25:40.296  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:40.296  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : │ getQuestion()    	 │
+2025-03-08 14:25:40.296  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:25:40.296  INFO 22232 --- [project_oracle] [http-nio-8080-exec-10] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|id:1 
+2025-03-08 14:25:40.300  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:40.300  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : │ increaseViewCount()  │
+2025-03-08 14:25:40.300  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:25:40.335  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:25:40.335  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : │ getQuestion()    	 │
+2025-03-08 14:25:40.335  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:25:40.335  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|id:1 
+2025-03-08 14:25:48.957  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:25:48.957  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-03-08 14:25:48.957  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:26:02.190  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] c.pcwk.ehr.member.MemberSecurityService  : 1.username:unknown10
+2025-03-08 14:26:02.265  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-03-08 14:26:02.266  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@142d602b
+2025-03-08 14:26:02.267  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-03-08 14:26:02.268  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=unknown10, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-03-08 14:26:02.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:26:02.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-03-08 14:26:02.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:26:03.121  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:26:03.121  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:26:03.121  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:26:03.121  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:26:03.122  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:26:03.145  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:26:47.708  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:26:47.709  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:26:47.709  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:26:47.709  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:26:47.709  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:26:47.737  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:26:53.851  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:26:53.851  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-03-08 14:26:53.851  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:26:57.227  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 1.username:manager
+2025-03-08 14:26:57.237  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-03-08 14:26:57.238  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@5eb9b6cf
+2025-03-08 14:26:57.238  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-03-08 14:26:57.238  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=manager, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-03-08 14:26:57.347  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:26:57.347  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-03-08 14:26:57.347  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:27:00.995  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:00.996  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:27:00.996  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:00.996  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:27:00.996  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:27:01.118  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:27:02.194  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:02.194  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : │ increaseViewCount()  │
+2025-03-08 14:27:02.195  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:02.220  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:02.220  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : │ getQuestion()    	 │
+2025-03-08 14:27:02.220  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:02.220  INFO 22232 --- [project_oracle] [http-nio-8080-exec-8] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|id:1 
+2025-03-08 14:27:23.439  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:27:23.440  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-03-08 14:27:23.440  INFO 22232 --- [project_oracle] [http-nio-8080-exec-6] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:27:31.426  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 1.username:unknown10
+2025-03-08 14:27:31.452  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-03-08 14:27:31.453  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@55cfdc06
+2025-03-08 14:27:31.453  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-03-08 14:27:31.453  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=unknown10, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-03-08 14:27:31.581  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:27:31.581  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-03-08 14:27:31.581  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:27:32.835  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:32.835  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:27:32.835  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:32.835  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:27:32.835  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:27:32.880  INFO 22232 --- [project_oracle] [http-nio-8080-exec-1] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:27:37.431  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:37.431  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : │ create()    		 │
+2025-03-08 14:27:37.431  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:37.431  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|subject:qwdwq 
+2025-03-08 14:27:37.431  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|content:wqdqwdqw 
+2025-03-08 14:27:37.509  INFO 22232 --- [project_oracle] [http-nio-8080-exec-9] com.pcwk.ehr.qna.QnaQuestionController   : questionId:21
+2025-03-08 14:27:37.526  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:37.526  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:27:37.526  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:37.526  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:27:37.526  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:27:37.555  INFO 22232 --- [project_oracle] [http-nio-8080-exec-3] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:27:39.424  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:27:39.425  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-03-08 14:27:39.425  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:27:44.380  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 1.username:manager
+2025-03-08 14:27:44.389  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 2._siteUser.isEmpty():false
+2025-03-08 14:27:44.390  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 3.siteUser:com.pcwk.ehr.member.Member@72ab4399
+2025-03-08 14:27:44.390  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 4.UserRole.USER.getValue():ROLE_MEMBER
+2025-03-08 14:27:44.390  INFO 22232 --- [project_oracle] [http-nio-8080-exec-5] c.pcwk.ehr.member.MemberSecurityService  : 5.user:org.springframework.security.core.userdetails.User [Username=manager, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_MEMBER]]
+2025-03-08 14:27:44.519  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:27:44.520  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ profile()   	 	  │
+2025-03-08 14:27:44.520  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
+2025-03-08 14:27:47.012  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:47.012  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : │ getList()    		 │
+2025-03-08 14:27:47.012  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:47.012  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : param:page0
+2025-03-08 14:27:47.013  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionService      : keyword:
+2025-03-08 14:27:47.039  INFO 22232 --- [project_oracle] [http-nio-8080-exec-7] com.pcwk.ehr.qna.QnaQuestionController   : size:10
+2025-03-08 14:27:48.161  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:48.161  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : │ increaseViewCount()  │
+2025-03-08 14:27:48.161  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:48.215  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : ┌──────────────────────┐
+2025-03-08 14:27:48.215  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : │ getQuestion()    	 │
+2025-03-08 14:27:48.215  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : └──────────────────────┘
+2025-03-08 14:27:48.215  INFO 22232 --- [project_oracle] [http-nio-8080-exec-4] com.pcwk.ehr.qna.QnaQuestionService      : 1.param|id:21 
+2025-03-08 14:27:55.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : ┌──────────────────────┐
+2025-03-08 14:27:55.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : │ login()              │
+2025-03-08 14:27:55.402  INFO 22232 --- [project_oracle] [http-nio-8080-exec-2] com.pcwk.ehr.member.MemberController     : └──────────────────────┘
