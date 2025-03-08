@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> origin/sungmin
+=======
+>>>>>>> origin/hyejin
 HELP.md
 .gradle
 build/
@@ -40,6 +43,7 @@ out/
 ### VS Code ###
 .vscode/
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 # Compiled class file
@@ -68,3 +72,5 @@ hs_err_pid*
 replay_pid*
 >>>>>>> 87e8d4e7fccb1018287625c25dc5000ec1975592
 >>>>>>> origin/sungmin
+=======
+>>>>>>> origin/hyejin

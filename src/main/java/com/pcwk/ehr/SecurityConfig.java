@@ -11,9 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 =======
 >>>>>>> origin/sungmin
+=======
+>>>>>>> origin/hyejin
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -22,11 +25,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -63,10 +66,39 @@ public class SecurityConfig {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/member/login")
                 .invalidateHttpSession(true)
+
+    
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();    
+    }
+    
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors().and()
+            .authorizeHttpRequests(authorizeHttpRequests -> 
+                authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+            )
+            .csrf(csrf -> 
+                csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+            )
+            .headers(headers -> 
+                headers.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
+            )
+            .formLogin(formLogin -> 
+                formLogin.loginPage("/member/login").defaultSuccessUrl("/member/list")
+            )
+            .logout(logout -> 
+                logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                      .logoutSuccessUrl("/member/list")
+                      .invalidateHttpSession(true)
+
             );
 
         return http.build();
     }
+
 
 	
 	@Bean
@@ -105,6 +137,4 @@ public class SecurityConfig {
 		return http.build();
 
 	}
-
-
 }

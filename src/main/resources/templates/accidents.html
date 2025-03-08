@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지역별 사고 통계</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>지역별 사고 통계</h2>
+        
+        <form id="regionForm" class="form-inline mb-4">
+            <div class="form-group mr-3">
+                <label for="majorRegion">대분류 지역:</label>
+                <select id="majorRegion" name="majorRegion" class="form-control ml-2">
+                    <option th:each="region : ${majorRegions}" 
+                            th:value="${region}" 
+                            th:text="${region}"
+                            th:selected="${region == selectedMajor}"></option>
+                </select>
+            </div>
+            
+            <div class="form-group mr-3">
+                <label for="minorRegion">소분류 지역:</label>
+                <select id="minorRegion" name="minorRegion" class="form-control ml-2">
+                    <option th:each="region : ${minorRegions}" 
+                            th:value="${region}" 
+                            th:text="${region}"
+                            th:selected="${region == selectedMinor}"></option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">조회</button>
+        </form>
+        
+        <div th:if="${accidents.isEmpty()}" class="alert alert-info">
+            선택한 지역에 대한 데이터가 없습니다.
+        </div>
+        
+        <div th:unless="${accidents.isEmpty()}">
+            <h4 th:text="${selectedMajor + ' - ' + selectedMinor + ' 사고 통계'}"></h4>
+            
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>지역</th>
+                        <th>사고 건수</th>
+                        <th>사망자 수</th>
+                        <th>부상자 수</th>
+                        <th>중상자 수</th>
+                        <th>경상자 수</th>
+                        <th>안전점수</th>
+                        <th>등급</th>
+                        <th>등록일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="accident : ${accidents}">
+                        <td th:text="${accident.laId}"></td>
+                        <td th:text="${accident.laMajorRegion + ' - ' + accident.laMinorRegion}"></td>
+                        <td th:text="${accident.laLocalCnt}"></td>
+                        <td th:text="${accident.laDeathCnt}"></td>
+                        <td th:text="${accident.laInjuryCnt}"></td>
+                        <td th:text="${accident.laSeriousCnt}"></td>
+                        <td th:text="${accident.laMinorCnt}"></td>
+                        <td th:text="${accident.laSafeScore}"></td>
+                        <td th:text="${accident.laGrade}"></td>
+                        <td th:text="${#dates.format(accident.laRegDt, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            // 대분류 지역 변경 시 소분류 지역 목록 업데이트
+            $('#majorRegion').change(function() {
+                var majorRegion = $(this).val();
+                $.getJSON('/api/minorRegions?majorRegion=' + majorRegion, function(data) {
+                    var options = '';
+                    $.each(data, function(index, region) {
+                        options += '<option value="' + region + '">' + region + '</option>';
+                    });
+                    $('#minorRegion').html(options);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
