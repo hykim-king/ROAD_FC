@@ -323,12 +323,12 @@
     <!-- 네비게이션 바 끝 -->
 
 	<div class= "d-flex justify-content-center">
-    <ul class="smenu-grid mt-3">
-        <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
-        <li><a href="/DataChart/list">지역별 사고 데이터</a></li>
-        <li><a href="/DataChart/clist">명절 교통량 데이터</a></li>
-        <li><a href="/DataChart/weatherAccidentData">도로 날씨 별 사고 데이터</a></li>
-    </ul>
+	    <ul class="smenu-grid mt-3">
+	        <li><a th:href="@{/DataChart/datalist}">사고 증가량 데이터</a></li>
+	        <li><a th:href="@{/DataChart/localAccidentData}">지역별 사고 데이터</a></li>
+	        <li><a th:href="@{/DataChart/comparisonData}">명절 교통량 데이터</a></li>
+	        <li><a th:href="@{/DataChart/weatherAccidentData}">도로 날씨 별 사고 데이터</a></li>
+	    </ul>
     </div>
 
     <h2 class="text-center mb-4">도로 날씨 별 사고 데이터</h2>
