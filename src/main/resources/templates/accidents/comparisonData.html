@@ -57,6 +57,7 @@
         border-radius: var(--border-radius);
         margin-bottom: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #000;
     }
     
     .navbar-brand, .nav-link {
@@ -300,6 +301,23 @@
             flex: 1 1 100%;
         }
     }
+    
+    .search-area_gus{
+    width:100%;
+    margin-bottom: 31px;
+    padding: 14px 0 14px 30px;
+    box-sizing: border-box;
+    background-color: #F4F5FB;
+    border: 1px solid #DEDEDE;
+    }
+    
+    .sub-top{
+    width:100%;
+    margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
+    border-bottom: 4px solid #ADD8E6;
+    }
+    
 </style>
 <body class="container mt-4">
 
@@ -320,6 +338,13 @@
             </div>
         </div>
     </nav>
+    <!-- 네비게이션 바 끝 -->
+    
+    <div class="sub-top">
+	    <h5 class="text-left mb-4" style="padding-bottom:5px;"><i class="bi bi-graph-up me-2"></i>주요 교통사고 통계</h5>
+    	<h2 class="text-left mb-4">명절 교통량 데이터</h2>
+	    <h5 class="text-left mb-4">교통사고 통계를 한눈에 볼수 있습니다.</h5>
+	</div>    
 
 	<div class= "d-flex justify-content-center">
 	    <ul class="smenu-grid mt-3">
@@ -329,10 +354,9 @@
 	        <li><a th:href="@{/DataChart/weatherAccidentData}">도로 날씨 별 사고 데이터</a></li>
 	    </ul>
     </div>
-
-    <h2 class="text-center mb-4">명절 교통량 데이터</h2>
     
     <!-- 필터링  -->
+    <div class="search-area_gus">
     <form method="get" th:action="@{/DataChart/comparisonData}" class="row g-3">
         <div class="col-md-3">
             <label for="year" class="form-label">연도</label>
@@ -373,6 +397,7 @@
             <button type="submit" class="btn btn-primary w-100" id="searchBtn">검색</button>
         </div>
     </form>
+    </div>
     <!-- 필터링 폼 -->
     
     <!-- 교통량 데이터 -->
