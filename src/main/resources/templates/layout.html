@@ -49,5 +49,22 @@
 	<th:block layout:fragment="script"></th:block>
 	<!-- javascript 종료 -->
 </div>
+
+<link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<title>Spring Bootstrap</title>
+</head>
+<body>
+<!-- top menu -->
+	<div th:replace="~{navbar :: navbarFragment}"></div>
+<!-- top menu end -->
+<!-- 기본 템플릿 안에 삽입될 내용 start -->
+	<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 end -->
+<script th:src="@{/bootstrap.min.js}"></script>
+<!-- javascript 시작 -->
+	<th:block layout:fragment="script"></th:block>
+<!-- javascript 종료 -->
+
 </body>
 </html>
