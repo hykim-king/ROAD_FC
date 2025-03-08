@@ -110,7 +110,7 @@
 		</div>
 		
         <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">검색</button>
+            <button type="submit" class="btn btn-primary w-100" id="searchBtn">검색</button>
         </div>
     </form>
     <!-- 필터링 폼 -->
@@ -166,15 +166,18 @@
             <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
             </li>
+            
             <!-- 1,2,3,.... 페이지 번호 제한 -->
             <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
                 <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
             </li>
+            
             <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
             <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
             </li>
+            
            <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
             <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
@@ -198,67 +201,86 @@ $(document).ready(function () {
     let chart = null;
     let rawData = /*[[${getYearlyWeatherDataJson}]]*/ '[]';
     let initialData = parseJSONData(rawData);
-
     console.log("📊 초기 데이터 로드:", initialData);
     createBarChart(initialData);
+    
+    // 페이지 로드 완료 후 데이터 로드 및 차트 업데이트
+    fetchDataAndUpdateChart();
+    
+    // 검색 폼 제출 시 페이지 번호 초기화
+    $("#searchBtn").on("click", function() {
+        document.getElementById("page").value = 0;
+        // 현재 선택된 필터 값으로 hidden 폼 값 업데이트
+        updateHiddenFormValues();
+        // 검색 후 차트 업데이트
+        fetchDataAndUpdateChart();
+    });
+    
+    // 필터 값이 변경될 때마다 hidden 폼 값 업데이트
+    $("#year, #roadType, #accidentType").on("change", function() {
+        updateHiddenFormValues();
+    });
     
     // 페이지네이션 링크 이벤트 처리
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function(element){
-        element.addEventListener("click", function(){
+        element.addEventListener("click", function(e){
+        	// 기본 동작 방지
+            e.preventDefault();
             console.log('element_click:' + this.dataset.page);
             
             // 페이지 번호 업데이트
             document.getElementById("page").value = this.dataset.page;
-    
-            // 현재 필터 값을 숨겨진 폼에 복사
-            document.getElementById("formYear").value = document.getElementById("year").value;
-            document.getElementById("formRoadType").value = document.getElementById("roadType").value;
-            document.getElementById("formAccidentType").value = document.getElementById("accidentType").value;
             
-            // 폼 제출 전에 차트 데이터도 함께 업데이트
-            fetchDataForPageChange(this.dataset.page);
+            // 현재 선택된 필터 값들을 그대로 유지
+            document.getElementById("formYear").value = $("#year").val() || "";
+            document.getElementById("formRoadType").value = $("#roadType").val() || "";
+            document.getElementById("formAccidentType").value = $("#accidentType").val() || "";
+           
+            // 폼 제출
+            document.getElementById("searchForm").submit();
         });
     });
     
-    // 페이지 변경 시 데이터 가져오기 함수
-    async function fetchDataForPageChange(page) {
-        let year = $("#year").val();
-        let roadType = $("#roadType").val();  
-        let accidentType = $("#accidentType").val();  
-        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${page}`;
-
-        try {
-            let response = await fetch(url);
-            if (!response.ok) throw new Error("Network response was not ok");
-            let data = await response.json();
-            console.log("📊 페이지 변경에 따른 데이터:", data);
-
-            if (!Array.isArray(data)) throw new Error("Invalid data format");
-            updateChart(data);
-            
-            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
-            document.getElementById("searchForm").submit();
-        } catch (error) {
-            console.error("❌ 페이지 변경 데이터 불러오기 오류:", error);
-            // 오류 발생 시에도 폼은 제출
-            document.getElementById("searchForm").submit();
-        }
+    // hidden 폼 값 업데이트 함수
+    function updateHiddenFormValues() {
+        document.getElementById("formYear").value = document.getElementById("year").value;
+        document.getElementById("formRoadType").value = document.getElementById("roadType").value;
+        document.getElementById("formAccidentType").value = document.getElementById("accidentType").value;
+    }
+    
+    // 페이지네이션 UI 업데이트 함수
+    function updatePaginationUI(pageNum) {
+        const page_elements = document.getElementsByClassName("page-link");
+        Array.from(page_elements).forEach(function(element){
+            // 현재 페이지 클래스 처리
+            if(element.dataset.page === pageNum) {
+                element.parentElement.classList.add('active');
+            } else {
+                element.parentElement.classList.remove('active');
+            }
+        });
     }
     
     // 폼 제출 핸들러
     $("form").on("submit", function(event) {
-        event.preventDefault();
-        fetchDataAndUpdateChart();
+        if($(this).attr('id') !== 'searchForm') {
+            event.preventDefault();
+            // 검색 폼이 제출될 때 hidden form에 값 업데이트
+            updateHiddenFormValues();
+            // searchForm을 대신 제출
+            document.getElementById("searchForm").submit();
+        }
     });
-
+    
     // 데이터 가져오기 및 차트 업데이트 함수
     async function fetchDataAndUpdateChart() {
         let year = $("#year").val();
         let roadType = $("#roadType").val();  
-        let accidentType = $("#accidentType").val();  
-        let page = $('#page').val();
-        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${page}`;
+        let accidentType = $("#accidentType").val();
+        let currentPage = $('#page').val();
+        
+        let url = `/DataChart/wlist1/json?year=${year}&roadType=${encodeURIComponent(roadType)}&accidentType=${encodeURIComponent(accidentType)}&page=${currentPage}`;
 
         try {
             let response = await fetch(url);
@@ -267,8 +289,14 @@ $(document).ready(function () {
             console.log("📊 필터링된 데이터:", data);
 
             if (!Array.isArray(data)) throw new Error("Invalid data format");
-            updateChart(data);
-            updateTable(data);
+            if (data.length > 0) {
+                updateChart(data);
+                updateTable(data);
+            } else {
+                // 데이터가 없는 경우 기본 차트를 유지하거나 빈 차트 표시
+                console.log("데이터가 없습니다, 기본 차트 유지");
+            }
+            
         } catch (error) {
             console.error("❌ 데이터 불러오기 오류:", error);
         }
@@ -286,13 +314,12 @@ $(document).ready(function () {
 
     // 📌 차트 생성 함수
     function createBarChart(data) {
-    	
-    	// 이전 차트 파괴
         if (chart) {
-            chart.destroy(); 
+            chart.destroy(); // 이전 차트 파괴
         }
 
         let ctx = document.getElementById('roadChart').getContext("2d");
+        
         chart = new Chart(ctx, {
             type: "bar",
             data: {
@@ -384,6 +411,11 @@ $(document).ready(function () {
     function updateTable(data) {
         let tableBody = $(".table tbody");
         tableBody.empty();
+        
+        // 현재 페이지 번호 가져오기
+        let currentPage = parseInt($("#page").val() || 0);
+        // 페이지 크기(default:10)
+        let pageSize = 10;
 
         if (!Array.isArray(data) || data.length === 0) {
             tableBody.append('<tr><td colspan="11" class="text-center">데이터가 없습니다.</td></tr>');
@@ -391,8 +423,11 @@ $(document).ready(function () {
         }
 
         data.forEach((item, index) => {
+        	
+        	let itemNumber = (currentPage * pageSize) + (index +1);
+        	
             let row = `<tr>
-                <td>${index + 1}</td>
+            	<td>${itemNumber}</td>
                 <td>${item.waYear || '-'}</td>
                 <td>${item.waRoadType || '-'}</td>
                 <td>${item.waAccidentType || '-'}</td>

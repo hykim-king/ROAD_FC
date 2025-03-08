@@ -10,6 +10,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
+<!-- 🚀 2x2 박스형 메뉴 추가 -->
+<style>
+   .smenu-grid {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 10px;
+       padding: 0;
+       list-style: none;
+       justify-content: center; /* 가운데 정렬 */
+   }
+   .smenu-grid li {
+       flex: 1 1 calc(50% - 10px);
+       background-color: #f8f9fa;
+       padding: 15px;
+       text-align: center;
+       border: 1px solid #ddd;
+       border-radius: 8px;
+   }
+   .smenu-grid li a {
+       display: block;
+       text-decoration: none;
+       color: black;
+       font-weight: bold;
+   }
+</style>
 <body class="container mt-4">
 
     <!-- 네비게이션 바 추가 -->
@@ -42,32 +67,6 @@
     </nav>
     <!-- 네비게이션 바 끝 -->
 
-    <!-- 🚀 2x2 박스형 메뉴 추가 -->
-    <style>
-        .smenu-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 0;
-            list-style: none;
-            justify-content: center; /* 가운데 정렬 */
-        }
-        .smenu-grid li {
-            flex: 1 1 calc(50% - 10px);
-            background-color: #f8f9fa;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .smenu-grid li a {
-            display: block;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-    </style>
-
 	<div class= "d-flex justify-content-center">
     <ul class="smenu-grid mt-3">
         <li><a href="/DataChart/dlist">사고 증가량 데이터</a></li>
@@ -85,7 +84,8 @@
             <label for="year" class="form-label">연도 선택</label>
             <select class="form-select" id="year" name="year">
                 <option value="">전체</option>
-                <option th:each="y : ${years}" th:value="${y}" th:text="${y}" th:selected="${selectedYear == y}"></option>
+                <option th:each="year : ${years}" th:value="${year}" 
+                		th:text="${year}" th:selected="${selectedYear == year}"></option>
             </select>
         </div>
 
@@ -93,8 +93,8 @@
             <label for="majorRegion" class="form-label">시/도 선택</label>
             <select class="form-select" id="majorRegion" name="majorRegion">
                 <option value="">전체</option>
-                <option th:each="region : ${majorRegions}" th:value="${region}"
-                        th:text="${region}" th:selected="${selectedMajorRegion == region}"></option>
+                <option th:each="majorRegion : ${majorRegions}" th:value="${majorRegion}"
+                        th:text="${majorRegion}" th:selected="${selectedMajorRegion == majorRegion}"></option>
             </select>
         </div>
 
@@ -102,13 +102,13 @@
             <label for="minorRegion" class="form-label">시/군/구 선택</label>
             <select class="form-select" id="minorRegion" name="minorRegion">
                 <option value="">전체</option>
-                <option th:each="mRegion : ${minorRegions}" th:value="${mRegion}"
-                        th:text="${mRegion}" th:selected="${selectedMinorRegion == mRegion}"></option>
+                <option th:each="minorRegion : ${minorRegions}" th:value="${minorRegion}"
+                        th:text="${minorRegion}" th:selected="${selectedMinorRegion == minorRegion}"></option>
             </select>
         </div>
 
         <div class="col-md-3 d-flex align-items-end">        	
-            <button type="submit" class="btn btn-primary w-100">검색</button>
+            <button type="submit" class="btn btn-primary w-100" id="searchBtn">검색</button>
         </div>
     </form>
     <!-- 필터링 폼 -->
@@ -183,6 +183,7 @@
         </ul>
     </div>  
 <!-- paging end--------------------------------------------- -->
+
 <form th:action="@{/DataChart/list}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
     <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
@@ -194,172 +195,126 @@
 
 <!-- 스크립트 -->
 <script th:inline="javascript">
+// 📌 시/도 변경 시 시/군/구 업데이트
+$("#majorRegion").change(function () {
+    let selectedMajorRegion = $(this).val();
+    let minorRegionDropdown = $("#minorRegion");
+
+    // 기존 옵션 제거 후 기본 옵션 추가
+    minorRegionDropdown.empty().append("<option value=''>전체</option>");
+
+    if (selectedMajorRegion) {
+        $.get("/DataChart/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
+            console.log("Received minorRegions data:", data); // 데이터 확인
+
+            if (Array.isArray(data)) {
+                $.each(data, function (index, value) {
+                    minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
+                });
+            } else {
+                console.error("Unexpected data format:", data);
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error fetching minorRegions:", status, error);
+        });
+    }
+});
+
 $(document).ready(function () {
 	// 전역 변수 선언 (차트 객체)
-    let chart;
     // 📌 페이지 로드 시 최초 차트 데이터 가져오기
     // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
-    let rawData = /*[[${yearlyAccidentDataJson}]]*/ []; 
+    let chart = null;
+    let rawData = /*[[${yearlyAccidentDataJson}]]*/ '[]'; 
     let initialData = parseJSONData(rawData); 
     console.log("📊 초기 데이터 로드:", initialData);
-	// 차트 생성
     createBarChart(initialData);
-
-    // 📌 시/도 변경 시 시/군/구 업데이트
-    $("#majorRegion").change(function () {
-        let selectedMajorRegion = $(this).val();
-        let minorRegionDropdown = $("#minorRegion");
-
-        // 기존 옵션 제거 후 기본 옵션 추가
-        minorRegionDropdown.empty().append("<option value=''>전체</option>");
-
-        if (selectedMajorRegion) {
-            $.get("/DataChart/minorRegions", { majorRegion: selectedMajorRegion }, function (data) {
-                console.log("Received minorRegions data:", data); // 데이터 확인
-
-                if (Array.isArray(data)) {
-                    $.each(data, function (index, value) {
-                        minorRegionDropdown.append(`<option value="${value}">${value}</option>`);
-                    });
-                } else {
-                    console.error("Unexpected data format:", data);
-                }
-            }).fail(function (xhr, status, error) {
-                console.error("Error fetching minorRegions:", status, error);
-            });
-        }
+    
+    // 페이지 로드 완료 후 데이터 로드 및 차트 업데이트
+    fetchDataAndUpdateChart();
+    
+    // 검색 폼 제출 시 페이지 번호 초기화
+    $("#searchBtn").on("click", function() {
+        document.getElementById("page").value = 0;
+        // 현재 선택된 필터 값으로 hidden 폼 값 업데이트
+        updateHiddenFormValues();
+        // 검색 후 차트 업데이트
+        fetchDataAndUpdateChart();
+    });
+    
+    // 필터 값이 변경될 때마다 hidden 폼 값 업데이트
+    $("#year, #majorRegion, #minorRegion").on("change", function() {
+        updateHiddenFormValues();
     });
     
     // 페이지네이션 링크 이벤트 처리
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function(element){
-        element.addEventListener("click", function(){
-            console.log('element_click:' + this.dataset.page);                                            
-            
-            // 현재 선택된 필터 값들을 가져오기
-            let currentYear = document.getElementById("year").value;
-            let currentMajorRegion = document.getElementById("majorRegion").value;
-            let currentMinorRegion = document.getElementById("minorRegion").value;
+        element.addEventListener("click", function(e){
+            e.preventDefault(); // 기본 동작 방지
+            console.log('element_click:' + this.dataset.page);
             
             // 페이지 번호 업데이트
             document.getElementById("page").value = this.dataset.page;
             
-            // 현재 필터 값을 숨겨진 폼에 명시적으로 설정
-            document.getElementById("formYear").value = currentYear;
-            document.getElementById("formMajorRegion").value = currentMajorRegion;
-            document.getElementById("formMinorRegion").value = currentMinorRegion;
-            
-            // 폼 제출 전에 차트 데이터도 함께 업데이트
-            fetchDataForPageChange(this.dataset.page);
+            // 현재 선택된 필터 값들을 그대로 유지
+            document.getElementById("formYear").value = $("#year").val() || "";
+            document.getElementById("formMajorRegion").value = $("#majorRegion").val() || "";
+            document.getElementById("formMinorRegion").value = $("#minorRegion").val() || "";
+        
+            // 폼 제출
+            document.getElementById("searchForm").submit();
+
         });
     });
+
+   
+    // hidden 폼 값 업데이트 함수
+    function updateHiddenFormValues() {
+        document.getElementById("formYear").value = document.getElementById("year").value;
+        document.getElementById("formMajorRegion").value = document.getElementById("majorRegion").value;
+        document.getElementById("formMinorRegion").value = document.getElementById("minorRegion").value;
+    }
+    
+    // 폼 제출 핸들러
+    $("form").on("submit", function(event) {
+        if($(this).attr('id') !== 'searchForm') {
+            event.preventDefault();
+            // 검색 폼이 제출될 때 hidden form에 값 업데이트
+            updateHiddenFormValues();
+            // searchForm을 대신 제출
+            document.getElementById("searchForm").submit();
+        }
+    });
          
-    // 페이지 변경 시 데이터 가져오기 함수
-    async function fetchDataForPageChange(page) {
+    // 데이터 가져오기 및 차트 업데이트 함수
+    async function fetchDataAndUpdateChart() {
         let year = $("#year").val();
         let majorRegion = $("#majorRegion").val();  
         let minorRegion = $("#minorRegion").val();  
-        let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
+        let currentPage = $('#page').val();
 
+        let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${currentPage}`;
+        
         try {
             let response = await fetch(url);
             if (!response.ok) throw new Error("Network response was not ok");
             let data = await response.json();
-            console.log("📊 페이지 변경에 따른 데이터:", data);
+            console.log("📊 필터링된 데이터:", data);
 
             if (!Array.isArray(data)) throw new Error("Invalid data format");
-            updateChart(data);
-            updateTable(data);
+            if (data.length > 0) {
+                updateChart(data);
+                updateTable(data);
+            } else {
+                // 데이터가 없는 경우 기본 차트를 유지하거나 빈 차트 표시
+                console.log("데이터가 없습니다, 기본 차트 유지");
+            }
             
-         	// 데이터가 10건 이하일 경우 페이징 숨기기
-            updatePagingVisibility(data);
-            
-            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
-            document.getElementById("searchForm").submit();
-            document.getElementById("filterForm").submit();
         } catch (error) {
-            console.error("❌ 페이지 변경 데이터 불러오기 오류:", error);
-            // 오류 발생 시에도 폼은 제출
-            document.getElementById("searchForm").submit();
+            console.error("❌ 데이터 불러오기 오류:", error);
         }
     }
-
-    // 폼 제출 핸들러
-    $("form").on("submit", function(event) {
-        event.preventDefault();
-        fetchDataAndUpdateChart();
-    });
-    
-	 // 📌 페이징 표시 여부 업데이트 함수
-	    function updatePagingVisibility(data) {
-	        let paginationElement = $(".pagination"); // 페이지네이션 요소 선택
-	        // ✅ 필터링된 데이터 개수가 아니라, 전체 데이터 개수를 기준으로 체크
-	        let totalElements = data.totalElements || (Array.isArray(data) ? data.length : 0);
-
-	        if (totalElements <= 10) {
-	            paginationElement.hide();
-	        } else {
-	            paginationElement.show();
-	        }
-	    }
-    
-    // 데이터 가져오기 및 차트 업데이트 함수
-	async function fetchDataAndUpdateChart() {
-	    let year = $("#year").val();
-	    let majorRegion = $("#majorRegion").val();
-	    let minorRegion = $("#minorRegion").val();
-	    let page = $('#page').val();
-	    let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
-	
-	    try {
-	        let response = await fetch(url);
-	        if (!response.ok) throw new Error("Network response was not ok");
-	        let data = await response.json();
-	        console.log("📊 필터링된 데이터:", data);
-	
-	        if (!Array.isArray(data)) throw new Error("Invalid data format");
-	        updateChart(data);
-	        updateTable(data);
-	        
-            // 데이터가 10건 이하일 경우 페이징 숨기기
-            updatePagingVisibility(chartData);
-            
-            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
-            document.getElementById("searchForm").submit();
-            document.getElementById("filterForm").submit();
-	    } catch (error) {
-	        console.error("❌ 데이터 불러오기 오류:", error);
-	        // 오류 발생 시에도 폼은 제출
-	        document.getElementById("searchForm").submit();
-	    }
-	}
-
-	// 📌 데이터 가져오기 및 차트 업데이트 함수
-	async function fetchDataAndUpdateChart() {
-	    let year = $("#year").val();
-	    let majorRegion = $("#majorRegion").val();
-	    let minorRegion = $("#minorRegion").val();
-	    let page = $('#page').val();
-	    let url = `/DataChart/list1/json?year=${year}&majorRegion=${encodeURIComponent(majorRegion)}&minorRegion=${encodeURIComponent(minorRegion)}&page=${page}`;
-
-	    try {
-	        let response = await fetch(url);
-	        if (!response.ok) throw new Error("Network response was not ok");
-	        let data = await response.json();
-	        console.log("📊 필터링된 데이터:", data);
-
-	        // ✅ data가 배열인지 확인하고, 아니면 data.content와 같은 속성을 확인
-	        let chartData = Array.isArray(data) ? data : (data.content || []);
-	        
-	        updateChart(chartData);
-	        updateTable(chartData);
-	        
-	        // ✅ 데이터 개수가 10건 이하일 경우 페이징 숨기기
-	        updatePagingVisibility(chartData);
-	    } catch (error) {
-	        console.error("❌ 데이터 불러오기 오류:", error);
-	    }
-	}
     
     // JSON 데이터 파싱 함수
     function parseJSONData(rawData) {
@@ -373,13 +328,12 @@ $(document).ready(function () {
 
     // 📌 차트 생성 함수
     function createBarChart(data) {
-
-    	// 이전 차트 파괴
         if (chart) {
             chart.destroy(); 
         }
 
         let ctx = document.getElementById('accidentChart').getContext('2d');
+        
         chart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -461,19 +415,25 @@ $(document).ready(function () {
 
     // 📌 테이블 업데이트 함수
     function updateTable(data) {
-    	// 테이블의 tbody 선택
         let tableBody = $(".table tbody");
-     	// 기존 데이터 초기화
         tableBody.empty();
-
+        
+        // 현재 페이지 번호 가져오기
+        let currentPage = parseInt($("#page").val() || 0);
+        // 페이지 크기(default:10)
+        let pageSize = 10;
+        
         if (!Array.isArray(data) || data.length === 0) {
             tableBody.append('<tr><td colspan="11" class="text-center">데이터가 없습니다.</td></tr>');
             return;
         }
 
         data.forEach((item, index) => {
+        	
+        	let itemNumber = (currentPage * pageSize) + (index +1);
+        	
             let row = `<tr>
-                <td>${index + 1}</td>
+                <td>${itemNumber}</td>
                 <td>${item.laYear || 0}</td>
                 <td>${item.laMajorRegion || '-'}</td>
                 <td>${item.laMinorRegion || '-'}</td>

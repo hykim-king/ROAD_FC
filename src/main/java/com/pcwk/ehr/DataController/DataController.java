@@ -72,19 +72,19 @@ public class DataController {
 	        @RequestParam(value = "minorRegion", required = false) String minorRegion,
 	        @RequestParam(value = "keyword", required = false) String keyword,
 	        @RequestParam(value = "page", defaultValue = "0") int page,
-	        @RequestParam(value = "size", defaultValue = "10") int size, Model model) throws JsonProcessingException {
+	        @RequestParam(value = "size", defaultValue = "10") int size, 
+	        Model model) throws JsonProcessingException {
   
+		Page<LocalAccident> pagedAccidents;
 	    Pageable pageable = PageRequest.of(page, size);
-	    log.info("pageable:{}",pageable);
-	    Page<LocalAccident> pagedAccidents;
 
-//	    if (keyword != null && !keyword.isEmpty()) {
-//	        pagedAccidents = localAccidentService.getPagedLocalAccidents(keyword, page, size);
-//	    } else if (year != null || (majorRegion != null && !majorRegion.isEmpty()) || (minorRegion != null && !minorRegion.isEmpty())) {
-//	        pagedAccidents = localAccidentService.getAccidentsFilteredPaged(year, majorRegion, minorRegion, pageable);
-//	    } else {
+	    if (keyword != null && !keyword.isEmpty()) {
+	        pagedAccidents = localAccidentService.getPagedLocalAccidents(keyword, page, size);
+	    } else if (year != null || (majorRegion != null && !majorRegion.isEmpty()) || (minorRegion != null && !minorRegion.isEmpty())) {
+	        pagedAccidents = localAccidentService.getAccidentsFilteredPaged(year, majorRegion, minorRegion, pageable);
+	    } else {
 	        pagedAccidents = localAccidentService.getAllLocalAccidentsPaged(pageable);
-//	    }
+	    }
 
 	    List<Integer> yearsList = localAccidentService.getAllYears();
 	    List<String> majorRegions = localAccidentService.getAllMajorRegions();
@@ -104,8 +104,8 @@ public class DataController {
 	    String jsonData = new ObjectMapper().writeValueAsString(transformedData);
 
 	    model.addAttribute("accidents", pagedAccidents.getContent());
+	    model.addAttribute("DataJson", jsonData); // 변환된 JSON 데이터
 	    model.addAttribute("paging", pagedAccidents);
-	    log.info("paging: " + pagedAccidents);
 	    model.addAttribute("years", localAccidentService.getAllYears());
 	    model.addAttribute("majorRegions", localAccidentService.getAllMajorRegions());
 	    model.addAttribute("minorRegions", localAccidentService.getAllMinorRegions());
@@ -113,21 +113,27 @@ public class DataController {
 	    model.addAttribute("selectedMajorRegion", majorRegion);
 	    model.addAttribute("selectedMinorRegion", minorRegion);
 	    model.addAttribute("keyword", keyword);
-	    model.addAttribute("yearlyAccidentDataJson", jsonData); // 변환된 JSON 데이터
+	    model.addAttribute("yearlyAccidentDataJson", new ObjectMapper().writeValueAsString(transformedData));
 
 	    return "accidents/list";
 	}
-
 
 	/**
 	 * 1 연도별 사고 건수 데이터를 JSON으로 반환하는 API
 	 */
 	@GetMapping("/list/json")
-	public ResponseEntity<String> getYearlyAccidentData() throws JsonProcessingException {
+	public ResponseEntity<List<Map<String, Object>>> getYearlyAccidentData() throws JsonProcessingException {
 		List<Object[]> yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
-		log.info("yearlyAccidentData: {}", Arrays.deepToString(yearlyAccidentData.toArray()));
-		String jsonData = new ObjectMapper().writeValueAsString(yearlyAccidentData);
-		return ResponseEntity.ok(jsonData);
+		List<Map<String, Object>> transData = new ArrayList<>();
+		
+		for(Object[] data : yearlyAccidentData) {
+			Map<String, Object> dataMap = new HashMap<>();
+			dataMap.put("year", data[0]);
+			dataMap.put("localCnt", data[1]);
+			transData.add(dataMap);
+		}
+		
+		return ResponseEntity.ok(transData);
 	}
 
 	/**
@@ -146,24 +152,27 @@ public class DataController {
 	 * 1 필터링된 사고 데이터를 JSON으로 반환하는 API
 	 */
 	@GetMapping("/list1/json")
-	public ResponseEntity<Page<LocalAccident>> getAccidentData(
+	public ResponseEntity<List<LocalAccident>> getAccidentData(
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "majorRegion", required = false) String majorRegion,
 			@RequestParam(value = "minorRegion", required = false) String minorRegion,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-
-		log.info(">>> Fetching paged accidents JSON - Year: {}, MajorRegion: {}, MinorRegion: {}, Page: {}, Size: {}",
-				year, majorRegion, minorRegion, page, size);
-
+		
 		Pageable pageable = PageRequest.of(page, size);
-		Page<LocalAccident> accidents = localAccidentService.getAccidentsFilteredPaged(year, majorRegion, minorRegion,
-				pageable);
+		Page<LocalAccident> pagedAccidents;
+		
+		if (year == null && (majorRegion == null || majorRegion.isEmpty()) && (minorRegion == null || minorRegion.isEmpty())) {  
+			pagedAccidents = localAccidentService.getAllLocalAccidentsPaged(pageable);
+		} else {
+			pagedAccidents = localAccidentService.getAccidentsFilteredPaged(year, majorRegion, minorRegion, pageable);
+		}
+		
+  
+        log.info("Filtered Data: {}", pagedAccidents.getContent());
 
-		log.info(">>> Returning {} accident records as JSON", accidents.getTotalElements());
-		return ResponseEntity.ok(accidents);
+		return ResponseEntity.ok(pagedAccidents.getContent());
 	}
-
 
 	/**
 	 * 2 명절교통량비교테이블
@@ -183,12 +192,17 @@ public class DataController {
 	        @RequestParam(value = "size", defaultValue = "10") int size,
 	        Model model) throws JsonProcessingException {
 
+		Page<TrafficComparison> pagedComparison;
 	    Pageable pageable = PageRequest.of(page, size);
-	    Page<TrafficComparison> pagedComparison;
-
-	    //필터링된 데이터를 페이징 처리하여 가져오기
-	    pagedComparison = trafficComparisonService.getComparisonPaged(
-	            year, specialday, specialdaytype, hour, trfl, prevtrfl, changetrfl, ratetrfl, keyword, pageable);
+	    
+	    if (keyword != null && !keyword.isEmpty()) {
+	        pagedComparison = trafficComparisonService.getComparisonPaged(year, specialday, specialdaytype, hour, trfl, prevtrfl, changetrfl, ratetrfl, keyword, pageable);
+	    } else if (year != null || (specialday != null && !specialday.isEmpty()) || (specialdaytype != null && !specialdaytype.isEmpty())
+	            || (hour != null)) {
+	        pagedComparison = trafficComparisonService.getComparisonFilteredPaged(year, specialday, specialdaytype, hour, pageable);
+	    } else {
+	        pagedComparison = trafficComparisonService.getAllTrafficComparisonsPaged(pageable);
+	    }
 
 	    // 드롭다운 필터 옵션 데이터
 	    List<Integer> yearList = trafficComparisonService.getAllYears();
@@ -415,6 +429,8 @@ public class DataController {
 		model.addAttribute("allYears", yearAccidentService.getAllYears());
 		model.addAttribute("allData", yearAccidentService.getAllAccidentsWithRates());
 		model.addAttribute("allDataJson", jsonData); // 전체 데이터 JSON 추가
+		model.addAttribute("paging", pageAccidents);  // ✅ 페이징 객체 추가
+
 		return "accidents/dlist";
 	}
 	

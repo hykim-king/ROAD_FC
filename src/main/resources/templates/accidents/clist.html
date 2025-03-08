@@ -82,12 +82,11 @@
     
     <!-- 필터링  -->
     <form method="get" th:action="@{/DataChart/clist}" class="row g-3">
-    
         <div class="col-md-3">
             <label for="year" class="form-label">연도</label>
             <select class="form-select" id="year" name="year">
                 <option value="">전체</option>
-                <option th:each="y :${years}" th:value="${y}" th:text="${y}" th:selected="${selected == y}"></option>
+                <option th:each="year :${years}" th:value="${year}" th:text="${year}" th:selected="${selected == year}"></option>
             </select>
         </div>
     
@@ -95,8 +94,8 @@
             <label for="specialday" class="form-label">명절</label>
             <select class="form-select" id="specialday" name="specialday">
                 <option value="">전체</option>
-                <option th:each="day : ${specialday}" th:value="${day}"
-                        th:text="${day}" th:selected="${selectedDay == day}"></option>
+                <option th:each="specialday : ${specialday}" th:value="${specialday}"
+                        th:text="${specialday}" th:selected="${selectedDay == specialday}"></option>
             </select>
         </div>
         
@@ -104,8 +103,8 @@
             <label for="specialdaytype" class="form-label">세부날짜</label>
             <select class="form-select" id="specialdaytype" name="specialdaytype">
                 <option value="">전체</option>
-                <option th:each="type : ${specialdaytype}" th:value="${type}"
-                        th:text="${type}" th:selected="${selectedType == type}"></option>
+                <option th:each="specialdaytype : ${specialdaytype}" th:value="${specialdaytype}"
+                        th:text="${specialdaytype}" th:selected="${selectedType == specialdaytype}"></option>
             </select>
         </div>
         
@@ -119,9 +118,10 @@
         </div>
         
         <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">검색</button>
+            <button type="submit" class="btn btn-primary w-100" id="searchBtn">검색</button>
         </div>
     </form>
+    <!-- 필터링 폼 -->
     
     <!-- 교통량 데이터 -->
     <div class="mt-4">
@@ -159,117 +159,148 @@
     </div>
 	
     <!-- paging start -->
-    <div th:if="${!paging.isEmpty()}">
-        <ul class="pagination justify-content-center">
-            <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
-            <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
-            </li>
-        
-            <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
-            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
-            </li>
-            
-            <!-- 1,2,3,.... 페이지 번호 제한 -->
-            <li th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
-                th:classappend="${page == paging.number} ? 'active'" class="page-item">
-                <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
-            </li>
-            
-            <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
-            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
-            </li>
-            
-           <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
-            <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
-            </li>
-        </ul>
-    </div>
+	<div th:if="${!paging.isEmpty()}">
+	    <ul class="pagination justify-content-center">
+	        <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
+	        <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+	            <a class="page-link" href="javascript:void(0)" th:data-page="0"><span><i class="bi bi-chevron-double-left"></i></span></a>
+	        </li>
+	    
+	        <!-- 이전: 이전 페이지가 존재하지 않으면 class disabled 추가 -->
+	        <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}"><span>이전</span></a>
+	        </li>
+	        
+	        <!-- 1,2,3,.... 페이지 번호 제한 -->
+	        <li th:each="page : ${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}" th:if="${page >= 0 && page < paging.totalPages}"
+	            th:classappend="${page == paging.number} ? 'active'" class="page-item">
+	            <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}">1</a>
+	        </li>
+	        
+	        <!-- 다음: 다음 페이지가 존재하지 않으면 class disabled 추가 -->
+	        <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">다음</a>
+	        </li>
+	        
+	       <!-- 마지막: 마지막 페이지가 아니면 class disabled 추가 -->
+	        <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+	            <a class="page-link" href="javascript:void(0)" th:data-page="${paging.totalPages-1}"><span><i class="bi bi-chevron-double-right"></i></span></a>
+	        </li>
+	    </ul>
+	</div> 
     <!-- paging end -->
     
  <form th:action="@{/DataChart/clist}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
-    <input type="hidden" id="formYear" name="year" th:value="${selected}">
+    <input type="hidden" id="formYear" name="year" th:value="${selectedYear}">
     <input type="hidden" id="formSpecialDay" name="specialday" th:value="${selectedDay}">
     <input type="hidden" id="formSpecialDayType" name="specialdaytype" th:value="${selectedType}">
     <input type="hidden" id="formHour" name="hour" th:value="${selectedHour}">    
 </form>
     
 <canvas id="trafficChart" style="width: 100%; height: 400px;"></canvas>
-    
+  
+<!-- 스크립트 -->  
 <script th:inline="javascript">
 $(document).ready(function () {
-    // 초기 차트 설정
     let chart = null;
     let rawData = /*[[${comparisonDataJson}]]*/ '[]';
     let initialData = parseJSONData(rawData);  
     
     console.log("📊 초기 데이터 로드:", initialData);
-    createMixedChart(initialData);
+    createBarChart(initialData);
+    
+    // 페이지 로드 완료 후 데이터 로드 및 차트 업데이트
+    fetchDataAndUpdateChart();
+    
+    // 검색 폼 제출 시 페이지 번호 초기화
+    $("#searchBtn").on("click", function() {
+        document.getElementById("page").value = 0;
+        // 현재 선택된 필터 값으로 hidden 폼 값 업데이트
+        updateHiddenFormValues();
+        // 검색 후 차트 업데이트
+        fetchDataAndUpdateChart();
+    });
+    
+    // 필터 값이 변경될 때마다 hidden 폼 값 업데이트
+    $("#year, #specialday, #specialdaytype, #hour").on("change", function() {
+        updateHiddenFormValues();
+    });
     
     // 페이지네이션 링크 이벤트 처리
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function(element){
-        element.addEventListener("click", function(){
-            console.log('element_click:' + this.dataset.page);
+        element.addEventListener("click", function(e){
+            e.preventDefault();
             
             // 페이지 번호 업데이트
             document.getElementById("page").value = this.dataset.page;
             
-            // 현재 필터 값을 숨겨진 폼에 복사
-            document.getElementById("formYear").value = document.getElementById("year").value;
-            document.getElementById("formSpecialDay").value = document.getElementById("specialday").value;
-            document.getElementById("formSpecialDayType").value = document.getElementById("specialdaytype").value;
-            document.getElementById("formHour").value = document.getElementById("hour").value;
+            // 현재 선택된 필터 값들을 그대로 유지
+            document.getElementById("formYear").value = $("#year").val() || "";
+            document.getElementById("formSpecialDay").value = $("#specialday").val() || "";
+            document.getElementById("formSpecialDayType").value = $("#specialdaytype").val() || "";
+            document.getElementById("formHour").value = $("#hour").val() || "";
             
-            // 폼 제출 전에 차트 데이터도 함께 업데이트
-            fetchDataForPageChange(this.dataset.page);
+            // 폼 제출
+            document.getElementById("searchForm").submit();
+            
+            // 페이지 이동 후 차트 업데이트
+            // 주의: submit 이후에는 페이지가 새로고침되므로 이 코드는 실행되지 않습니다.
+            // 페이지 로드 완료 후 fetchDataAndUpdateChart가 호출되도록 해야 합니다.
         });
     });
     
-    // 페이지 변경 시 데이터 가져오기 함수
-    async function fetchDataForPageChange(page) {
-        let year = $("#year").val();
-        let specialday = $("#specialday").val();  
-        let specialdaytype = $("#specialdaytype").val();  
-        let hour = $('#hour').val();
-        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}&page=${page}`;
-
-        try {
-            let response = await fetch(url);
-            if (!response.ok) throw new Error("Network response was not ok");
-            let data = await response.json();
-            console.log("📊 페이지 변경에 따른 데이터:", data);
-
-            if (!Array.isArray(data)) throw new Error("Invalid data format");
-            updateChart(data);
-            
-            // 차트 업데이트 후 폼 제출하여 테이블 페이지네이션 처리
-            document.getElementById("searchForm").submit();
-        } catch (error) {
-            console.error("❌ 페이지 변경 데이터 불러오기 오류:", error);
-            // 오류 발생 시에도 폼은 제출
-            document.getElementById("searchForm").submit();
-        }
+    // hidden 폼 값 업데이트 함수
+    function updateHiddenFormValues() {
+        document.getElementById("formYear").value = $("#year").val() || "";
+        document.getElementById("formSpecialDay").value = $("#specialday").val() || "";
+        document.getElementById("formSpecialDayType").value = $("#specialdaytype").val() || "";
+        document.getElementById("formHour").value = $("#hour").val() || "";
+        
+        console.log("폼 값 업데이트:", {
+            year: $("#year").val(),
+            specialDay: $("#specialday").val(),
+            specialDayType: $("#specialdaytype").val(),
+            hour: $("#hour").val()
+        });
     }
     
     // 폼 제출 핸들러
     $("form").on("submit", function(event) {
-        event.preventDefault();
-        fetchDataAndUpdateChart();
+        if($(this).attr('id') !== 'searchForm') {
+            event.preventDefault();
+            // 검색 폼이 제출될 때 hidden form에 값 업데이트
+            updateHiddenFormValues();
+            // searchForm을 대신 제출
+            document.getElementById("searchForm").submit();
+        }
     });
     
     // 데이터 가져오기 및 차트 업데이트 함수
     async function fetchDataAndUpdateChart() {
-        let year = $("#year").val();
-        let specialday = $("#specialday").val();  
-        let specialdaytype = $("#specialdaytype").val();  
-        let hour = $('#hour').val();
-        let page = $('#page').val();
-        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}&page=${page}`;
+        let year = $("#year").val() || "";
+        let specialday = $("#specialday").val() || "";  
+        let specialdaytype = $("#specialdaytype").val() || "";  
+        let hour = $('#hour').val() || "";
+        let currentPage = $('#page').val() || 0;
+        
+        // 이미 필터링된 값이 있는지 확인
+        if (year === "" && specialday === "" && specialdaytype === "" && hour === "") {
+            // 필터링이 없으면 hidden 폼에서 값 가져오기 (페이지 리로드 후에도 유지)
+            year = $("#formYear").val() || "";
+            specialday = $("#formSpecialDay").val() || "";
+            specialdaytype = $("#formSpecialDayType").val() || "";
+            hour = $("#formHour").val() || "";
+            
+            // 선택 필드에도 값 반영
+            if (year) $("#year").val(year);
+            if (specialday) $("#specialday").val(specialday);
+            if (specialdaytype) $("#specialdaytype").val(specialdaytype);
+            if (hour) $("#hour").val(hour);
+        }
+        
+        let url = `/DataChart/clist1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}&page=${currentPage}`;
 
         try {
             let response = await fetch(url);
@@ -278,13 +309,19 @@ $(document).ready(function () {
             console.log("📊 필터링된 데이터:", data);
 
             if (!Array.isArray(data)) throw new Error("Invalid data format");
-            updateChart(data);
-            updateTable(data);
+            if (data.length > 0) {
+                updateChart(data);
+                updateTable(data);
+            } else {
+                // 데이터가 없는 경우 기본 차트를 유지하거나 빈 차트 표시
+                console.log("데이터가 없습니다, 기본 차트 유지");
+            }
+            
         } catch (error) {
             console.error("❌ 데이터 불러오기 오류:", error);
         }
     }
-
+    
     // JSON 데이터 파싱 함수
     function parseJSONData(rawData) {
         try {
@@ -295,8 +332,8 @@ $(document).ready(function () {
         }
     }
 
-    // 차트 생성 함수
-    function createMixedChart(data) {
+    // 📌 차트 생성 함수
+    function createBarChart(data) {
         if (chart) {
             chart.destroy(); // 이전 차트 파괴
         }
@@ -353,7 +390,7 @@ $(document).ready(function () {
         });
     }
     
-    // 차트 업데이트 함수
+    // 📌 차트 업데이트 함수
     function updateChart(data) {
         if(chart){
             chart.data.labels = data.map(item => item.tcSphldfttNm);
@@ -362,7 +399,7 @@ $(document).ready(function () {
             chart.data.datasets[2].data = data.map(item => item.tcChangeTrfl);
             chart.update(); // 업데이트 반영
         } else{
-            createMixedChart(data);
+            createBarChart(data);
         }
     }
     
@@ -370,6 +407,11 @@ $(document).ready(function () {
     function updateTable(data) {
         let tableBody = $(".table tbody");
         tableBody.empty();
+        
+        // 현재 페이지 번호 가져오기
+        let currentPage = parseInt($("#page").val() || 0);
+        // 페이지 크기(default:10)
+        let pageSize = 10;
 
         if (!Array.isArray(data) || data.length === 0) {
             tableBody.append('<tr><td colspan="9" class="text-center">데이터가 없습니다.</td></tr>');
@@ -377,16 +419,19 @@ $(document).ready(function () {
         }
 
         data.forEach((item, index) => {
+            
+            let itemNumber = (currentPage * pageSize) + (index +1);
+            
             let row = `<tr>
-                <td>${index + 1}</td>
+                <td>${itemNumber}</td>
                 <td>${item.tcStdYear || '데이터 없음'}</td>
                 <td>${item.tcSphldfttNm || '데이터 없음'}</td>
                 <td>${item.tcSphldfttScopTypeNm || '데이터 없음'}</td>
-                <td>${item.tcSydHour !== null && item.tcSydHour !== undefined ? item.tcSydHour : '데이터 없음'}</td>
-                <td>${item.tcTrfl !== null && item.tcTrfl !== undefined ? item.tcTrfl : '데이터 없음'}</td>
-                <td>${item.tcPrevTrfl !== null && item.tcPrevTrfl !== undefined ? item.tcPrevTrfl : '데이터 없음'}</td>
-                <td>${item.tcChangeTrfl !== null && item.tcChangeTrfl !== undefined ? item.tcChangeTrfl : '데이터 없음'}</td>
-                <td>${item.tcRateTrfl !== null && item.tcRateTrfl !== undefined ? item.tcRateTrfl.toFixed(2) + '%' : '데이터 없음'}</td>
+                <td>${item.tcSydHour || 0}</td>
+                <td>${item.tcTrfl || 0}</td>
+                <td>${item.tcPrevTrfl || 0}</td>
+                <td>${item.tcChangeTrfl || 0}</td>
+                <td>${item.tcRateTrfl || 0}</td>
             </tr>`;
             tableBody.append(row);
         });
