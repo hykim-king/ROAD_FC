@@ -32,6 +32,7 @@ import com.pcwk.ehr.report.ReportAnswerForm;
 import com.pcwk.ehr.member.Member;
 import com.pcwk.ehr.member.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RequestMapping("/report/question")
@@ -213,13 +214,15 @@ public class ReportQuestionController {
 	@GetMapping(value = "/list")
 	public String list(Model model,
 			@RequestParam(value = "page", defaultValue = "0")int page
-			,@RequestParam(value = "keyword", defaultValue = "")String keyword) {
+			,@RequestParam(value = "keyword", defaultValue = "")String keyword
+			,HttpServletRequest request) {
 		
 		
 		Page<ReportQuestion> paging = service.getList(page,keyword);
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("currentUrl", request.getRequestURI());
 		log.info("size:"+paging.getSize());
 		
 		return "report/question/question_list";

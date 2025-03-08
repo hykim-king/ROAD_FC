@@ -1,63 +1,6 @@
 <!-- layout:layout.html -->
 <html layout:decorate="~{layout}">
-    <style layout:fragment="style">
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .flex-item-left {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flex-item-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .wid {
-            width: 100%; /* Adjust to 85-90% as needed */
-            margin: 0 auto; /* Center the div */
-        }
-
-        .info-container {
-            display: flex;
-            gap: 10px; /* Add space between 작성일 and 조회수 */
-        }
-
-        .comments-container {
-            display: flex;
-            align-items: center;
-            gap: 5px; /* Add space between elements */
-        }
-
-        .content-padding {
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-
-        .min-height-content {
-            min-height: 200px; /* Adjust the minimum height as needed */
-        }
-
-        .textarea-container {
-            position: relative;
-        }
-
-        .textarea-container textarea {
-            width: 100%;
-            padding-right: 50px; /* Add some padding to the right to make space for the button */
-        }
-
-        .submit-button {
-            position: absolute;
-            bottom: 10px; /* Adjust as needed */
-            right: 10px; /* Adjust as needed */
-        }
-        
-    </style>
-    <div layout:fragment="content" class="container my-3">
+    <div layout:fragment="content" class="myMargin container">
         <!-- 질문과 답변을 감싸는 카드 -->
         <div class="card my-3">
             <div class="wid content-padding">
