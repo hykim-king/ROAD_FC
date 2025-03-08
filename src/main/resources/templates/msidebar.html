@@ -6,7 +6,7 @@
             <a th:href="@{/member/change}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="비밀번호 변경">비밀번호 변경</a>
             <a th:href="@{/member/myquestion}" th:classappend="${page == 'myquestion'} ? 'active'" class="list-group-item list-group-item-action" title="내가 작성한 글">내가 작성한 글</a>
             <a th:href="@{/member/myanswer}" th:classappend="${page == 'myanswer'} ? 'active'" class="list-group-item list-group-item-action" title="내가 작성한 답변">내가 작성한 답변</a>
-            <a th:if="${member.userGrade == 1}" th:href="@{/member/list}" th:classappend="${page == 'manage'} ? 'active'" class="list-group-item list-group-item-action" title="회원관리">회원관리</a>
+            <a th:if="${member != null and member.userGrade == 1}" th:href="@{/member/list}" th:classappend="${page == 'manage'} ? 'active'" class="list-group-item list-group-item-action" title="회원관리">회원관리</a>
         </div>
     </div>
 </aside>

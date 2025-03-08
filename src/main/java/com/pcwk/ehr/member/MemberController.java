@@ -136,26 +136,11 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             return "member/change_pass";
         }
-        if(!pass.getPassword().equals(userDetails.getPassword())) {
-        	 bindingResult.rejectValue("password", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-        }
-        
-        if(!pass.getPassword1().equals(pass.getPassword2())) {
-        	 bindingResult.rejectValue("password2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-        }
-        
-        try {
-        	Member member = service.changePassword(userDetails.getUsername(), pass, bindingResult);
-        	if (member == null) {
-                return "member/change_pass";
-            }
-        }catch(Exception e) {
-        	bindingResult.reject("Sign_9899", e.getMessage());
-        	return "member/change_pass";
-        }
 
-        
-        
+        Member member = service.changePassword(userDetails.getUsername(), pass, bindingResult);
+        if (member == null) {
+            return "member/change_pass";
+        }
 
         return "redirect:/member/profile";
     }
