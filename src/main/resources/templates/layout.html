@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest" defer></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ee7b903ee11f7e01af4335ff1229cdf&libraries=services,clusterer"></script>
 <script type="text/javascript" th:src="@{/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/road.js}" th:if="${currentUrl == '/map/map'}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 <link rel="icon" th:href="@{/images/roma_ico.png}" type="image/x-icon">
 <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -38,6 +40,15 @@
 									 #strings.startsWith(currentUrl, '/faq/question'))}">
 			<div th:replace="~{bsidebar :: sidebarFragment}"></div> 
 		</div>
+    <div th:if="${currentUrl != null and
+                  (#strings.startsWith(currentUrl, '/member') or
+                   #strings.startsWith(currentUrl, '/yolo'))}">
+      <div th:replace="~{msidebar :: sidebarFragment}"></div>
+    </div>
+        <div th:if="${currentUrl != null and
+                  (#strings.startsWith(currentUrl, '/DataChart'))}">
+      <div th:replace="~{asidebar :: sidebarFragment}"></div> 
+    </div>
 		<!-- left menu end -->
 	</nav>
 	<!-- 기본 템플릿 안에 삽입될 내용 start -->

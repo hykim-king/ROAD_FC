@@ -1,9 +1,7 @@
-<!-- layout:layout.html -->
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
+<div layout:fragment="content" class="container myMargin">
 	<!-- 제목 -->
-	<h5 class="border-bottom py-2">공지 등록</h5>
-
+	<h5 class="border-bottom py-4">공지 등록</h5>
 	<form th:object="${noticeQuestionForm}" method="post" enctype="multipart/form-data">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		<div th:replace="~{form_errors :: formErrorsFragment}"></div>
@@ -19,7 +17,10 @@
 			<label for="imgFile">이미지 업로드</label>
 			<input type="file" name="imgFile" id="imgFile" class="form-control" multiple>
 		</div>
-		<input type="submit" class="btn btn-primary" value="저장">
+		<div class="btn-div">
+			<input type="submit" class="btn btn-save form-btn" value="등록">
+			<a class="btn btn-back form-btn" th:href="@{/notice/question/list}">뒤로가기</a>
+		</div>
 	</form>
 </div>
 </html>

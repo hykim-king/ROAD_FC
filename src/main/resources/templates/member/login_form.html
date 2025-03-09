@@ -1,55 +1,6 @@
 <html layout:decorate="~{layout}">
-    <style layout:fragment="style">
-        .container {
-            max-width: 500px;
-            margin: 100px auto; /* 수직 및 수평 중앙 배치 */
-            padding: 20px;
-        }
-
-        .border-bottom {
-            border-bottom: 2px solid #007bff;
-        }
-
-        .btn-dark {
-            font-size: 1.25em; /* 버튼 크기를 크게 조정 */
-            padding: 10px 20px; /* 버튼 패딩 조정 */
-            width: 100%; /* 버튼 너비를 100%로 설정 */
-        }
-        .btn-dark:hover {
-            background-color: #007bff;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-
-        .form-control {
-            height: 50px; /* 입력란 높이 조정 */
-        }
-
-        .alert-danger {
-            color: #dc3545;
-        }
-
-        .additional-links a {
-            font: bold;
-            font-size: 0.9em;
-            color: gray;
-            text-decoration: none;
-            margin-right: 10px;
-        }
-
-        .additional-links a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 0.8em;
-            margin-top: 5px;
-        }
-    </style>
-    <div layout:fragment="content" class="container my-3">
-        <h5 class="border-bottom py-2">로그인</h5>
+    <div layout:fragment="content" class="container myContainer myMargin">
+        <h5 class="border-bottom py-3 ps-2 mb-4">로그인</h5>
         <form th:action="@{/member/login}" method="post" onsubmit="return validateForm()">
             <!-- Spring Valid -->
             <div th:if="${param.error}">
@@ -67,7 +18,7 @@
                 <div id="password-error" class="error-message"></div>
             </div>
 
-            <button type="submit" class="btn btn-dark">로그인</button>
+            <button type="submit" class="btn myBtn">로그인</button>
         </form>
 
         <div class="mt-3 additional-links">
@@ -89,12 +40,12 @@
             passwordError.textContent = "";
 
             if (!username) {
-                usernameError.textContent = "아이디 값을 입력해주세요.";
+                usernameError.textContent = "아이디를 입력해주세요.";
                 isValid = false;
             }
 
             if (!password) {
-                passwordError.textContent = "비밀번호 값을 입력해주세요.";
+                passwordError.textContent = "비밀번호를 입력해주세요.";
                 isValid = false;
             }
 

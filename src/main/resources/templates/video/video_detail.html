@@ -1,0 +1,72 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container myVideo">
+	<!-- 🔙 목록으로 돌아가기 -->
+	<a th:href="@{/video/list}" class="text-muted text-decoration-none mb-3 d-block"> ← 목록으로 돌아가기</a>
+	<h2 class="video-title" th:text="${video.title}">영상 제목</h2>
+	
+	<div class="video-box">
+		<iframe th:src="${embedUrl}" frameborder="0" allowfullscreen class="video-frame"></iframe>
+	</div>
+
+	<div class="card shadow-sm mt-3 p-3">
+		<div class="d-flex text-muted small">
+			<span class="me-3">조회수&nbsp;<span th:text="${video.viewCount}">0</span>회
+				</span> <span th:text="${#temporals.format(video.regDate, 'yyyy.MM.dd')}">2023.10.15</span>
+		</div>
+
+		<p class="mt-2" th:if="${video.description != null}"
+			th:utext="${video.description}"></p>
+		<p class="mt-2 text-danger fw-bold"
+			th:if="${video.description == null}">⚠ 비디오 설명이 존재하지 않습니다.</p>
+	</div>
+
+	<div class="my-4" th:if="${!prevVideoInfoList.empty}">
+		<h5 class="mb-3 ms-1">이전 영상 함께보기</h5>
+
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+			<div class="col" th:each="videoInfo : ${prevVideoInfoList}">
+				<a th:href="@{'/video/detail/' + ${videoInfo.video.videoId}}"
+					class="text-decoration-none">
+					<div class="card h-100 shadow-sm">
+						<img th:src="${videoInfo.thumbnailUrl}" class="card-img-top"
+							alt="비디오 썸네일" onerror="this.src='/images/default-thumbnail.jpg'"
+							style="height: 120px; object-fit: cover;">
+						<div class="card-body p-2">
+							<p class="card-text small text-truncate"
+								th:text="${videoInfo.video.title}">비디오 제목</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script layout:fragment="script">
+function deleteVideo(button) {
+  var videoId = button.getAttribute('data-video-id');
+  if (confirm('정말로 이 비디오를 삭제하시겠습니까?')) {
+    fetch(`/video/delete/${videoId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      return response.json().then(data => {
+        if (response.ok) {
+          alert(data.message);
+          window.location.href = '/video/list';
+        } else {
+          throw new Error(data.message || '비디오 삭제에 실패했습니다.');
+        }
+      });
+    })
+    .catch(error => {
+      console.error('비디오 삭제 중 오류 발생:', error);
+      alert('비디오 삭제 중 오류가 발생했습니다: ' + error.message);
+    });
+  }
+}
+</script>
+</html>

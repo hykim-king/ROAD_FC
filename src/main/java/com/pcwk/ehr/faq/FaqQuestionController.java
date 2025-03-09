@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pcwk.ehr.faq.FaqAnswerForm;
 import com.pcwk.ehr.member.Member;
 import com.pcwk.ehr.member.MemberService;
 
@@ -75,7 +74,8 @@ public class FaqQuestionController {
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/create")
-	public String questionCreate(FaqQuestionForm questionForm, Principal principal) {
+	public String questionCreate(FaqQuestionForm questionForm, Principal principal,
+			Model model, HttpServletRequest request) {
 		String username = principal.getName();
         List<Member> members = memberService.findByMember(username);
 
@@ -83,7 +83,7 @@ public class FaqQuestionController {
         if (!hasAdminRole) {
             return "redirect:/accessDenied";
         }
-		
+        model.addAttribute("currentUrl", request.getRequestURI());
 		return "faq/question/question_form";
 	}
 	
@@ -98,11 +98,12 @@ public class FaqQuestionController {
 		}
 		
 		FaqQuestion question = service.getQuestion(id);
+		Member member = memberService.getMember(principal.getName());
 		log.info("question:{}",question);
 		log.info("question:{}",questionForm.getSubject());
 		log.info("question:{}",questionForm.getContent());
 		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		if(!(member.getUserGrade() == 1)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
 		
@@ -136,9 +137,10 @@ public class FaqQuestionController {
 	public String modify(FaqQuestionForm questionForm,@PathVariable("id")Integer id,Principal principal) {
 		
 		FaqQuestion question = service.getQuestion(id);
+		Member member = memberService.getMember(principal.getName());
 		log.info("question:{}",question);
 		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		if(!(member.getUserGrade() == 1)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
 		
@@ -158,7 +160,7 @@ public class FaqQuestionController {
 		service.increaseViewCount(id);
 		
 		FaqQuestion question = service.getQuestion(id);
-		model.addAttribute("question",question);
+		model.addAttribute("question", question);
 		model.addAttribute("currentUrl", request.getRequestURI());
 		
 		// 로그인한 사용자의 userGrade 가져오기
@@ -192,8 +194,8 @@ public class FaqQuestionController {
 	@GetMapping("/delete/{id}")
 	public String questionDelete(@PathVariable("id")Integer id, Principal principal) {
 		FaqQuestion question = service.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		if(!(member.getUserGrade() == 1)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
 		}
 		
@@ -204,16 +206,16 @@ public class FaqQuestionController {
 	
 	@GetMapping(value = "/list")
 	public String list(Model model,
-			@RequestParam(value = "page", defaultValue = "0")int page
+			@RequestParam(value = "page", defaultValue = "0") int page
 			,@RequestParam(value = "keyword", defaultValue = "")String keyword
 			,Principal principal
 			,HttpServletRequest request) {
-		
 		
 		Page<FaqQuestion> paging = service.getList(page,keyword);
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", "faq");
 		model.addAttribute("currentUrl", request.getRequestURI());
 		log.info("size:"+paging.getSize());
 		

@@ -4,16 +4,16 @@
 		<h5 class="left_title box-title">게시판</h5>
 		<div class="nav-group list-group text-center">
 			<a th:href="@{/notice/question/list}"
-				th:classappend="${page == 'profile'} ? 'active'"
+				th:classappend="${page == 'notice'} ? 'active'"
 				class="list-group-item list-group-item-action" title="공지사항">공지사항</a>
 			<a th:href="@{/qna/question/list}"
-				th:classappend="${page == 'change'} ? 'active'"
+				th:classappend="${page == 'qna'} ? 'active'"
 				class="list-group-item list-group-item-action" title="Q&amp;A">Q&amp;A</a> <a
 				th:href="@{/faq/question/list}"
-				th:classappend="${page == 'change'} ? 'active'"
+				th:classappend="${page == 'faq'} ? 'active'"
 				class="list-group-item list-group-item-action" title="FAQ">FAQ</a> <a
 				th:href="@{/report/question/list}"
-				th:classappend="${page == 'change'} ? 'active'"
+				th:classappend="${page == 'report'} ? 'active'"
 				class="list-group-item list-group-item-action" title="제보 게시판">제보
 				게시판</a>
 		</div>

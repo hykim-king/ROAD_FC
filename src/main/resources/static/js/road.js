@@ -115,7 +115,7 @@ kakao.maps.load(function() {
 
     if (isSafetyVisible) {
       hideAllMarkers();
-      console.log("isSafetyVisible: ", isSafetyVisible);
+      //console.log("isSafetyVisible: ", isSafetyVisible);
       roadButtons.forEach(button => {
         button.classList.remove("active");
       });
@@ -128,7 +128,7 @@ kakao.maps.load(function() {
       safetyBtn.classList.add("active");
       safetyBtnText.textContent = "권역별 안전지수 끄기";
     } else {
-      console.log("isSafetyVisible: ", isSafetyVisible);
+      //console.log("isSafetyVisible: ", isSafetyVisible);
       hideAllMarkers();
       isNationwideVisible = false;
       safetyBtn.classList.remove("active");
@@ -139,7 +139,7 @@ kakao.maps.load(function() {
   regionButtons.forEach(button => {
     button.addEventListener("click", function() {
       const region = button.dataset.region;
-      console.log("isSafetyVisible: ", isSafetyVisible);
+      //console.log("isSafetyVisible: ", isSafetyVisible);
       if (!isSafetyVisible) {
         var data = regionData[region];
         map.setLevel(data.level);
@@ -547,8 +547,8 @@ kakao.maps.load(function() {
 
       const currentLevel = this.map.getLevel(); // 현재 줌 레벨
       this.GROUPING_DISTANCE = this.GROUPING_DISTANCE_BY_LEVEL[currentLevel]; // 레벨 별 그룹화 거리 설정
-      console.log(`currentLevel: ${currentLevel}`);
-      console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
+      //console.log(`currentLevel: ${currentLevel}`);
+      //console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
 
       // 현재 보이는 영역만 처리 
       const bounds = this.map.getBounds();
@@ -883,7 +883,7 @@ kakao.maps.load(function() {
 
     setGroups() {
       this.groups = []; // 마커 그룹들을 가지고 있는 그룹
-      console.log("setGroups()")
+      //console.log("setGroups()")
 
       let ungroupedMarkers = [...this.freezingInfo]; // 결빙 데이터 미그룹화 배열에 복사
 
@@ -945,8 +945,8 @@ kakao.maps.load(function() {
       currentLevel = this.map.getLevel();
       const bounds = this.map.getBounds();
 
-      console.log('currentLevel: ' + currentLevel);
-      console.log('GroupingDistance: ' + this.GROUPING_DISTANCE);
+      //console.log('currentLevel: ' + currentLevel);
+      //console.log('GroupingDistance: ' + this.GROUPING_DISTANCE);
 
       this.groups.forEach(group => {
         if (!group.center) return;
@@ -1100,8 +1100,8 @@ kakao.maps.load(function() {
 
       const currentLevel = this.map.getLevel();
       this.GROUPING_DISTANCE = this.GROUPING_DISTANCE_BY_LEVEL[currentLevel];
-      console.log(`currentLevel: ${currentLevel}`);
-      console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
+      //console.log(`currentLevel: ${currentLevel}`);
+      //console.log(`this.GROUPING_DISTANCE: ${this.GROUPING_DISTANCE}`);
 
       const bounds = this.map.getBounds();
       const sw = bounds.getSouthWest();
@@ -1482,9 +1482,9 @@ kakao.maps.load(function() {
   roadButtons.forEach(button => {
     button.addEventListener("click", function() {
       const type = button.dataset.type;
-      console.log("roadButtons: ");
-      console.log("type: ", type);
-      console.log("activatedMarkers[type]: ", activatedMarkers[type]);
+      //console.log("roadButtons: ");
+      //console.log("type: ", type);
+      //console.log("activatedMarkers[type]: ", activatedMarkers[type]);
       if (activatedMarkers[type]) {
         activatedMarkers[type] = false;
         setMarkers(type, false);
@@ -1492,13 +1492,16 @@ kakao.maps.load(function() {
       } else {
         hideAllMarkers(type);
         activatedMarkers[type] = true;
-        console.log("activatedMarkers[type]: ", activatedMarkers[type]);
+        //console.log("activatedMarkers[type]: ", activatedMarkers[type]);
         setMarkers(type, true);
 
         if (isSafetyVisible) {
           isSafetyVisible = false;
           isNationwideVisible = false;
           safetyBtn.classList.remove("active");
+          map.setZoomable(true);
+          map.setLevel(regionData.nationwide.level);
+          map.setCenter(new kakao.maps.LatLng(regionData.nationwide.lat, regionData.nationwide.lng));
         }
 
         document.querySelectorAll(".typeBtn").forEach(btn => btn.classList.remove("active"));

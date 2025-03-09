@@ -1,0 +1,66 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container myVideo">
+	<div class="mt-4">
+		<!-- 제목 옆에 업로드 버튼 추가 -->
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h2 class="text-center ms-1">교육/예방 자료</h2>
+		</div>
+    <div class="box-container">
+			<div class="video-container">
+				<div class="video-card" th:each="videoInfo : ${videoInfoList}">
+					<div class="card">
+						<a th:href="@{/video/detail/{videoId}(videoId=${videoInfo.video.videoId})}">
+						<img class="card-img-top" th:src="${videoInfo.thumbnailUrl}"
+							th:alt="${videoInfo.video.title}">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${videoInfo.video.title}">비디오 제목</h5>
+							<p class="card-text text-muted text-center">
+								<i class="bi bi-eye"></i>
+								<span th:text="${videoInfo.video.viewCount != null ? videoInfo.video.viewCount : 0}">0</span>회
+							</p>
+						</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- paging start -->
+	<div class="mt-2" th:if="${!paging.isEmpty()}">
+		<ul class="pagination justify-content-center">
+			<li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+				<a class="page-link" href="#" th:onclick="goToPage(0)"><i
+					class="bi bi-chevron-double-left"></i></a>
+			</li>
+			<li class="page-item"
+				th:classappend="${!paging.hasPrevious()} ? 'disabled'"><a
+				class="page-link" href="#"
+				th:onclick="goToPage([[${paging.number - 1}]])">이전</a></li>
+			<li
+				th:each="page:${#numbers.sequence(paging.number <= 2 ? 0 : paging.number - 2, paging.number <= 2 ? 4 : paging.number + 2)}"
+				th:if="${page >= 0 && page < paging.totalPages}"
+				th:classappend="${page == paging.number} ? 'active'"
+				class="page-item"><a th:text="${page + 1}" class="page-link"
+				href="#" th:onclick="goToPage([[${page}]])"></a></li>
+			<li class="page-item"
+				th:classappend="${!paging.hasNext()} ? 'disabled'"><a
+				class="page-link" href="#"
+				th:onclick="goToPage([[${paging.number + 1}]])">다음</a></li>
+			<li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+				<a class="page-link" href="#"
+				th:onclick="goToPage([[${paging.totalPages - 1}]])"><i
+					class="bi bi-chevron-double-right"></i></a>
+			</li>
+		</ul>
+	</div>
+</div>
+	<!-- 페이지 이동을 위한 JavaScript 함수 -->
+	<script layout:fragment="script">
+		function goToPage(page) {
+			let url = new URL(window.location.href);
+			url.searchParams.set('page', page);
+			window.location.href = url.toString();
+		}
+	</script>
+</html>

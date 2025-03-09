@@ -35,6 +35,8 @@ import com.pcwk.ehr.data.WeatherAccident;
 import com.pcwk.ehr.data.YearAccident;
 import com.pcwk.ehr.data.YearAccidentRate;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/DataChart")
 public class DataController {
@@ -73,7 +75,7 @@ public class DataController {
 	        @RequestParam(value = "keyword", required = false) String keyword,
 	        @RequestParam(value = "page", defaultValue = "0") int page,
 	        @RequestParam(value = "size", defaultValue = "10") int size, 
-	        Model model) throws JsonProcessingException {
+	        Model model, HttpServletRequest request) throws JsonProcessingException {
   
 		Page<LocalAccident> pagedAccidents;
 	    Pageable pageable = PageRequest.of(page, size);
@@ -103,6 +105,8 @@ public class DataController {
 	    // 변환된 데이터를 JSON으로 직렬화하여 반환
 	    String jsonData = new ObjectMapper().writeValueAsString(transformedData);
 
+	    model.addAttribute("page", "local");
+	    model.addAttribute("currentUrl", request.getRequestURI());
 	    model.addAttribute("accidents", pagedAccidents.getContent());
 	    model.addAttribute("DataJson", jsonData); // 변환된 JSON 데이터
 	    model.addAttribute("paging", pagedAccidents);
@@ -190,7 +194,7 @@ public class DataController {
 	        @RequestParam(value = "keyword", required = false) String keyword,
 	        @RequestParam(value = "page", defaultValue = "0") int page,
 	        @RequestParam(value = "size", defaultValue = "10") int size,
-	        Model model) throws JsonProcessingException {
+	        Model model, HttpServletRequest request) throws JsonProcessingException {
 
 		Page<TrafficComparison> pagedComparison;
 	    Pageable pageable = PageRequest.of(page, size);
@@ -224,6 +228,8 @@ public class DataController {
 	    // 변환된 데이터 JSON으로 변환
 	    String jsonData = new ObjectMapper().writeValueAsString(transData);
 	    
+	    model.addAttribute("page", "comparison");
+	    model.addAttribute("currentUrl", request.getRequestURI());
 	    model.addAttribute("comparisons", pagedComparison.getContent()); // 페이징된 데이터 전달
 	    model.addAttribute("Datajson", jsonData);
 	    model.addAttribute("paging", pagedComparison); // 페이징 정보 전달
@@ -309,7 +315,7 @@ public class DataController {
 		    @RequestParam(value = "keyword", required = false) String keyword,
 		    @RequestParam(value = "page", defaultValue = "0") int page,
 		    @RequestParam(value = "size", defaultValue = "10") int size,
-		    Model model) throws JsonProcessingException {
+		    Model model, HttpServletRequest request) throws JsonProcessingException {
 	    Page<WeatherAccident> pagedAccidents;
 	    Pageable pageable = PageRequest.of(page, size);
 
@@ -336,6 +342,8 @@ public class DataController {
 
 	    String jsonData = new ObjectMapper().writeValueAsString(transData);
 	    
+	    model.addAttribute("page", "weather");
+	    model.addAttribute("currentUrl", request.getRequestURI());
 	    model.addAttribute("accidents", pagedAccidents.getContent());
 	    model.addAttribute("Datajson",jsonData);
 	    model.addAttribute("paging", pagedAccidents);
@@ -405,7 +413,8 @@ public class DataController {
 			@RequestParam(value = "fatalrate", required = false) Integer taFatalRate,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size, Model model) throws JsonProcessingException {
+			@RequestParam(value = "size", defaultValue = "10") int size,
+			Model model, HttpServletRequest request) throws JsonProcessingException {
 		
 		Pageable pageable = PageRequest.of(page, size);
 		
@@ -425,6 +434,8 @@ public class DataController {
 		
 		String jsonData = new ObjectMapper().writeValueAsString(transData);
 		
+	    model.addAttribute("page", "accident");
+	    model.addAttribute("currentUrl", request.getRequestURI());
 		model.addAttribute("accidents", pageAccidents.getContent()); // 페이지별 데이터 추가
 		model.addAttribute("allYears", yearAccidentService.getAllYears());
 		model.addAttribute("allData", yearAccidentService.getAllAccidentsWithRates());

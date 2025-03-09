@@ -16,6 +16,8 @@ import com.pcwk.ehr.report.ReportQuestion;
 
 public interface MemberRepository extends JpaRepository<Member,Long>{
 	
+	boolean existsByEmail(String email);
+	
 	@Transactional
 	@Modifying
 	@Query(value = "delete from member where id in :ids", nativeQuery = true)

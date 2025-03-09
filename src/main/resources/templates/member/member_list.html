@@ -1,18 +1,7 @@
 <html layout:decorate="~{layout}">
-<style layout:fragment="style">
-[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor:pointer;
-}
-.table {
-	white-space : nowrap;
-	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
-}
-</style>
-<div layout:fragment="content" class="container my-3">
+<div layout:fragment="content" class="container myMemberList">
     <!-- 제목 -->
-    <h5 class="border-bottom py-2">유저목록</h5>
+    <h5 class="border-bottom py-4">유저목록</h5>
     <form th:action="@{/member/delete}" method="post" id="mainForm" onsubmit="return handleDeleteSubmit(event)">
         <!-- 버튼 -->
         <div class="row my-3">
@@ -20,7 +9,7 @@
                 <input type="submit" value="삭제" class="btn btn-primary" id="btn_delete">
             </div>
             <div class="col-3 text-start">
-                <input type="submit" class="btn btn-secondary" id="btn_promote" th:formaction="@{/member/promote}" value="관리자 임명"><!-- 수정 필요 -->
+                <input type="submit" class="btn btn-secondary" id="btn_promote" formaction="@{/member/promote}" form="promoteForm" value="관리자 임명">
             </div>
             
             <div class="col-6">
@@ -44,7 +33,7 @@
                 </tr>
             </thead>
             <tbody> 
-                <tr th:each="member, loop:${paging}">
+                <tr th:each="member, loop:${paging}" th:if="${member.username != 'manager' and member.username != currentUser.username}">
                     <td class="text-start" th:text="${paging.getTotalElements() - (paging.number * paging.size) - loop.index}"></td>
                     <th class="text-center" th:text="${member.username}">아이디</th>
                     <td class="text-center" th:text="${member.userDisName}">이름</td>
@@ -60,7 +49,7 @@
         </table>
     </form>
     <!-- 관리자 임명 폼 -->
-    <form th:action="@{/member/promote}" method="post" id="promoteForm" style="display:none;">
+    <form th:action="@{/member/promote}" method="post" id="promoteForm" onsubmit="return handlePromoteSubmit(event)" style="display:none;">
         <input type="hidden" name="memberIds">
     </form>
     <!-- paging start -->
@@ -104,6 +93,12 @@
     function isCheckboxChecked() {
         const checkboxes = document.querySelectorAll('input[name="memberIds"]:checked');
         return checkboxes.length > 0;
+    }
+
+    function getCheckedMemberIds() {
+        const checkboxes = document.querySelectorAll('input[name="memberIds"]:checked');
+        const memberIds = Array.from(checkboxes).map(cb => cb.value);
+        return memberIds;
     }
 
     document.addEventListener('keydown', function(event) {
@@ -172,20 +167,48 @@
         }
     }
 
-    const btn_promote = document.getElementById("btn_promote");
-    if (btn_promote) {
-        btn_promote.addEventListener('click', function(event) {
-            if (!isCheckboxChecked()) {
-                alert("적어도 하나의 항목을 선택해야 합니다.");
-                event.preventDefault(); // 기본 동작 막기
-                return false;
-            }
-            if (confirm("관리자로 임명하시겠습니까?") === true) {
-                document.getElementById("mainForm").submit();
-            } else {
-                event.preventDefault(); // 확인 창에서 취소를 누를 시 기본 동작 막기
-            }
-        });
+    // 관리자 임명 폼 전송 핸들러
+    function handlePromoteSubmit(event) {
+        event.preventDefault(); // 기본 폼 제출 동작 막기
+
+        // 체크박스 선택 여부 확인
+        if (!isCheckboxChecked()) {
+            alert("적어도 하나의 항목을 선택해야 합니다.");
+            return false;
+        }
+
+        if (confirm("관리자로 임명하시겠습니까?")) {
+            // Hidden input에 체크된 memberIds 설정
+            const memberIds = getCheckedMemberIds();
+            document.querySelector('#promoteForm input[name="memberIds"]').value = memberIds.join(',');
+
+            // AJAX 요청 보내기
+            const form = document.getElementById("promoteForm");
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("서버 오류");
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert("관리자 임명이 완료되었습니다.");
+                location.reload(); // 페이지 새로고침
+            })
+            .catch(error => {
+                alert("임명 중 오류가 발생했습니다. 다시 시도해 주세요.");
+            });
+
+            return false; // 폼 제출 중단
+        } else {
+            return false; // 확인 창에서 취소를 누를 시 기본 동작 막기
+        }
     }
+
 </script>
-</html>
+

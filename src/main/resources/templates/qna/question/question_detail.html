@@ -1,184 +1,108 @@
 <!-- layout:layout.html -->
 <html layout:decorate="~{layout}">
-    <style layout:fragment="style">
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .flex-item-left {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flex-item-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .wid {
-            width: 100%; /* Adjust to 85-90% as needed */
-            margin: 0 auto; /* Center the div */
-        }
-
-        .info-container {
-            display: flex;
-            gap: 10px; /* Add space between 작성일 and 조회수 */
-        }
-
-        .comments-container {
-            display: flex;
-            align-items: center;
-            gap: 5px; /* Add space between elements */
-        }
-
-        .content-padding {
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-
-        .min-height-content {
-            min-height: 200px; /* Adjust the minimum height as needed */
-        }
-
-        .textarea-container {
-            position: relative;
-        }
-
-        .textarea-container textarea {
-            width: 100%;
-            padding-right: 50px; /* Add some padding to the right to make space for the button */
-        }
-
-        .submit-button {
-            position: absolute;
-            bottom: 10px; /* Adjust as needed */
-            right: 10px; /* Adjust as needed */
-        }
-        
-    </style>
-    <div layout:fragment="content" class="container my-3">
-        <!-- 질문과 답변을 감싸는 카드 -->
-        <div class="card my-3">
-            <div class="wid content-padding">
-                <!-- 질문 -->
-                <div class="border-bottom">
-                    <h2 class="py-2" th:text="${question.subject}">Default 제목</h2>
-                    <div class="flex-container">
-                        <div class="flex-item-left">
-                            <span th:if="${question.author != null}"><strong th:text="${question.author.username}"></strong></span>
-                            <div class="info-container">
-                                <div th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
-                                <div th:text="'조회 ' + ${question.view_count}">(조회수) 조회</div>
-                            </div>
-                        </div>
-                        <div class="flex-item-right">
-                            <div th:if="${question.modifyDate != null}" class="mx-3">
-                                <div th:text="${#temporals.format(question.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
-                            </div>
-                            <div class="comments-container d-flex align-items-center">
-                                <i class="bi bi-chat-left-dots"></i>
-                                <span>댓글</span>
-                                <p class="mb-0" th:text="|${#lists.size(question.answerList)}|"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body min-height-content d-flex flex-column justify-content-between">
-                    <div class="card-text" id="contentText" th:text="${question.content}">Default 내용</div>
-                    <!-- 이미지 표시 -->
-                    <div class="my-3 text-center" th:if="${not #strings.isEmpty(question.img)}">
-                        <div th:each="imgPath : ${#strings.arraySplit(question.img, ',')}">
-                            <img th:src="@{${imgPath}}" alt="업로드된 이미지" style="max-width: 100%; height: auto; margin: 5px;">
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-end mt-auto">
-                        <div>
-                            <a th:data-uri="@{|/qna/question/vote/${question.id}|}" class="recommend btn btn-sm btn-outline-secondary" th:text="추천" href="javascript:void(0);">추천</a> 
-                            <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}">0</span>                       
-                        </div>
-                        <!-- Modify/Delete buttons -->
-                        <div>
-                            <a th:href="@{|/qna/question/modify/${question.id}|}" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
-                            <a href="javascript:void(0);" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="삭제" th:data-uri="@{|/qna/question/delete/${question.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
-                        </div>
-                    </div>
-                </div>
-               
-
-                <!-- 질문 end--------------------------------- -->
-                <!-- 답변 -->
-                <!-- <h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5> -->
-                
-                <!-- 답변 반복 -->
-                <div class="card my-3 answer-section" th:each="answer:${question.answerList}">
-                    <a th:id="|answer_${answer.id}|"></a>
-                    <div class="card-body content-padding min-height-content d-flex flex-column justify-content-between">
-                        <span th:if="${answer.author != null}"><strong th:text="${answer.author.username}"></strong></span>
-                        <div class="card-text mt-2 mb-4" th:text="${answer.content}"></div>
-                        <div class="d-flex justify-content-between mt-auto">
-                            <div th:text="${#temporals.format(answer.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
-                            <div th:if="${answer.modifyDate != null}">
-                                <div th:text="${#temporals.format(answer.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-end mt-auto">
-                            <div>
-                                <a th:data-uri="@{|/qna/answer/vote/${answer.id}|}" class="recommend btn btn-sm btn-outline-secondary" th:text="추천" href="javascript:void(0);">추천</a> 
-                                <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}">0</span>                       
-                            </div>
-                            <!-- Modify/Delete buttons -->
-                            <div>
-                                <a th:href="@{|/qna/answer/modify/${answer.id}|}" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}" th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary mx-1">수정</a>
-                                <a href="javascript:void(0);" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}" th:text="삭제" th:data-uri="@{|/qna/answer/delete/${answer.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 답변 반복 end----------------------------------------- -->
-                <!-- 답변 등록 -->
-                <form th:action="@{|/qna/answer/create/${question.id}|}" method="post" th:object="${qnaAnswerForm}" class="my-3 content-padding min-height-content">
-                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-                    <div class="textarea-container">
-                        <textarea sec:authorize="isAnonymous()" th:field="*{content}" rows="10" name="content" id="content" class="form-control" disabled="disabled"></textarea>
-                        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" rows="10" name="content" id="content" class="form-control"></textarea>
-                        <input type="submit" value="등록" class="btn btn-primary submit-button">
-                    </div>
-                </form>
-                <!-- 답변 end--------------------------------- -->
-			    </div>
-            </div>
-        <div class="d-flex justify-content-end align-items-end mt-auto">
-			<a th:href="@{/qna/question/list}" class="btn btn-sm btn-outline-primary">메뉴</a>
+<div layout:fragment="content" class="myMargin container">
+	<!-- 질문과 답변을 감싸는 카드 -->
+	<div class="my-3">
+		<div class="wid">
+			<!-- 질문 -->
+			<div class="border-bottom pb-3 ps-2 mb-4">
+				<h2 class="py-2" th:text="${question.subject}">Default 제목</h2>
+				<div class="flex-container">
+					<div class="flex-item-left">
+						<span th:if="${question.author != null}"><strong
+							th:text="${question.author.username}"></strong></span>
+						<div class="info-container">
+							<div
+								th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
+							<div th:text="'조회수 ' + ${question.view_count} + '회'">(조회수) 조회</div>
+						</div>
+					</div>
+					<div class="flex-item-right">
+						<div th:if="${question.modifyDate != null}" class="mx-3">
+							<div
+								th:text="${#temporals.format(question.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="card-body min-height-content d-flex flex-column justify-content-between">
+				<div class="card-text" id="contentText"
+					th:text="${question.content}">Default 내용</div>
+				<!-- 이미지 표시 -->
+				<div class="my-3 text-center"
+					th:if="${not #strings.isEmpty(question.img)}">
+					<div th:each="imgPath : ${#strings.arraySplit(question.img, ',')}">
+						<img th:src="@{${imgPath}}" alt="업로드된 이미지"
+							style="max-width: 100%; height: auto; margin: 5px;">
+					</div>
+				</div>
+				<div class="d-flex justify-content-end align-items-end mt-auto">
+					<!-- Modify/Delete buttons -->
+					<div>
+						<a th:href="@{|/notice/question/modify/${question.id}|}"
+							th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}"
+							th:text="수정" sec:authorize="isAuthenticated()"
+							class="btn btn-sm btn-outline-secondary mx-1">수정</a> <a
+							href="javascript:void(0);"
+							th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}"
+							th:text="삭제"
+							th:data-uri="@{|/notice/question/delete/${question.id}|}"
+							sec:authorize="isAuthenticated()"
+							class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
+					</div>
+				</div>
+			</div>
+			<!-- 질문 end--------------------------------- -->
 		</div>
 	</div>
+	<div class="d-flex justify-content-end align-items-end mt-auto">
+		<a th:href="@{/notice/question/list}"
+			class="btn btn-sm btn-outline-primary menuBtn">메뉴</a>
+	</div>
+	<!-- 이전글/다음글 -->
+	<div class="border-top border-bottom my-5 py-3">
+		<!-- 이전글 -->
+		<div class="d-flex align-items-center py-2">
+			<span class="fw-bold">▲</span> <strong class="mx-3">이전글</strong> <a
+				th:if="${prevQuestion != null}"
+				th:href="@{|/notice/question/detail/${prevQuestion.id}|}"
+				th:text="${#strings.abbreviate(prevQuestion.subject, 30)}"></a> <span
+				th:if="${prevQuestion == null}">이전글이 없습니다.</span>
+		</div>
 
-	<script layout:fragment="script">
-	 	const delete_btn = document.getElementsByClassName('delete');
-	 	console.log(delete_btn);
-	 	
-	 	Array.from(delete_btn).forEach(function(element){
-	 		element.addEventListener('click',function(){
-	 			console.log('element:click');
-	 			console.log('this.dataset.uri:'+this.dataset.uri);
-	 			
-	 			if(confirm('삭제하시겠습니까?') == true){
-	 				window.location.href=this.dataset.uri;	
-	 			}
-	 		});
-	 	});
-	 	
-	 	const recommend_btn = document.getElementsByClassName('recommend');
-	 	console.log('recommend_btn:'+recommend_btn);
-	 	
-	 	Array.from(recommend_btn).forEach(function(element){
-	 		element.addEventListener('click',function(){
-	 			console.log('re');
-	 			
-	 			if(confirm('추천하시겠습니까?') == true){
-	 				window.location.href=this.dataset.uri
-	 			}
-	 		});
-	 	});
-	</script>
+		<!-- 다음글 -->
+		<div class="d-flex align-items-center py-2">
+			<span class="fw-bold">▼</span> <strong class="mx-3">다음글</strong> <a
+				th:if="${nextQuestion != null}"
+				th:href="@{|/notice/question/detail/${nextQuestion.id}|}"
+				th:text="${#strings.abbreviate(nextQuestion.subject, 30)}"></a> <span
+				th:if="${nextQuestion == null}">다음글이 없습니다.</span>
+		</div>
+	</div>
+</div>
+
+<!-- 질문 end--------------------------------- -->
+
+
+<script layout:fragment="script">
+	const delete_btn = document.getElementsByClassName('delete');
+	console.log(delete_btn);
+
+	Array.from(delete_btn).forEach(function(element) {
+		element.addEventListener('click', function() {
+			console.log('element:click');
+			console.log('this.dataset.uri:' + this.dataset.uri);
+
+			if (confirm('삭제하시겠습니까?') == true) {
+				window.location.href = this.dataset.uri;
+			}
+		});
+	});
+
+	document.addEventListener("DOMContentLoaded", function() {
+		var contentText = document.getElementById("contentText");
+		contentText.innerHTML = contentText.innerHTML.replace(/\n/g, "<br/>");
+	});
+</script>
 </html>

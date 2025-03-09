@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.pcwk.ehr.notice.NoticeAnswer;
 import com.pcwk.ehr.member.Member;
 
 import jakarta.persistence.CascadeType;
@@ -20,10 +17,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -54,7 +49,7 @@ public class NoticeQuestion {
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<NoticeAnswer> answerList;
 
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	private Member author;
 
 	private LocalDateTime modifyDate; // 수정일

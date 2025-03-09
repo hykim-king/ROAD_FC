@@ -1,116 +1,142 @@
 <!-- layout:layout.html -->
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content" class="container my-3">
+<div layout:fragment="content" class="container my-3">
 	<!-- 질문 -->
-		<h2 class="border-bottom py-2" th:text="${question.subject}">Default 제목</h2>
-		<div class="card my-3">
-			<div class="card-body">
-			    <div class="card-text" th:text="${question.content}">Default 내용</div>
-			    <!-- 이미지 표시 -->
-				<div class="my-3 text-center" th:if="${not #strings.isEmpty(question.img)}">
-				    <div th:each="imgPath : ${#strings.arraySplit(question.img, ',')}">
-				        <img th:src="@{${imgPath}}" alt="업로드된 이미지" style="max-width: 100%; height: auto; margin: 5px;">
-				    </div>
+	<h2 class="border-bottom py-2" th:text="${question.subject}">Default
+		제목</h2>
+	<div class="card my-3">
+		<div class="card-body">
+			<div class="card-text" th:text="${question.content}">Default 내용</div>
+			<!-- 이미지 표시 -->
+			<div class="my-3 text-center"
+				th:if="${not #strings.isEmpty(question.img)}">
+				<div th:each="imgPath : ${#strings.arraySplit(question.img, ',')}">
+					<img th:src="@{${imgPath}}" alt="업로드된 이미지"
+						style="max-width: 100%; height: auto; margin: 5px;">
 				</div>
-			    <div class="d-flex justify-content-end">
-			    	<div th:if="${question.modifyDate != null}" class="badge text-bg-light text-start text-start mx-3">
-			    		<div>modified date</div>
-			    		<div th:text="${#temporals.format(question.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
-			    	</div>
-			    
-				    <div class="badge text-bg-light text-start">
-				    	<div>
-				    		<span th:if="${question.author != null}" th:text="${question.author.username}"></span>
-				    	</div>
-				    	<div th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
-				    </div>
-			    </div>
-			    <div class="my-3">
-			    	<a th:href="@{|/faq/question/modify/${question.id}|}" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}" 
-			    	th:text="수정" sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary">수정</a>
-			    	<a href="javascript:void(0);" th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}" 
-			    	th:text="삭제" th:data-uri="@{|/faq/question/delete/${question.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary">삭제</a>
-			    
-			    	<a th:data-uri="@{|/faq/question/vote/${question.id}|}" class="recommend btn btn-sm btn-outline-secondary" th:text="추천"
-			    	href="javascript:void(0);">추천</a>
-			    	<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}">0</span>
-			    </div>
+			</div>
+			<div class="d-flex justify-content-end">
+				<div th:if="${question.modifyDate != null}"
+					class="badge text-bg-light text-start text-start mx-3">
+					<div>modified date</div>
+					<div
+						th:text="${#temporals.format(question.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
+				</div>
+
+				<div class="badge text-bg-light text-start">
+					<div>
+						<span th:if="${question.author != null}"
+							th:text="${question.author.username}"></span>
+					</div>
+					<div
+						th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
+				</div>
+			</div>
+			<div class="my-3">
+				<a th:href="@{|/faq/question/modify/${question.id}|}"
+					th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}"
+					th:text="수정" sec:authorize="isAuthenticated()"
+					class="btn btn-sm btn-outline-secondary">수정</a> <a
+					href="javascript:void(0);"
+					th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username}"
+					th:text="삭제" th:data-uri="@{|/faq/question/delete/${question.id}|}"
+					sec:authorize="isAuthenticated()"
+					class="delete btn btn-sm btn-outline-secondary">삭제</a> <a
+					th:data-uri="@{|/faq/question/vote/${question.id}|}"
+					class="recommend btn btn-sm btn-outline-secondary" th:text="추천"
+					href="javascript:void(0);">추천</a> <span
+					class="badge rounded-pill bg-success"
+					th:text="${#lists.size(question.voter)}">0</span>
 			</div>
 		</div>
+	</div>
 	<!-- 질문 end--------------------------------- -->
 	<!-- 답변 -->
-		<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
-		
+	<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+
 	<!-- 답변 반복 -->
-		<div class="card my-3" th:each="answer:${question.answerList}">
-			<a th:id="|answer_${answer.id}|"></a>
-			<div class="card-body">
-				<div th:text="${answer.content}"></div>
-			
-				 <div class="d-flex justify-content-end">
-				 		<div th:if="${answer.modifyDate != null}" class="badge text-bg-light text-start text-start mx-3">
-				    		<div>modified date</div>
-				    		<div th:text="${#temporals.format(answer.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
-			    		</div>
-					    <div class="badge text-bg-light text-start">
-					    	<div>
-				    			<span th:if="${answer.author != null}" th:text="${answer.author.username}"></span>
-				    		</div>
-					    	<div th:text="${#temporals.format(answer.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
-					    </div>
-				 </div>
-				 <div class="my-3">
-			    	<a sec:authorize="isAuthenticated()" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}"
-			    	th:text="수정" th:href="@{|/faq/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary">수정</a>
-			    	<a href="javascript:void(0)" th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}" 
-			    	th:text="삭제" th:data-uri="@{|/faq/answer/delete/${answer.id}|}" sec:authorize="isAuthenticated()" class="delete btn btn-sm btn-outline-secondary">삭제</a>
-			    	
-			    	<a th:data-uri="@{|/faq/answer/vote/${answer.id}|}" class="recommend btn btn-sm btn-outline-secondary" th:text="추천"
-			    	href="javascript:void(0);">추천</a>
-			    	<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}">0</span>
-			    </div>
-			 </div>
+	<div class="card my-3" th:each="answer:${question.answerList}">
+		<a th:id="|answer_${answer.id}|"></a>
+		<div class="card-body">
+			<div th:text="${answer.content}"></div>
+
+			<div class="d-flex justify-content-end">
+				<div th:if="${answer.modifyDate != null}"
+					class="badge text-bg-light text-start text-start mx-3">
+					<div>modified date</div>
+					<div
+						th:text="${#temporals.format(answer.modifyDate,'yyyy-MM-dd HH:mm')}"></div>
+				</div>
+				<div class="badge text-bg-light text-start">
+					<div>
+						<span th:if="${answer.author != null}"
+							th:text="${answer.author.username}"></span>
+					</div>
+					<div
+						th:text="${#temporals.format(answer.createDate,'yyyy-MM-dd HH:mm')}">작성일</div>
+				</div>
+			</div>
+			<div class="my-3">
+				<a sec:authorize="isAuthenticated()"
+					th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}"
+					th:text="수정" th:href="@{|/faq/answer/modify/${answer.id}|}"
+					class="btn btn-sm btn-outline-secondary">수정</a> <a
+					href="javascript:void(0)"
+					th:if="${null != answer.author and #authentication.getPrincipal().getUsername() == answer.author.username}"
+					th:text="삭제" th:data-uri="@{|/faq/answer/delete/${answer.id}|}"
+					sec:authorize="isAuthenticated()"
+					class="delete btn btn-sm btn-outline-secondary">삭제</a> <a
+					th:data-uri="@{|/faq/answer/vote/${answer.id}|}"
+					class="recommend btn btn-sm btn-outline-secondary" th:text="추천"
+					href="javascript:void(0);">추천</a> <span
+					class="badge rounded-pill bg-success"
+					th:text="${#lists.size(answer.voter)}">0</span>
+			</div>
 		</div>
+	</div>
 	<!-- 답변 반복 end----------------------------------------- -->
 	<!-- 답변 등록 -->
 	<div th:if="${userGrade == 1}">
-		<form th:action="@{|/faq/answer/create/${question.id}|}" method="post" 
-		th:object="${faqAnswerForm}" class="my-3">
+		<form th:action="@{|/faq/answer/create/${question.id}|}" method="post"
+			th:object="${faqAnswerForm}" class="my-3">
 			<div th:replace="~{form_errors :: formErrorsFragment}"></div>
-			<textarea sec:authorize="isAnonymous()" th:field="*{content}" rows="10" name="content" id="content" class="form-control" disabled="disabled"></textarea>
-			<textarea sec:authorize="isAuthenticated()" th:field="*{content}" rows="10" name="content" id="content" class="form-control"></textarea>
+			<textarea sec:authorize="isAnonymous()" th:field="*{content}"
+				rows="10" name="content" id="content" class="form-control"
+				disabled="disabled"></textarea>
+			<textarea sec:authorize="isAuthenticated()" th:field="*{content}"
+				rows="10" name="content" id="content" class="form-control"></textarea>
 			<input type="submit" value="등록" class="btn btn-primary">
 		</form>
 	</div>
-	<!-- 답변 end--------------------------------- -->	
-	</div>
+	<!-- 답변 end--------------------------------- -->
+</div>
 
-	<script layout:fragment="script">
-	 	const delete_btn = document.getElementsByClassName('delete');
-	 	console.log(delete_btn);
-	 	
-	 	Array.from(delete_btn).forEach(function(element){
-	 		element.addEventListener('click',function(){
-	 			console.log('element:click');
-	 			console.log('this.dataset.uri:'+this.dataset.uri);
-	 			
-	 			if(confirm('삭제하시겠습니까?') == true){
-	 				window.location.href=this.dataset.uri;	
-	 			}
-	 		});
-	 	});
-	 	
-	 	const recommend_btn = document.getElementsByClassName('recommend');
-	 	console.log('recommend_btn:'+recommend_btn);
-	 	
-	 	Array.from(recommend_btn).forEach(function(element){
-	 		element.addEventListener('click',function(){
-	 			console.log('re');
-	 			
-	 			if(confirm('추천하시겠습니까?') == true){
-	 				window.location.href=this.dataset.uri
-	 			}
-	 		});
-	 	});
-	</script>
+<script layout:fragment="script">
+	const delete_btn = document.getElementsByClassName('delete');
+	console.log(delete_btn);
+
+	Array.from(delete_btn).forEach(function(element) {
+		element.addEventListener('click', function() {
+			console.log('element:click');
+			console.log('this.dataset.uri:' + this.dataset.uri);
+
+			if (confirm('삭제하시겠습니까?') == true) {
+				window.location.href = this.dataset.uri;
+			}
+		});
+	});
+
+	const recommend_btn = document.getElementsByClassName('recommend');
+	console.log('recommend_btn:' + recommend_btn);
+
+	Array.from(recommend_btn).forEach(function(element) {
+		element.addEventListener('click', function() {
+			console.log('re');
+
+			if (confirm('추천하시겠습니까?') == true) {
+				window.location.href = this.dataset.uri
+			}
+		});
+	});
+</script>
 </html>

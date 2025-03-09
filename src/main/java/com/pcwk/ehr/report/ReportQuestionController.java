@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pcwk.ehr.report.ReportAnswerForm;
 import com.pcwk.ehr.member.Member;
 import com.pcwk.ehr.member.MemberService;
 
@@ -82,8 +79,9 @@ public class ReportQuestionController {
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/create")
-	public String questionCreate(ReportQuestionForm questionForm) {
-		
+	public String questionCreate(ReportQuestionForm questionForm,
+			Model model, HttpServletRequest request) {
+		model.addAttribute("currentUrl", request.getRequestURI());
 		return "report/question/question_form";
 	}
 	
@@ -149,41 +147,46 @@ public class ReportQuestionController {
 	}
 	
 	@GetMapping(value="/detail/{id}")
-	public String detail(Model model,@PathVariable("id") Integer id,ReportAnswerForm answerForm,
-			@RequestParam(value = "page", defaultValue = "0")int page,
-			@AuthenticationPrincipal UserDetails userDetails,
-			HttpServletRequest request) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String currentUsername = null;
-	    Member member = memberService.getMember(userDetails.getUsername());
-	    
-	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-	        currentUsername = ((UserDetails) authentication.getPrincipal()).getUsername();
+	public String detail(Model model, @PathVariable("id") Integer id, ReportAnswerForm answerForm,
+	                     @RequestParam(value = "page", defaultValue = "0") int page,
+	                     @AuthenticationPrincipal UserDetails userDetails,
+											 HttpServletRequest request) {
+
+	    // 기본값 설정
+	    String currentUsername = "anonymous"; 
+	    int userGrade = 0; 
+
+	    // 로그인한 경우에만 정보 가져오기
+	    if (userDetails != null) {
+	        currentUsername = userDetails.getUsername();
+	        Member member = memberService.getMember(currentUsername);
+	        userGrade = member.getUserGrade();
 	    }
-		
-		ReportQuestion question = service.getQuestion(id);
-		Page<ReportAnswer> paging = answerService.getPaging(id,page);
-		
-		if (currentUsername != null && !currentUsername.equals(question.getAuthor().getUsername())) {
-		        service.increaseViewCount(id);
-		}
-		
-		  // 이전글 조회 (현재 id보다 작은 값 중 가장 큰 값)
+
+	    ReportQuestion question = service.getQuestion(id);
+	    Page<ReportAnswer> paging = answerService.getPaging(id, page);
+
+	    // 조회수 증가 (본인이 아닐 경우만)
+	    if (!currentUsername.equals("anonymous") && !currentUsername.equals(question.getAuthor().getUsername())) {
+	        service.increaseViewCount(id);
+	    }
+
+	    // 이전글 조회 (현재 id보다 작은 값 중 가장 큰 값)
 	    ReportQuestion prevQuestion = service.getPreviousQuestion(id);
 	    
 	    // 다음글 조회 (현재 id보다 큰 값 중 가장 작은 값)
 	    ReportQuestion nextQuestion = service.getNextQuestion(id);
-		
+
 	    model.addAttribute("prevQuestion", prevQuestion);
 	    model.addAttribute("nextQuestion", nextQuestion);
-		model.addAttribute("question",question);
-		model.addAttribute("paging", paging);
-		model.addAttribute("userGrade", member.getUserGrade());
-		model.addAttribute("currentUrl", request.getRequestURI());
-				
-		return "report/question/question_detail";	
+	    model.addAttribute("question", question);
+	    model.addAttribute("paging", paging);
+	    model.addAttribute("userGrade", userGrade); // 비로그인 사용자는 "anonymous" 설정
+			model.addAttribute("currentUrl", request.getRequestURI());
+
+	    return "report/question/question_detail";
 	}
+
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/vote/{id}")
@@ -225,6 +228,7 @@ public class ReportQuestionController {
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", "report");
 		model.addAttribute("currentUrl", request.getRequestURI());
 		log.info("size:"+paging.getSize());
 		

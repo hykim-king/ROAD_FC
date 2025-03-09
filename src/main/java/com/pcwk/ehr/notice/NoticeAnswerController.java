@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pcwk.ehr.notice.NoticeQuestion;
-import com.pcwk.ehr.notice.NoticeQuestionService;
 import com.pcwk.ehr.member.Member;
 import com.pcwk.ehr.member.MemberService;
 
@@ -55,8 +53,8 @@ public class NoticeAnswerController {
 	@GetMapping("/delete/{id}")
 	public String questionDelete(@PathVariable("id")Integer id, Principal principal) {
 		NoticeAnswer answer = aservice.getAnswer(id);
-		
-		if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		if(!answer.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
 		}
 		
@@ -76,7 +74,9 @@ public class NoticeAnswerController {
 		}
 		
 		NoticeAnswer answer = aservice.getAnswer(id);
-		if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		
+		if(!answer.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
 		

@@ -62,7 +62,8 @@ public class MemberController {
     
     @GetMapping("/myanswer")
     public String getMyAnswer(@AuthenticationPrincipal UserDetails user, Model model,
-                                 @RequestParam(value = "page", defaultValue = "0") int page) {
+                              @RequestParam(value = "page", defaultValue = "0") int page,
+                              HttpServletRequest request) {
     	
     	Member member = service.getMember(user.getUsername());
     	Page<ReportAnswer> paging = answerService.getQuestionsByAuthor(member, page);
@@ -70,13 +71,15 @@ public class MemberController {
     	model.addAttribute("paging", paging);
         model.addAttribute("member", member);
         model.addAttribute("page", "myanswer");
+        model.addAttribute("currentUrl", request.getRequestURI());
     	
     	return "member/my_answer";
     }
     
     @GetMapping("/myquestion")
     public String getMyQuestions(@AuthenticationPrincipal UserDetails user, Model model,
-                                 @RequestParam(value = "page", defaultValue = "0") int page) {
+                                 @RequestParam(value = "page", defaultValue = "0") int page,
+                         		 HttpServletRequest request) {
         Member member = service.getMember(user.getUsername());
 
         // 사용자가 작성한 ReportQuestions와 QnaQuestions를 합쳐서 조회
@@ -85,12 +88,14 @@ public class MemberController {
         model.addAttribute("paging", paging);
         model.addAttribute("member", member);
         model.addAttribute("page", "myquestion");
-
+        model.addAttribute("currentUrl", request.getRequestURI());
+        
         return "member/my_question";
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails,
+    		HttpServletRequest request) {
     	 log.info("┌──────────────────────┐");
          log.info("│ profile()   	 	  │");
          log.info("└──────────────────────┘");
@@ -101,6 +106,7 @@ public class MemberController {
          Member member = service.getMember(userDetails.getUsername());
          model.addAttribute("member", member);
          model.addAttribute("page", "profile");
+         model.addAttribute("currentUrl", request.getRequestURI());
          
          return "member/member_profile";
     }
@@ -115,7 +121,9 @@ public class MemberController {
     }
     
     @GetMapping("/change")
-    public String change(Model model, @AuthenticationPrincipal UserDetails userDetails, MemberChPass pass) {
+    public String change(Model model, @AuthenticationPrincipal UserDetails userDetails,
+    					 MemberChPass pass,
+    					 HttpServletRequest request) {
         if (userDetails == null) {
             return "redirect:/member/login";
         }
@@ -124,6 +132,7 @@ public class MemberController {
         model.addAttribute("member", member);
         model.addAttribute("memberChPass", new MemberChPass());
         model.addAttribute("page", "change");
+        model.addAttribute("currentUrl", request.getRequestURI());
         
         return "member/change_pass";
     }
@@ -265,8 +274,10 @@ public class MemberController {
 
 
     @GetMapping(value = "/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "keyword", defaultValue = "") String keyword, Principal principal, HttpServletRequest request) {
+    public String list(Model model,
+    		@RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
+            Principal principal, HttpServletRequest request) {
 
         if (principal == null) {
             return "redirect:/member/login";
@@ -274,6 +285,7 @@ public class MemberController {
 
         String username = principal.getName();
         List<Member> members = service.findByMember(username);
+        Member currentUser = service.getMember(username);
 
         boolean hasAdminRole = members.stream().anyMatch(member -> member.getUserGrade() == 1);
         if (!hasAdminRole) {
@@ -281,12 +293,17 @@ public class MemberController {
         }
 
         Page<Member> paging = service.getList(page, keyword);
+        
+        Member member = service.getMember(username); // member 객체 가져오기
+        model.addAttribute("member", member); // 모델에 member 추가
 
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("paging", paging);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("page", "manage");
         model.addAttribute("currentUrl", request.getRequestURI());
         log.info("size:" + paging.getSize());
-
+        
         return "member/member_list";
     }
 }

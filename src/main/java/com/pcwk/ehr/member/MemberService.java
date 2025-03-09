@@ -69,6 +69,10 @@ public class MemberService {
 		};
 	}
 	
+	public boolean findByEmails(String email) {
+	    return memberRepository.existsByEmail(email); // 이메일 존재 여부 확인
+	}
+	
 	@Transactional
 	public void deleteMember(Long memberId) {
 		qnaanswerRepository.deleteByQuestionAuthorId(memberId);

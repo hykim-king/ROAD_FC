@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,8 +77,9 @@ public class QnaQuestionController {
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/create")
-	public String questionCreate(QnaQuestionForm questionForm) {
-		
+	public String questionCreate(QnaQuestionForm questionForm,
+			Model model, HttpServletRequest request) {
+		model.addAttribute("currentUrl", request.getRequestURI());
 		return "qna/question/question_form";
 	}
 	
@@ -142,16 +145,19 @@ public class QnaQuestionController {
 	}
 	
 	@GetMapping(value="/detail/{id}")
-	public String detail(Model model,@PathVariable("id") Integer id,
-			QnaAnswerForm answerForm,
+	public String detail(Model model,@PathVariable("id") Integer id,QnaAnswerForm answerForm,
 			Principal principal,
+			@AuthenticationPrincipal UserDetails userDetails,
 			HttpServletRequest request) {
+		
+		Member member2 = memberService.getMember(userDetails.getUsername());
 		
 		// 제목을 클릭할 때 조회수 증가
 		service.increaseViewCount(id);
 		
 		QnaQuestion question = service.getQuestion(id);
 		model.addAttribute("question",question);
+		model.addAttribute("userGrade", member2.getUserGrade());
 		model.addAttribute("currentUrl", request.getRequestURI());
 		
 		String username = principal.getName();
@@ -186,8 +192,8 @@ public class QnaQuestionController {
 	@GetMapping("/delete/{id}")
 	public String questionDelete(@PathVariable("id")Integer id, Principal principal) {
 		QnaQuestion question = service.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		if(!question.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
 		}
 		
@@ -208,6 +214,7 @@ public class QnaQuestionController {
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", "qna");
 		model.addAttribute("currentUrl", request.getRequestURI());
 		log.info("size:"+paging.getSize());
 		

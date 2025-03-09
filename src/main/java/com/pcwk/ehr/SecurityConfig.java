@@ -39,11 +39,13 @@ public class SecurityConfig {
                     new AntPathRequestMatcher("/email/**"),
                     new AntPathRequestMatcher("/member/checkUsername"),
                     new AntPathRequestMatcher("/email/mailSend"),
-                    new AntPathRequestMatcher("/email/mailauthCheck")
+                    new AntPathRequestMatcher("/email/mailauthCheck"),
+                    new AntPathRequestMatcher("/yolo/**")
                 )
             )
             .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/yolo/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/email/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/member/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()

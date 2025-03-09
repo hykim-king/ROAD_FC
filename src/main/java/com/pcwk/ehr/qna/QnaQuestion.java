@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.pcwk.ehr.qna.QnaAnswer;
 import com.pcwk.ehr.member.Member;
 
 import jakarta.persistence.CascadeType;
@@ -20,10 +17,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Getter
@@ -56,7 +51,7 @@ public class QnaQuestion {
     private List<QnaAnswer> answerList;
     
 	//한명이 질문 여러개를 작성
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Member author;
 	
 	private LocalDateTime modifyDate; //수정일

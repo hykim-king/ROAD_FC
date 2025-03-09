@@ -1,0 +1,28 @@
+<aside th:fragment="sidebarFragment" class="side-bar">
+	<div id="mypage_lmenu" class="lnb_wrap text-center"
+		style="display: block;">
+		<h5 class="left_title box-title">도로상황분석</h5>
+		<div class="nav-group list-group text-center">
+			<a th:href="@{/DataChart/datalist}"
+				th:classappend="${page == 'accident'} ? 'active'"
+				class="list-group-item list-group-item-action" title="사고 증가량 데이터">
+				사고 증가량 데이터
+			</a>
+			<a th:href="@{/DataChart/localAccidentData}"
+				th:classappend="${page == 'local'} ? 'active'"
+				class="list-group-item list-group-item-action" title="지역별 사고 데이터">
+				지역별 사고 데이터
+			</a>
+			<a th:href="@{/DataChart/comparisonData}"
+				th:classappend="${page == 'comparison'} ? 'active'"
+				class="list-group-item list-group-item-action" title="명절 교통량 데이터">
+				명절 교통량 데이터
+			</a>
+			<a th:href="@{/DataChart/weatherAccidentData}"
+				th:classappend="${page == 'weather'} ? 'active'"
+				class="list-group-item list-group-item-action" title="도로 날씨별 사고 데이터">
+				도로 날씨별 사고 데이터
+			</a>
+		</div>
+	</div>
+</aside>

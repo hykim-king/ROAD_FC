@@ -1,12 +1,39 @@
-<aside th:fragment="sidebarFragment">
-    <div id="mypage_lmenu" class="lnb_wrap text-center" style="display: block;">
-        <div class="left_title box-title my-4">마이페이지</div>
-        <div class="list-group text-center">
-            <a th:href="@{/member/profile}" th:classappend="${page == 'profile'} ? 'active'" class="list-group-item list-group-item-action" title="나의 정보">나의 정보</a>
-            <a th:href="@{/member/change}" th:classappend="${page == 'change'} ? 'active'" class="list-group-item list-group-item-action" title="비밀번호 변경">비밀번호 변경</a>
-            <a th:href="@{/member/myquestion}" th:classappend="${page == 'myquestion'} ? 'active'" class="list-group-item list-group-item-action" title="내가 작성한 글">내가 작성한 글</a>
-            <a th:href="@{/member/myanswer}" th:classappend="${page == 'myanswer'} ? 'active'" class="list-group-item list-group-item-action" title="내가 작성한 답변">내가 작성한 답변</a>
-            <a th:if="${member != null and member.userGrade == 1}" th:href="@{/member/list}" th:classappend="${page == 'manage'} ? 'active'" class="list-group-item list-group-item-action" title="회원관리">회원관리</a>
-        </div>
-    </div>
+<aside th:fragment="sidebarFragment" class="myPage-side-bar">
+	<div id="mypage_lmenu" class="lnb_wrap text-center" style="display: block;">
+		<h5 class="left_title box-title">마이페이지</h5>
+		<div class="nav-group list-group text-center">
+			<a th:href="@{/member/profile}"
+				th:classappend="${page == 'profile'} ? 'active'"
+				class="list-group-item list-group-item-action" title="나의 정보">
+				나의 정보
+			</a>
+			<a th:href="@{/member/change}"
+				th:classappend="${page == 'change'} ? 'active'"
+				class="list-group-item list-group-item-action" title="비밀번호 변경">
+				비밀번호 변경
+			</a>
+			<a th:href="@{/member/myquestion}"
+				th:classappend="${page == 'myquestion'} ? 'active'"
+				class="list-group-item list-group-item-action" title="내가 작성한 글">
+				내가 작성한 글
+			</a>
+			<a th:href="@{/member/myanswer}"
+				th:classappend="${page == 'myanswer'} ? 'active'"
+				class="list-group-item list-group-item-action" title="내가 작성한 답변">
+				내가 작성한 답변
+			</a>
+			<a th:if="${member != null and member.userGrade == 1}"
+				th:href="@{/member/list}"
+				th:classappend="${page == 'manage'} ? 'active'"
+				class="list-group-item list-group-item-action" title="회원관리">
+				회원관리
+			</a>
+			<a th:if="${member != null and member.userGrade == 1}"
+        th:href="@{/yolo/detection}"
+        th:classappend="${page == 'yolo'} ? 'active'"
+        class="list-group-item list-group-item-action" title="YOLO AI">
+        YOLO AI
+      </a>
+		</div>
+	</div>
 </aside>

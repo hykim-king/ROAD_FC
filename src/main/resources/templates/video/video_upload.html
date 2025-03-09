@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>영상 업로드</title>
+</head>
+<body>
+	<div layout:fragment="content" class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary text-white">
+						<h3 class="mb-0 text-center">
+							<i class="bi bi-cloud-upload me-2"></i>영상 업로드
+						</h3>
+					</div>
+					<div class="card-body">
+						<!-- 오류 메시지 표시 -->
+						<div th:if="${errorMessage}" class="alert alert-danger mb-3">
+							<i class="bi bi-exclamation-triangle-fill me-2"></i> <span
+								th:text="${errorMessage}"></span>
+						</div>
+
+						<form th:action="@{/video/upload}" th:object="${videoDTO}"
+							method="post">
+							<div class="mb-3">
+								<label for="title" class="form-label"> <i
+									class="bi bi-type me-2"></i>제목
+								</label> <input type="text" class="form-control" id="title"
+									th:field="*{title}" placeholder="영상 제목을 입력하세요" required>
+								<div th:if="${#fields.hasErrors('title')}"
+									class="text-danger small mt-1">
+									<i class="bi bi-x-circle me-1"></i> <span th:errors="*{title}"></span>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="url" class="form-label"> <i
+									class="bi bi-youtube me-2"></i>YouTube URL
+								</label> <input type="text" class="form-control" id="url"
+									th:field="*{url}" placeholder="YouTube 영상 URL을 입력하세요" required>
+								<div class="form-text text-muted">
+									<small> <i class="bi bi-info-circle me-1"></i> 공개된
+										YouTube 영상 URL을 입력해주세요
+									</small>
+								</div>
+								<div th:if="${#fields.hasErrors('url')}"
+									class="text-danger small mt-1">
+									<i class="bi bi-x-circle me-1"></i> <span th:errors="*{url}"></span>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="description" class="form-label"> <i
+									class="bi bi-chat-text me-2"></i>설명
+								</label>
+								<textarea class="form-control" id="description"
+									th:field="*{description}" rows="3"
+									placeholder="영상에 대한 설명을 입력하세요 (선택사항)"></textarea>
+							</div>
+
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary btn-lg">
+									<i class="bi bi-cloud-upload me-2"></i>업로드
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="text-center mt-3">
+					<a th:href="@{/video/list}" class="btn btn-outline-secondary">
+						<i class="bi bi-list me-2"></i>목록으로 돌아가기
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

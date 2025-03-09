@@ -1,0 +1,125 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container myMemberList">
+	<div class="yolo">
+		<div class="box">
+			<h2 class="yolo-title">Yolo 교통량 분석</h2>
+			<div id="map" class="map"></div>
+		</div>
+
+		<div class="box">
+			<h4 class="yolo-title">객체별 YOLO 분석</h4>
+			<table border="1" class="table">
+				<thead>
+					<tr class="table-primary">
+						<th>객체 이름</th>
+						<th>합 개수</th>
+						<th>평균 신뢰도</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="data : ${yoloAvgData}">
+						<td th:text="${data.yoloObjectName}"></td>
+						<td th:text="${data.yoloObjectCount}"></td>
+						<td th:text="${#numbers.formatDecimal(data.yoloConfidence, 1, 2)}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="box">
+			<h4 class="title">객체 개수 비교</h4>
+			<canvas id="objectCountChart"></canvas>
+		</div>
+	</div>
+</div>
+<script layout:fragment="script" th:inline="javascript">
+	
+		var yoloAvgData = /*[[${yoloAvgData}]]*/ [];
+		console.log(document.getElementById("objectCountChart"));
+		var objectCounts = {};
+	
+		yoloAvgData.forEach(function(item) {
+			var objectName = item.yoloObjectName;
+			
+			if (!objectCounts[objectName]) objectCounts[objectName] = 0;
+            objectCounts[objectName] += item.yoloObjectCount;
+			
+		});
+		
+		new Chart(document.getElementById("objectCountChart"), {
+            type: "bar",
+            data: {
+                labels: Object.keys(objectCounts),
+                datasets: [{
+                    label: "객체 개수",
+                    data: Object.values(objectCounts),
+                    backgroundColor: "rgba(54, 162, 235)",
+                    borderColor: "rgba(54, 162, 235)",
+                    borderWidth: 1
+                }]
+            }
+        });
+		
+		//------------------------------
+	
+		var mapContainer = document.getElementById('map');
+
+		var mapOption = {
+			center: new kakao.maps.LatLng(37.3125076293945, 127.030158996582),
+			level: 11
+		};
+
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+
+		var cctvImage = "https://t1.daumcdn.net/localimg/localimages/07/2023/pc/marker_cctv.png",
+			imageSize = new kakao.maps.Size(24,21);
+
+		var markerImage = new kakao.maps.MarkerImage(cctvImage, imageSize);
+		
+		var yoloCctv = /*[[${yoloCctv}]]*/ [];
+		
+		yoloCctv.forEach(function(yolo){
+			
+			var marker = new kakao.maps.Marker({
+				map: map,
+				position: new kakao.maps.LatLng(yolo.cctv_lat, yolo.cctv_lon),
+				image: markerImage
+			});
+			
+			var content = `<div style="padding:5px;">${yolo.cctv_name}</div>`
+			
+			var infowindow = new kakao.maps.InfoWindow({
+				content: content
+			});
+			
+			kakao.maps.event.addListener(marker, 'mouseover', function() {
+			    infowindow.open(map, marker);
+			});
+
+				// 마커에 마우스아웃 이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'mouseout', function() {
+			    infowindow.close();
+			});
+		
+			kakao.maps.event.addListener(marker, 'click', function() {
+				 runYolo(yolo.cctvUrl);
+				 alert("1분동안 yolo 분석합니다");
+	        });
+			
+			map.setMaxLevel(11);
+		});
+	
+		
+		function runYolo(cctvUrl){
+			fetch(`http://localhost:8080/yolo/run-yolo?cctvUrl=${encodeURIComponent(cctvUrl)}`, {method: "POST"})
+			.then(response => response.text())
+	        .then(message => {
+	            alert(message); // 실행 결과 알림창 표시
+	            location.href="http://localhost:8080/yolo/detection";
+	        })
+	        .catch(error => console.error("YOLO 실행 중 오류 발생:", error));
+		}
+		
+		
+	</script>
+</html>
