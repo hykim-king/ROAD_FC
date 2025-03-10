@@ -871,3 +871,19 @@ table tr:hover {
 .margin3 {
 	margin-bottom: 214px;
 }
+
+.mypage-margin {
+	margin: 100px auto auto auto;
+}
+
+.myanswer-margin {
+	margin: 100px auto auto auto;
+}
+
+.my-info {
+	margin: 100px auto auto auto;
+}
+
+.my-pass {
+	margin: 100px auto auto auto;
+}

@@ -45,7 +45,7 @@ public class QnaQuestionController {
 	@Autowired
 	MemberService memberService;
 	
-	private final String uploadDir = "C:/Users/82109/Desktop/JAP_20240909/04_SPRING/boot/workspace/project_oracle/src/main/resources/static/img/qna/";  // 이미지 저장할 경로 설정
+	private final String uploadDir = "D:/JAP_20240909/04_SPRING/BOOT/WORKSPACE/project_oracle/src/main/resources/static/img/qna/";  // 이미지 저장할 경로 설정
 	
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/create")
@@ -86,19 +86,19 @@ public class QnaQuestionController {
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/modify/{id}")
 	public String questionModify(@Valid QnaQuestionForm questionForm, BindingResult bindingResult, 
-			Principal principal, @PathVariable("id")Integer id) throws IllegalStateException, IOException {
+			Principal principal, @PathVariable("id")Integer id, HttpServletRequest request, Model model) throws IllegalStateException, IOException {
 		String viewName = "qna/question/question_form";
 		
 		if(bindingResult.hasErrors()) {
 			return viewName;
 		}
-		
+		model.addAttribute("currentUrl", request.getRequestURI());
 		QnaQuestion question = service.getQuestion(id);
 		log.info("question:{}",question);
 		log.info("question:{}",questionForm.getSubject());
 		log.info("question:{}",questionForm.getContent());
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		if(!question.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
 		
@@ -129,18 +129,19 @@ public class QnaQuestionController {
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/modify/{id}")
-	public String modify(QnaQuestionForm questionForm,@PathVariable("id")Integer id,Principal principal) {
+	public String modify(QnaQuestionForm questionForm,@PathVariable("id")Integer id,Principal principal,
+			HttpServletRequest request, Model model) {
 		
 		QnaQuestion question = service.getQuestion(id);
 		log.info("question:{}",question);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+		Member member = memberService.getMember(principal.getName());
+		if(!question.getAuthor().getUsername().equals(principal.getName()) && member.getUserGrade() != 1) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
 		
 		questionForm.setSubject(question.getSubject());
 		questionForm.setContent(question.getContent());
-		
+		model.addAttribute("currentUrl", request.getRequestURI());
 		return "qna/question/question_form";
 	}
 	

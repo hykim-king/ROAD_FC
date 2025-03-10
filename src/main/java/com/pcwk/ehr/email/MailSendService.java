@@ -22,7 +22,7 @@ public class MailSendService {
     public String joinEmail(String email) {
         try {
             makeRandomNumber();
-            String setFrom = "1026rjsdnd@naver.com"; // 발신자 이메일 주소와 네이버 계정 일치
+            String setFrom = "rbgml1238@naver.com"; // 발신자 이메일 주소와 네이버 계정 일치
             String toMail = email;
             String title = "회원 가입 인증 이메일 입니다.";
             String content = "저희 사이트를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + authNumber + "입니다.";

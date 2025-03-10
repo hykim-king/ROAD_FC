@@ -42,7 +42,7 @@ public class FaqQuestionController {
 	@Autowired
 	MemberService memberService;
 	
-	private final String uploadDir = "C:/Users/82109/Desktop/JAP_20240909/04_SPRING/boot/workspace/project_oracle/src/main/resources/static/img/faq/";  // 이미지 저장할 경로 설정
+	private final String uploadDir = "D:/JAP_20240909/04_SPRING/BOOT/WORKSPACE/project_oracle/src/main/resources/static/img/faq/";  // 이미지 저장할 경로 설정
 	
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/create")
@@ -90,7 +90,7 @@ public class FaqQuestionController {
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/modify/{id}")
 	public String questionModify(@Valid FaqQuestionForm questionForm, BindingResult bindingResult, 
-			Principal principal, @PathVariable("id")Integer id) throws IllegalStateException, IOException {
+			Principal principal, @PathVariable("id")Integer id, HttpServletRequest request, Model model) throws IllegalStateException, IOException {
 		String viewName = "faq/question/question_form";
 		
 		if(bindingResult.hasErrors()) {
@@ -106,7 +106,7 @@ public class FaqQuestionController {
 		if(!(member.getUserGrade() == 1)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
-		
+		model.addAttribute("currentUrl", request.getRequestURI());
 		MultipartFile[] files = questionForm.getImgFile();
         List<String> filePaths = new ArrayList<>();
 
@@ -134,7 +134,8 @@ public class FaqQuestionController {
 	
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/modify/{id}")
-	public String modify(FaqQuestionForm questionForm,@PathVariable("id")Integer id,Principal principal) {
+	public String modify(FaqQuestionForm questionForm,@PathVariable("id")Integer id,Principal principal,
+			HttpServletRequest request, Model model) {
 		
 		FaqQuestion question = service.getQuestion(id);
 		Member member = memberService.getMember(principal.getName());
@@ -146,7 +147,7 @@ public class FaqQuestionController {
 		
 		questionForm.setSubject(question.getSubject());
 		questionForm.setContent(question.getContent());
-		
+		model.addAttribute("currentUrl", request.getRequestURI());
 		return "faq/question/question_form";
 	}
 	

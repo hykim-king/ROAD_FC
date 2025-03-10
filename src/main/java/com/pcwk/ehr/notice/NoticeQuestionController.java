@@ -44,10 +44,7 @@ public class NoticeQuestionController {
 	@Autowired
 	MemberService memberService;
 
-	private final String uploadDir = "C:/Users/82109/Desktop/JAP_20240909/04_SPRING/boot/workspace/project_oracle/src/main/resources/static/img/notice/"; // 이미지
-																																							// 저장할
-																																							// 경로
-																																							// 설정
+	private final String uploadDir = "D:/JAP_20240909/04_SPRING/BOOT/WORKSPACE/project_oracle/src/main/resources/static/img/notice/";
 
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/create")
@@ -97,13 +94,13 @@ public class NoticeQuestionController {
 	@PreAuthorize("isAuthenticated")
 	@PostMapping("/modify/{id}")
 	public String questionModify(@Valid NoticeQuestionForm questionForm, BindingResult bindingResult,
-			Principal principal, @PathVariable("id") Integer id) throws IllegalStateException, IOException {
+			Principal principal, @PathVariable("id") Integer id, HttpServletRequest request, Model model) throws IllegalStateException, IOException {
 		String viewName = "notice/question/question_form";
 
 		if (bindingResult.hasErrors()) {
 			return viewName;
 		}
-
+		model.addAttribute("currentUrl", request.getRequestURI());
 		NoticeQuestion question = service.getQuestion(id);
 		Member member = memberService.getMember(principal.getName());
 
@@ -143,7 +140,8 @@ public class NoticeQuestionController {
 
 	@PreAuthorize("isAuthenticated")
 	@GetMapping("/modify/{id}")
-	public String modify(NoticeQuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
+	public String modify(NoticeQuestionForm questionForm, @PathVariable("id") Integer id, Principal principal,
+			HttpServletRequest request, Model model) {
 
 		NoticeQuestion question = service.getQuestion(id);
 		log.info("question:{}", question);
@@ -154,7 +152,7 @@ public class NoticeQuestionController {
 
 		questionForm.setSubject(question.getSubject());
 		questionForm.setContent(question.getContent());
-
+		model.addAttribute("currentUrl", request.getRequestURI());
 		return "notice/question/question_form";
 	}
 

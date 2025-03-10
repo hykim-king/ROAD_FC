@@ -40,14 +40,14 @@
 				<div class="d-flex justify-content-end align-items-end mt-auto">
 					<!-- Modify/Delete buttons -->
 					<div>
-						<a th:href="@{|/notice/question/modify/${question.id}|}"
+						<a th:href="@{|/qna/question/modify/${question.id}|}"
 							th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}"
 							th:text="수정" sec:authorize="isAuthenticated()"
 							class="btn btn-sm btn-outline-secondary mx-1">수정</a> <a
 							href="javascript:void(0);"
 							th:if="${null != question.author and #authentication.getPrincipal().getUsername() == question.author.username or userGrade == 1}"
 							th:text="삭제"
-							th:data-uri="@{|/notice/question/delete/${question.id}|}"
+							th:data-uri="@{|/qna/question/delete/${question.id}|}"
 							sec:authorize="isAuthenticated()"
 							class="delete btn btn-sm btn-outline-secondary mx-1">삭제</a>
 					</div>
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 	<div class="d-flex justify-content-end align-items-end mt-auto">
-		<a th:href="@{/notice/question/list}"
+		<a th:href="@{/qna/question/list}"
 			class="btn btn-sm btn-outline-primary menuBtn">메뉴</a>
 	</div>
 	<!-- 이전글/다음글 -->
@@ -66,7 +66,7 @@
 		<div class="d-flex align-items-center py-2">
 			<span class="fw-bold">▲</span> <strong class="mx-3">이전글</strong> <a
 				th:if="${prevQuestion != null}"
-				th:href="@{|/notice/question/detail/${prevQuestion.id}|}"
+				th:href="@{|/qna/question/detail/${prevQuestion.id}|}"
 				th:text="${#strings.abbreviate(prevQuestion.subject, 30)}"></a> <span
 				th:if="${prevQuestion == null}">이전글이 없습니다.</span>
 		</div>
@@ -75,7 +75,7 @@
 		<div class="d-flex align-items-center py-2">
 			<span class="fw-bold">▼</span> <strong class="mx-3">다음글</strong> <a
 				th:if="${nextQuestion != null}"
-				th:href="@{|/notice/question/detail/${nextQuestion.id}|}"
+				th:href="@{|/qna/question/detail/${nextQuestion.id}|}"
 				th:text="${#strings.abbreviate(nextQuestion.subject, 30)}"></a> <span
 				th:if="${nextQuestion == null}">다음글이 없습니다.</span>
 		</div>
