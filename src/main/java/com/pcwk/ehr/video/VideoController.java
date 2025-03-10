@@ -47,7 +47,8 @@ public class VideoController {
     }
     
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+    		HttpServletRequest request) {
         log.info("📌 Fetching video list - Page: {}", page);
     	log.info("┌──────────────────┐");
 		log.info("│VideoList	 ()  │");
@@ -64,6 +65,7 @@ public class VideoController {
 
         model.addAttribute("videoInfoList", videoInfoList);
         model.addAttribute("paging", paging);
+        model.addAttribute("currentUrl", request.getRequestURI());
         log.info(" Total videos: {}, Pages: {}", paging.getTotalElements(), paging.getTotalPages());
 
         return "video/video_list";
@@ -105,6 +107,7 @@ public class VideoController {
             model.addAttribute("video", video);
             model.addAttribute("embedUrl", embedUrl);
             model.addAttribute("prevVideoInfoList", prevVideoInfoList);
+            model.addAttribute("currentUrl", request.getRequestURI());
 
             return "video/video_detail";
 

@@ -1,3 +1,9 @@
+if (window.location.pathname === "/map/map") {
+    document.querySelector(".mainContainer").classList.remove("flex-column");
+		document.querySelector(".mainContainer").classList.remove("min-vh-100");
+		//document.querySelector(".mainContainer").classList.remove("d-flex");
+		//document.querySelector(".wrapper").classList.remove("wrapper");
+}
 kakao.maps.load(function() {
   //---------------지도 세팅---------------------
   var mapContainer = document.getElementById('map');

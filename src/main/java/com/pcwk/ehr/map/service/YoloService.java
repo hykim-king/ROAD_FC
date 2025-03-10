@@ -41,7 +41,7 @@ public class YoloService {
 	
     // 최신 폴더 찾기
     public String getLatestCctvFolder() {
-        File fileDir = new File("F:\\JAP_20240909\\04_SPRING\\BOOT\\WORKSPACE\\project_oracle\\runs\\detect");
+        File fileDir = new File("D:\\JAP_20240909\\04_SPRING\\BOOT\\WORKSPACE\\project_oracle\\runs\\detect");
         // 파일 존재여부 / 디렉토리 확인
         if (!fileDir.exists() || !fileDir.isDirectory()) {
         	return null;

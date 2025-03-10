@@ -1,55 +1,58 @@
 <html layout:decorate="~{layout}">
-    <div layout:fragment="content" class="container myContainer myMargin">
-        <h5 class="border-bottom py-3 ps-2 mb-4">로그인</h5>
-        <form th:action="@{/member/login}" method="post" onsubmit="return validateForm()">
-            <!-- Spring Valid -->
-            <div th:if="${param.error}">
-                <div class="alert alert-danger">사용자ID 또는 비밀번호를 확인해주세요.</div>
-            </div>
+<div layout:fragment="content" class="container myContainer myMargin page-margin">
+	<h5 class="border-bottom py-3 ps-2 mb-4">로그인</h5>
+	<form th:action="@{/member/login}" method="post"
+		onsubmit="return validateForm()">
+		<!-- Spring Valid -->
+		<div th:if="${param.error}">
+			<div class="alert alert-danger">사용자ID 또는 비밀번호를 확인해주세요.</div>
+		</div>
 
-            <div>
-                <label for="username" class="form-label"></label> 
-                <input type="text" class="form-control" name="username" id="username" placeholder="사용자ID">
-                <div id="username-error" class="error-message"></div>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label"></label> 
-                <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
-                <div id="password-error" class="error-message"></div>
-            </div>
+		<div>
+			<label for="username" class="form-label"></label> <input type="text"
+				class="form-control" name="username" id="username"
+				placeholder="사용자ID">
+			<div id="username-error" class="error-message"></div>
+		</div>
+		<div class="mb-3">
+			<label for="password" class="form-label"></label> <input
+				type="password" class="form-control" name="password" id="password"
+				placeholder="비밀번호">
+			<div id="password-error" class="error-message"></div>
+		</div>
 
-            <button type="submit" class="btn myBtn">로그인</button>
-        </form>
+		<button type="submit" class="btn myBtn">로그인</button>
+	</form>
 
-        <div class="mt-3 additional-links">
-            <a th:href="@{/member/signup}">회원가입</a>
-            <a th:href="@{/member/findUsername}">아이디 찾기</a>
-            <a th:href="@{/member/findPassword}">비밀번호 찾기</a>
-        </div>
-    </div>
-    <script layout:fragment="script">
-        function validateForm() {
-            let isValid = true;
+	<div class="mt-3 additional-links">
+		<a th:href="@{/member/signup}">회원가입</a> <a
+			th:href="@{/member/findUsername}">아이디 찾기</a> <a
+			th:href="@{/member/findPassword}">비밀번호 찾기</a>
+	</div>
+</div>
+<script layout:fragment="script">
+	function validateForm() {
+		let isValid = true;
 
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            const usernameError = document.getElementById("username-error");
-            const passwordError = document.getElementById("password-error");
+		const username = document.getElementById("username").value;
+		const password = document.getElementById("password").value;
+		const usernameError = document.getElementById("username-error");
+		const passwordError = document.getElementById("password-error");
 
-            usernameError.textContent = "";
-            passwordError.textContent = "";
+		usernameError.textContent = "";
+		passwordError.textContent = "";
 
-            if (!username) {
-                usernameError.textContent = "아이디를 입력해주세요.";
-                isValid = false;
-            }
+		if (!username) {
+			usernameError.textContent = "아이디를 입력해주세요.";
+			isValid = false;
+		}
 
-            if (!password) {
-                passwordError.textContent = "비밀번호를 입력해주세요.";
-                isValid = false;
-            }
+		if (!password) {
+			passwordError.textContent = "비밀번호를 입력해주세요.";
+			isValid = false;
+		}
 
-            return isValid;
-        }
-    </script>
+		return isValid;
+	}
+</script>
 </html>

@@ -55,7 +55,7 @@ public class SecurityConfig {
             )
             .formLogin((formLogin) -> formLogin
                 .loginPage("/member/login")
-                .defaultSuccessUrl("/member/profile")
+                .defaultSuccessUrl("/map/map")
             )
             .logout((logout) -> logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))

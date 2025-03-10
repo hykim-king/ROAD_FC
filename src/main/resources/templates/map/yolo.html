@@ -102,7 +102,8 @@
 			});
 		
 			kakao.maps.event.addListener(marker, 'click', function() {
-				 runYolo(yolo.cctvUrl);
+				 runYolo(yolo.cctv_url);
+				 console.log("클릭");
 				 alert("1분동안 yolo 분석합니다");
 	        });
 			
@@ -110,8 +111,8 @@
 		});
 	
 		
-		function runYolo(cctvUrl){
-			fetch(`http://localhost:8080/yolo/run-yolo?cctvUrl=${encodeURIComponent(cctvUrl)}`, {method: "POST"})
+		function runYolo(cctv_url){
+			fetch(`http://localhost:8080/yolo/run-yolo?cctv_url=${encodeURIComponent(cctv_url)}`, {method: "POST"})
 			.then(response => response.text())
 	        .then(message => {
 	            alert(message); // 실행 결과 알림창 표시

@@ -15,6 +15,7 @@
 <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/road.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Pen+Script&display=swap">
@@ -23,7 +24,7 @@
 <title>로드 마스터</title>
 </head>
 <body>
-<div class="d-flex">
+<div class="mainContainer d-flex flex-column min-vh-100">
 	<nav>
 		<!-- top menu -->
 		<div th:replace="~{top_navbar :: topNavbarFragment}"></div>
@@ -41,6 +42,10 @@
 			<div th:replace="~{bsidebar :: sidebarFragment}"></div> 
 		</div>
     <div th:if="${currentUrl != null and
+    							currentUrl != '/member/login' and
+    							currentUrl != '/member/signup' and
+    							currentUrl != '/member/findUsername' and
+    							currentUrl != '/member/findPassword' and
                   (#strings.startsWith(currentUrl, '/member') or
                    #strings.startsWith(currentUrl, '/yolo'))}">
       <div th:replace="~{msidebar :: sidebarFragment}"></div>
@@ -52,8 +57,14 @@
 		<!-- left menu end -->
 	</nav>
 	<!-- 기본 템플릿 안에 삽입될 내용 start -->
-	<th:block layout:fragment="content"></th:block>
+		<th:block layout:fragment="content"></th:block>
 	<!-- 기본 템플릿 안에 삽입될 내용 end -->
+	
+	<!-- footer -->
+	<div th:if="${currentUrl != null and currentUrl != '/map/map'}">
+		<div th:replace="~{footer :: footerFragment}"></div>
+	</div>
+	<!-- footer -->
 	<script th:src="@{/bootstrap.min.js}"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!-- javascript 시작 -->

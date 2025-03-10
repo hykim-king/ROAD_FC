@@ -61,14 +61,15 @@ public class YoloController {
 	
 	@PostMapping("/run-yolo")
 	@ResponseBody
-	public String runYolo(@RequestParam("cctvUrl") String cctvUrl) {
+	public String runYolo(@RequestParam("cctv_url") String cctv_url) {
 		try {
-			String pythonPath = "C:\\Users\\rbgml\\AppData\\Local\\Programs\\Python\\Python312\\python.exe";
-			String pythonScriptPath = "C:\\Users\\rbgml\\Downloads\\ROAD_FC-python\\yolo\\cctv_detect.py";
+			String pythonPath = "C:\\Users\\acorn4\\AppData\\Local\\Programs\\Python\\Python312\\python.exe";
+			String pythonScriptPath = "D:\\JAP_20240909\\04_SPRING\\BOOT\\WORKSPACE\\yolo\\cctv_detect.py";
 			
 			// 터미널 입력값 ex: python ttest_detect.py --source cctvUrl
-			ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pythonScriptPath, "--source" , cctvUrl);
+			ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScriptPath, "--source" , cctv_url);
 			// 실행 로그
+			processBuilder.redirectErrorStream(true);
 			processBuilder.inheritIO();
 			Process process = processBuilder.start();
 			// python 파일이 끝날 때까지 대기
