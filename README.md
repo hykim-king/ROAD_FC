@@ -7,7 +7,7 @@
 </div>
 
 
-## 프로젝트 개요
+## 👨‍🏫 프로젝트 개요
 
 ✔️ 팀 구성 및 역할  
 * **채영우**(팀장) 🖥️ 지도 기반 데이터 시각화, 교통관련 기사 시각화
@@ -23,7 +23,7 @@
 
   <img src = "https://github.com/user-attachments/assets/434875dc-e2a7-4915-8951-2cced5fc70fd">
 
-## 프로젝트 기능
+## 📌 프로젝트 기능
 
 - 차트 및 그래프 기반 데이터 시각화
 - 지도 기반 데이터 시각화
@@ -33,7 +33,7 @@
 - 교통량 분석 및 시각화
 
 
-## 🛠 기술 스택
+## ⚙️ 기술 스택
 
 Frontend
 
@@ -50,11 +50,22 @@ Database
 <img src = "https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=black">
 
 
-## ERD
+Tools
+
+<img src = "https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+
+## ✒️ ERD
 <div align = "center">
   <img src = "https://github.com/user-attachments/assets/71df4138-9cca-4590-8f27-0302d210ad35">
   <br/>
   <img src = "https://github.com/user-attachments/assets/25d1a895-89da-47e6-a54f-64b9924eb494">
 </div>
 
-## 프로젝트 수행결과
+## 📝 프로젝트 수행결과
+
+[기능별 사진 추가]
+
+
+## 참고 사이트
+
+[ROAD PLUS](https://www.roadplus.co.kr/main/main.do)
