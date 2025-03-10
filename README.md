@@ -11,11 +11,11 @@
 
 ✔️ 팀 구성 및 역할  
 * **채영우**(팀장) 🖥️ 지도 기반 데이터 시각화, 교통관련 기사 시각화
-* **조규희** 🖥️ 지도 기반 데이터 시각화, 디자인 총괄
+* **조규희** 🖥️ 지도 기반 데이터 시각화
 * **한용진** 🖥️ 지도 기반 데이터 시각화, 교통량 분석 및 시각
-* **박건우** 🖥️ 로그인/로그아웃, 커뮤니티
+* **박건우** 🖥️ 로그인/회원가입, 커뮤니티
 * **조성민** 🖥️ 차트 및 기반 데이터 시각
-* **김병우** 🖥️ 로그인/로그아웃, 커뮤니티
+* **김병우** 🖥️ 로그인/회원가입, 커뮤니티
 * **전혜진** 🖥️ 교통관련 안전수칙 및 사고 예방 자료 
 
 ✔️ 전체일정
@@ -63,19 +63,31 @@ Tools
 
 ## 📝 프로젝트 수행결과
 
-<div align = "center">
-  <img src = "https://github.com/user-attachments/assets/5b999f36-0249-4e63-8b92-1fce727a669b">
-  <img src = "https://github.com/user-attachments/assets/38f5c909-561c-4a16-97c2-1cde99f5aa8c">
-  <img src = "https://github.com/user-attachments/assets/14626473-546f-45e9-bea0-c4564996197a">
-  <img src = "https://github.com/user-attachments/assets/0054c834-702d-43c4-9aae-d39b8e31409d">
-  <img src = "https://github.com/user-attachments/assets/cca3efdc-cc7d-455e-868c-1d5aa7208d5d">
-  <img src = "https://github.com/user-attachments/assets/e4d87ecf-bb38-4340-99de-8f15adfdeb4a">
-  <img src = "https://github.com/user-attachments/assets/a6678726-7b3f-4a8e-8857-10575d3e5034">
-  <img src = "https://github.com/user-attachments/assets/e293a7f0-b9f1-48c4-93b8-b0734d6d9af8">
-  <img src = "https://github.com/user-attachments/assets/6f40bc4b-d54e-43d4-a326-8a0bdb440dd4">
-  <img src = "https://github.com/user-attachments/assets/79f4e8f2-1120-431f-b979-77b4f822d27c">\
-  <img src = "https://github.com/user-attachments/assets/c4e16564-46ec-4479-9069-76ad2bef59b5">
-</div>
+* 지도 기반 데이터 시각화
+<img src = "https://github.com/user-attachments/assets/5b999f36-0249-4e63-8b92-1fce727a669b">
+
+* 차트 및 그래프 기반 데이터 시각
+<img src = "https://github.com/user-attachments/assets/38f5c909-561c-4a16-97c2-1cde99f5aa8c">
+
+* 교통관련 기사 시각화
+<img src = "https://github.com/user-attachments/assets/14626473-546f-45e9-bea0-c4564996197a">
+
+* 교통관련 안전수칙 및 사고 예방 자료
+<img src = "https://github.com/user-attachments/assets/0054c834-702d-43c4-9aae-d39b8e31409d">
+
+* 커뮤니티
+<img src = "https://github.com/user-attachments/assets/cca3efdc-cc7d-455e-868c-1d5aa7208d5d">
+<img src = "https://github.com/user-attachments/assets/e4d87ecf-bb38-4340-99de-8f15adfdeb4a">
+<img src = "https://github.com/user-attachments/assets/a6678726-7b3f-4a8e-8857-10575d3e5034">
+
+* 로그인/회원가입
+<img src = "https://github.com/user-attachments/assets/e293a7f0-b9f1-48c4-93b8-b0734d6d9af8">
+<img src = "https://github.com/user-attachments/assets/6f40bc4b-d54e-43d4-a326-8a0bdb440dd4">
+<img src = "https://github.com/user-attachments/assets/79f4e8f2-1120-431f-b979-77b4f822d27c">
+
+* 교통량 분석 및 시각
+<img src = "https://github.com/user-attachments/assets/c4e16564-46ec-4479-9069-76ad2bef59b5">
+
 
 ## 참고 사이트
 
