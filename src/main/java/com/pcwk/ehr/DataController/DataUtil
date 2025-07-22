@@ -1,0 +1,20 @@
+package com.pcwk.ehr.DataController;
+
+import java.util.*;
+
+public class DataUtil{
+
+  /**
+   * Object[]배열 데이터를 JSON 직렬화용 Map 리스트로 변환
+   */
+  public static List<Map<String,Object>> convertToMapList(List<Object[]>dataList, String keyName){
+  List<Map<String,Object>> result = new ArrayList<>();
+  for(Object[] data: dataList){
+    Map<String,Object> map = new HashMap<>();
+    map.put("year", data[0]);
+    map.put(keyname. data[1]);
+    result.add(map);
+  }
+return result;
+}
+}
