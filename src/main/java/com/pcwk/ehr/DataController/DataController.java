@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,10 @@ import com.pcwk.ehr.data.TrafficComparison;
 import com.pcwk.ehr.data.WeatherAccident;
 import com.pcwk.ehr.data.YearAccident;
 import com.pcwk.ehr.data.YearAccidentRate;
+import com.pcwk.ehr.data.DataController.DataUtil;
+
+List<Map<String,Object>> transData = DataUtil.convertToMapList(yearlyAccidentData,"accidentCount");
+String jsonData = new ObjectMapper().writeValueAsString(transData);
 
 @Controller
 @RequestMapping("/DataChart")
