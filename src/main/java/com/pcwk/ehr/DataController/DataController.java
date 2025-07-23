@@ -94,19 +94,10 @@ public class DataController {
 	    List<Integer> yearsList = localAccidentService.getAllYears();
 	    List<String> majorRegions = localAccidentService.getAllMajorRegions();
 	    List<String> minorRegions = localAccidentService.getAllMinorRegions();
+
 	    List<Object[]> yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
-
-	    // 변환 로직 추가
-	    List<Map<String, Object>> transformedData = new ArrayList<>();
-	    for (Object[] data : yearlyAccidentData) {
-	        Map<String, Object> dataMap = new HashMap<>();
-	        dataMap.put("year", data[0]);
-	        dataMap.put("accidentCount", data[1]);
-	        transformedData.add(dataMap);
-	    }
-
-	    // 변환된 데이터를 JSON으로 직렬화하여 반환
-	    String jsonData = new ObjectMapper().writeValueAsString(transformedData);
+	    List<Map<String, Object>> transformedData = DataUtil.convertToMapList(yearlyAccidentData, "accidentCoutn");
+	    String jsonData = DataUtil.toJson(transformedData);
 
 	    model.addAttribute("accidents", pagedAccidents.getContent());
 	    model.addAttribute("DataJson", jsonData); // 변환된 JSON 데이터
@@ -198,7 +189,7 @@ public class DataController {
 	        Model model) throws JsonProcessingException {
 
 		Page<TrafficComparison> pagedComparison;
-	    Pageable pageable = PageRequest.of(page, size);
+	        Pageable pageable = PageRequest.of(page, size);
 	    
 	    if (keyword != null && !keyword.isEmpty()) {
 	        pagedComparison = trafficComparisonService.getComparisonPaged(year, specialday, specialdaytype, hour, trfl, prevtrfl, changetrfl, ratetrfl, keyword, pageable);
@@ -215,20 +206,11 @@ public class DataController {
 	    log.info("Special day list: {}",specialdayList); 
 	    List<String> specialdaytypeList = trafficComparisonService.getAllSphldfttScopTypeNm();
 	    List<Integer> hourList = IntStream.rangeClosed(0, 23).boxed().collect(Collectors.toList());
-	    List<Object[]> comparisonData = trafficComparisonService.getComparisonCount();
 
-	    // 변환 로직 추가
-	    List<Map<String, Object>> transData = new ArrayList<>();
-	    for (Object[] data : comparisonData) {
-	        Map<String, Object> dataMap = new HashMap<>();
-	        dataMap.put("year", data[0]);
-	        dataMap.put("trfl", data[1]);
-	        transData.add(dataMap);
-	    }
-	    
-	    // 변환된 데이터 JSON으로 변환
-	    String jsonData = new ObjectMapper().writeValueAsString(transData);
-	    
+	    List<Object[]> comparisonData = trafficComparisonService.getComparisonCount();
+	    List<Map<String,Object>> transData = DataUtil.convertToMapList(comparisonData,"trfl");
+	    String jsonData = DataUtil.toJson(transData);
+	
 	    model.addAttribute("comparisons", pagedComparison.getContent()); // 페이징된 데이터 전달
 	    model.addAttribute("Datajson", jsonData);
 	    model.addAttribute("paging", pagedComparison); // 페이징 정보 전달
@@ -329,18 +311,11 @@ public class DataController {
 	    List<Integer> yearsList = weatherAccidentService.getAllYears();
 	    List<String> roadTypes = weatherAccidentService.getAllRoadType();
 	    List<String> accidentTypes = weatherAccidentService.getAllAccidentType();
-	    List<Object[]> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
-	    
-	    List<Map<String, Object>> transData = new ArrayList<>();
-	    for (Object[] data: getYearlyWeatherData) {
-	    	Map<String, Object> dataMap = new HashMap<>();
-	    	dataMap.put("year", data[0]);
-	    	dataMap.put("accidentCount", data[1]);
-	    	transData.add(dataMap);
-	    }
 
-	    String jsonData = new ObjectMapper().writeValueAsString(transData);
-	    
+	    List<Objectp[> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
+	    List<Map<String,Object>> transData = DataUtil.convertToMapList(getYearlyWeatherData, "accidentCount");
+	    String jsonData = DataUtil.toJson(transData);
+		
 	    model.addAttribute("accidents", pagedAccidents.getContent());
 	    model.addAttribute("Datajson",jsonData);
 	    model.addAttribute("paging", pagedAccidents);
@@ -427,8 +402,11 @@ public class DataController {
 			dataMap.put("trafficCount", data.getTdAccident());
 			transData.add(dataMap);
 		}
-		
-		String jsonData = new ObjectMapper().writeValueAsString(transData);
+
+		List<YearAccident> allAccidents = yearAccidentService.getAllAccidents();
+		List<Object[]> yearAccidentData = allAccidents.stream().map(a -> new Object[]{a.getTdYear(), a.getTdAccident()}).collect(Collectors.toList());
+		List<Map<String,Object>> transData = DataUtil.convertToMapList(yearAccidentData,"trafficCount");
+		String jsonData = DataUtil.toJson(transData);
 		
 		model.addAttribute("accidents", pageAccidents.getContent()); // 페이지별 데이터 추가
 		model.addAttribute("allYears", yearAccidentService.getAllYears());
