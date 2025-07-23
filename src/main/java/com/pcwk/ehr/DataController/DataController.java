@@ -37,11 +37,7 @@ import com.pcwk.ehr.data.YearAccident;
 import com.pcwk.ehr.data.YearAccidentRate;
 import com.pcwk.ehr.data.DataController.DataUtil;
 
-List<Map<String,Object>> transData = DataUtil.convertToMapList(yearlyAccidentData,"accidentCount");
-String jsonData = new ObjectMapper().writeValueAsString(transData);
-
 @Controller
-@RequestMapping("/DataChart")
 public class DataController {
 	final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -55,21 +51,10 @@ public class DataController {
 	WeatherAccidentService weatherAccidentService;
 
 	@Autowired
-	YearAccidentRateService yearAccidentRateService;
-
-	@Autowired
 	YearAccidentService yearAccidentService;
 	
 	/**
-	 * 공용 페이징 기능
-	 */
-	
-	
-	/**
-	 * 1 연도별 사건사고 데이터
-	 */
-	/**
-	 * 1 연도별 사건사고 데이터
+	 * 지역별 연도별 사고건수
 	 */
 	@GetMapping("/localAccidentData")
 	public String listAllAccidents(@RequestParam(value = "year", required = false) Integer year,
