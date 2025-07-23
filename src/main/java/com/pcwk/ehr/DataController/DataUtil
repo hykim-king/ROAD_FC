@@ -6,29 +6,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DataUtil{
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
-
-  /**
-   * 객체를 JSON 문자열로 변환
-   */
-  public static String toJson(Object obj) throws JsonProcessingException{
-  return objectMapper.writeValueAsString(obj);
-}
-
-
-  /**
-   * Object[]배열 데이터를 JSON 직렬화용 Map 리스트로 변환
-   * @param dataList - Object[] 배열 리스트
-   * @param keyName - 두 번째 컬럼의 key이름 (ex: "accidentCount")
-   */
-  public static List<Map<String,Object>> convertToMapList(List<Object[]>dataList, String keyName){
-  List<Map<String,Object>> result = new ArrayList<>();
-  for(Object[] data: dataList){
-    Map<String,Object> map = new HashMap<>();
-    map.put("year", data[0]);
-    map.put(keyName. data[1]);
-    result.add(map);
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+  
+    /**
+     * 객체를 JSON 문자열로 변환
+     */
+    public static String toJson(Object obj) throws JsonProcessingException{
+    return objectMapper.writeValueAsString(obj);
   }
-return result;
-}
+
+
+    /**
+     * Object[]배열 데이터를 JSON 직렬화용 Map 리스트로 변환
+     * @param dataList - Object[] 배열 리스트
+     * @param keyName - 두 번째 컬럼의 key이름 (ex: "accidentCount")
+     */
+    public static List<Map<String,Object>> convertToMapList(List<Object[]>dataList, String keyName){
+    List<Map<String,Object>> result = new ArrayList<>();
+    for(Object[] data: dataList){
+      Map<String,Object> map = new HashMap<>();
+      map.put("year", data[0]);
+      map.put(keyName. data[1]);
+      result.add(map);
+    }
+  return result;
+  }
 }
