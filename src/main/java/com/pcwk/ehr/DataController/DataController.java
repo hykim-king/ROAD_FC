@@ -117,19 +117,11 @@ public class DataController {
 	/**
 	 * 1 연도별 사고 건수 데이터를 JSON으로 반환하는 API
 	 */
-	@GetMapping("/localAccidentData/json")
-	public ResponseEntity<List<Map<String, Object>>> getYearlyAccidentData() throws JsonProcessingException {
-		List<Object[]> yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
-		List<Map<String, Object>> transData = new ArrayList<>();
-		
-		for(Object[] data : yearlyAccidentData) {
-			Map<String, Object> dataMap = new HashMap<>();
-			dataMap.put("year", data[0]);
-			dataMap.put("localCnt", data[1]);
-			transData.add(dataMap);
-		}
-		
-		return ResponseEntity.ok(transData);
+	@GetMapping(value= "/localAccidentData", produces = "application/json;charset=UTF-8")
+	public String listAllWeather(Model model) throws JsonProcessingException{
+		List<Object[]>yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
+		List<Map<String,Object>> transformedData = DataUtil.convertToMapList(yearlyAccidentData,"accidentCount");
+		return "localData/list";
 	}
 
 	/**
@@ -228,20 +220,13 @@ public class DataController {
 	    return "accidents/comparisonData";
 	}
 	
-	@GetMapping("/clist/json")
-	public ResponseEntity<List<Map<String, Object>>> comparisonData(){
+	@GetMapping(value="/comparisonData", produces = "application/json;charset=UTF-8")
+	public String listAllComparison(Model model) throws JsonProcessingException{
 		List<Object[]> comparisonData = trafficComparisonService.getComparisonCount();
-		List<Map<String, Object>> transData = new ArrayList<>();
-		
-		for(Object[] data : comparisonData) {
-			Map<String,Object> dataMap = new HashMap<>();
-			dataMap.put("year",data[0]);
-	        dataMap.put("trfl", data[1]);
-	        transData.add(dataMap);
-		}
-		return ResponseEntity.ok(transData);
+		List<Map<String,Object>> transformedData = DataUtil.convertToMapList(comparisonData,"trfl");
+		model.addAttribute("Datajson",DataUtil.toJson(transformedData));
+		return "localData/list";
 	}
-
 
 	@GetMapping("/comparisonData1/json")
 	@ResponseBody
@@ -332,19 +317,12 @@ public class DataController {
 	    return "accidents/weatherAccidentData";
 	}
 
-	@GetMapping("/weatherAccidentData/json")
-	public ResponseEntity<List<Map<String, Object>>> getYearlyWeatherData() {
-	    List<Object[]> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
-	    List<Map<String, Object>> transData = new ArrayList<>();
-	    
-	    for (Object[] data : getYearlyWeatherData) {
-	        Map<String, Object> dataMap = new HashMap<>();
-	        dataMap.put("year", data[0]);
-	        dataMap.put("accidentCount", data[1]);
-	        transData.add(dataMap);
-	    }
-
-	    return ResponseEntity.ok(transData);
+	@GetMapping(value = "/weatherAccidentData", produces = "application/json;charset=UTF-8")
+	public String listAllWeatherAccident(Model model) throws JsonProcessingException{
+		List<Object[]> yearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
+		List<Map<String,Object>> transformedData = DataUtil.convertTOMapList(yearlyWeatherData, "accidnetCount");
+		model.addAttribute("Daatjson",DataUtil.toJson(transformedData));
+		return "localData/list";
 	}
 
 
