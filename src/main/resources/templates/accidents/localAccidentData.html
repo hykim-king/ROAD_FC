@@ -298,92 +298,63 @@ $(document).ready(function () {
             return [];
         }
     }
+	
+    // 📌 CHART_METRICS 도입 -> 중복 제거, 유지보수성 향상
+    const CHART_METRICS = [
+	    {key: "laLocalCnt", label: "연도별 총 사고 건수", bg:"rgba(50,150,255,0.5)",border:"rgba(50,150,255,1)"},
+	    {key: "laDeathCnt", label: "사망자 사고 발생 건수",bg:"rgba(30,200,150,0.5)", border:"rgba(30,200,150,1)"},
+	    {key: "laInjuryCnt", label: "부상자 발생 사고 건수",bg:"rgba(120,25,255,0.5)", border:"rgba(120,25,255,1)"},
+	    {key: "laSeriousCnt", label: "중상자 발생 사고 건수", bg:"rgba(240,40,100,0.5)", border:"rgba(240,40,100,1)"},
+	    {key: "laMinorCnt", label: "경상자 발생 사고 건수", bg:"rgba(140,240,235,0.5)". border:"rgba(140,240,235,0.5)"}
+    ];
+
+    // Dataset 추출 분리
+    function createDatasets(data){
+	return CHART_METRICS.map(metric => ({
+		label: metric.label,
+		data : data.map(item => item[metric.key] || 0),
+		backgroundColor: metric.bg,
+		borderColor: metric.border,
+		borderWidth: 1
+	})); 
+    }
 
     // 📌 차트 생성 함수
-    function createBarChart(data) {
-        if (chart) {
-            chart.destroy(); 
-        }
+    function createBarChart(data){
+	    if(chart) chart.destroy();
+	    let ctx = document.getElementedById('accidentChart').getContext('2d');
+	    chart = new Chart(ctx,{
+		    type: 'bar',
+		    data:{
+			    labels:data.map(item => item.laMinorRegion || item.laMajorRegion),
+			    datasets: createDatesets(data)
+		    },
+		    options: {
+			    responsive: true,
+			    maintainAspectRatio : true,
+			    scales:{
+				x:{title:{display: true, text: "지역"}},
+				y:{beginAtZero: true, title: {display: true, text: "사고 건수(건)"}}
+			    }
+		    }
+	    });
+    }
 
-        let ctx = document.getElementById('accidentChart').getContext('2d');
-        
-        chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-            	labels: data.map(item => item.laMinorRegion || item.laMajorRegion),
-                datasets: [
-               		{
-	                    label: '연도별 총 사고 건수',
-	                    data: data.map(item => item.laLocalCnt),
-	                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-	                    borderColor: 'rgba(54, 162, 235, 1)',
-	                    borderWidth: 1
-	                },
-	                {
-	                	label: "사망자 사고 발생 건수",
-	                	data: data.map(item => item.laDeathCnt),
-	                	backgroundColor : 'rgba(242, 2, 2, 0.5)',
-	                	borderColor : "rgba(242, 2, 2, 1)",
-	                	borderWidth : 1
-	                },
-	                {
-	                	label: "부상자 발생 사고 건수",
-	                	data : data.map(item => item.laInjuryCnt),
-	                	backgroundColor : 'rgba(220, 214, 24, 0.5)',
-	                	borderColor : "rgba(220, 214, 24, 1)",
-	                	borderWidth : 1
-	                },
-	                {
-	                	label: "중상자 발생 사고 건수",
-	                	data : data.map(item => item.laSeriousCnt),
-	                	backgroundColor : 'rgba(121, 26, 255, 0.5)',
-	                	borderColor : "rgba(121, 26, 255, 1)",
-	                	borderWidth : 1
-	                },
-	                {
-	                	label: "경상자 발생 사고 건수",
-	                	data : data.map(item => item.laMinorCnt),
-	                	backgroundColor : 'rgba(140, 242, 235, 0.5)',
-	                	borderColor : "rgba(140, 242, 235, 1)",
-	                	borderWidth : 1
-	                }
-                ],
-           	},
-               options: {
-                   responsive: true,
-                   maintainAspectRatio: true,
-                   scales: {
-                       x: { 
-                           title: {
-                               display: true,
-                               text: "지역"
-                           }
-                       },
-                       y: { 
-                           beginAtZero: true,
-                           title: {
-                               display: true,
-                               text: "사고 건수 (건)"
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
+	
+	
     // 📌 차트 업데이트 함수
     function updateChart(data) {
-        if (chart) {
-        	chart.data.labels = data.map(item => item.laMinorRegion || item.laMajorRegion);
-            chart.data.datasets[0].data = data.map(item => item.laLocalCnt);
-            chart.data.datasets[1].data = data.map(item => item.laDeathCnt);
-            chart.data.datasets[2].data = data.map(item => item.laInjuryCnt);
-            chart.data.datasets[3].data = data.map(item => item.laSeriousCnt);
-            chart.data.datasets[4].data = data.map(item => item.laMinorCnt);
-            chart.update(); // ✅ 업데이트 반영
-        } else {
-            createBarChart(data);
-        }
+	    if(!chart){
+		    createBarChart(data);
+		    return;
+	    }
+
+	    chart.data.labels = data.map(item => item.laMinorRegion || item.laMajorRegion);
+	    const datasets = createDatasets(data);
+	    datasets.forEach((ds,i) => {
+		    chart.data.datasets[i] = ds;
+	    });
+	    chart.update();
     }
 
     // 📌 테이블 업데이트 함수
