@@ -155,129 +155,95 @@ $(document).ready(function () {
         }
       }
 
+     //차트 항목 구조화
+     const CHART_METRICS = [
+	     {key:"taAccidentRate", label: "종합 사고 증가율", color: "rgba(75,190,190,1)"},
+	     {key:"taDeathRate", label:"사망사고 발생 증가율", color: "rgba(255,99,130,1)"},
+	     {key:"taInjuryRate", label:"부상 사고 발생 증가율", color:"rgba(255,200,80,1)"},
+	     {key:"taFatalRate", label:"치사율", color:"rgba(150,100,255,1)", yAxisID:"y1"}
+     ];
+
       function createChart(data) {
-    	    if (chart) chart.destroy();
-    	    let ctx = document.getElementById('trafficChart').getContext("2d");
+	      if(chart) chart.destroy();
+	      let ctx = document.getElementedById('trafficChart').getContext('2d');
+	      const datasets = CHART_METRICS.map(metric => ({
+		      label: metric.label,
+		      data: data.map(item => item[metric.key]) ?? 0),
+		      borderColor: metric.color,
+		      backgroundColor: metric.color.replace("1)", "0.5)"),
+		      borderWidth: 1,
+		      fill: false,
+		      yAxisID : metric.yAxisID || "y"
+	      }));
 
-    	    chart = new Chart(ctx, {
-    	        type: "line",
-    	        data: {
-    	            labels: data.map(item => item.tdYear), // ✅ rawData의 키에 맞게 수정
-    	            datasets: [
-    	                {
-    	                    label: "종합 사고 증가율",
-    	                    data: data.map(item => item.taAccidentRate),
-    	                    backgroundColor: "rgba(75, 192, 192, 0.5)",
-    	                    borderColor: "rgba(75, 192, 192, 1)",
-    	                    borderWidth: 1,
-    	                    fill: false
-    	                },
-    	                {
-    	                    label: "사망사고 발생 증가율",
-    	                    data: data.map(item => item.taDeathRate), 
-    	                    backgroundColor: "rgba(255, 99, 132, 0.5)",
-    	                    borderColor: "rgba(255, 99, 132, 1)",
-    	                    borderWidth: 1,
-    	                    fill: false
-    	                },
-    	                {
-    	                    label: "부상 사고 발생 증가율",
-    	                    data: data.map(item => item.taInjuryRate),
-    	                    backgroundColor: "rgba(255, 206, 86, 0.5)",
-    	                    borderColor: "rgba(255, 206, 86, 1)",
-    	                    borderWidth: 1,
-    	                    fill: false
-    	                },
-    	                {
-    	                    label: "치사율",
-    	                    data: data.map(item => item.taFatalRate),
-    	                    backgroundColor: "rgba(153, 102, 255, 0.5)",
-    	                    borderColor: "rgba(153, 102, 255, 1)",
-    	                    borderWidth: 1,
-    	                    fill: false
-    	                }
-    	            ]
-    	        },
-    	        options: {
-    	            responsive: true,
-    	            scales: {
-    	              y: {
-    	                min: -15,
-    	                max: 15,
-    	                title: {
-    	                  display: true,
-    	                  text: "증가율 (%)",
-    	                },
-    	              },
-    	              y1: {
-    	                position: "right",
-    	                min: 0,
-    	                max: 2, // ✅ 치사율의 범위 설정
-    	                grid: {
-    	                  drawOnChartArea: false, // ✅ 주 Y축과 겹치지 않게
-    	                },
-    	                title: {
-    	                  display: true,
-    	                  text: "치사율 (%)",
-    	                }
-    	              }
-    	            }
-    	        }
-    	    });
-    	}
+	      chart = new Chart(ctx, {
+		      type: "line",
+		      data: {
+			      labels: data.map(item => item.tdYear),
+			      datasets: datasets
+		      },
+		      options {
+		      responsive : true,
+		      scales : {
+			      y:{
+				      min: -15, max: 15,
+				      title: {display: true, text: "증가율(%)"}
+			      },
+			      y1:{
+				      position: "right",
+				      min: 0, max: 2,
+				      grid: {drawOnChartArea,: false},
+				      title: {display: true, text:"치사율(%)"}
+		      }
+		}
+	}
+      });
+      }
 
-      function updateChart(data, type, isPercentage) {
-    	  if (chart) {
-    	    chart.config.type = type;
-    	    chart.data.labels = data.map(item => item.tdYear);
-
-    	    console.log("📊 차트 업데이트용 데이터:", data); // 🔥 차트에 들어가기 전 데이터 확인
-
-    	    chart.data.datasets[0].data = data.map(item => item.taAccidentRate !== undefined ? Number(item.taAccidentRate.toFixed(2)) : 0);
-    	    chart.data.datasets[1].data = data.map(item => item.taDeathRate !== undefined ? Number(item.taDeathRate.toFixed(2)) : 0);
-    	    chart.data.datasets[2].data = data.map(item => item.taInjuryRate !== undefined ? Number(item.taInjuryRate.toFixed(2)) : 0);
-    	    chart.data.datasets[3].data = data.map(item => item.taFatalRate !== undefined ? Number(item.taFatalRate.toFixed(2)) : 0);
-
-    	    chart.options.scales.y.title.text = "비율 (%)";
-    	    chart.update();
-    	  } else {
-    	    createChart(data);
-    	  }
-    	}
-
-  function updateTable(data) {
-    let tableBody = $(".table tbody");
-    tableBody.empty();
-    if (!Array.isArray(data) || data.length === 0) {
-      tableBody.append('<tr><td colspan="9" class="text-center">데이터가 없습니다.</td></tr>');
-      return;
-    }
-
-    const maxValues = {
-      tdAccident: Math.max(...data.map(item => item.tdAccident || 0)),
-      taAccidentRate: Math.max(...data.map(item => item.taAccidentRate || 0)),
-      tdDeathCnt: Math.max(...data.map(item => item.tdDeathCnt || 0)),
-      taDeathRate: Math.max(...data.map(item => item.taDeathRate || 0)),
-      taFatalRate: Math.max(...data.map(item => item.taFatalRate || 0)),
-      tdInjuryCnt: Math.max(...data.map(item => item.tdInjuryCnt || 0)),
-      taInjuryRate: Math.max(...data.map(item => item.taInjuryRate || 0))
-    };
-
-    data.forEach((item, index) => {
-      let row = `<tr>
-        <td>${index + 1}</td>
-        <td>${item.tdYear || '-'}</td>
-        <td class="${item.tdAccident === maxValues.tdAccident ? 'text-danger' : ''}">${item.tdAccident || '-'}</td>
-        <td class="${item.taAccidentRate === maxValues.taAccidentRate ? 'text-danger' : ''}">${(item.taAccidentRate !== null ? item.taAccidentRate.toFixed(2) : '-')}</td>
-        <td class="${item.tdDeathCnt === maxValues.tdDeathCnt ? 'text-danger' : ''}">${item.tdDeathCnt || '-'}</td>
-        <td class="${item.taDeathRate === maxValues.taDeathRate ? 'text-danger' : ''}">${(item.taDeathRate !== null ? item.taDeathRate.toFixed(2) : '-')}</td>
-        <td class="${item.taFatalRate === maxValues.taFatalRate ? 'text-danger' : ''}">${(item.taFatalRate !== null ? item.taFatalRate.toFixed(2) : '-')}</td>
-        <td class="${item.tdInjuryCnt === maxValues.tdInjuryCnt ? 'text-danger' : ''}">${item.tdInjuryCnt || '-'}</td>
-        <td class="${item.taInjuryRate === maxValues.taInjuryRate ? 'text-danger' : ''}">${(item.taInjuryRate !== null ? item.taInjuryRate.toFixed(2) : '-')}</td>
-      </tr>`;
-      tableBody.append(row);
-    });
+  function updateChart(data, type = "line", isPercentage = true){
+	  if(!chart) return createChart(data);
+	  chart.config.type = type;
+	  chart.data.labels = data.map(item => item.tdYear);
+	CHART_METRICS.forEach((metric, index) => {
+		chart.data.datasets[index].data = data.map(item =>
+			item[metric.key] !== undefined ? Number(item[metric.key].toFixed(2)) : 0
+							   );
+	});
+	  chart.update();
   }
+
+const TABLE_FIELDS = [
+	{key:"tdAccident", label:"사고(건)수"},
+	{key:"taAccidentRate", label:"사고건수 증가율(%)", fixed: true},
+	{key:"tdDeathCnt", label:"사망자(명)"},
+	{key:"taDeathRate", label:"사망자수 증가율(%)", fixed: true},
+	{key:"taFatalRate", label:"치사율(%)", fixed: true},
+	{key:"tdInjuryCnt", label:"부상자(명)"},
+	{key:"taInjuryRate", label:"부상자 수 증가율(%)", fixed: true}
+];
+
+function updateTable(data){
+	 let tableBody = $(".table tbody").empty();
+	 if(!Array.isArray(data) || data.length == 0) {
+	 return tableBody.append('<tr><td colspan="9" class="text-center">데이터가 없습니다.</td></tr>')
+	 }
+
+const maxValues = {};
+TABLE_FIELDS.forEach(f => {
+	maxValues[f.key] = Math.max(...data.map(d => d[f.key] ?? - Infinity));
+});
+	data.ForEach((item, i) => {
+		let cells = `<td>${i +  1}</td><td>${item.tdYear || '-'}</td>`;
+		TABLE_FIELDS.forEach(f => {
+			const value = item[f.key];
+			const display = f.fixed && value !== null ? value.toFixed(2) : (value ?? '-');
+			const highlight = value === maxValues[f.key] ? 'text-'danger' : '';
+			cells += `<td class = "${highlight}">${display}</td>`;
+		});
+		tableBody.append(`<tr>${cells}</tr>`);
+	});
+}
+		
 });
 </script>
 
