@@ -196,7 +196,60 @@ $(document).ready(function () {
     $("#year, #specialday, #specialdaytype, #hour").on("change", function() {
         updateHiddenFormValues();
     });
-    
+
+    // 필터 값을 함수로 처리
+    function getFilterValue(){
+	return{
+		year: $("#year").val() || $("#formYear").val() || "",
+		specialday: $("#specialday").val() || $("#formSpecialDay").val() || "",
+		specialdaytype: $("#specialdaytype").val() || $("#formSpecialDayType").val() || "",
+		hour:$("#hour").val() || $("#formHour").val() || "",
+		page: $("#page").val() || $("#formPage").val() || 0
+	};  
+    }
+
+    // hidden Form 업데이트 함수 간소화
+    function updateHiddenFormValues(){
+	    const {year, specialday, specialdaytype, hour} = getFilterValues();
+	    $("#formYear").val(year);
+	    $("#formSpecialDay").val(specialday);
+	    $("#formSpecialDayType").val(specialdaytype);
+	    $("#formHour").val(hour);
+
+	    console.log("Form Value Update:",{year,specialday,specialdaytype,hour});
+    }
+
+    // fetchDataAndUpdateChart 간소화
+    async function fetchDataAndUpdateChart(){
+	    const{year, specialday, specialdaytype, hour, page} = getFilterValues();
+
+	    //UI 값 반영
+	    $("#year").val(year);
+	    $("#specialday").val(specialday);
+	    $("#specialdaytype").val(specialdaytype);
+	    $("#hour").val(hour);
+
+	    const url = `/DataChart/comparisonData1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${encodeURIComponent(hour)}&page = ${page}`;
+
+	    try{
+		    const response = await fetch(url);
+		    if (!response.ok) throw new Error("Network Response was not ok");
+		    const data = await response.json();
+
+		    console.log("Filtered Data:",data);
+
+		    if(Array.isArray(data) && data.length > 0){
+			    updateChart(data);
+			    updateTable(data);
+		    } else{
+			    console.log("데이터가 없습니다.");
+		    }
+	    }catch(error){
+		    console.error("데이터 불러오기 오류",error)
+	    }
+    }
+
+	
     // 페이지네이션 링크 이벤트 처리
     const page_elements = document.getElementsByClassName("page-link");
     Array.from(page_elements).forEach(function(element){
@@ -221,21 +274,6 @@ $(document).ready(function () {
         });
     });
     
-    // hidden 폼 값 업데이트 함수
-    function updateHiddenFormValues() {
-        document.getElementById("formYear").value = $("#year").val() || "";
-        document.getElementById("formSpecialDay").value = $("#specialday").val() || "";
-        document.getElementById("formSpecialDayType").value = $("#specialdaytype").val() || "";
-        document.getElementById("formHour").value = $("#hour").val() || "";
-        
-        console.log("폼 값 업데이트:", {
-            year: $("#year").val(),
-            specialDay: $("#specialday").val(),
-            specialDayType: $("#specialdaytype").val(),
-            hour: $("#hour").val()
-        });
-    }
-    
     // 폼 제출 핸들러
     $("form").on("submit", function(event) {
         if($(this).attr('id') !== 'searchForm') {
@@ -246,52 +284,7 @@ $(document).ready(function () {
             document.getElementById("searchForm").submit();
         }
     });
-    
-    // 데이터 가져오기 및 차트 업데이트 함수
-    async function fetchDataAndUpdateChart() {
-        let year = $("#year").val() || "";
-        let specialday = $("#specialday").val() || "";  
-        let specialdaytype = $("#specialdaytype").val() || "";  
-        let hour = $('#hour').val() || "";
-        let currentPage = $('#page').val() || 0;
         
-        // 이미 필터링된 값이 있는지 확인
-        if (year === "" && specialday === "" && specialdaytype === "" && hour === "") {
-            // 필터링이 없으면 hidden 폼에서 값 가져오기 (페이지 리로드 후에도 유지)
-            year = $("#formYear").val() || "";
-            specialday = $("#formSpecialDay").val() || "";
-            specialdaytype = $("#formSpecialDayType").val() || "";
-            hour = $("#formHour").val() || "";
-            
-            // 선택 필드에도 값 반영
-            if (year) $("#year").val(year);
-            if (specialday) $("#specialday").val(specialday);
-            if (specialdaytype) $("#specialdaytype").val(specialdaytype);
-            if (hour) $("#hour").val(hour);
-        }
-        
-        let url = `/DataChart/comparisonData1/json?year=${year}&specialday=${encodeURIComponent(specialday)}&specialdaytype=${encodeURIComponent(specialdaytype)}&hour=${hour}&page=${currentPage}`;
-
-        try {
-            let response = await fetch(url);
-            if (!response.ok) throw new Error("Network response was not ok");
-            let data = await response.json();
-            console.log("📊 필터링된 데이터:", data);
-
-            if (!Array.isArray(data)) throw new Error("Invalid data format");
-            if (data.length > 0) {
-                updateChart(data);
-                updateTable(data);
-            } else {
-                // 데이터가 없는 경우 기본 차트를 유지하거나 빈 차트 표시
-                console.log("데이터가 없습니다, 기본 차트 유지");
-            }
-            
-        } catch (error) {
-            console.error("❌ 데이터 불러오기 오류:", error);
-        }
-    }
-    
     // JSON 데이터 파싱 함수
     function parseJSONData(rawData) {
         try {
