@@ -81,7 +81,7 @@ public class DataController {
 	    List<String> minorRegions = localAccidentService.getAllMinorRegions();
 
 	    List<Object[]> yearlyAccidentData = localAccidentService.getYearlyAccidentCount();
-	    List<Map<String, Object>> transformedData = DataUtil.convertToMapList(yearlyAccidentData, "accidentCoutn");
+	    List<Map<String, Object>> transformedData = DataUtil.convertToMapList(yearlyAccidentData, "accidentCount");
 	    String jsonData = DataUtil.toJson(transformedData);
 
 	    model.addAttribute("accidents", pagedAccidents.getContent());
@@ -282,7 +282,7 @@ public class DataController {
 	    List<String> roadTypes = weatherAccidentService.getAllRoadType();
 	    List<String> accidentTypes = weatherAccidentService.getAllAccidentType();
 
-	    List<Objectp[> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
+	    List<Object[]> getYearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
 	    List<Map<String,Object>> transData = DataUtil.convertToMapList(getYearlyWeatherData, "accidentCount");
 	    String jsonData = DataUtil.toJson(transData);
 		
@@ -305,8 +305,8 @@ public class DataController {
 	@GetMapping(value = "/weatherAccidentData", produces = "application/json;charset=UTF-8")
 	public String listAllWeatherAccident(Model model) throws JsonProcessingException{
 		List<Object[]> yearlyWeatherData = weatherAccidentService.getYearlyWeatherCount();
-		List<Map<String,Object>> transformedData = DataUtil.convertTOMapList(yearlyWeatherData, "accidnetCount");
-		model.addAttribute("Daatjson",DataUtil.toJson(transformedData));
+		List<Map<String,Object>> transformedData = DataUtil.convertToMapList(yearlyWeatherData, "accidentCount");
+		model.addAttribute("Datajson",DataUtil.toJson(transformedData));
 		return "localData/list";
 	}
 
