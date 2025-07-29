@@ -100,7 +100,7 @@ public class DataController {
 	}
 
 	/**
-	 * 1 연도별 사고 건수 데이터를 JSON으로 반환하는 API
+	 * 1 연도별 사고 건수 데이터를 JSON 응답으로 반환하는 API
 	 */
 	@GetMapping(value= "/localAccidentData", produces = "application/json;charset=UTF-8")
 	public String listAllWeather(Model model) throws JsonProcessingException{
