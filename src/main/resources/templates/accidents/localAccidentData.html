@@ -124,8 +124,9 @@
             </tbody>
         </table>
     </div>
+    <!-- 사고 데이터 테이블 -->
 
- <!-- paging start -->
+    <!-- paging -->
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
             <!-- 맨 처음: 첫 페이지가 아니면 class disabled 추가 -->
@@ -155,7 +156,7 @@
             </li>
         </ul>
     </div>  
-<!-- paging end--------------------------------------------- -->
+<!-- paging -->
 
 <form th:action="@{/DataChart/localAccidentData}" method="get" id="searchForm" name="searchForm">    	
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
@@ -194,7 +195,7 @@ $("#majorRegion").change(function () {
 });
 
 $(document).ready(function () {
-	// 전역 변수 선언 (차트 객체)
+    // 전역 변수 선언 (차트 객체)
     // 📌 페이지 로드 시 최초 차트 데이터 가져오기
     // 서버에서 전달된 JSON 데이터가 여기에 주입됩니다.
     let chart = null;
